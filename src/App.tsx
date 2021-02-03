@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.scss';
+import GridHeader from './GridHeader';
 
 function App() {
   return (
     <div className="App">
-        <p>
-         Hello!
-        </p>
+      <div><GridHeader /></div>
     </div>
   );
 }
