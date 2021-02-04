@@ -11,15 +11,15 @@ function GridHeaderColumns() {
             <FontAwesomeIcon className="Icon" icon={faFilter}/>
         </div>
         <div className="Column">
-            <p>Prenume</p>
+            <p>Nume</p>
             <FontAwesomeIcon className="Icon" icon={faFilter}/>
         </div>
         <div className="Column">
-            <p>Prenume</p>
+            <p>Email</p>
             <FontAwesomeIcon className="Icon" icon={faFilter}/>
         </div>
         <div className="Column">
-            <p>Prenume</p>
+            <p>Nr Telefon</p>
             <FontAwesomeIcon className="Icon" icon={faFilter}/>
         </div>
     </div>)
