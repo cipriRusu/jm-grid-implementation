@@ -1,8 +1,19 @@
-$screen-size: 120rem;
+$screen-size: 90rem;
+
+.firstHeader
+{
+    display: flex;
+    flex: 1;
+}
+
+.secondHeader
+{
+    display: flex;
+    flex: 1;
+}
 
 .Container {
     display: flex;
-    border-bottom: 1px solid;
     p {
         margin: 0px;
     }
@@ -15,7 +26,13 @@ $screen-size: 120rem;
 }
 
 @media (max-width: $screen-size / 2) {
-    .Container {
+    .secondHeader {
+        display: None;
+    }
+}
+
+@media (max-width: $screen-size / 3) {
+    .firstHeader {
         display: None;
     }
 }
