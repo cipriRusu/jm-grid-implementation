@@ -1,0 +1,33 @@
+#advanced-filters {
+    .card {
+        border: none;
+        min-height: 38px;
+    }
+    margin: 0 -15px;
+    .card-header {
+        padding: 0;
+        background-color: #6c757d;
+        button {
+            color: white;
+            i {
+                text-decoration: none;
+            }
+        }
+        .btn {
+            border: none;
+        }
+        .btn-link:hover {
+            text-decoration: none;
+        }
+        .btn:focus, .btn:focus-visible{
+            box-shadow: none;
+        }
+    }
+    i {
+        padding-right: 0.5rem;
+    }
+    .collapse {
+        background-color: black;
+        border: 1px solid white;
+    }
+}
