@@ -1,0 +1,32 @@
+$size: 50rem;
+$cells: Fourth, Third, Second, First;
+
+.ColumnContainer {
+    display: flex;
+    padding: 0.5rem;
+}
+
+
+.Column {
+    flex: 1;
+    display: flex;
+}
+
+.Icon
+{
+    margin: 0.3rem;
+    opacity: 0;
+    &:hover {
+        display: inline;
+        opacity: 100;
+    }
+}
+
+@each $cell in $cells {
+    @media (max-width: $size) {
+        .#{$cell}{
+            display: None;
+        }
+    }
+    $size: $size - 10
+}

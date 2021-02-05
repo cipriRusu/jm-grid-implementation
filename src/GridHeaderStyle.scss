@@ -1,0 +1,21 @@
+$screen-size: 120rem;
+
+.Container {
+    display: flex;
+    border-bottom: 1px solid;
+    p {
+        margin: 0px;
+    }
+    padding: 0.5rem;
+}
+
+.HeaderName {
+    flex: 1;
+    display: flex;
+}
+
+@media (max-width: $screen-size / 2) {
+    .Container {
+        display: None;
+    }
+}

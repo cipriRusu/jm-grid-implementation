@@ -1,5 +1,5 @@
 import React from 'react';
-import './GridHeaderColumnsStyle.sass'
+import './GridHeaderColumnsStyle.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
