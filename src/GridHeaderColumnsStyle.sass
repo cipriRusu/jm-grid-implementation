@@ -1,3 +1,6 @@
+$size: 50rem
+$cells: Fourth, Third, Second, First
+
 .ColumnContainer
     display: flex;
     padding: 0.5rem;
@@ -8,3 +11,9 @@
 
 .Icon
     margin: 0.3rem;
+
+@each $cell in $cells
+    @media (max-width: $size)
+        .#{$cell}
+            display: None;
+    $size: $size - 10
