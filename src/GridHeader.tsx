@@ -6,10 +6,10 @@ function GridHeader() {
     return(
     <div>
         <div className="Container">
-            <div className="HeaderName">
+            <div className="firstHeader">
                 <p>Utilizator</p>
             </div>
-            <div className="HeaderName">
+            <div className="secondHeader">
                 <p>Detalii</p>
             </div>
         </div>
