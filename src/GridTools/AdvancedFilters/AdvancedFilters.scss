@@ -17,7 +17,8 @@
         .btn {
             border: none;
         }
-        .btn-link:hover {
+        .btn-link:hover, .btn-link:active,
+        .btn-link:focus, .btn-link.focus  {
             text-decoration: none;
         }
         .btn:focus, .btn:focus-visible{
