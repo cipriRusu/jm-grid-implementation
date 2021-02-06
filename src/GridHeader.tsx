@@ -4,17 +4,23 @@ import './GridHeaderStyle.scss'
 
 function GridHeader() {
     return(
-    <div>
-        <div className="Container">
-            <div className="firstHeader">
-                <p>Utilizator</p>
+        <div>
+            <div className="globalWrapper">
+                <div className="headGrid">
+                    <div className="firstHeader">
+                        <div className="headerWrapper">
+                            <p>Utilizator</p>
+                        </div>
+                    </div>
+                <div className="secondHeader">
+                    <div className="headerWrapper">
+                        <p>Detalii</p>
+                    </div>
+                </div>
             </div>
-            <div className="secondHeader">
-                <p>Detalii</p>
+            <GridHeaderColumns />
             </div>
-        </div>
-        <GridHeaderColumns />
-    </div>)
+        </div>)
 }
 
 export default GridHeader

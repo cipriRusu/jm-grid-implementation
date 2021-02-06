@@ -1,32 +1,31 @@
-$size: 50rem;
+$size: 90rem;
+$column-offset : 2;
 $cells: Fourth, Third, Second, First;
 
 .ColumnContainer {
     display: flex;
-    padding: 0.5rem;
 }
-
 
 .Column {
     flex: 1;
     display: flex;
+    padding-left: 1rem;
+}
+
+.Column p {
+    margin: 0px;
 }
 
 .Icon
 {
     margin: 0.3rem;
-    opacity: 0;
-    &:hover {
-        display: inline;
-        opacity: 100;
-    }
 }
 
-@each $cell in $cells {
-    @media (max-width: $size) {
-        .#{$cell}{
-            display: None;
+@each $cell in $cells{
+    @media (max-width: $size / $column-offset){
+        .#{$cell} {
+            display: none;
         }
     }
-    $size: $size - 10
+    $column-offset: $column-offset + 1;
 }

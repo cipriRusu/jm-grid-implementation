@@ -1,28 +1,28 @@
 $screen-size: 90rem;
 
-.firstHeader
-{
+.headGrid {
     display: flex;
-    flex: 1;
 }
 
-.secondHeader
-{
+.headerWrapper{
+    padding-left: 1rem;
     display: flex;
-    flex: 1;
+    width: 98%;
+    border-bottom: 1px solid black;
 }
 
-.Container {
-    display: flex;
-    p {
-        margin: 0px;
-    }
+.headerWrapper p {
+    margin: 0;
+}
+
+.globalWrapper {
+    background-color: lightgray;
     padding: 0.5rem;
 }
 
-.HeaderName {
-    flex: 1;
+.secondHeader, .firstHeader {
     display: flex;
+    flex: 1;
 }
 
 @media (max-width: $screen-size / 2) {
