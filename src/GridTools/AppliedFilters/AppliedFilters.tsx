@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 const AppliedFilters: React.FC = () => {
     return (
         <Dropdown id="applied-filters">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            <Dropdown.Toggle variant="secondary" className="dropdown-basic">
                 <i className="icon-plus-sign-alt icon-large"></i>Applied Filters
             </Dropdown.Toggle>
 

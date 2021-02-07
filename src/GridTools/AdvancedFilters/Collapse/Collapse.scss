@@ -1,0 +1,25 @@
+#collapsable{
+    padding: 15px;
+    //display: grid;
+    //grid-template-columns: 1fr;
+    grid-column: 1/span 4;
+    background-color: #848484;
+    #first-form-group {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-column-gap: 0.5rem;
+        align-items: center;
+    }
+    #select-collpase{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column-gap: 0.5rem;
+        align-items: center;
+    }
+    #second-form-group{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column-gap: 0.5rem;
+        align-items: center;
+    }
+}

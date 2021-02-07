@@ -1,35 +1,6 @@
 #advanced-filters {
-    .card {
-        border: none;
-        min-height: 38px;
-    }
-   
-    .card-header {
-        padding: 0;
-        background-color: #6c757d;
-        min-height: 38px;
-        button {
-            color: white;
-            i {
-                text-decoration: none;
-            }
-        }
-        .btn {
-            border: none;
-        }
-        .btn-link:hover, .btn-link:active,
-        .btn-link:focus, .btn-link.focus  {
-            text-decoration: none;
-        }
-        .btn:focus, .btn:focus-visible{
-            box-shadow: none;
-        }
-    }
-    i {
+    background-color: white;
+    .icon-cog  {
         padding-right: 0.5rem;
-    }
-    .collapse {
-        background-color: black;
-        border: 1px solid white;
     }
 }

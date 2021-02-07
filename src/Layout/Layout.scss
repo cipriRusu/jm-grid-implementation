@@ -1,16 +1,18 @@
-.filters {
-    //background-color:#404040;
-    //border: 2px solid lightslategrey;
-    //margin: 15px 4px;
-    //border-radius: 5px;
-    max-height: 61px;
-    color: white;
-    p {
-        margin-top: revert;
+#grid-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-column-gap: 0.5rem;
+
+    align-items: baseline;
+    .dropdown-basic {
+        //padding: 0.75rem 0.75rem;
+        display: block;
+        //margin: 10px 0;
+        //padding: 10px;
+        width: 100%;
     }
-}
+    .dropdown-menu {
+        padding: 0.5rem 0.25rem;
+    }
 
-.filters:hover {
-    //background-color: grey;
 }
-

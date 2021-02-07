@@ -4,8 +4,8 @@ import './SavedFilters.scss';
 
 const SavedFilters: React.FC = () => {
     return (
-        <Dropdown id="applied-filters">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+        <Dropdown id="saved-filters">
+            <Dropdown.Toggle variant="secondary" className="dropdown-basic">
             <i className="icon-star icon-large"></i>Saved Filters
             </Dropdown.Toggle>
 

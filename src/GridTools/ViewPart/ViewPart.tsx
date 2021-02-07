@@ -4,8 +4,8 @@ import './ViewPart.scss';
 
 const ViewPart: React.FC = () => {
     return (
-    <Dropdown id="applied-filters">
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+    <Dropdown id="view-part">
+        <Dropdown.Toggle variant="secondary" className="dropdown-basic">
             <i className="icon-eye-open icon-large"></i>View Part
         </Dropdown.Toggle>
 
