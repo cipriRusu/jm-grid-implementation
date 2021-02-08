@@ -8,11 +8,11 @@ function GridHeaderColumns() {
     let[visible, toggleVisibility] = useState('none')
 
     function toggleHandler() {
-        if (visible === "none"){
-            toggleVisibility('block')
-        } else {
-            toggleVisibility('none');
-        }
+        return (visible === "none" ? 
+                    toggleVisibility('block') : 
+                visible === 'block' ? 
+                    toggleVisibility('none') : 
+                undefined);
     }
 
     return(
