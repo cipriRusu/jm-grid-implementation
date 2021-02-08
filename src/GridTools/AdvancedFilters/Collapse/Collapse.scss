@@ -1,12 +1,15 @@
 #collapsable{
     padding: 15px;
-    //display: grid;
-    //grid-template-columns: 1fr;
     grid-column: 1/span 4;
-    background-color: #848484;
+    background-color: #505050;
+    color: white;
+    font-weight: 400;
+    border: 1px solid;
+    border-radius: 0.25rem;
+
     #first-form-group {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-columns: 2fr auto auto;
         grid-column-gap: 0.5rem;
         align-items: center;
     }

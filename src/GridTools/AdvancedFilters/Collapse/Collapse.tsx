@@ -1,16 +1,19 @@
 import React from 'react';
-
-import Card from 'react-bootstrap/Card';
-
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 import './Collapse.scss';
 
-const Collapse: React.FC = () => {
-    return (
+type CollapseProps = {
+    showCollapse: boolean
+};
 
-        <Form id='collapsable'>
+const Collapse: React.FC<CollapseProps> = (props) => {
+    return (
+        <Form id='collapsable'
+          style={{
+            display: props.showCollapse ? 'block' : 'none',
+            overflow: props.showCollapse ? 'visible' : 'hidden'
+        }}>
             <Form.Group controlId="formHorizontalEmail" id="first-form-group">
                 <div id="select-collpase">
                     <Form.Label  >
@@ -56,9 +59,7 @@ const Collapse: React.FC = () => {
                     </Form.Control>
   
             </Form.Group>
-            </Form>
-
-       
+            </Form>    
     )
 }
 
