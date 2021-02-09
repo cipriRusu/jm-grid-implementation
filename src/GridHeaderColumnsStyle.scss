@@ -8,7 +8,6 @@ $cells: Fourth, Third, Second, First;
 
 .Column {
     flex: 1;
-    display: flex;
     padding-left: 1rem;
 }
 
@@ -19,6 +18,10 @@ $cells: Fourth, Third, Second, First;
 .Icon
 {
     margin: 0.3rem;
+}
+
+.ColumnHeader {
+    display: flex;
 }
 
 @each $cell in $cells{
