@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Layout from './Layout/Layout';
+import Layout from './GridTools/Layout/Layout';
 
 function App() {
   return (

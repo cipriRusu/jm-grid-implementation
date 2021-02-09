@@ -18,10 +18,7 @@
         grid-template-columns: auto 1fr;
         grid-column-gap: 0.5rem;
         align-items: center;
-        .form-control:focus {
-            border-color: #63f904;
-            box-shadow: 0 0 0 0.2rem RGB (46 255 0 / 25%);
-        }
+
     }
     #second-form-group{
         display: grid;

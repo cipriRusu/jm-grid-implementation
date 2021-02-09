@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './Layout.scss';
-import AdvancedFilters from '../GridTools/AdvancedFilters/AdvancedFilters';
-import AppliedFilters from '../GridTools/AppliedFilters/AppliedFilters';
-import SavedFilters from '../GridTools/SavedFilters/SavedFilters';
-import ViewPart from '../GridTools/ViewPart/ViewPart';
-import Collapse from '../GridTools/AdvancedFilters/Collapse/Collapse';
+import AdvancedFilters from '../AdvancedFilters/AdvancedFilters';
+import AppliedFilters from '../AppliedFilters/AppliedFilters';
+import SavedFilters from '../SavedFilters/SavedFilters';
+import ViewPart from '../ViewPart/ViewPart';
+import Collapse from '../AdvancedFilters/Collapse/Collapse';
 
 
 type AdvanceFilterState = {
@@ -18,7 +18,6 @@ class Layout extends Component<{}, AdvanceFilterState>{
 
     showCollapseHandler = () => {
         this.setState({showCollapse: !this.state.showCollapse});
-        console.log("bbbbbb", this.state.showCollapse);
     }
 
     render(){
