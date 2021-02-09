@@ -1,5 +1,13 @@
 #saved-filters {
-    i {
-        padding-right: 0.5rem;
+    button {
+        background-color: #1f1d1d;
+        i {
+            padding-right: 0.5rem;
+        }
     }
+    .btn-secondary:focus, .btn-secondary.focus {
+        box-shadow: 0 0 0 0.2rem RGB(97 237 0 / 50%);
+        border-color: #63f904;
+    }
+   
 }

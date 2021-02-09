@@ -1,5 +1,11 @@
 #advanced-filters {
-    background-color: white;
+    button {
+        background-color: #1f1d1d;
+    }
+    .btn-secondary:focus, .btn-secondary.focus {
+        box-shadow: 0 0 0 0.2rem RGB(97 237 0 / 50%);
+        border-color: #63f904;
+    }
     .icon-cog  {
         padding-right: 0.5rem;
     }
