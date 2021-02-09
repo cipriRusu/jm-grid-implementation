@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
-import Layout from './GridTools/Layout/Layout';
+import GridToolsLayout from './GridTools/GridToolsLayout/GridToolsLayout';
 
 function App() {
   return (
     <div className="App">
-       <Layout />
+       <GridToolsLayout />
     </div>
   );
 }

@@ -1,27 +1,28 @@
-import React from 'react';
-import './AdvancedFilters.scss';
-import Button from 'react-bootstrap/Button';
+import React, { Component } from 'react';
+import CollapseButton from './CollapseButton/CollapseButton';
+import Collapse from './Collapse/Collapse';
 
-interface CollapseProps {
-    showCollapseHandler: () => void,
+type AdvanceFilterState = {
     showCollapse: boolean
-};
-
-const AdvancedFilters: React.FC<CollapseProps> = (props) => {
-    let carret = "icon-caret-down";
-    if (props.showCollapse){
-        carret = "icon-caret-up";
+}
+class AdvancedFilters extends Component<{}, AdvanceFilterState>{
+    state: AdvanceFilterState = {
+        showCollapse: false
+    };
+    showCollapseHandler = () => {
+        this.setState({showCollapse: !this.state.showCollapse});
     }
-
-    return (
-        <div id="advanced-filters">
-            <Button variant="secondary" block
-                onClick={props.showCollapseHandler}>
-                <i className="icon-cog icon-large"></i>Display options...
-                <i className={carret}></i>
-            </Button>
-        </div>
-    )
+    render(){
+        return (
+            <>
+                <CollapseButton 
+                    showCollapse={this.state.showCollapse}
+                    showCollapseHandler={this.showCollapseHandler}/>
+                <Collapse
+                    showCollapse={this.state.showCollapse}   />
+            </>
+        )
+    }
 }
 
 export default AdvancedFilters;
