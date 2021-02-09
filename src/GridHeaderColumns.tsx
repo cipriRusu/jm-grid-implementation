@@ -21,33 +21,31 @@ function GridHeaderColumns() {
     <div>
         <div className="ColumnContainer">
             <div className="Column First">
-                <p>Prenume</p>
-                <FontAwesomeIcon onClick={() => toggleHandler(1)} className="Icon" icon={faFilter}/>
-            </div>
-            <div className="Column Second">
-                <p>Nume</p>
-                <FontAwesomeIcon onClick={() => toggleHandler(2)} className="Icon" icon={faFilter}/>
-            </div>
-            <div className="Column Third">
-                <p>Email</p>
-                <FontAwesomeIcon onClick={() => toggleHandler(3)} className="Icon" icon={faFilter}/>
-            </div>
-            <div className="Column Fourth">
-                <p>Nr Telefon</p>
-                <FontAwesomeIcon onClick={() => toggleHandler(4)} className="Icon" icon={faFilter}/>
-            </div>
-        </div>
-        <div style={{ display: "flex"}}>
-            <div className="Column">
+                <div className="ColumnHeader">
+                    <p>Prenume</p>
+                    <FontAwesomeIcon onClick={() => toggleHandler(1)} className="Icon" icon={faFilter}/>
+                </div>
                 <GridFilterForm countItem={1} clickedItem={clicked} componentVisible={visible}/>
             </div>
-            <div className="Column">
+            <div className="Column Second">
+                <div className="ColumnHeader">
+                    <p>Nume</p>
+                    <FontAwesomeIcon onClick={() => toggleHandler(2)} className="Icon" icon={faFilter}/>
+                </div>
                 <GridFilterForm countItem={2} clickedItem={clicked} componentVisible={visible}/>
             </div>
-            <div className="Column">
+            <div className="Column Third">
+                <div className="ColumnHeader">
+                    <p>Email</p>
+                    <FontAwesomeIcon onClick={() => toggleHandler(3)} className="Icon" icon={faFilter}/>
+                </div>
                 <GridFilterForm countItem={3} clickedItem={clicked} componentVisible={visible}/>
             </div>
-            <div className="Column">
+            <div className="Column Fourth">
+                <div className="ColumnHeader">
+                    <p>Nr Telefon</p>
+                    <FontAwesomeIcon onClick={() => toggleHandler(4)} className="Icon" icon={faFilter}/>
+                </div>
                 <GridFilterForm countItem={4} clickedItem={clicked} componentVisible={visible}/>
             </div>
         </div>
