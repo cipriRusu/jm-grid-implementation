@@ -1,4 +1,12 @@
 #grid-container {
+    #collapse-button .grid-button,
+    #view-part .grid-button,
+    #saved-filters .grid-button,
+    #applied-filters .grid-button{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: baseline;
+    }
     .grid-button {
         background-color: #1f1d1d;
         text-align: left;
@@ -25,10 +33,20 @@
     .grid-button::after {
         margin-left: 2rem;
     }
+    .grid-button::after{
+        display: none;
+    }
 }
 
-@media only screen and (min-device-width : 481px) and (max-device-width : 768px) {
+@media only screen and (min-width : 481px) and (max-width : 768px) {
     #grid-container{
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
+            grid-auto-rows: 24px;
+            align-items: center;
+        }
         #view-part span,
         #saved-filters span,
         #applied-filters span {
@@ -42,19 +60,16 @@
     }
 }
 
-@media only screen and (max-device-width : 480px) {
+@media only screen and (max-width : 480px) {
     #grid-container{
         grid-template-columns: minmax(100px, 1fr) 1fr 1fr 1fr;
 
-        #collapse-button .grid-button {
-            display: block;
-            grid-template-columns: unset;
-            align-items: unset;
-            .icon-caret-down {
-                margin-left: 2rem;
-            }
+        #collapse-button .grid-button,
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
         }
-
         #view-part span,
         #saved-filters span,
         #applied-filters span,

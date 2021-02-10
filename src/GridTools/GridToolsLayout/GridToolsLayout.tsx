@@ -6,14 +6,19 @@ import AppliedFilters from '../AppliedFilters/AppliedFilters';
 import SavedFilters from '../SavedFilters/SavedFilters';
 import ViewPart from '../ViewPart/ViewPart';
 
-class Layout extends Component<{}, {}>{
+type ViewState = {
+    isDropdownShown: boolean
+}
+
+class Layout extends Component<{}, ViewState>{
+    
     render(){
         return (
             <div id="grid-container">      
                 <AdvancedFilters />
                 <AppliedFilters /> 
-                <SavedFilters/>
-                <ViewPart />
+                <SavedFilters/> 
+                <ViewPart/>
             </div>
         )
     }
