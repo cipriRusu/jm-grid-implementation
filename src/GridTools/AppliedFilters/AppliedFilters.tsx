@@ -10,10 +10,13 @@ class AppliedFilters extends Component<{}, {}>{
     handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
         this.setState({isDropdownShown: !this.state.isDropdownShown});
     }
+    handleOutsideClick = (): void => {
+        this.setState({isDropdownShown: false});
+    }
     render(){
         return (
             <Dropdown id="applied-filters" onClick={this.handleClick.bind(this)}>
-                <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button">
+                <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button" onBlur={this.handleOutsideClick}>
                     <i className="icon-plus-sign-alt icon-large"></i>
                     <span>Applied Filters</span>
                     <i className={this.state.isDropdownShown ? "icon-caret-up": "icon-caret-down"}></i>

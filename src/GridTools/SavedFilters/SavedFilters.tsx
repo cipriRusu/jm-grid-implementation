@@ -11,10 +11,13 @@ class SavedFilters extends Component<{}, {}>{
     handleClick = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
         this.setState({isDropdownShown: !this.state.isDropdownShown});
     }
+    handleOutsideClick = (): void => {
+        this.setState({isDropdownShown: false});
+    }
     render(){
         return (
             <Dropdown id="saved-filters" onClick={this.handleClick.bind(this)}>
-                <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button">
+                <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button" onBlur={this.handleOutsideClick}>
                 <i className="icon-star icon-large"></i>
                 <span>Saved Filters</span>
                 <i className={this.state.isDropdownShown ? "icon-caret-up": "icon-caret-down"}></i>
