@@ -1,0 +1,23 @@
+.columnHeader {
+    display: flex;
+}
+
+.thin {
+    display: flex;
+    flex: 0;
+}
+
+.medium {
+    display: flex;
+    flex: 1;
+}
+
+.large {
+    display: flex;
+    flex: 2;
+}
+
+.xlarge {
+    display: flex;
+    flex: 3
+}

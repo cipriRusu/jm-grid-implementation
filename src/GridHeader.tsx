@@ -1,26 +1,13 @@
 import React from 'react';
-import GridHeaderColumns from './GridHeaderColumns'
+import GridHeaderContainer from './GridHeaderContainer'
 import './GridHeaderStyle.scss'
 
 function GridHeader() {
     return(
-        <div>
-            <div className="globalWrapper">
-                <div className="headGrid">
-                    <div className="firstHeader">
-                        <div className="headerWrapper">
-                            <p>Utilizator</p>
-                        </div>
-                    </div>
-                <div className="secondHeader">
-                    <div className="headerWrapper">
-                        <p>Detalii</p>
-                    </div>
-                </div>
-            </div>
-            <GridHeaderColumns />
-            </div>
-        </div>)
+    <div className="gridHeader">
+        <GridHeaderContainer headValue="Utilizator" columnValues={[{colname: "Prenume", width: 'medium'},{colname: "Nume", width: 'medium'}]} />
+        <GridHeaderContainer headValue="Detalii" columnValues={[{colname: "Email", width: 'medium'}, {colname: "Nr Telefon", width: 'medium'}]} />
+    </div>)
 }
 
 export default GridHeader
