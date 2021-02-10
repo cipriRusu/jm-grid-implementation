@@ -1,0 +1,10 @@
+#grid-container {
+    margin-top: 0.2rem;
+    display: grid;
+    grid-template-columns: minmax(200px, 3fr) 1fr 1fr 1fr;
+    grid-column-gap: 0.5rem;
+    align-items: baseline; 
+}
+
+
+    
