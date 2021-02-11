@@ -1,5 +1,3 @@
-import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import './GridHeaderTitleStyle.scss';
@@ -22,7 +20,7 @@ function GridHeaderTitle(props: any) {
                 <p>{props.headerTitle}</p>
                 <Dropdown>
                     <Dropdown.Toggle as={CustomToggle}>
-                        <FontAwesomeIcon style={{ color: 'black'}} className="icon-header" icon={faCog}/>
+                      <i className="icon-header fa fa-cog" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Header>Contine: </Dropdown.Header>
