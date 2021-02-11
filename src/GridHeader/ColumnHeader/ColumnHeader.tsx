@@ -1,7 +1,6 @@
 import React from 'react';
 import './ColumnHeader.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import 'font-awesome/css/font-awesome.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
@@ -23,7 +22,7 @@ function ColumnHeader(props: any) {
     <p>{props.columnName}</p>
     <Dropdown>
         <Dropdown.Toggle as={CustomToggle}>
-            <FontAwesomeIcon style={{ color: 'black'}} className="icon-column" icon={faFilter}/>
+        <i className="icon-column fa fa-filter" aria-hidden="true"></i>
         </Dropdown.Toggle>
         <Dropdown.Menu>
         <Dropdown.Header>Filtreaza rezultate: </Dropdown.Header>
