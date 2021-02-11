@@ -1,10 +1,12 @@
 .headerContainer {
-    width: 100vh;
+    width: 120rem;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
 }
 
-.headerTitle {
-    display: flex;
+@media (max-width: 40rem) {
+    .icon-header{
+        display: block;
+    }
 }

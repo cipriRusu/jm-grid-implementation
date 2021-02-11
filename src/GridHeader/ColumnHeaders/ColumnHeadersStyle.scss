@@ -1,0 +1,10 @@
+.columnHeaders{
+    margin-bottom: 1px;
+    display: flex;
+}
+
+@media (max-width: 40rem){
+    .columnHeaders{
+        display: none;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ColumnHeader from './ColumnHeader';
+import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import './ColumnHeadersStyle.scss';
 
 function ColumnHeaders(props: any) {
