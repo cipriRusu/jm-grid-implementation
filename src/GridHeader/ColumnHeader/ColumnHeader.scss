@@ -14,14 +14,17 @@
 .thin {
     display: flex;
     flex: 0 0 10rem;
+    flex: 1;
 }
 
-.medium {
+.standard {
     display: flex;
+    flex: 0 0 20rem;
     flex: 1;
 }
 
 .large {
     display: flex;
-    flex: 2;
+    flex: 0 0 30rem;
+    flex: 1;
 }
