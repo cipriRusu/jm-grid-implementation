@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import GridHeader from './GridHeader';
+import GridHeader from './GridHeader/GridHeader';
 
 function App() {
   return (
