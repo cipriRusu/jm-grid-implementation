@@ -1,19 +1,37 @@
-.headerTitle {
+.header-title {
     display: flex;
     width: 95%;
     justify-content: space-between;
     border-bottom: 0.1rem solid black;
+
+    p {
+        margin: 0px;
+    }
+
+    .icon-header {
+        color: black;
+        display: none;
+    }
+
+    .dropdown {
+        margin: auto;
+    }
+    
+    .dropdown a:hover {
+        text-decoration: none;
+    }
+
+    .header-contents {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
 }
 
-.headerTitle p{
-    margin: 0px;
-}
-
-.icon-header {
-    color: black;
-    display: none;
-}
-
-.dropdown a:hover {
-    text-decoration: none;
+@media (min-width: 40rem){
+    .header-title{
+        .dropdown{
+            display: none;
+        }
+    }
 }

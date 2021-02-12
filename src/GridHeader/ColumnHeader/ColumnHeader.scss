@@ -1,14 +1,14 @@
-.columnHeader {
+.column-header {
     display: flex;
-}
 
-.columnHeader p {
-    margin: 0px;
-}
+    p {
+        margin: 0px;
+    }
 
-.icon-column {
-    color: black;
-    margin-left: 0.4rem;
+    .icon-column {
+        color: black;
+        margin-left: 0.4rem;
+    }
 }
 
 .thin {
