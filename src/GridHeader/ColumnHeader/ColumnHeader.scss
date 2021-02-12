@@ -1,0 +1,34 @@
+.column-header {
+    display: flex;
+
+    p {
+        margin: 0px;
+    }
+
+    .icon-column {
+        color: black;
+        margin-left: 0.4rem;
+    }
+
+    .fa {
+        text-decoration: none;
+    }
+}
+
+.thin {
+    display: flex;
+    flex: 0 0 10rem;
+    flex: 1;
+}
+
+.standard {
+    display: flex;
+    flex: 0 0 20rem;
+    flex: 1;
+}
+
+.large {
+    display: flex;
+    flex: 0 0 30rem;
+    flex: 1;
+}
