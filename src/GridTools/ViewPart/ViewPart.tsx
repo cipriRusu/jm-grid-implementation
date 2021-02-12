@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
 
-const ViewPart = () => {
+interface ViewPartProps {
+    items : string[],
+    onChildClick: (e: string) => void 
+} 
+const ViewPart: React.FC<ViewPartProps> = (props: ViewPartProps) => {
+    const [selectedOption, setSelectedOption] = useState(" ");
+    const handleSelect=(e: React.MouseEvent)=>{
+        e.preventDefault();
+        let x = e.currentTarget.innerHTML;
+        console.log(x);
+        props.onChildClick(x);
+      }
     return (
         <Dropdown id="view-part">
             <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button">
@@ -11,12 +22,16 @@ const ViewPart = () => {
             </Dropdown.Toggle>
     
             <Dropdown.Menu className="custom-dropdown">
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                {props.items.map(item => {
+                    return <Dropdown.Item href="#/action-1" 
+                                    key={Math.random()} 
+                                    onClick={handleSelect}
+                               >
+                                {item}
+                            </Dropdown.Item>
+                })}
             </Dropdown.Menu>
         </Dropdown>
-            
         );
     
 

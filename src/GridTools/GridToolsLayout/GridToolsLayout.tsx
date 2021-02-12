@@ -5,23 +5,38 @@ import AdvancedFilters from '../AdvancedFilters/AdvancedFilters';
 import AppliedFilters from '../AppliedFilters/AppliedFilters';
 import SavedFilters from '../SavedFilters/SavedFilters';
 import ViewPart from '../ViewPart/ViewPart';
+import ViewPartItem from '../ViewPart/ViewItem/ViewItem';
 
-type ViewState = {
-    isDropdownShown: boolean
+const viewPartItems = [
+    'First View',
+    'Second View',
+    'Third View'
+]
+type GridToolsState = {
+    selectedViewItem: string
 }
+class GridToolsLayout extends Component<{}, GridToolsState>{
+    state = {
+        selectedViewItem: ""
+    }
 
-class Layout extends Component<{}, ViewState>{
+    onSelectedViewHandler = (selectedItem: string): void => {
+        console.log("selectedViewItem in functie", this.state.selectedViewItem);
+        this.setState({selectedViewItem: selectedItem});
+    }
     
     render(){
+        console.log("selectedViewItem", this.state.selectedViewItem);
         return (
             <div id="grid-container">      
                 <AdvancedFilters />
                 <AppliedFilters /> 
                 <SavedFilters/> 
-                <ViewPart/>
+                <ViewPart items={viewPartItems} onChildClick={this.onSelectedViewHandler}/>
+                <ViewPartItem item={this.state.selectedViewItem}/>
             </div>
         )
     }
 }
 
-export default Layout;
+export default GridToolsLayout;
