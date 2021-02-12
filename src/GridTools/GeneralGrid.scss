@@ -1,0 +1,86 @@
+#grid-container {
+    #collapse-button .grid-button,
+    #view-part .grid-button,
+    #saved-filters .grid-button,
+    #applied-filters .grid-button{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: baseline;
+    }
+    .grid-button {
+        background-color: #1f1d1d;
+        text-align: left;
+        i {
+            padding-right: 0.5rem;
+        }
+    }
+    .grid-button:focus, .grid-button.focus {
+        box-shadow: 0 0 0 0.2rem #80bdffe8;
+        border-color: #0062cc;
+    }
+    .grid-button:hover {
+        background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+    }
+
+    .grid-button {
+        display: block;
+        width: 100%;
+    }
+    .custom-dropdown {
+        padding: 0.5rem 0.25rem;
+        min-width: 100%;
+    }
+    .grid-button::after {
+        margin-left: 2rem;
+    }
+    .grid-button::after{
+        display: none;
+    }
+}
+
+@media only screen and (min-width : 481px) and (max-width : 768px) {
+    #grid-container{
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
+            grid-auto-rows: 24px;
+            align-items: center;
+        }
+        #view-part span,
+        #saved-filters span,
+        #applied-filters span {
+            display: none;
+        }
+        .grid-button {
+            i {
+                padding-right: 0.2rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    #grid-container{
+        grid-template-columns: minmax(100px, 1fr) 1fr 1fr 1fr;
+
+        #collapse-button .grid-button,
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
+        }
+        #view-part span,
+        #saved-filters span,
+        #applied-filters span,
+        #collapse-button span {
+            display: none;
+        }
+        
+        .grid-button {
+            i {
+                padding-right: 0.2rem;
+            }
+        }
+    }
+}
