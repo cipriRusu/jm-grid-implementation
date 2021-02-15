@@ -6,9 +6,6 @@ import AppliedFilters from '../AppliedFilters/AppliedFilters';
 import SavedFilters from '../SavedFilters/SavedFilters';
 import ViewPart from '../ViewPart/ViewPart';
 
-type GridToolsLayoutState = {
-    isButtonViewHidden: boolean
-}
 class GridToolsLayout extends Component<{}, {}>{
 
 
