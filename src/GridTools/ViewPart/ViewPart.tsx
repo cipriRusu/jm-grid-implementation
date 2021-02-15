@@ -4,8 +4,8 @@ import ViewPartItem from './ViewItem/ViewItem';
 
 const viewPartItems = [
     'First View',
-    'Second View',
-    'Third View'
+    // 'Second View',
+    //  'Third View'
 ]
 type ViewPartState = {
     selectedViewItem: string
@@ -18,16 +18,24 @@ class ViewPart extends Component<{}, ViewPartState>{
     onSelectedViewHandler = (selectedItem: string): void => {
         this.setState({selectedViewItem: selectedItem});
     }
-
     render(){
         return (
             <>
-                <ViewPartList 
+                {viewPartItems.length > 1 && 
+                 <ViewPartList 
                     items={viewPartItems}
                     onChildClick={this.onSelectedViewHandler}
-                    selectedItem={this.state.selectedViewItem}
+                    selectedItem={this.state.selectedViewItem === "" ?
+                                viewPartItems[0] :
+                                this.state.selectedViewItem}
                     /> 
-                <ViewPartItem item={this.state.selectedViewItem} />
+                }
+
+                <ViewPartItem
+                     item={viewPartItems.length <= 1 ? 
+                           viewPartItems[0] :
+                           this.state.selectedViewItem} /> 
+                
             </>
         )
     }

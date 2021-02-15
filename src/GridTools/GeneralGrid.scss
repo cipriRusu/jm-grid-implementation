@@ -14,6 +14,12 @@
             padding-right: 0.5rem;
         }
     }
+    #view-part,
+    #saved-filters,
+    #applied-filters 
+    {
+        width: 12rem;
+    }
     .grid-button:focus, .grid-button.focus {
         box-shadow: 0 0 0 0.2rem #80bdffe8;
         border-color: #0062cc;
@@ -51,6 +57,8 @@
         }
     }
 
+
+
 }
 
 @media only screen and (min-width : 481px) and (max-width : 768px) {
@@ -71,6 +79,11 @@
             i {
                 padding-right: 0.2rem;
             }
+        }
+        #view-part, 
+        #saved-filters,
+        #applied-filters {
+            width: 5rem;
         }
     }
 }
@@ -100,6 +113,11 @@
             i {
                 padding-right: 0.2rem;
             }
+        }
+        #view-part, 
+        #saved-filters,
+        #applied-filters {
+            width: auto;
         }
     }
 }
