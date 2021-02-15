@@ -6,12 +6,16 @@
     }
 
     .icon-column {
-        color: black;
+        color: white;
         margin-left: 0.4rem;
     }
 
     .fa {
         text-decoration: none;
+    }
+
+    &:hover {
+        background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
     }
 }
 

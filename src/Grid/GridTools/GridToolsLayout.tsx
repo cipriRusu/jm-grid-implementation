@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './GridToolsLayout.scss';
-import '../GeneralGrid.scss';
-import AdvancedFilters from '../AdvancedFilters/AdvancedFilters';
-import AppliedFilters from '../AppliedFilters/AppliedFilters';
-import SavedFilters from '../SavedFilters/SavedFilters';
-import ViewPart from '../ViewPart/ViewPart';
+import './GeneralGrid.scss';
+import AdvancedFilters from './AdvancedFilters/AdvancedFilters';
+import AppliedFilters from './AppliedFilters/AppliedFilters';
+import SavedFilters from './SavedFilters/SavedFilters';
+import ViewPart from './ViewPart/ViewPart';
 
 type ViewState = {
     isDropdownShown: boolean
