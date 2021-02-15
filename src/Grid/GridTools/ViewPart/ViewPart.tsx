@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
-import {IViewPartProps} from '../Interfaces/IViewPartProps';
+import {IViewPartProps} from '../../Interfaces/IViewPartProps';
 
 const ViewPart: React.FC<IViewPartProps> = (props: IViewPartProps) => {    
 

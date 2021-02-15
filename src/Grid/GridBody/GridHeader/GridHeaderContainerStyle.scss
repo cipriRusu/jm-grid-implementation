@@ -1,0 +1,32 @@
+.header-container {
+    color: white;
+    width: 120rem;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+
+    .column-headers {
+        margin-bottom: 1px;
+        display: flex;
+    }
+}
+
+@media (max-width: 40rem) {
+    .header-container{
+        .column-headers{
+            display: none;
+        }
+    }
+
+    .header-container {
+        .header-title {
+            border-bottom: none;
+        }
+    }
+
+    .header-container{
+        .icon-header{
+            display: block;
+        }
+    }
+}
