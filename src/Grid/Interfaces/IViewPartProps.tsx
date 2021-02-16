@@ -1,5 +1,5 @@
 export interface IViewPartProps {
     items : string[],
-    onChildClick: (e: string) => void,
+    onChildClick: (value: string) => void,
     selectedItem: string
 } 
