@@ -1,6 +1,5 @@
 .column-header {
     display: flex;
-
     p {
         margin: 0px;
     }
@@ -16,6 +15,9 @@
 
     &:hover {
         background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+    }
+    &:hover {
+        cursor: grab;
     }
 }
 
