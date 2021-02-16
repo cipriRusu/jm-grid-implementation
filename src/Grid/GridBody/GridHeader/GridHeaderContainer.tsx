@@ -10,7 +10,7 @@ function GridHeaderContainer(props: iHeaderContainer) {
         <GridHeaderTitle headerTitle={props.headValue} columnValues={props.columnValues}/>
             <div className="column-headers">
                 {props.columnValues.map((value: any, key: any) => 
-            { return <ColumnHeader key={key} className={value.width} columnName={value.colname}/> })}
+                { return <ColumnHeader key={key} columnWidth={value.width} columnName={value.colname}/> })}
             </div>
     </div>)
 }
