@@ -5,46 +5,22 @@ import AdvancedFilters from './AdvancedFilters/AdvancedFilters';
 import AppliedFilters from './AppliedFilters/AppliedFilters';
 import SavedFilters from './SavedFilters/SavedFilters';
 import ViewPart from './ViewPart/ViewPart';
-import ViewPartItem from './ViewPart/ViewItem/ViewItem';
+import {IViewPartProps} from '../Interfaces/IViewPartProps';
 
-const viewPartItems = [
-    'First View',
-    'Second View',
-    'Third View'
-]
-type ViewPartState = {
-    selectedViewItem: string
-}
-class GridToolsLayout extends Component<{}, ViewPartState>{
-    state = {
-        selectedViewItem: ""
-    }
-
-    onSelectedViewHandler = (selectedItem: string): void => {
-        this.setState({selectedViewItem: selectedItem});
-    }
+class GridToolsLayout extends Component<IViewPartProps, {}>{
 
     render(){
-        const defaultView = this.state.selectedViewItem === "" ?
-                            viewPartItems[0] :
-                            this.state.selectedViewItem;
-        console.log("default view", defaultView);
         return (
             <div id="grid-container">      
                 <AdvancedFilters />
                 <AppliedFilters /> 
                 <SavedFilters/>
-                {viewPartItems.length > 1 && 
+                {this.props.items.length > 1 && 
                 <ViewPart 
-                    items={viewPartItems}
-                    onChildClick={this.onSelectedViewHandler}
-                    selectedItem={defaultView}/>
-                }
-                <ViewPartItem
-                     item={viewPartItems.length <= 1 ? 
-                           viewPartItems[0] :
-                           defaultView} /> 
-                
+                    items={this.props.items}
+                    onChildClick={this.props.onChildClick}
+                    selectedItem={this.props.selectedItem}/>
+                }  
             </div>
         )
     }
