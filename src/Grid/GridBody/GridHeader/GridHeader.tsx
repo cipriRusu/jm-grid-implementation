@@ -1,6 +1,6 @@
 import React from 'react';
 import GridHeaderContainer from './GridHeaderContainer';
-import './GridHeaderStyle.scss'
+import './GridHeaderStyle.scss';
 
 function GridHeader() {
     return(
