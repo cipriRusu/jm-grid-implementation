@@ -4,6 +4,93 @@
     grid-template-columns: minmax(200px, 3fr) auto auto auto;
     grid-column-gap: 0.5rem;
     align-items: baseline; 
+    #view-part,
+    #saved-filters,
+    #applied-filters 
+    {
+        width: 12rem;
+    }
+    #applied-filters .grid-button::after,
+    #view-part .grid-button::after,
+    #saved-filters .grid-button::after {
+        display: inline-block;
+        margin-left: auto;
+        content: "";
+        border-top: 0.35em solid;
+        border-right: 0.35em solid transparent;
+        border-bottom: 0;
+        border-left: 0.35em solid transparent;
+    }
+    #applied-filters, #saved-filters, #view-part {
+        &.show.dropdown {
+            .grid-button::after{ 
+                border-top: 0;
+                border-bottom: .35em solid;
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width : 481px) and (max-width : 768px) {
+    #grid-container{
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
+            grid-auto-rows: 24px;
+            align-items: center;
+        }
+        #view-part span,
+        #saved-filters span,
+        #applied-filters span {
+            display: none;
+        }
+        .grid-button {
+            i {
+                padding-right: 0.2rem;
+            }
+        }
+        #view-part, 
+        #saved-filters,
+        #applied-filters {
+            width: 5rem;
+        }
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    #grid-container{
+        grid-template-columns: minmax(100px, 1fr) 1fr 1fr 1fr;
+
+        #collapse-button .grid-button,
+        #view-part .grid-button,
+        #saved-filters .grid-button,
+        #applied-filters .grid-button {
+            grid-template-columns: 1fr auto;
+        }
+        #view-part span,
+        #saved-filters span,
+        #applied-filters span,
+        #collapse-button span {
+            display: none;
+        }
+        
+        .grid-button {
+         
+            [class^="icon-"].icon-large{
+                line-height: initial;
+            }
+            i {
+                padding-right: 0.2rem;
+            }
+        }
+        #view-part, 
+        #saved-filters,
+        #applied-filters {
+            width: auto;
+        }
+    }
 }
 
 

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './Grid.scss';
+import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
-import GridBody from './GridTools/ViewPart/ViewItem/ViewItem';
 
 const viewPartItems = [
     'First View',
@@ -27,16 +27,19 @@ class Grid extends Component<{}, GridState>{
         const defaultView = this.state.selectedViewItem === "" ?
                     viewPartItems[0] :
                     this.state.selectedViewItem;
-        return (<div className="grid">
+        return (
+        <div className="grid">
             <GridToolsLayout 
                 items={viewPartItems}
                 onChildClick={this.onSelectedViewHandler}
                 selectedItem={defaultView}/>
             <GridHeader />
-            <GridBody
-                item={viewPartItems.length <= 1 ? 
+ 
+           <div id="view-item" >
+               {viewPartItems.length <= 1 ? 
                     viewPartItems[0] :
-                    defaultView} /> 
+                    defaultView}
+            </div>
         </div>)
     }
    
