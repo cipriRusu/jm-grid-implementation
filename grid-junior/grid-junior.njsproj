@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>grid-junior</Name>
+    <RootNamespace>grid-junior</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>83e6ee33-ffae-4efe-bee4-2f2abe593657</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>server.ts</StartupFile>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <NodejsPort>1337</NodejsPort>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>true</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".eslintcache" />
+    <Content Include=".gitignore" />
+    <Content Include="package-lock.json" />
+    <Content Include="public\favicon.ico" />
+    <Content Include="public\index.html" />
+    <Content Include="public\logo192.png" />
+    <Content Include="public\logo512.png" />
+    <Content Include="public\manifest.json" />
+    <Content Include="public\robots.txt" />
+    <Content Include="src\App.scss" />
+    <Content Include="src\Grid\Grid.scss" />
+    <Content Include="src\Grid\GridBody\GridHeader\ColumnHeader.scss" />
+    <Content Include="src\Grid\GridBody\GridHeader\GridHeaderContainerStyle.scss" />
+    <Content Include="src\Grid\GridBody\GridHeader\GridHeaderStyle.scss" />
+    <Content Include="src\Grid\GridBody\GridHeader\GridHeaderTitleStyle.scss" />
+    <Content Include="src\Grid\GridTools\AdvancedFilters\CollapseButton\CollapseButton.scss" />
+    <Content Include="src\Grid\GridTools\AdvancedFilters\Collapse\Collapse.scss" />
+    <Content Include="src\Grid\GridTools\AppliedFilters\AppliedFilters.scss" />
+    <Content Include="src\Grid\GridTools\GeneralGrid.scss" />
+    <Content Include="src\Grid\GridTools\GridToolsLayout.scss" />
+    <Content Include="src\Grid\GridTools\SavedFilters\SavedFilters.scss" />
+    <Content Include="src\Grid\GridTools\ViewItem.scss" />
+    <Content Include="src\Grid\GridTools\ViewPart\ViewPart.scss" />
+    <Content Include="src\index.css" />
+    <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="src\" />
+    <Folder Include="src\Grid\" />
+    <Folder Include="src\Grid\GridBody\" />
+    <Folder Include="src\Grid\GridBody\GridHeader\" />
+    <Folder Include="src\Grid\GridTools\" />
+    <Folder Include="src\Grid\GridTools\AdvancedFilters\" />
+    <Folder Include="src\Grid\GridTools\AdvancedFilters\CollapseButton\" />
+    <Folder Include="src\Grid\GridTools\AdvancedFilters\Collapse\" />
+    <Folder Include="src\Grid\GridTools\AppliedFilters\" />
+    <Folder Include="src\Grid\GridTools\SavedFilters\" />
+    <Folder Include="src\Grid\GridTools\ViewPart\" />
+    <Folder Include="src\Grid\Interfaces\" />
+    <Folder Include="src\Grid\Interfaces\GridTools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\App.test.tsx" />
+    <TypeScriptCompile Include="src\App.tsx" />
+    <TypeScriptCompile Include="src\Grid\Grid.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\ColumnData.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\ColumnHeader.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\GridHeader.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\GridHeaderContainer.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\GridHeaderTitle.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\GridSecondHeader.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\iColumnHeaderParameters.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridBody\GridHeader\iHeaderContainer.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\AdvancedFilters\AdvancedFilters.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\AdvancedFilters\CollapseButton\CollapseButton.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\AdvancedFilters\Collapse\Collapse.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\AppliedFilters\AppliedFilters.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\GridToolsLayout.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\SavedFilters\SavedFilters.tsx" />
+    <TypeScriptCompile Include="src\Grid\GridTools\ViewPart\ViewPart.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\IAdvancedFilterState.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\ICollapse.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\ICollapseProps.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\IGridProps.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\IGridState.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\IViewItemProps.tsx" />
+    <TypeScriptCompile Include="src\Grid\Interfaces\GridTools\IViewPartProps.tsx" />
+    <TypeScriptCompile Include="src\index.tsx" />
+    <TypeScriptCompile Include="src\react-app-env.d.ts" />
+    <TypeScriptCompile Include="src\reportWebVitals.ts" />
+    <TypeScriptCompile Include="src\setupTests.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
