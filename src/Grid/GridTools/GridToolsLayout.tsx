@@ -5,7 +5,7 @@ import AdvancedFilters from './AdvancedFilters/AdvancedFilters';
 import AppliedFilters from './AppliedFilters/AppliedFilters';
 import SavedFilters from './SavedFilters/SavedFilters';
 import ViewPart from './ViewPart/ViewPart';
-import {IViewPartProps} from '../Interfaces/IViewPartProps';
+import {IViewPartProps} from '../Interfaces/GridTools/IViewPartProps';
 
 class GridToolsLayout extends Component<IViewPartProps, {}>{
 

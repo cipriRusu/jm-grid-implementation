@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
-import {IViewPartProps} from '../../Interfaces/IViewPartProps';
+import {IViewPartProps} from '../../Interfaces/GridTools/IViewPartProps';
 
 const ViewPart: React.FC<IViewPartProps> = (props: IViewPartProps) => {    
 
     const handleSelect=(e: React.MouseEvent)=>{
         e.preventDefault();
         props.onChildClick(e.currentTarget.innerHTML);
-      }
+    }
  
     return (
         <Dropdown id="view-part">
@@ -29,7 +29,7 @@ const ViewPart: React.FC<IViewPartProps> = (props: IViewPartProps) => {
                 })}
             </Dropdown.Menu>
         </Dropdown>
-        );
+    );
 }
 
 export default ViewPart;

@@ -2,7 +2,6 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './SavedFilters.scss';
 
-
 const SavedFilters = () =>{
     return (
         <Dropdown id="saved-filters">
@@ -17,7 +16,6 @@ const SavedFilters = () =>{
                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
-        
     );
 }
 
