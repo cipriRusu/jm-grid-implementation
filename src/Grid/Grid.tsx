@@ -4,6 +4,7 @@ import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
 
+
 const viewPartItems = [
     'First View',
     'Second View',
