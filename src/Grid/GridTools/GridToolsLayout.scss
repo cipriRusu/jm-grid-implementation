@@ -3,60 +3,58 @@
     display: grid;
     grid-template-columns: minmax(200px, 3fr) auto auto auto;
     grid-column-gap: 0.5rem;
-    align-items: baseline; 
-    
+    align-items: baseline;
+
     .grid-button {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        background-color: #1f1d1d;
+        background-color: #1F1D1D;
         text-align: left;
         width: 100%;
+
         i {
             padding-right: 0.5rem;
         }
-    }
 
-    .grid-button:focus, .grid-button.focus {
-        box-shadow: 0 0 0 0.2rem #80bdffe8;
-        border-color: #0062cc;
-    }
-    
-    .grid-button:hover {
-        background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+        &:focus {
+            box-shadow: 0 0 0 0.2rem #80bdffe8;
+            border-color: #0062CC;
+        }
+
+        &:hover {
+            background-image: radial-gradient(circle, #7D7E7D, #646463, #4C4B4A, #353332, #1F1D1D);
+        }
     }
 
     .custom-dropdown {
         padding: 0.5rem 0.25rem;
         min-width: 100%;
     }
-    #view-part,
+
+    #applied-filters,
     #saved-filters,
-    #applied-filters 
-    {
+    #view-part {      
         width: 12rem;
-    }
-    #applied-filters .grid-button::after,
-    #view-part .grid-button::after,
-    #saved-filters .grid-button::after {
-        display: inline-block;
-        margin-left: auto;
-        content: "";
-        border-top: 0.35em solid;
-        border-right: 0.35em solid transparent;
-        border-bottom: 0;
-        border-left: 0.35em solid transparent;
-    }
-    #applied-filters, #saved-filters, #view-part {
+
+        .grid-button::after {
+            display: inline-block;
+            margin-left: auto;
+            content: "";
+            border-top: 0.35em solid;
+            border-right: 0.35em solid transparent;
+            border-bottom: 0;
+            border-left: 0.35em solid transparent;
+        }
+
         &.show.dropdown {
-            .grid-button::after{ 
+            .grid-button::after {
                 border-top: 0;
                 border-bottom: .35em solid;
             }
         }
     }
 }
-
 
 @media only screen and (min-width : 481px) and (max-width : 768px) {
     #grid-container{
@@ -67,16 +65,19 @@
             grid-auto-rows: 24px;
             align-items: center;
         }
+
         #view-part span,
         #saved-filters span,
         #applied-filters span {
             display: none;
         }
+        
         .grid-button {
             i {
                 padding-right: 0.2rem;
             }
         }
+
         #view-part, 
         #saved-filters,
         #applied-filters {

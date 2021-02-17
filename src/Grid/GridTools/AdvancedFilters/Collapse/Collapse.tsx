@@ -1,12 +1,9 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import './Collapse.scss';
+import {ICollapse} from '../../../Interfaces/GridTools/ICollapse';
 
-type CollapseProps = {
-    showCollapse: boolean
-};
-
-const Collapse: React.FC<CollapseProps> = (props) : JSX.Element=> {
+const Collapse: React.FC<ICollapse> = (props) : JSX.Element=> {
     return (
         <>
         {props.showCollapse && 

@@ -3,19 +3,11 @@ import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
+import { IGridProps } from './Interfaces/GridTools/IGridProps';
+import {IGridState} from './Interfaces/GridTools/IGridState';
 
-const viewPartItems = [
-    'First View',
-    'Second View',
-    'Third View'
-]
-
-type GridState = {
-    selectedViewItem: string
-}
-
-class Grid extends Component<{}, GridState>{
-    state = {
+class Grid extends Component<IGridProps, IGridState>{
+    state: IGridState = {
         selectedViewItem: ""
     }
 
@@ -25,24 +17,23 @@ class Grid extends Component<{}, GridState>{
 
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                    viewPartItems[0] :
+                    this.props.items[0] :
                     this.state.selectedViewItem;
         return (
         <div className="grid">
             <GridToolsLayout 
-                items={viewPartItems}
+                items={this.props.items}
                 onChildClick={this.onSelectedViewHandler}
                 selectedItem={defaultView}/>
             <GridHeader />
  
            <div id="view-item" >
-               {viewPartItems.length <= 1 ? 
-                    viewPartItems[0] :
+               {this.props.items.length <= 1 ? 
+                    this.props.items[0] :
                     defaultView}
             </div>
         </div>)
     }
-   
 }
 
 export default Grid;
