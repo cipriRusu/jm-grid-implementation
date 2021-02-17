@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import CollapseButton from './CollapseButton/CollapseButton';
 import Collapse from './Collapse/Collapse';
-
-type AdvanceFilterState = {
-    showCollapse: boolean
-}
-class AdvancedFilters extends Component<{}, AdvanceFilterState>{
-    state: AdvanceFilterState = {
+import {IAdvanceFilterState} from '../../Interfaces/GridTools/IAdvancedFilterState';
+ 
+class AdvancedFilters extends Component<{}, IAdvanceFilterState>{
+    state: IAdvanceFilterState = {
         showCollapse: false
     };
     showCollapseHandler = () => {

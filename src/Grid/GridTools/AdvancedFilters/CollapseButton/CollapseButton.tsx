@@ -1,13 +1,9 @@
 import React from 'react';
 import './CollapseButton.scss';
 import Button from 'react-bootstrap/Button';
+import {ICollapseProps} from '../../../Interfaces/GridTools/ICollapseProps';
 
-interface CollapseProps {
-    showCollapseHandler: () => void,
-    showCollapse: boolean
-};
-
-const CollapseButton: React.FC<CollapseProps> = (props) => {
+const CollapseButton: React.FC<ICollapseProps> = (props) => {
     return (
         <div id="collapse-button">
             <Button variant="secondary" block className="grid-button"

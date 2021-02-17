@@ -5,23 +5,25 @@ import AdvancedFilters from './AdvancedFilters/AdvancedFilters';
 import AppliedFilters from './AppliedFilters/AppliedFilters';
 import SavedFilters from './SavedFilters/SavedFilters';
 import ViewPart from './ViewPart/ViewPart';
+import {IViewPartProps} from '../Interfaces/GridTools/IViewPartProps';
 
-type ViewState = {
-    isDropdownShown: boolean
-}
+class GridToolsLayout extends Component<IViewPartProps, {}>{
 
-class Layout extends Component<{}, ViewState>{
-    
     render(){
         return (
             <div id="grid-container">      
                 <AdvancedFilters />
                 <AppliedFilters /> 
-                <SavedFilters/> 
-                <ViewPart/>
+                <SavedFilters/>
+                {this.props.items.length > 1 && 
+                <ViewPart 
+                    items={this.props.items}
+                    onChildClick={this.props.onChildClick}
+                    selectedItem={this.props.selectedItem}/>
+                }  
             </div>
         )
     }
 }
 
-export default Layout;
+export default GridToolsLayout;

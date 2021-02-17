@@ -26,4 +26,6 @@ yarn-error.log*
 .vscode/
 
 # Eslint cache
-.eslintcache
+ .eslintcache
+ *.eslintcache
+ node_modules/.cache/.eslintcache
