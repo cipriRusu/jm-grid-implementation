@@ -1,6 +1,5 @@
 .column-header {
     display: flex;
-
     p {
         margin: 0px;
     }
@@ -14,8 +13,16 @@
         text-decoration: none;
     }
 
+    .sort-icon {
+        color: white;
+        margin-left: 0.4rem;
+    }
+
     &:hover {
         background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+    }
+    &:hover {
+        cursor: grab;
     }
 }
 
@@ -27,12 +34,12 @@
 
 .standard {
     display: flex;
-    flex: 0 0 20rem;
+    flex: 0 0 10rem;
     flex: 1;
 }
 
 .large {
     display: flex;
     flex: 0 0 30rem;
-    flex: 1;
+    flex: 3;
 }
