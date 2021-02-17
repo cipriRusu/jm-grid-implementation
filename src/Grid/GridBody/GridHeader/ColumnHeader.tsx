@@ -22,11 +22,16 @@ class ColumnHeader extends React.Component<iColumnHeaderParameters> {
     super(props);
   }
 
-  render(){return(<div className={`column-header ${this.props.columnWidth}`}>    
-                    <p>{this.props.columnName}</p>
+  render(){return(<div 
+                  onClick={() => this.props.updateClickState(this.props.clickState + 1)} 
+                  className={`column-header ${this.props.columnWidth}`}>    
+                  <p>{this.props.columnName}</p>
                     <Dropdown>
                       <Dropdown.Toggle as={CustomToggle}>
                         <i className="icon-column fa fa-filter" aria-hidden="true"></i>
+                        {this.props.clickState === 1 ? <i className="fa fa-sort-desc sort-icon" aria-hidden="true"></i> : 
+                         this.props.clickState === 2 ? <i className="fa fa-sort-asc sort-icon" aria-hidden="true"></i> : 
+                        <i className="fa fa-sort sort-icon" aria-hidden="true"></i>}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                       <Dropdown.Header>Filtreaza rezultate: </Dropdown.Header>

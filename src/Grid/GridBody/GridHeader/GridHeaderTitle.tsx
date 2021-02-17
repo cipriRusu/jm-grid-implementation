@@ -24,7 +24,12 @@ function GridHeaderTitle(props: any) {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Header>Contine: </Dropdown.Header>
-                        {props.columnValues.map((value: any, index: any) => { return <Dropdown.Item key={index}>{value.colname}</Dropdown.Item>})}
+                        {props.columnValues.map((value: any, index: any) => 
+                        { 
+                          return <Dropdown.Item 
+                                  key={index}>{value.colname}
+                                 </Dropdown.Item>
+                        })}
                     </Dropdown.Menu>
                 </Dropdown>
               </div>
