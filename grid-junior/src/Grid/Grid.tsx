@@ -5,15 +5,21 @@ import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
 import GridSecondHeader from './GridBody/GridHeader/GridSecondHeader';
 import { IGridProps } from './Interfaces/GridTools/IGridProps';
-import {IGridState} from './Interfaces/GridTools/IGridState';
+import { IGridState } from './Interfaces/GridTools/IGridState';
+import { ColumnSort } from './GridBody/GridHeader/ColumnSort';
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
-        selectedViewItem: ""
+        selectedViewItem: "",
+        selectedSort: new ColumnSort('','')
     }
 
     onSelectedViewHandler = (selectedItem: string): void => {
         this.setState({selectedViewItem: selectedItem});
+    }
+
+    setSort = (selectedSort: ColumnSort): void => {
+        this.setState({selectedSort: selectedSort})
     }
 
     render(){
@@ -26,8 +32,14 @@ class Grid extends Component<IGridProps, IGridState>{
                 items={this.props.items}
                 onChildClick={this.onSelectedViewHandler}
                 selectedItem={defaultView}/>
-            <GridHeader />
-            <GridSecondHeader />
+
+            <GridHeader 
+                sort={this.state.selectedSort} 
+                setSort={this.setSort} />
+
+            <GridSecondHeader 
+                sort={this.state.selectedSort} 
+                setSort={this.setSort} />
  
            <div id="view-item" >
                {this.props.items.length <= 1 ? 

@@ -4,7 +4,7 @@ import './GridHeaderTitleStyle.scss';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     <a
-      href=""
+      href="#/"
       ref={ref}
       onClick={(e) => {
         e.preventDefault();

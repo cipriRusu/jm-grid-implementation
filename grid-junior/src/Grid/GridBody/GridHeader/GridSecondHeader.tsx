@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GridHeaderContainer from './GridHeaderContainer';
 import './GridHeaderStyle.scss';
 import { ColumnData } from './ColumnData';
 
-function SecondHeader() {
+function SecondHeader(props: any) {
     return(<div className="grid-header">
         <GridHeaderContainer
         headValue="Examinare"
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Status', 'standard'), 
             new ColumnData('Data', 'standard'),
@@ -16,6 +18,8 @@ function SecondHeader() {
 
         <GridHeaderContainer
         headValue="Detalii Examinare"
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Tip', 'standard'),
             new ColumnData('Centru Imagistica', 'standard'),
