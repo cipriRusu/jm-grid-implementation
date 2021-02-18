@@ -3,6 +3,7 @@ import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
+import GridSecondHeader from './GridBody/GridHeader/GridSecondHeader';
 import { IGridProps } from './Interfaces/GridTools/IGridProps';
 import {IGridState} from './Interfaces/GridTools/IGridState';
 
@@ -26,6 +27,7 @@ class Grid extends Component<IGridProps, IGridState>{
                 onChildClick={this.onSelectedViewHandler}
                 selectedItem={defaultView}/>
             <GridHeader />
+            <GridSecondHeader />
  
            <div id="view-item" >
                {this.props.items.length <= 1 ? 

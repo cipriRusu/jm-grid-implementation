@@ -11,11 +11,9 @@ function GridHeaderContainer(props: iHeaderContainer) {
          headerTitle={props.headValue} 
          columnValues={props.columnValues}/>
             <div className="column-headers">
-                {props.columnValues.map((value: any, key: any) => 
+                {props.columnValues.map((value: any, key: number) => 
                 { return <ColumnHeader
-                          clickState={props.clickState}
-                          updateClickState={props.updateClickState}
-                          key={key}
+                          clickState = {1}
                           columnWidth={value.column_width} 
                           columnName={value.column_name}/> })}
             </div>
