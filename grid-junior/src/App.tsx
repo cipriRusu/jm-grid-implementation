@@ -1,6 +1,7 @@
 import './App.scss';
 import Grid from './Grid/Grid'
-import GridProvider from './Grid/GridContext/GridContext';
+
+import GridHeaderProvider from './Grid/GridContext/GridHeaderContext';
 
 const viewPartItems = [
   'First View',
@@ -11,9 +12,7 @@ const viewPartItems = [
 function App(){
     return (
       <div className="App">
-        <GridProvider>
-          <Grid items={viewPartItems}/>
-        </GridProvider>
+        <Grid items={viewPartItems}/>
       </div>
     );
 }

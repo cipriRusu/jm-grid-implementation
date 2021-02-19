@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './AppliedFilters.scss';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {GridHeaderContext} from '../../GridContext/GridHeaderContext';
 
 const AppliedFilters: React.FC = () => {
+    const headersContext = useContext(GridHeaderContext);
     return (
         <Dropdown id="applied-filters" >
             <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button" >
@@ -12,9 +14,10 @@ const AppliedFilters: React.FC = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="custom-dropdown">
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                {headersContext.map(header => (
+                    <Dropdown.Item href="#/action-1">{header}</Dropdown.Item>
+                ))}
+                
             </Dropdown.Menu>
         </Dropdown>
     );

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
-import {GridContext} from '../../GridContext/GridContext';
+// import {GridContext} from '../../GridContext/GridContext';
+import {GridContext} from '../../Grid';
 import { IGridProps } from '../../Interfaces/GridTools/IGridProps';
 
 const ViewPart: React.FC<IGridProps> = (props: IGridProps) => {    
@@ -18,13 +19,13 @@ const ViewPart: React.FC<IGridProps> = (props: IGridProps) => {
                 variant="secondary" 
                 className="dropdown-basic grid-button ">
                 <i className="icon-eye-open icon-large"></i>
-                <span>{gridContext.selectedViewItem || "View Part"}</span>
+                <span>{gridContext.selectedViewItemContext || "View Part"}</span>
             </Dropdown.Toggle> 
               
             <Dropdown.Menu className="custom-dropdown" >
                 {props.items.map((item, index) => {
                     return <Dropdown.Item href="#/action-1"    
-                                active={item===gridContext.selectedViewItem}
+                                active={item===gridContext.selectedViewItemContext}
                                 key={index} 
                                 onClick={handleSelect}>{item}
                             </Dropdown.Item>
