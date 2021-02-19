@@ -1,39 +1,30 @@
-import React, {Component} from 'react';
+import React, { useContext } from 'react';
 import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
 import { IGridProps } from './Interfaces/GridTools/IGridProps';
-import {IGridState} from './Interfaces/GridTools/IGridState';
+import {GridContext} from '../Grid/GridContext/GridContext';
 
-class Grid extends Component<IGridProps, IGridState>{
-    state: IGridState = {
-        selectedViewItem: ""
-    }
+const Grid: React.FC<IGridProps> = (props) => {
+    const gridContext = useContext(GridContext);
 
-    onSelectedViewHandler = (selectedItem: string): void => {
-        this.setState({selectedViewItem: selectedItem});
-    }
-
-    render(){
-        const defaultView = this.state.selectedViewItem === "" ?
-                    this.props.items[0] :
-                    this.state.selectedViewItem;
-        return (
+    const defaultView = gridContext.selectedViewItem === "" ?
+            props.items[0] :
+            gridContext.selectedViewItem;
+    return (
         <div className="grid">
-            <GridToolsLayout 
-                items={this.props.items}
-                onChildClick={this.onSelectedViewHandler}
-                selectedItem={defaultView}/>
+            <GridToolsLayout items={props.items}/>
+
             <GridHeader />
- 
-           <div id="view-item" >
-               {this.props.items.length <= 1 ? 
-                    this.props.items[0] :
+
+            <div id="view-item" >
+                {props.items.length <= 1 ? 
+                    props.items[0] :
                     defaultView}
             </div>
-        </div>)
-    }
-}
+        </div>  
+    );
 
+}
 export default Grid;
