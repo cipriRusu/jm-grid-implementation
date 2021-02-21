@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GridHeaderContainer from './GridHeaderContainer';
 import './GridHeaderStyle.scss';
 import { ColumnData } from './ColumnData';
 
-function SecondHeader() {
-    const[clickedState, updateClickState] = useState(0);
-
-    const updateClickHandler = (newValue: number) => newValue < 3 ? 
-                                updateClickState(newValue) : 
-                                updateClickState(0)
-
+function SecondHeader(props: any) {
     return(<div className="grid-header">
         <GridHeaderContainer
         headValue="Examinare"
-        clickState={clickedState}
-        updateClickState={updateClickHandler}
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Status', 'standard'), 
             new ColumnData('Data', 'standard'),
@@ -24,8 +18,8 @@ function SecondHeader() {
 
         <GridHeaderContainer
         headValue="Detalii Examinare"
-        clickState={clickedState}
-        updateClickState={updateClickHandler}
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Tip', 'standard'),
             new ColumnData('Centru Imagistica', 'standard'),

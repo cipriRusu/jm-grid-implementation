@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GridHeaderContainer from './GridHeaderContainer';
 import './GridHeaderStyle.scss';
 import { ColumnData } from './ColumnData';
 
-function GridHeader() {
-    const[clickedState, updateClickState] = useState(0);
-
-    const updateClickHandler = (newValue: number) => newValue < 3 ? 
-                                updateClickState(newValue) : 
-                                updateClickState(0)
-                                
+function GridHeader(props: any) {
     return(
     <div className="grid-header">
         <GridHeaderContainer
         headValue="Utilizator"
-        clickState={clickedState}
-        updateClickState={updateClickHandler}
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Prenume', 'standard'), 
             new ColumnData('Nume', 'standard')]
@@ -23,8 +17,8 @@ function GridHeader() {
 
         <GridHeaderContainer 
         headValue="Detalii"
-        clickState={clickedState}
-        updateClickState={updateClickState}
+        sort={props.sort}
+        setSort={props.setSort}
         columnValues={[
             new ColumnData('Email', 'standard'),
             new ColumnData('Nr Telefon', 'standard')]

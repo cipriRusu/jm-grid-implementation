@@ -1,8 +1,6 @@
 import './App.scss';
 import Grid from './Grid/Grid'
 
-import GridHeaderProvider from './Grid/GridContext/GridHeaderContext';
-
 const viewPartItems = [
   'First View',
   'Second View',

@@ -2,20 +2,20 @@ import React from 'react';
 import ColumnHeader from './ColumnHeader';
 import GridHeaderTitle from './GridHeaderTitle';
 import './GridHeaderContainerStyle.scss';
-import { iHeaderContainer } from './iHeaderContainer';
+import { IHeaderContainer } from '../../Interfaces/GridTools/IHeaderContainer';
 
-function GridHeaderContainer(props: iHeaderContainer) {
+function GridHeaderContainer(props: IHeaderContainer) {
     return(
     <div className="header-container">
         <GridHeaderTitle 
          headerTitle={props.headValue} 
          columnValues={props.columnValues}/>
             <div className="column-headers">
-                {props.columnValues.map((value: any, key: any) => 
+                {props.columnValues.map((value: any, key: number) => 
                 { return <ColumnHeader
-                          clickState={props.clickState}
-                          updateClickState={props.updateClickState}
                           key={key}
+                          sort={props.sort}
+                          setSort={props.setSort}
                           columnWidth={value.column_width} 
                           columnName={value.column_name}/> })}
             </div>

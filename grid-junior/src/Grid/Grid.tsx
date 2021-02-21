@@ -1,54 +1,71 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
+import GridSecondHeader from './GridBody/GridHeader/GridSecondHeader';
 import { IGridProps } from './Interfaces/GridTools/IGridProps';
 import { IGridState } from './Interfaces/GridTools/IGridState';
-import { IViewPartProps } from './Interfaces/GridTools/IViewPartProps';
+import { ColumnSort } from './GridBody/GridHeader/ColumnSort';
 import GridHeaderProvider from './GridContext/GridHeaderContext';
+import { IGridContext } from './Interfaces/GridTools/IGridContext';
 
-export const GridContext = createContext({
+export const GridContext = createContext<IGridContext>({
     items: [] as string[],
     selectedViewItemContext: "",
     selectViewHandler: (_value: string) => {},
 });
 
 
-const Grid: React.FC<IGridProps> = (props) => {
-    const [selectedItem, setSelectedItem] = useState<IGridState>({
-        selectedViewItem: ""
-    });
+class Grid extends Component<IGridProps, IGridState>{
+    state: IGridState = {
+        selectedViewItem: "",
+        selectedSort: new ColumnSort('','')
+    }
 
-    const {selectedViewItem} = selectedItem;
+    onSelectedViewHandler = (selectedItem: string): void => {
+        this.setState({selectedViewItem: selectedItem});
+    }
 
-    const selectItemHandler = (selectedItem: string) => {  
-        setSelectedItem({selectedViewItem: selectedItem});
+    setSort = (selectedSort: ColumnSort): void => {
+        this.setState({selectedSort: selectedSort})
+    }
+
+
+    selectItemHandler = (selectedItem: string) => {  
+        this.setState({selectedViewItem: selectedItem});
     };
 
-    const defaultView = selectedViewItem === "" ?
-            props.items[0] :
-            selectedViewItem;
-    return (
+    render(){
+        const defaultView = this.state.selectedViewItem === "" ?
+                this.props.items[0] :
+                this.state.selectedViewItem;
+        return (
         <GridContext.Provider value={{
-            selectedViewItemContext: selectedViewItem,
-            selectViewHandler: selectItemHandler,
-            items: props.items}}>
+            selectedViewItemContext: this.state.selectedViewItem,
+            selectViewHandler: this.selectItemHandler,
+            items: this.props.items}}>
             <GridHeaderProvider>
                 <div className="grid">
-                <GridToolsLayout items={props.items}/>
-                <GridHeader />
-                <div id="view-item" >
-                    {props.items.length <= 1 ? 
-                        props.items[0] :
-                        defaultView}
-                </div>
+                    <GridToolsLayout />
+
+                    <GridHeader 
+                        sort={this.state.selectedSort} 
+                        setSort={this.setSort} />
+
+                    <GridSecondHeader 
+                        sort={this.state.selectedSort} 
+                        setSort={this.setSort} />
+                    <div id="view-item" >
+                        {this.props.items.length <= 1 ? 
+                            this.props.items[0] :
+                            defaultView}
+                    </div>
             </div> 
             </GridHeaderProvider>
             
-        </GridContext.Provider>
-
-    );
+        </GridContext.Provider>);
+    }
 
 }
 export default Grid;

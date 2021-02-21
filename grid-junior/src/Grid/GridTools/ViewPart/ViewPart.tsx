@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
-// import {GridContext} from '../../GridContext/GridContext';
 import {GridContext} from '../../Grid';
-import { IGridProps } from '../../Interfaces/GridTools/IGridProps';
 
-const ViewPart: React.FC<IGridProps> = (props: IGridProps) => {    
+const ViewPart: React.FC = () => {    
     const gridContext = useContext(GridContext);
 
     const handleSelect=(e: React.MouseEvent)=>{
@@ -23,7 +21,7 @@ const ViewPart: React.FC<IGridProps> = (props: IGridProps) => {
             </Dropdown.Toggle> 
               
             <Dropdown.Menu className="custom-dropdown" >
-                {props.items.map((item, index) => {
+                {gridContext.items.map((item, index) => {
                     return <Dropdown.Item href="#/action-1"    
                                 active={item===gridContext.selectedViewItemContext}
                                 key={index} 
