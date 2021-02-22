@@ -16,7 +16,6 @@ export const GridContext = createContext<IGridContext>({
     selectViewHandler: (_value: string) => {},
 });
 
-
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
         selectedViewItem: "",
@@ -31,7 +30,6 @@ class Grid extends Component<IGridProps, IGridState>{
         this.setState({selectedSort: selectedSort})
     }
 
-
     selectItemHandler = (selectedItem: string) => {  
         this.setState({selectedViewItem: selectedItem});
     };
@@ -40,9 +38,10 @@ class Grid extends Component<IGridProps, IGridState>{
         const defaultView = this.state.selectedViewItem === "" ?
                 this.props.items[0] :
                 this.state.selectedViewItem;
+
         return (
         <GridContext.Provider value={{
-            selectedViewItemContext: this.state.selectedViewItem,
+            selectedViewItemContext: defaultView,
             selectViewHandler: this.selectItemHandler,
             items: this.props.items}}>
             <GridHeaderProvider>
