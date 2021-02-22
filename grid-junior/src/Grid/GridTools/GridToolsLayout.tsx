@@ -6,13 +6,13 @@ import AppliedFilters from './AppliedFilters/AppliedFilters';
 import SavedFilters from './SavedFilters/SavedFilters';
 import ViewPart from './ViewPart/ViewPart';
 import { GridContext } from '../Grid';
-import CustomDropdown from './AppliedFilters/CustomDropdown';
+
 const GridToolsLayout: React.FC = () =>  {
     const gridContext = useContext(GridContext);
     return (
         <div id="grid-container">      
             <AdvancedFilters />
-            <CustomDropdown /> 
+            <AppliedFilters /> 
             <SavedFilters/>
             {gridContext.items.length > 1 && 
             <ViewPart/>

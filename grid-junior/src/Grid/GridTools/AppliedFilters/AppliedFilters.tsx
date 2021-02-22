@@ -6,8 +6,16 @@ import {GridHeaderContext} from '../../GridContext/GridHeaderContext';
 import { Form } from 'react-bootstrap';
 
 const AppliedFilters: React.FC = () => {
-    const headersContext = useContext(GridHeaderContext);
-  
+    const headersContext = useContext(GridHeaderContext);  
+
+    let optionsForStrings = [
+        'Contains',
+        'Not contains',
+        'Starts with',
+        'Ends with',
+        'Equals',
+        'Not equals'
+    ];
     return (
         <Dropdown id="applied-filters">
             <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button"  >
@@ -18,19 +26,23 @@ const AppliedFilters: React.FC = () => {
 
             <Dropdown.Menu className="custom-dropdown">
                 {headersContext.map(header => (
-                    <Dropdown.Item >
+                    <div >
                     <>
-                        {header.column_name}
+                        <div className="column-name form-control">
+                            {header.column_name}
+                        </div>                   
                         <Form>
-                        <Form.Control  as="select" >
-                            <option>Contains</option>
-                            <option>Not contains</option>
-                            <option>Starts with</option>
-                        </Form.Control>
-                        <Form.Control type="text" placeholder="Filter..." />
+                            <Form.Control as="select" >
+                                {optionsForStrings.map(option => (
+                                    <option>{option}</option>
+                                ))}           
+                            </Form.Control>
+                            <Form.Control
+                            type="text" 
+                            placeholder="Filter..." />
                         </Form>
                     </>
-                    </Dropdown.Item>
+                    </div>
                 ))}
                 
             </Dropdown.Menu>
