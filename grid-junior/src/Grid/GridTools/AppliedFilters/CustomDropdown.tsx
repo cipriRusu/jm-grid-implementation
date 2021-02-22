@@ -5,20 +5,31 @@ import './CustomDropdown.scss';
 
 const CustomDropdown:React.FC = () => {
     const headersContext = useContext(GridHeaderContext);
+
     const container = useRef<HTMLInputElement>(null);
+
     const [openMenu, setMenuOpen] = useState({
         open: false
     });
 
+    const [isFilterChanged, setFilterChanged] = useState(false);
+
     const handleButtonClick = () => {
         setMenuOpen({open: !openMenu.open});
-        console.log("menu open", openMenu.open);
     };
 
     const handleClickOutside = (e: any) => {
         if(container.current && !container.current.contains(e.target)){
             setMenuOpen({open: false});
         }
+    };
+    
+    const handleFilterChange = (e: any) => {
+        if(e.target.value === ''){
+            setFilterChanged(false);
+        }else{
+            setFilterChanged(true);
+        } 
     };
 
     useEffect(() => {
@@ -27,6 +38,17 @@ const CustomDropdown:React.FC = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     }, []);
+
+    let optionsForStrings = [
+        'Contains',
+        'Not contains',
+        'Starts with'
+    ];
+    let optionsForNumbers = [
+        'Equal',
+        'Less than',
+        'Greater than'
+    ];
 
     return(
         <div className={`dropdown-container dropdown ${openMenu.open ? 'show' : ''}`} id="applied-filters" ref={container}>
@@ -45,13 +67,30 @@ const CustomDropdown:React.FC = () => {
                         <p key={index}>
                             <li>{header.column_name}</li>
                             <Form>
-                                <Form.Control as="select" >
-                                    <option>Contains</option>
-                                    <option>Not contains</option>
-                                    <option>Starts with</option>
-                                </Form.Control>
-                                <Form.Control type="text" placeholder="Filter..." />
-                            </Form>
+                            <Form.Control as="select" >
+                                {optionsForStrings.map(option => (
+                                    <option>{option}</option>
+                                ))}           
+                            </Form.Control>
+                            <Form.Control
+                            type="text" 
+                            placeholder="Filter..."
+                            onChange={handleFilterChange} />
+                            {isFilterChanged && (
+                            <div className="check-operators">
+                                <Form.Check
+                                    inline 
+                                    type="radio"
+                                    label="AND"
+                                    name="formHorizontalRadios"/>
+                                <Form.Check
+                                    inline 
+                                    type="radio"
+                                    label="OR"
+                                    name="formHorizontalRadios"/>
+                            </div>    
+                            )}
+                        </Form>
                         </p>
                         
                     ))}
