@@ -27,7 +27,8 @@ const headers =
          {'name':'Email',
           'size':'standard'}, 
          {'name':'Nr Telefon',
-          'size': 'standard'}
+          'size': 'standard',
+          'type': 'number'}
       ]}]
   },
   {

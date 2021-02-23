@@ -7,15 +7,39 @@ import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
-import GridHeaderProvider from './GridContext/GridHeaderContext';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
+import { IColumn } from './Interfaces/GridBody/IColumn';
+import { server } from 'typescript';
 
 export const GridContext = createContext<IGridContext>({
-    items: [] as string[],
+    items: [],
     selectedViewItemContext: "",
     selectViewHandler: (_value: string) => {},
 });
 
+// export const GridHeaderContext = createContext<IHeader[]>(
+//     [{
+//         name : '',
+//         headers: [
+//             {
+//                 name: '',
+//                 columns: [
+//                     {
+//                         name: '',
+//                         size: ''
+//                     }
+//                 ]
+//             }
+
+//         ]
+//     }]);
+
+export const GridHeaderContext = createContext<IColumn[]>(
+    [{
+        name: '',
+        size: ''
+    }]
+    );
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
         all_headers: this.props.headers,
@@ -35,7 +59,21 @@ class Grid extends Component<IGridProps, IGridState>{
         this.setState({selectedViewItem: selectedItem});
     };
 
+    fllatenHeadersContext = (headersContext: IHeader[], name: string) => {
+        let newArray:any= [];
+        headersContext.map(headers => 
+           {
+                if(headers.name === name){
+                    return headers.headers.map(header => newArray.push(header.columns))
+                }  
+           } 
+        )
+        return newArray.flat(2);
+    }
+    
     render(){
+        let headers = this.fllatenHeadersContext(this.state.all_headers, 'firstHeader');
+
         const defaultView = this.state.selectedViewItem === "" ?
                 this.props.items[0] :
                 this.state.selectedViewItem;
@@ -45,7 +83,7 @@ class Grid extends Component<IGridProps, IGridState>{
             selectedViewItemContext: defaultView,
             selectViewHandler: this.selectItemHandler,
             items: this.props.items}}>
-            <GridHeaderProvider>
+            <GridHeaderContext.Provider value={headers}>
                 <div className="grid">
                     <GridToolsLayout />
 
@@ -54,7 +92,7 @@ class Grid extends Component<IGridProps, IGridState>{
                                 header_content={value}
                                 sort={this.state.selectedSort} 
                                 setSort={this.setSort} />
-                })}
+                    })}
 
                     <div id="view-item" >
                         {this.props.items.length <= 1 ? 
@@ -62,7 +100,7 @@ class Grid extends Component<IGridProps, IGridState>{
                             defaultView}
                     </div>
             </div> 
-            </GridHeaderProvider>
+            </GridHeaderContext.Provider>
             
         </GridContext.Provider>);
     }
