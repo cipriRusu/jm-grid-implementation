@@ -5,8 +5,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { IColumnHeader } from '../../Interfaces/GridBody/IColumnHeader';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
-  <a
-    href="#/"
+  <div
+
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -14,7 +14,7 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     }}
   >
     {props.children}
-  </a>
+  </div>
 ));
 
 class Column extends React.Component<IColumnHeader, IColumnHeader> {
@@ -62,8 +62,10 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                       <Dropdown.Header>Filtreaza rezultate: </Dropdown.Header>
-                      <Dropdown.Item> Exact ca: </Dropdown.Item>
-                      <Dropdown.Item> Asemanator cu: </Dropdown.Item>
+                      {/* <div> Exact ca: </div>
+                      <div> Exact ca: </div>
+                      <div> Exact ca: </div> */}
+                      <Dropdown.Item onClick={(e:any) => e.preventDefault()}> Asemanator cu: </Dropdown.Item>
                       <Dropdown.Item> Contine: </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>

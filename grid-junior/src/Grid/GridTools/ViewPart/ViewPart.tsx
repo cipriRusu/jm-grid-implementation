@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './ViewPart.scss';
-import {IViewPartProps} from '../../Interfaces/GridTools/IViewPartProps';
+import {GridContext} from '../../Grid';
 
-const ViewPart: React.FC<IViewPartProps> = (props: IViewPartProps) => {    
+const ViewPart: React.FC = () => {    
+    const gridContext = useContext(GridContext);
 
     const handleSelect=(e: React.MouseEvent)=>{
         e.preventDefault();
-        props.onChildClick(e.currentTarget.innerHTML);
+        gridContext.selectViewHandler(e.currentTarget.innerHTML);
     }
  
     return (
@@ -16,13 +17,13 @@ const ViewPart: React.FC<IViewPartProps> = (props: IViewPartProps) => {
                 variant="secondary" 
                 className="dropdown-basic grid-button ">
                 <i className="icon-eye-open icon-large"></i>
-                <span>{props.selectedItem || "View Part"}</span>
+                <span>{gridContext.selectedViewItemContext || "View Part"}</span>
             </Dropdown.Toggle> 
               
             <Dropdown.Menu className="custom-dropdown" >
-                {props.items.map((item, index) => {
+                {gridContext.items.map((item, index) => {
                     return <Dropdown.Item href="#/action-1"    
-                                active={item===props.selectedItem}
+                                active={item===gridContext.selectedViewItemContext}
                                 key={index} 
                                 onClick={handleSelect}>{item}
                             </Dropdown.Item>

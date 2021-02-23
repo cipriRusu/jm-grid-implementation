@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CollapseButton from './CollapseButton/CollapseButton';
 import Collapse from './Collapse/Collapse';
-import {IAdvanceFilterState} from '../../Interfaces/GridTools/IAdvancedFilterState';
+import {ICollapse} from '../../Interfaces/GridTools/ICollapse';
  
-class AdvancedFilters extends Component<{}, IAdvanceFilterState>{
-    state: IAdvanceFilterState = {
+class AdvancedFilters extends Component<{}, ICollapse>{
+    state: ICollapse = {
         showCollapse: false
     };
     showCollapseHandler = () => {
@@ -15,7 +15,9 @@ class AdvancedFilters extends Component<{}, IAdvanceFilterState>{
             <>
                 <CollapseButton 
                     showCollapse={this.state.showCollapse}
-                    showCollapseHandler={this.showCollapseHandler}/>
+                    showCollapseHandler={this.showCollapseHandler}
+                    icon="icon-cog icon-large"
+                    title="Display options..."/>
                 <Collapse
                     showCollapse={this.state.showCollapse}   />
             </>

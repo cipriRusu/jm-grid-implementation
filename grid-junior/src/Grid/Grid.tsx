@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
@@ -7,6 +7,14 @@ import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
+import GridHeaderProvider from './GridContext/GridHeaderContext';
+import { IGridContext } from './Interfaces/GridTools/IGridContext';
+
+export const GridContext = createContext<IGridContext>({
+    items: [] as string[],
+    selectedViewItemContext: "",
+    selectViewHandler: (_value: string) => {},
+});
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
@@ -23,31 +31,41 @@ class Grid extends Component<IGridProps, IGridState>{
         this.setState({selectedSort: selectedSort})
     }
 
+    selectItemHandler = (selectedItem: string) => {  
+        this.setState({selectedViewItem: selectedItem});
+    };
+
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                    this.props.items[0] :
-                    this.state.selectedViewItem;
+                this.props.items[0] :
+                this.state.selectedViewItem;
+
         return (
-        <div className="grid">
-            <GridToolsLayout 
-                items={this.props.items}
-                onChildClick={this.onSelectedViewHandler}
-                selectedItem={defaultView}/>
+        <GridContext.Provider value={{
+            selectedViewItemContext: defaultView,
+            selectViewHandler: this.selectItemHandler,
+            items: this.props.items}}>
+            <GridHeaderProvider>
+                <div className="grid">
+                    <GridToolsLayout />
 
-        {this.state.all_headers.map((value: IHeader) => {
-            return <GridHeader
-                    header_content={value}
-                    sort={this.state.selectedSort} 
-                    setSort={this.setSort} />
-        })}
+                    {this.state.all_headers.map((value: IHeader) => {
+                        return <GridHeader
+                                header_content={value}
+                                sort={this.state.selectedSort} 
+                                setSort={this.setSort} />
+                })}
 
-           <div id="view-item">
-               {this.props.items.length <= 1 ? 
-                    this.props.items[0] :
-                    defaultView}
-            </div>
-        </div>)
+                    <div id="view-item" >
+                        {this.props.items.length <= 1 ? 
+                            this.props.items[0] :
+                            defaultView}
+                    </div>
+            </div> 
+            </GridHeaderProvider>
+            
+        </GridContext.Provider>);
     }
-}
 
+}
 export default Grid;
