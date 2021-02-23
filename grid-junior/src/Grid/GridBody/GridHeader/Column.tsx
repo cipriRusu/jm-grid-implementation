@@ -1,8 +1,8 @@
 import React from 'react';
-import './ColumnHeader.scss';
+import './Column.scss';
 import 'font-awesome/css/font-awesome.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { IColumnHeader } from '../../Interfaces/GridTools/IColumnHeader';
+import { IColumnHeader } from '../../Interfaces/GridBody/IColumnHeader';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   <a
@@ -17,13 +17,13 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   </a>
 ));
 
-class ColumnHeader extends React.Component<IColumnHeader, IColumnHeader> {
+class Column extends React.Component<IColumnHeader, IColumnHeader> {
   constructor(props: IColumnHeader) {
     super(props);
     this.state = {
       sort: this.props.sort,
-      columnWidth: this.props.columnWidth,
-      columnName: this.props.columnName,
+      column_size: this.props.column_size,
+      column_name: this.props.column_name,
       setSort: this.props.setSort
     };
   }
@@ -33,13 +33,13 @@ class ColumnHeader extends React.Component<IColumnHeader, IColumnHeader> {
 
     if (sort.sort_type === "") {
       sort.sort_type = "asc";
-      sort.field_id = this.props.columnName;
+      sort.field_id = this.props.column_name;
     }
-    else if(sort.field_id === this.props.columnName) {
+    else if(sort.field_id === this.props.column_name) {
       sort.sort_type = sort.sort_type === "asc" ? "desc" : "";
     }
     else{
-      sort.field_id = this.props.columnName;
+      sort.field_id = this.props.column_name;
       sort.sort_type = "asc";
     }
     
@@ -47,15 +47,15 @@ class ColumnHeader extends React.Component<IColumnHeader, IColumnHeader> {
   }
 
   render(){return(<div onClick={this.handleColumnSorting.bind(this)}
-                  className={`column-header ${this.props.columnWidth}`}>
+                  className={`column-header ${this.props.column_size}`}>
                   <div className="sort-icon-container">
-                    { this.state.sort.field_id === this.props.columnName && 
+                    { this.state.sort.field_id === this.props.column_name && 
                       this.state.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
-                      this.state.sort.field_id === this.props.columnName && 
+                      this.state.sort.field_id === this.props.column_name && 
                       this.state.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i> : 
                       <i className="fa fa-sort" aria-hidden="true"></i>}
                   </div>
-                  <p>{this.props.columnName}</p>
+                  <p>{this.props.column_name}</p>
                     <Dropdown>
                       <Dropdown.Toggle as={CustomToggle}>
                         <i className="icon-column fa fa-filter" aria-hidden="true"></i>
@@ -70,4 +70,4 @@ class ColumnHeader extends React.Component<IColumnHeader, IColumnHeader> {
                   </div>)}
 }
 
-export default ColumnHeader;
+export default Column;
