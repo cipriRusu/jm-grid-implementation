@@ -24,9 +24,9 @@ const AppliedFilters: React.FC = () => {
                 
             </Dropdown.Toggle>
 
-            <Dropdown.Menu className="custom-dropdown">
+            <Dropdown.Menu className="custom-dropdown2">
                 {headersContext.map(header => (
-                    <div >
+                    <div className="dropdown-item custom-dropdown-item">
                     <>
                         <div className="column-name form-control">
                             {header.column_name}
