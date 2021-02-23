@@ -1,27 +1,27 @@
 import React, { useState, createContext } from "react";
-import { ColumnData } from "../GridBody/GridHeader/ColumnData";
+import { IColumn } from "../Interfaces/GridBody/IColumn";
 
-const columnValues: ColumnData[] = [];
+const columnValues: IColumn[] = [];
 
 export const GridHeaderContext = createContext(columnValues);
 
 const GridHeaderProvider = (props: any) => {
     const [columns, setColumns] = useState([
         {
-            column_name: 'Prenume',
-            column_width: ''
+            name: 'Prenume',
+            size: ''
         },
         {
-            column_name: 'Nume',
-            column_width: ''
+            name: 'Nume',
+            size: ''
         },
         {
-            column_name: 'Email',
-            column_width: ''
+            name: 'Email',
+            size: ''
         },
         {
-            column_name: 'Nr Telefon',
-            column_width: ''
+            name: 'Nr Telefon',
+            size: ''
         }
     ]);
     
