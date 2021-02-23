@@ -3,10 +3,10 @@ import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
 import GridHeader from './GridBody/GridHeader/GridHeader';
-import GridSecondHeader from './GridBody/GridHeader/GridSecondHeader';
-import { IGridProps } from './Interfaces/GridTools/IGridProps';
+import { IGridProps } from './Interfaces/GridBody/IGridProps';
+import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
-import { ColumnSort } from './GridBody/GridHeader/ColumnSort';
+import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import GridHeaderProvider from './GridContext/GridHeaderContext';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 
@@ -18,15 +18,16 @@ export const GridContext = createContext<IGridContext>({
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
+        all_headers: this.props.headers,
         selectedViewItem: "",
-        selectedSort: new ColumnSort('','')
+        selectedSort: { sort_type: '', field_id: ''}
     }
 
     onSelectedViewHandler = (selectedItem: string): void => {
         this.setState({selectedViewItem: selectedItem});
     }
 
-    setSort = (selectedSort: ColumnSort): void => {
+    setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
     }
 
@@ -48,13 +49,13 @@ class Grid extends Component<IGridProps, IGridState>{
                 <div className="grid">
                     <GridToolsLayout />
 
-                    <GridHeader 
-                        sort={this.state.selectedSort} 
-                        setSort={this.setSort} />
+                    {this.state.all_headers.map((value: IHeader) => {
+                        return <GridHeader
+                                header_content={value}
+                                sort={this.state.selectedSort} 
+                                setSort={this.setSort} />
+                })}
 
-                    <GridSecondHeader 
-                        sort={this.state.selectedSort} 
-                        setSort={this.setSort} />
                     <div id="view-item" >
                         {this.props.items.length <= 1 ? 
                             this.props.items[0] :

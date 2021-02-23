@@ -29,7 +29,7 @@ const AppliedFilters: React.FC = () => {
                     <div className="dropdown-item custom-dropdown-item">
                     <>
                         <div className="column-name form-control">
-                            {header.column_name}
+                            {header.name}
                         </div>                   
                         <Form>
                             <Form.Control as="select" >

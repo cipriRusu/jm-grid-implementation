@@ -1,6 +1,8 @@
-import { ColumnSort } from '../../GridBody/GridHeader/ColumnSort';
+import { ISortStats } from '../GridBody/ISortStats';
+import { IHeader } from '../GridBody/IHeader';
 
 export interface IGridState {
+    all_headers: IHeader[];
     selectedViewItem: string;
-    selectedSort: ColumnSort;
+    selectedSort: ISortStats;
 };

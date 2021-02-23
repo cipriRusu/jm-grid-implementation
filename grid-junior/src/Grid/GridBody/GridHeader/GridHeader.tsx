@@ -1,28 +1,20 @@
 import React from 'react';
-import GridHeaderContainer from './GridHeaderContainer';
+import { IColumnContainer } from '../../Interfaces/GridBody/IColumnContainer';
+import { IContainerProps } from '../../Interfaces/GridBody/IContainerProps';
+import HeaderContainer from './HeaderContainer';
 import './GridHeaderStyle.scss';
-import { ColumnData } from './ColumnData';
 
-function GridHeader(props: any) {
+function GridHeader(props: IContainerProps) {
     return(
-    <div className="grid-header">
-        <GridHeaderContainer
-        headValue="Utilizator"
-        sort={props.sort}
-        setSort={props.setSort}
-        columnValues={[
-            new ColumnData('Prenume', 'standard'), 
-            new ColumnData('Nume', 'standard')]
-        } />
-
-        <GridHeaderContainer 
-        headValue="Detalii"
-        sort={props.sort}
-        setSort={props.setSort}
-        columnValues={[
-            new ColumnData('Email', 'standard'),
-            new ColumnData('Nr Telefon', 'standard')]
-        } />
+    <div className='grid-header'>
+        {props.header_content.headers.map((value: IColumnContainer) => 
+        {return <HeaderContainer
+                    name={value.name}
+                    columns={value.columns}
+                    sort={props.sort}
+                    setSort={props.setSort}
+                />
+        })}
     </div>)
 }
 

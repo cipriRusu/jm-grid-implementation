@@ -1,6 +1,8 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import './GridHeaderTitleStyle.scss';
+import { IColumn } from '../../Interfaces/GridBody/IColumn';
+import { ITitle } from '../../Interfaces/GridBody/ITitle';
+import './Title.scss';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     <a
@@ -14,20 +16,20 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     </a>
   ));
 
-function GridHeaderTitle(props: any) {
+function Title(props: ITitle) {
     return (<div className="header-title">
               <div className="header-contents">
-                <p>{props.headerTitle}</p>
+                <p>{props.title}</p>
                   <Dropdown>
                     <Dropdown.Toggle as={CustomToggle}>
                       <i className="icon-header fa fa-cog" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Header>Contine: </Dropdown.Header>
-                        {props.columnValues.map((value: any, index: any) => 
+                        {props.columns.map((value: IColumn, index: number) => 
                         { 
                           return <Dropdown.Item 
-                                  key={index}>{value.colname}
+                                  key={index}>{value.name}
                                  </Dropdown.Item>
                         })}
                     </Dropdown.Menu>
@@ -36,4 +38,4 @@ function GridHeaderTitle(props: any) {
             </div>)
 }
 
-export default GridHeaderTitle
+export default Title
