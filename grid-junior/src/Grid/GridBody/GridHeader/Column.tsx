@@ -46,29 +46,21 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
     setSort(sort)
   }
 
-  render(){return(<div onClick={this.handleColumnSorting.bind(this)}
-                  className={`column-header ${this.props.column_size}`}>
-                  <div className="sort-icon-container">
-                    { this.state.sort.field_id === this.props.column_name && 
-                      this.state.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
-                      this.state.sort.field_id === this.props.column_name && 
-                      this.state.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i> : 
-                      <i className="fa fa-sort" aria-hidden="true"></i>}
-                  </div>
-                  <p>{this.props.column_name}</p>
-                    <Dropdown>
-                      <Dropdown.Toggle as={CustomToggle}>
-                        <i className="icon-column fa fa-filter" aria-hidden="true"></i>
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                      <Dropdown.Header>Filtreaza rezultate: </Dropdown.Header>
-                      {/* <div> Exact ca: </div>
-                      <div> Exact ca: </div>
-                      <div> Exact ca: </div> */}
-                      <Dropdown.Item onClick={(e:any) => e.preventDefault()}> Asemanator cu: </Dropdown.Item>
-                      <Dropdown.Item> Contine: </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
+  handleSortIcon() {
+    {
+      return this.state.sort.field_id === this.props.column_name && 
+             this.state.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
+             this.state.sort.field_id === this.props.column_name && 
+             this.state.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i>: '' }
+    }
+
+  render(){return(<div className={`column-header ${this.props.column_size}`}>
+                    <div className='column'>
+                      <div className='sort-header' onClick={this.handleColumnSorting.bind(this)}>
+                        <div>{ this.handleSortIcon() }</div>
+                        <div><p>{this.props.column_name}</p></div></div>
+                      <div><i className="icon-column fa fa-filter" aria-hidden="true"></i></div>
+                    </div>
                   </div>)}
 }
 

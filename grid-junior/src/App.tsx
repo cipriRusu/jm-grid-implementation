@@ -54,9 +54,9 @@ const headers =
          {'name':'Centru Imagistica',
           'size':'standard'}, 
          {'name':'Rezultate', 
-          'size':'standard'}, 
+          'size':'thin'}, 
          {'name':'Imagini',
-          'size':'standard'}
+          'size':'thin'}
        ]}
     ]
   }
