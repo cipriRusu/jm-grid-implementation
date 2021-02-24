@@ -59,7 +59,18 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
                       <div className='sort-header' onClick={this.handleColumnSorting.bind(this)}>
                         <div>{ this.handleSortIcon() }</div>
                         <div><p>{this.props.column_name}</p></div></div>
-                      <div><i className="icon-column fa fa-filter" aria-hidden="true"></i></div>
+                        <Dropdown>
+                        <Dropdown.Toggle as={CustomToggle}>
+                          <div>
+			                      <i className="icon-column fa fa-filter" aria-hidden="true"></i>
+		                      </div>  
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                        <Dropdown.Header>Filtreaza rezultate: </Dropdown.Header>
+                        <Dropdown.Item> Asemanator cu: </Dropdown.Item>
+                        <Dropdown.Item> Contine: </Dropdown.Item>
+                        </Dropdown.Menu>
+                        </Dropdown>
                     </div>
                   </div>)}
 }
