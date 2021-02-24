@@ -8,23 +8,22 @@ import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
+import { ISortable } from './Interfaces/GridBody/ISortable';
 
-export const GridContext = createContext<IGridContext>({
+export const GridContext = createContext<IGridContext & ISortable>({
     items: [],
     selectedViewItemContext: "",
     selectViewHandler: (_value: string) => {},
-    headersContext: []
+    headersContext: [],
+    sort: { sort_type: '', field_id: ''},
+    setSort: (selectedSort: ISortStats) => {}
 });
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
         all_headers: this.props.headers,
         selectedViewItem: "",
-        selectedSort: { sort_type: '', field_id: ''}
-    }
-
-    onSelectedViewHandler = (selectedItem: string): void => {
-        this.setState({selectedViewItem: selectedItem});
+        selectedSort: { sort_type: '', field_id: ''},
     }
 
     setSort = (selectedSort: ISortStats): void => {
@@ -33,7 +32,7 @@ class Grid extends Component<IGridProps, IGridState>{
 
     selectItemHandler = (selectedItem: string) => {  
         this.setState({selectedViewItem: selectedItem});
-    };
+    }
 
     fllatenHeadersContext = (headersContext: IHeader[], name: string) => {
         let newArray:any= [];
@@ -59,12 +58,16 @@ class Grid extends Component<IGridProps, IGridState>{
             selectedViewItemContext: defaultView,
             selectViewHandler: this.selectItemHandler,
             items: this.props.items,
-            headersContext: headers}}>
+            headersContext: headers,
+            sort: this.state.selectedSort,
+            setSort: this.setSort
+            }}>
             <div className="grid">
                 <GridToolsLayout />
 
                 {this.state.all_headers.map((value: IHeader) => {
                     return <GridHeader
+                            key={value.name}
                             header_content={value}
                             sort={this.state.selectedSort} 
                             setSort={this.setSort} />
