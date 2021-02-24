@@ -34,9 +34,11 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
     if (sort.sort_type === "") {
       sort.sort_type = "asc";
       sort.field_id = this.props.column_name;
+      console.log("field id", sort.field_id);
     }
     else if(sort.field_id === this.props.column_name) {
       sort.sort_type = sort.sort_type === "asc" ? "desc" : "";
+      console.log("field id", sort.field_id);
     }
     else{
       sort.field_id = this.props.column_name;

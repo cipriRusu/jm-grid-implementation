@@ -9,6 +9,7 @@ function GridHeader(props: IContainerProps) {
     <div className='grid-header'>
         {props.header_content.headers.map((value: IColumnContainer) => 
         {return <HeaderContainer
+                    key={value.name}
                     name={value.name}
                     columns={value.columns}
                     sort={props.sort}

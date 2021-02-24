@@ -13,6 +13,7 @@ function HeaderContainer(props: IColumnContainer & ISortable) {
                 <div className="column-headers">
                     {props.columns.map((value: IColumn) => {
                         return <Column
+                                key={value.name}
                                 column_name={value.name} 
                                 column_size={value.size}
                                 sort={props.sort}

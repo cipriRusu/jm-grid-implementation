@@ -1,11 +1,17 @@
 #applied-filters{
-    .custom-dropdown {
-        .column-name{
-            background-color: #1F1D1D;
-            color: white;
+    #custom-dropdown {
+        padding: 0.2rem;
+        .custom-dropdown-item{
+            padding: 0!important;
+            .column-name{
+                background-color: #1F1D1D;
+                color: white;
+                cursor: pointer;
+            }
+            form {
+                margin-bottom: 0.5rem;
+            }
         }
-        form {
-            margin-bottom: 0.5rem;
-        }
+ 
     }
 }

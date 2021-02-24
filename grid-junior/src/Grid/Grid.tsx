@@ -7,24 +7,23 @@ import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
-import GridHeaderProvider from './GridContext/GridHeaderContext';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
+import { ISortable } from './Interfaces/GridBody/ISortable';
 
-export const GridContext = createContext<IGridContext>({
-    items: [] as string[],
+export const GridContext = createContext<IGridContext & ISortable>({
+    items: [],
     selectedViewItemContext: "",
     selectViewHandler: (_value: string) => {},
+    headersContext: [],
+    sort: { sort_type: '', field_id: ''},
+    setSort: (selectedSort: ISortStats) => {}
 });
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
         all_headers: this.props.headers,
         selectedViewItem: "",
-        selectedSort: { sort_type: '', field_id: ''}
-    }
-
-    onSelectedViewHandler = (selectedItem: string): void => {
-        this.setState({selectedViewItem: selectedItem});
+        selectedSort: { sort_type: '', field_id: ''},
     }
 
     setSort = (selectedSort: ISortStats): void => {
@@ -33,9 +32,23 @@ class Grid extends Component<IGridProps, IGridState>{
 
     selectItemHandler = (selectedItem: string) => {  
         this.setState({selectedViewItem: selectedItem});
-    };
+    }
 
+    fllatenHeadersContext = (headersContext: IHeader[], name: string) => {
+        let newArray:any= [];
+        headersContext.map(headers => 
+           {
+                if(headers.name === name){
+                    return headers.headers.map(header => newArray.push(header.columns))
+                }  
+           } 
+        )
+        return newArray.flat();
+    }
+    
     render(){
+        let headers = this.fllatenHeadersContext(this.state.all_headers, 'firstHeader');
+
         const defaultView = this.state.selectedViewItem === "" ?
                 this.props.items[0] :
                 this.state.selectedViewItem;
@@ -44,25 +57,28 @@ class Grid extends Component<IGridProps, IGridState>{
         <GridContext.Provider value={{
             selectedViewItemContext: defaultView,
             selectViewHandler: this.selectItemHandler,
-            items: this.props.items}}>
-            <GridHeaderProvider>
-                <div className="grid">
-                    <GridToolsLayout />
+            items: this.props.items,
+            headersContext: headers,
+            sort: this.state.selectedSort,
+            setSort: this.setSort
+            }}>
+            <div className="grid">
+                <GridToolsLayout />
 
-                    {this.state.all_headers.map((value: IHeader) => {
-                        return <GridHeader
-                                header_content={value}
-                                sort={this.state.selectedSort} 
-                                setSort={this.setSort} />
+                {this.state.all_headers.map((value: IHeader) => {
+                    return <GridHeader
+                            key={value.name}
+                            header_content={value}
+                            sort={this.state.selectedSort} 
+                            setSort={this.setSort} />
                 })}
 
-                    <div id="view-item" >
-                        {this.props.items.length <= 1 ? 
-                            this.props.items[0] :
-                            defaultView}
-                    </div>
+                <div id="view-item" >
+                    {this.props.items.length <= 1 ? 
+                        this.props.items[0] :
+                        defaultView}
+                </div>
             </div> 
-            </GridHeaderProvider>
             
         </GridContext.Provider>);
     }

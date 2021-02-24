@@ -27,7 +27,8 @@ const headers =
          {'name':'Email',
           'size':'standard'}, 
          {'name':'Nr Telefon',
-          'size': 'standard'}
+          'size': 'standard',
+          'type': 'number'}
       ]}]
   },
   {
@@ -40,11 +41,13 @@ const headers =
          {'name':'Status', 
           'size':'standard'}, 
          {'name': 'Data',
-         'size':'standard'}, 
+         'size':'standard',
+         'type': 'date'}, 
          {'name':'Urgenta',
          'size':'standard'}, 
          {'name':'Termen Limita',
-          'size':'standard'}
+          'size':'standard',
+          'type': 'date'}
        ]},
       {'name': 'Detalii Examinare', 
        'columns': 
