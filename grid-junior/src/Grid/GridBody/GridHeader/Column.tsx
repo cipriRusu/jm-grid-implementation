@@ -2,7 +2,7 @@ import React from 'react';
 import './Column.scss';
 import 'font-awesome/css/font-awesome.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { IColumnHeader } from '../../Interfaces/GridBody/IColumnHeader';
+import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { GridContext } from '../../Grid';
 import Filters from '../../GridTools/Filters';
 
@@ -18,25 +18,25 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   </div>
 ));
 
-class Column extends React.Component<IColumnHeader, IColumnHeader> {
-  constructor(props: IColumnHeader) {
+class Column extends React.Component<IColumn, IColumn> {
+  constructor(props: IColumn) {
     super(props);
     this.state = {
-      column_size: this.props.column_size,
-      column_name: this.props.column_name,
+      name: this.props.name,
+      size: this.props.size,
     };
   }
 
   handleColumnSorting(value: any) {
     if(value.sort.sort_type === "") {
         value.sort.sort_type = "asc";
-        value.sort.field_id = this.props.column_name;
+        value.sort.field_id = this.props.name;
       }
-    else if(value.sort.field_id === this.props.column_name) {
+    else if(value.sort.field_id === this.props.name) {
               value.sort.sort_type = value.sort.sort_type === "asc" ? "desc" : "";
       }
     else {
-     value.sort.field_id = this.props.column_name;
+     value.sort.field_id = this.props.name;
      value.sort.sort_type = "asc";
    }
    value.setSort(value.sort);
@@ -44,9 +44,9 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
 
   handleSortIcon(value: any) {
     {
-      return value.sort.field_id === this.props.column_name && 
+      return value.sort.field_id === this.props.name && 
       value.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
-      value.sort.field_id === this.props.column_name && 
+      value.sort.field_id === this.props.name && 
       value.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i>: '';
     }
   }
@@ -54,12 +54,12 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
   render() {return(
   <GridContext.Consumer>
     {value => 
-    <div className={`column-header ${this.props.column_size}`}>
+    <div className={`column-header ${this.props.size}`}>
       <div className='column'>
         <div className='sort-header' onClick={() => this.handleColumnSorting(value) }><div>
            { this.handleSortIcon(value) }
         </div>
-         <div><p>{this.props.column_name}</p></div></div>
+         <div><p>{this.props.name}</p></div></div>
       </div>
       <Dropdown>
         <Dropdown.Toggle as={CustomToggle}>
@@ -67,7 +67,7 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item>
-            <Filters columns={[{ name: this.props.column_name, size: this.props.column_size }]}/>
+            <Filters columns={[this.props]}/>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

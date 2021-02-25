@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout'
-import GridHeader from './GridBody/GridHeader/GridHeader';
+import Header from './GridBody/GridHeader/Header';
 import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridState } from './Interfaces/GridTools/IGridState';
@@ -70,7 +70,7 @@ class Grid extends Component<IGridProps, IGridState>{
             
             <div className="grid">
                 <GridToolsLayout />
-                <GridHeader />
+                <Header />
 
                 <div id="view-item" >
                     {this.props.items.length <= 1 ? 

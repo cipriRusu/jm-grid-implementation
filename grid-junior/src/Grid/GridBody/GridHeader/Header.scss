@@ -1,0 +1,42 @@
+.grid-header {
+    display: flex;
+    background-color: #111010;
+    padding: 0.5rem;
+
+    .header-container {
+        color: white;
+        width: 120rem;
+        flex-direction: column;
+    
+        .column-headers {
+            margin-bottom: 1px;
+            display: flex;
+        }
+    }
+}
+
+@media (max-width: 40rem) {
+.grid-header{
+    .header-container{
+        .column-headers{
+            display: none;
+        }
+    }
+}
+
+.grid-header{
+    .header-container {
+        .header-title {
+            border-bottom: none;
+        }
+    }   
+}
+
+.grid-header{
+    .header-container{
+        .icon-header{
+            display: block;
+        }
+    }
+}   
+}

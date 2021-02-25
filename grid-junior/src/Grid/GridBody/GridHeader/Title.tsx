@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { ITitle } from '../../Interfaces/GridBody/ITitle';
 import './Title.scss';
+import Filters from '../../GridTools/Filters';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     <a
@@ -25,7 +25,9 @@ function Title(props: ITitle) {
                       <i className="icon-header fa fa-cog" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      
+                      <Dropdown.Item>
+                        <Filters columns={props.columns} />
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
               </div>
