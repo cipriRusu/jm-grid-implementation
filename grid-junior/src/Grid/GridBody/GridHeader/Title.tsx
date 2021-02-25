@@ -25,13 +25,7 @@ function Title(props: ITitle) {
                       <i className="icon-header fa fa-cog" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Header>Contine: </Dropdown.Header>
-                        {props.columns.map((value: IColumn, index: number) => 
-                        { 
-                          return <Dropdown.Item 
-                                  key={index}>{value.name}
-                                 </Dropdown.Item>
-                        })}
+                      
                     </Dropdown.Menu>
                 </Dropdown>
               </div>

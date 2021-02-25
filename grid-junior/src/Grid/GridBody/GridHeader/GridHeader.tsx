@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Column from './Column';
+import Title from './Title';
 import { IColumnContainer } from '../../Interfaces/GridBody/IColumnContainer';
-import { IContainerProps } from '../../Interfaces/GridBody/IContainerProps';
-import HeaderContainer from './HeaderContainer';
+import { IColumn } from '../../Interfaces/GridBody/IColumn';
+import './HeaderContainer.scss';
 import './GridHeaderStyle.scss';
+import { GridContext } from '../../Grid';
 
-function GridHeader(props: IContainerProps) {
-    return(
+function GridHeader() {
+    const gridContext = useContext(GridContext);
+
+    return (
     <div className='grid-header'>
-        {props.header_content.headers.map((value: IColumnContainer) => 
-        {return <HeaderContainer
-                    key={value.name}
-                    name={value.name}
-                    columns={value.columns}
-                    sort={props.sort}
-                    setSort={props.setSort}
-                />
-        })}
+        { gridContext.all_headers.find(element => element.name === gridContext.visibleHeader)!.headers.map((value: IColumnContainer) => {
+            return <div className="header-container">
+                <Title title={value.name} columns={value.columns}/>
+                    <div className='column-headers'> {value.columns.map((value: IColumn) => {
+                        return <Column
+                                key={value.name}
+                                column_name={value.name} 
+                                column_size={value.size} /> })}
+                    </div>
+                </div>
+    })}
     </div>)
 }
 

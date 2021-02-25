@@ -5,4 +5,5 @@ export interface IGridState {
     all_headers: IHeader[];
     selectedViewItem: string;
     selectedSort: ISortStats;
+    visibleHeader: string;
 };

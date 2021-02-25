@@ -1,6 +1,4 @@
-import { ISortable } from '../GridBody/ISortable';
-
-export interface IColumnHeader extends ISortable {
+export interface IColumnHeader {
   column_size: string;
   column_name: string;
 }

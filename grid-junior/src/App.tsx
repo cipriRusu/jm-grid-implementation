@@ -1,11 +1,12 @@
 import './App.scss';
 import Grid from './Grid/Grid'
+import React from "react";
 
 const viewPartItems = [
   'First View',
   'Second View',
   'Third View'
-]
+];
 
 const headers = 
 [
