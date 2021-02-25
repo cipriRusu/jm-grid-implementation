@@ -4,6 +4,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { IColumnHeader } from '../../Interfaces/GridBody/IColumnHeader';
 import { GridContext } from '../../Grid';
+import Filters from '../../GridTools/Filters';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   <div
@@ -60,9 +61,16 @@ class Column extends React.Component<IColumnHeader, IColumnHeader> {
         </div>
          <div><p>{this.props.column_name}</p></div></div>
       </div>
-      <Dropdown.Toggle as={CustomToggle}>
-        <i className="icon-column fa fa-filter" aria-hidden="true"></i>
-      </Dropdown.Toggle>
+      <Dropdown>
+        <Dropdown.Toggle as={CustomToggle}>
+          <i className="icon-column fa fa-filter" aria-hidden="true"></i>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item>
+            <Filters columns={[{ name: this.props.column_name, size: this.props.column_size }]}/>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
      </div>
     }
   </GridContext.Consumer>)}

@@ -12,12 +12,12 @@ function GridHeader() {
 
     return (
     <div className='grid-header'>
-        { gridContext.all_headers.find(element => element.name === gridContext.visibleHeader)!.headers.map((value: IColumnContainer) => {
+        { gridContext.all_headers.find(element => element.name === gridContext.visibleHeader)!.headers.map((value: IColumnContainer, key: number) => {
             return <div className="header-container">
-                <Title title={value.name} columns={value.columns}/>
-                    <div className='column-headers'> {value.columns.map((value: IColumn) => {
+                <Title key={key} title={value.name} columns={value.columns}/>
+                    <div className='column-headers'> {value.columns.map((value: IColumn, key: number) => {
                         return <Column
-                                key={value.name}
+                                key={key}
                                 column_name={value.name} 
                                 column_size={value.size} /> })}
                     </div>
