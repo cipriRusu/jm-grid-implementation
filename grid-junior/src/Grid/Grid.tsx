@@ -9,6 +9,8 @@ import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
+import { IFilter } from './Interfaces/GridTools/IFilter';
+import { IColumn } from './Interfaces/GridBody/IColumn';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     items: [],
@@ -16,39 +18,32 @@ export const GridContext = createContext<IGridContext & ISortable>({
     selectViewHandler: (_value: string) => {},
     headersContext: [],
     sort: { sort_type: '', field_id: ''},
-    setSort: (selectedSort: ISortStats) => {}
+    setSort: (selectedSort: ISortStats) => {},
+    selectedFilterContext: {name: '', size:'', value:''},
+    setFilter: (_value: IColumn) => {}
 });
 
 class Grid extends Component<IGridProps, IGridState>{
     state: IGridState = {
-        all_headers: this.props.headers,
         selectedViewItem: "",
         selectedSort: { sort_type: '', field_id: ''},
+        selectedFilter: {name: '', size:'', value:''}
     }
 
     setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
     }
 
+    setFilter = (filter: IColumn) => {
+        this.setState({selectedFilter: filter});
+    }
+
     selectItemHandler = (selectedItem: string) => {  
         this.setState({selectedViewItem: selectedItem});
     }
-
-    fllatenHeadersContext = (headersContext: IHeader[], name: string) => {
-        let newArray:any= [];
-        headersContext.map(headers => 
-           {
-                if(headers.name === name){
-                    return headers.headers.map(header => newArray.push(header.columns))
-                }  
-           } 
-        )
-        return newArray.flat();
-    }
     
     render(){
-        let headers = this.fllatenHeadersContext(this.state.all_headers, 'firstHeader');
-
+        console.log("filter from context", this.state.selectedFilter);
         const defaultView = this.state.selectedViewItem === "" ?
                 this.props.items[0] :
                 this.state.selectedViewItem;
@@ -58,14 +53,16 @@ class Grid extends Component<IGridProps, IGridState>{
             selectedViewItemContext: defaultView,
             selectViewHandler: this.selectItemHandler,
             items: this.props.items,
-            headersContext: headers,
+            headersContext: this.props.headers,
             sort: this.state.selectedSort,
-            setSort: this.setSort
+            setSort: this.setSort,
+            selectedFilterContext: this.state.selectedFilter,
+            setFilter: this.setFilter
             }}>
             <div className="grid">
                 <GridToolsLayout />
 
-                {this.state.all_headers.map((value: IHeader) => {
+                {this.props.headers.map((value: IHeader) => {
                     return <GridHeader
                             key={value.name}
                             header_content={value}

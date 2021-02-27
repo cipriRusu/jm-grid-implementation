@@ -7,7 +7,7 @@ const SavedFilters = () =>{
         <Dropdown id="saved-filters">
             <Dropdown.Toggle variant="secondary" className="dropdown-basic grid-button">
             <i className="icon-star icon-large"></i>
-            <span>Saved Filters</span>
+            <span className="btn-title">Saved Filters</span>
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="custom-dropdown">
