@@ -61,12 +61,20 @@ const Filters = (props: IColumns) => {
                   </span>
     );
 
+    const displayDeleteIcon = (column:IColumn) => {
+        const findFilter = sortContext.selectedFilterContext.findIndex(filter => filter.name === column.name);
+        if (findFilter !== -1){
+            return (<i className="icon-trash icon"></i>)
+        }
+    };
+
     const handleOnChange = (e: any, column:IColumn) => {
         setShowFiler(false);
         sortContext.sort.field_id = column.name;
         setFilterSelected({name: column.name, size: column.size, value: e.target.value});
         if(e.target.value === ''){
             setShowFiler(true);
+            handleDeleteFilter(e, column);
         }
     };
 
@@ -74,17 +82,13 @@ const Filters = (props: IColumns) => {
        const newList = sortContext.selectedFilterContext.concat(filterSelected);
        sortContext.setFilter(newList);
     };
-    //cum det clicul pe inpunewList
-    //icoana de delete nu se vede pe fiecare input cu valoare
+
     const handleDeleteFilter = (e: any, column: IColumn) => {
         setShowFiler(true);
         if(column.value !== ""){
-            // column.value = '';
- 
             const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
             sortContext.setFilter(newList);
             setFilterSelected({ name: "", size: "", value: "" });
-          
         }
     };
 
@@ -96,7 +100,7 @@ const Filters = (props: IColumns) => {
         }, 1000);
         return () => clearTimeout(timeout);
     },[filterSelected.value]);
-
+        
     return (
         <>
         {props.columns.map((header:IColumn, index:number) => (
@@ -122,17 +126,17 @@ const Filters = (props: IColumns) => {
                     }
                     </Form.Control>
                     <div className="input-icons">
-                        { sortContext.sort.field_id === header.name
-                         ? <i className="icon-trash icon"
-                           onClick={(e:any) => handleDeleteFilter(e, header)}
-                          ></i>
-                         : null}
+                         <span onClick={(e:any) => handleDeleteFilter(e, header)}>
+                           {displayDeleteIcon(header)}
+                         </span>
+                       
                         <Form.Control
                         type="text" 
                         placeholder="Filter..."
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
                         value={header.value}
+       
                     />
                     </div>
 
