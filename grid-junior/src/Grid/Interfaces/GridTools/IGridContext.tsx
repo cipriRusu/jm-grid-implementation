@@ -7,7 +7,8 @@ export interface IGridContext {
     selectViewHandler: (value: string) => void,
     selectedViewItemContext: string,
     headersContext: IHeader[],
-    // selectedFilterContext: string,
-    selectedFilterContext:  IColumn,
-    setFilter: (value: IColumn) => void
+    selectedFilterContext:  IColumn[],
+    // selectedFilterContext:  IColumn,
+    setFilter: (values: IColumn[]) => void
+    // setFilter: (value: IColumn) => void
 } 

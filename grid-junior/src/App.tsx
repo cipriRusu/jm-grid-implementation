@@ -16,7 +16,8 @@ const headers =
       'columns': 
       [
         {'name': 'Prenume',
-         'size': 'standard'},
+         'size': 'standard'
+        },
         {'name': 'Nume',
          'size': 'standard'}
       ]

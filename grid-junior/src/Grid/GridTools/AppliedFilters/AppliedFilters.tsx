@@ -21,7 +21,6 @@ const AppliedFilters: React.FC = () => {
     }
    
     let headers = fllatenHeadersContext(context.headersContext, 'firstHeader');
-    console.log("array", headers);
 
     return (
         <Dropdown id="applied-filters">

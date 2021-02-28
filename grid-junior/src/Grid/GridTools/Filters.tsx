@@ -11,6 +11,7 @@ const Filters = (props: IColumns) => {
     const [showFilter, setShowFiler] = useState(true);
     const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "" });
 
+
     let optionsForStrings = [
         'Contains',
         'Not contains',
@@ -44,7 +45,7 @@ const Filters = (props: IColumns) => {
       
         sortContext.setSort(sortContext.sort);
         setShowArrow(true);
-      }
+      };
 
     const displayOptions = (options: string[]) => options.map(option => (<option key={option}>{option}</option>));
   
@@ -60,11 +61,6 @@ const Filters = (props: IColumns) => {
                   </span>
     );
 
-    const handleFilter = () => {
-        sortContext.setFilter(filterSelected);  
-        console.log("handle filter function");
-    }
-   
     const handleOnChange = (e: any, column:IColumn) => {
         setShowFiler(false);
         sortContext.sort.field_id = column.name;
@@ -72,22 +68,34 @@ const Filters = (props: IColumns) => {
         if(e.target.value === ''){
             setShowFiler(true);
         }
-    }
-    // const handleDeleteFilter = (e: any) => {
-    //     if(e.target.value !== ''){
-    //         setFilterSelected({value: ""});
-    //     }
-    //     setShowFiler(true);
-    // }
+    };
+
+    const handleAddFilter = () => {
+       const newList = sortContext.selectedFilterContext.concat(filterSelected);
+       sortContext.setFilter(newList);
+    };
+    //cum det clicul pe inpunewList
+    //icoana de delete nu se vede pe fiecare input cu valoare
+    const handleDeleteFilter = (e: any, column: IColumn) => {
+        setShowFiler(true);
+        if(column.value !== ""){
+            // column.value = '';
+ 
+            const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
+            sortContext.setFilter(newList);
+            setFilterSelected({ name: "", size: "", value: "" });
+          
+        }
+    };
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            //aici sa salvez in context
-            handleFilter();
-            console.log(filterSelected);
+            if(filterSelected.value !== ""){
+                handleAddFilter();
+            }
         }, 1000);
         return () => clearTimeout(timeout);
-    },[filterSelected]);
+    },[filterSelected.value]);
 
     return (
         <>
@@ -115,9 +123,9 @@ const Filters = (props: IColumns) => {
                     </Form.Control>
                     <div className="input-icons">
                         { sortContext.sort.field_id === header.name
-                         ? <i className="icon-trash icon" 
-                        //  onClick={handleDeleteFilter}
-                         ></i>
+                         ? <i className="icon-trash icon"
+                           onClick={(e:any) => handleDeleteFilter(e, header)}
+                          ></i>
                          : null}
                         <Form.Control
                         type="text" 
@@ -125,10 +133,9 @@ const Filters = (props: IColumns) => {
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
                         value={header.value}
-                        
                     />
                     </div>
-              
+
                 </Form>
             </div>
         ))}
