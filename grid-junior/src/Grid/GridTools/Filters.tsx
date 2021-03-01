@@ -1,13 +1,16 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Form } from 'react-bootstrap';
-import { IColumn } from '../Interfaces/GridBody/IColumn';
 import { IColumns } from '../Interfaces/GridTools/IColumns';
 import {GridContext} from '../Grid';
-import './Sort.scss';
+import './Filters.scss';
+import { IColumn } from '../Interfaces/GridBody/IColumn';
 
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
+    const [showFilter, setShowFiler] = useState(true);
+    const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "" });
+
 
     let optionsForStrings = [
         'Contains',
@@ -24,15 +27,9 @@ const Filters = (props: IColumns) => {
         'Less than',
         'Greater than'
     ];
-    const handleColumnSorting = (e: React.MouseEvent) => {
-        setShowArrow(false);
-        let column_name = "";
 
-        let name = e.currentTarget.children[0].lastChild?.nodeValue;
-        console.log("e",  e.currentTarget.children[0].lastChild?.nodeValue )
-        if (name !== undefined && name !== null){
-            column_name = name;
-        }
+    const handleColumnSorting = (column_name: string) => {
+        setShowArrow(false);
 
         if (sortContext.sort.sort_type === "") {
           sortContext.sort.sort_type = "asc";
@@ -48,9 +45,10 @@ const Filters = (props: IColumns) => {
       
         sortContext.setSort(sortContext.sort);
         setShowArrow(true);
-      }
+      };
+
     const displayOptions = (options: string[]) => options.map(option => (<option key={option}>{option}</option>));
-    
+  
     const displayArrows = (name: string) => (
                 <span className="sort-icon-container">
                     { sortContext.sort.field_id === name && 
@@ -58,21 +56,68 @@ const Filters = (props: IColumns) => {
                       sortContext.sort.field_id === name && 
                       sortContext.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i> : 
                       <i className="fa fa-sort" 
-                      hidden={showArrow}
-                      aria-hidden="true"></i>}
+                       hidden={showArrow}
+                      ></i>}
                   </span>
     );
- 
+
+    const displayDeleteIcon = (column:IColumn) => {
+        const findFilter = sortContext.selectedFilterContext.findIndex(filter => filter.name === column.name);
+        if (findFilter !== -1){
+            return (<i className="icon-trash icon"></i>)
+        }
+    };
+
+    const handleOnChange = (e: any, column:IColumn) => {
+        setShowFiler(false);
+        sortContext.sort.field_id = column.name;
+        setFilterSelected({name: column.name, size: column.size, value: e.target.value});
+        if(e.target.value === ''){
+            setShowFiler(true);
+            handleDeleteFilter(e, column);
+        }
+    };
+
+    const handleAddFilter = () => {
+       const newList = sortContext.selectedFilterContext.concat(filterSelected);
+       sortContext.setFilter(newList);
+    };
+
+    const handleDeleteFilter = (e: any, column: IColumn) => {
+        setShowFiler(true);
+        if(column.value !== ""){
+            const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
+            sortContext.setFilter(newList);
+            setFilterSelected({ name: "", size: "", value: "" });
+        }
+    };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if(filterSelected.value !== ""){
+                handleAddFilter();
+            }
+        }, 1000);
+        return () => clearTimeout(timeout);
+    },[filterSelected.value]);
+        
     return (
         <>
         {props.columns.map((header:IColumn, index:number) => (
             <div className="dropdown-item custom-dropdown-item" key={index}>
-                <div className="column-name form-control" onClick={handleColumnSorting}>
-                    <p className="column-header">
+                <div id="header">
+                    <div className="column-name"  onClick={()=>handleColumnSorting(header.name)}>
                         {displayArrows(header.name)}
-                        {header.name}
-                    </p>    
-                </div>                   
+                        <p>{header.name}</p>
+                        <span hidden={showFilter}>
+                        { sortContext.sort.field_id === header.name 
+                            ? <i className="icon-column fa fa-filter" ></i>
+                            : null
+                        }
+                    </span>
+                    </div>                 
+                </div>    
+                    
                 <Form>
                     <Form.Control as="select" >
                     {(header['type'] === 'number' || header['type'] === 'date')
@@ -80,9 +125,21 @@ const Filters = (props: IColumns) => {
                         : displayOptions(optionsForStrings)
                     }
                     </Form.Control>
-                    <Form.Control
-                    type="text" 
-                    placeholder="Filter..." />
+                    <div className="input-icons">
+                         <span onClick={(e:any) => handleDeleteFilter(e, header)}>
+                           {displayDeleteIcon(header)}
+                         </span>
+                       
+                        <Form.Control
+                        type="text" 
+                        placeholder="Filter..."
+                        onChange={(e:any) => handleOnChange(e, header)}
+                        name={header.name}
+                        value={header.value}
+       
+                    />
+                    </div>
+
                 </Form>
             </div>
         ))}

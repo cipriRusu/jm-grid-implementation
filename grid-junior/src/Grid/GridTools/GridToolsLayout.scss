@@ -66,9 +66,9 @@
             align-items: center;
         }
 
-        #view-part span,
-        #saved-filters span,
-        #applied-filters span {
+        #view-part span.btn-title,
+        #saved-filters span.btn-title,
+        #applied-filters span.btn-title {
             display: none;
         }
         
@@ -96,9 +96,9 @@
         #applied-filters .grid-button {
             grid-template-columns: 1fr auto;
         }
-        #view-part span,
-        #saved-filters span,
-        #applied-filters span,
+        #view-part span.btn-title,
+        #saved-filters span.btn-title,
+        #applied-filters span.btn-title,
         #collapse-button span {
             display: none;
         }
