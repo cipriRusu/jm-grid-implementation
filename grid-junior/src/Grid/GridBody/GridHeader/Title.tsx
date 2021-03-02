@@ -19,6 +19,7 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
 function Title(props: ITitle) {
     return (<div className="header-title">
               <div className="header-contents">
+              <i className="fa fa-sort hidden-icon"></i>
                 <p>{props.title}</p>
                   <Dropdown>
                     <Dropdown.Toggle as={CustomToggle}>
