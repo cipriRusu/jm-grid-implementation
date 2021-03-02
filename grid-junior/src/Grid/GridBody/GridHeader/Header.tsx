@@ -18,7 +18,7 @@ function Header() {
                         <Title key={key}
                                title={value.name}
                                columns={value.columns}/>
-                        <div className='column-headers'>
+                        <div className='column-container'>
                             { value.columns.map((value: IColumn, key: number) => {
                                     return <Column key={key}
                                                    name={value.name} 

@@ -67,9 +67,7 @@ class Column extends React.Component<IColumn, IColumn> {
           <i className="icon-column fa fa-filter" aria-hidden="true"></i>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item>
-            <Filters columns={[this.props]}/>
-          </Dropdown.Item>
+          <Filters columns={[this.props]}/>
         </Dropdown.Menu>
       </Dropdown>
      </div>

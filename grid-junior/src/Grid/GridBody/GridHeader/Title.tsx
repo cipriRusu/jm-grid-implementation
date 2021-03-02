@@ -26,9 +26,7 @@ function Title(props: ITitle) {
                       <i className="icon-header fa fa-cog" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Filters columns={props.columns} />
-                      </Dropdown.Item>
+                      <Filters columns={props.columns} />
                     </Dropdown.Menu>
                 </Dropdown>
               </div>
