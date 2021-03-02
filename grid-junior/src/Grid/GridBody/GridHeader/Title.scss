@@ -26,8 +26,12 @@
         display: flex;
         align-items: center;
 
+        .dropdown-menu{
+            padding: 0.2rem;
+        }
+
         .hidden-icon {
-            visibility: hidden;
+            visibility: hidden !important;
         }
     }
 }

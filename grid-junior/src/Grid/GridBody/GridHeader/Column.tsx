@@ -54,23 +54,29 @@ class Column extends React.Component<IColumn, IColumn> {
 
   render() {return(
   <GridContext.Consumer>
-    {value => 
+    {value =>
     <div className={`column-header ${this.props.size}`}>
       <div className='column'>
-        <div className='sort-header' onClick={() => this.handleColumnSorting(value) }><div>
-           { this.handleSortIcon(value) }
+        <div className='sort-header' onClick={() => this.handleColumnSorting(value) }>
+          <div>
+            { this.handleSortIcon(value) }
+          </div>
+          <div>
+            <p>{this.props.name}</p>
+          </div>
         </div>
-         <div><p>{this.props.name}</p></div></div>
       </div>
+    <div className='column-container'>
       <Dropdown>
         <Dropdown.Toggle as={CustomToggle}>
           <i className="icon-column fa fa-filter" aria-hidden="true"></i>
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className='dropdown-menu'>
           <Filters columns={[this.props]}/>
         </Dropdown.Menu>
       </Dropdown>
      </div>
+    </div>
     }
   </GridContext.Consumer>)}
 }
