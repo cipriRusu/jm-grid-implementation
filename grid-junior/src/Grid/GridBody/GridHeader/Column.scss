@@ -8,6 +8,10 @@
     .sort-header {
         display: flex;
         width: 90%;
+
+        .hidden-icon {
+            visibility: hidden;
+        }
     }
 
     p {

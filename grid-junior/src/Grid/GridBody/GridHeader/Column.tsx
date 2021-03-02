@@ -47,7 +47,8 @@ class Column extends React.Component<IColumn, IColumn> {
       return value.sort.field_id === this.props.name && 
       value.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
       value.sort.field_id === this.props.name && 
-      value.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i>: '';
+      value.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i>:
+      <i className="fa fa-sort hidden-icon"></i>;
     }
   }
 
