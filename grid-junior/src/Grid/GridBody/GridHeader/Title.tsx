@@ -26,15 +26,15 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     columns.forEach((x) => {
       if(x.name === sort.field_id && sort.sort_type === "asc")
       {
-        currentSort = <i className="fa fa-sort-asc" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-sort-asc" aria-hidden="true"></i> 
       }
       else if(x.name === sort.field_id && sort.sort_type === "desc") {
-        currentSort = <i className="fa fa-sort-desc" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-sort-desc" aria-hidden="true"></i> 
       }
    })
 
     if (currentSort === null) {
-      currentSort = <i className="fa fa-sort hidden-icon"></i>
+      currentSort = <i className="sort-icon-title fa fa-sort hidden-icon"></i>
     }
 
     return currentSort;
@@ -48,6 +48,7 @@ function Title(props: ITitle) {
         <div className="header-contents">
           { handleSortIcon(value.sort, props.columns) }
             <p>{props.title}</p>
+            <i className="filter-icon-title fa fa-filter" ></i>
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle}>
                 <i className="icon-header fa fa-cog" aria-hidden="true"></i>
