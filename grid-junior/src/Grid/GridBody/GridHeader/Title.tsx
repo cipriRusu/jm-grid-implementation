@@ -40,6 +40,24 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     return currentSort;
   }
 
+  function handleFilterIcon(filter: IColumn[], columns: IColumn[]) {
+    var currentFilter = null;
+
+    columns.forEach((x) => {
+      if(filter[0] !== undefined && filter[0].name == x.name)
+      {
+        currentFilter = <i className="filter-icon-title fa fa-filter" aria-hidden="true"></i>
+      }
+    })
+
+    if (currentFilter === null)
+    {
+      currentFilter = <i className="filter-icon-title fa fa-filter hidden-icon" aria-hidden="true"></i>
+    }
+
+    return currentFilter;
+  }
+
 function Title(props: ITitle) {
   return (
     <GridContext.Consumer>
@@ -48,7 +66,7 @@ function Title(props: ITitle) {
         <div className="header-contents">
           { handleSortIcon(value.sort, props.columns) }
             <p>{props.title}</p>
-            <i className="filter-icon-title fa fa-filter" ></i>
+            { handleFilterIcon(value.selectedFilterContext, props.columns) }
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle}>
                 <i className="icon-header fa fa-cog" aria-hidden="true"></i>
@@ -58,8 +76,7 @@ function Title(props: ITitle) {
               </Dropdown.Menu>
           </Dropdown>
         </div>
-      </div>
-      }
+      </div>}
     </GridContext.Consumer>)
 }
 
