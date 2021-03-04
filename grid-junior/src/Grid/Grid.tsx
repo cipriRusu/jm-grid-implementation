@@ -63,7 +63,6 @@ class Grid extends Component<IGridProps, IGridState>{
             }}>
             
             <div className="grid">
-                <GridToolsLayout />
                 <Header />
 
                 <div id="view-item" >

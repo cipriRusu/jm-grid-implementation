@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { ITitle } from '../../Interfaces/GridBody/ITitle';
 import './Title.scss';
@@ -44,7 +44,7 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     var currentFilter = null;
 
     columns.forEach((x) => {
-      if(filter[0] !== undefined && filter[0].name == x.name)
+      if(filter[0] !== undefined && filter[0].name === x.name)
       {
         currentFilter = <i className="filter-icon-title fa fa-filter" aria-hidden="true"></i>
       }
