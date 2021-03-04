@@ -135,7 +135,7 @@ const Filters = (props: IColumns) => {
                         placeholder="Filter..."
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
-                        value={header.value}
+                        value={header.name === filterSelected.name ? filterSelected.value : ""}
        
                     />
                     </div>
