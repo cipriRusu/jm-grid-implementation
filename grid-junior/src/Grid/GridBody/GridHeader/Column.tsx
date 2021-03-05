@@ -33,13 +33,29 @@ class Column extends React.Component<IColumn, IColumn> {
         value.sort.field_id = this.props.name;
       }
     else if(value.sort.field_id === this.props.name) {
-              value.sort.sort_type = value.sort.sort_type === "asc" ? "desc" : "";
+        value.sort.sort_type = value.sort.sort_type === "asc" ? "desc" : "";
       }
     else {
      value.sort.field_id = this.props.name;
      value.sort.sort_type = "asc";
    }
    value.setSort(value.sort);
+  }
+
+  handleFilterIcon(value: any){
+    var currentFilter = null;
+
+    value.selectedFilterContext.map((x: any) => {
+      if(this.state.name === x.name) {
+        currentFilter = <i className="filter-icon-column-visible fa fa-filter" aria-hidden="true"></i>
+      }
+    })
+
+    if(currentFilter === null) {
+      currentFilter = <i className="filter-icon-column fa fa-filter" aria-hidden="true"></i>
+    }
+    
+    return currentFilter;
   }
 
   handleSortIcon(value: any) {
@@ -67,9 +83,9 @@ class Column extends React.Component<IColumn, IColumn> {
     <div className='column-container'>
       <Dropdown>
         <Dropdown.Toggle as={CustomToggle}>
-          <div>
-            <i className="filter-icon-column fa fa-filter" aria-hidden="true"></i>
-          </div>
+        <div>
+          { this.handleFilterIcon(value) }
+        </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className='dropdown-menu'>
           <Filters columns={[this.props]}/>
