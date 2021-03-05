@@ -4,6 +4,7 @@ import { IColumns } from '../Interfaces/GridTools/IColumns';
 import {GridContext} from '../Grid';
 import './Filters.scss';
 import { IColumn } from '../Interfaces/GridBody/IColumn';
+import Column from '../GridBody/GridHeader/Column';
 
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
@@ -68,6 +69,11 @@ const Filters = (props: IColumns) => {
         }
     };
 
+    const getFieldValue = (header: IColumn) => {
+        let filter = sortContext.selectedFilterContext.find(x => x.name === header.name);
+        return filter !== undefined && filter.name === header.name ? filter.value : header.name === filterSelected.name ? filterSelected.value : '';
+    }
+
     const handleOnChange = (e: any, column:IColumn) => {
         setShowFiler(false);
         sortContext.sort.field_id = column.name;
@@ -79,6 +85,7 @@ const Filters = (props: IColumns) => {
     };
 
     const handleAddFilter = () => {
+       setFilterSelected({ name: "", size: "", value: "" })
        const newList = sortContext.selectedFilterContext.concat(filterSelected);
        sortContext.setFilter(newList);
     };
@@ -135,7 +142,7 @@ const Filters = (props: IColumns) => {
                         placeholder="Filter..."
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
-                        value={header.name === filterSelected.name ? filterSelected.value : ""}
+                        value={getFieldValue(header)}
        
                     />
                     </div>

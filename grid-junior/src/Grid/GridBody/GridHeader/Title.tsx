@@ -24,8 +24,7 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     var currentSort = null;
 
     columns.forEach((x) => {
-      if(x.name === sort.field_id && sort.sort_type === "asc")
-      {
+      if(x.name === sort.field_id && sort.sort_type === "asc"){
         currentSort = <i className="sort-icon-title fa fa-sort-asc" aria-hidden="true"></i> 
       }
       else if(x.name === sort.field_id && sort.sort_type === "desc") {
@@ -43,15 +42,15 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   function handleFilterIcon(filter: IColumn[], columns: IColumn[]) {
     var currentFilter = null;
 
-    columns.forEach((x) => {
-      if(filter[0] !== undefined && filter[0].name === x.name)
-      {
-        currentFilter = <i className="filter-icon-title fa fa-filter" aria-hidden="true"></i>
-      }
+    columns.forEach((column) => {
+      filter.forEach((filter) => {
+        if(filter !== undefined && column.name === filter.name){
+          currentFilter = <i className="filter-icon-title fa fa-filter" aria-hidden="true"></i>
+        }
+      })
     })
 
-    if (currentFilter === null)
-    {
+    if (currentFilter === null) {
       currentFilter = <i className="filter-icon-title fa fa-filter hidden-icon" aria-hidden="true"></i>
     }
 

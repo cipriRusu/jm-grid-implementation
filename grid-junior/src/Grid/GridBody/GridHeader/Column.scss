@@ -19,12 +19,18 @@
             margin: 0px;
         }
     
-        .icon-column {
-            color: white;
+        .filter-icon-column {
+            color: transparent;
+
+            &:hover{
+                color:white;
+            }
         }
     
         .fa {
             text-decoration: none;
+            margin-right: 5px;
+            margin-top: 5px;
         }
     
         .sort-icon {
