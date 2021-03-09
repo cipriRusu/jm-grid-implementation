@@ -2,32 +2,30 @@
     .column-header {
         .column {
             display: flex;
-            width: 90%;
             justify-content: space-between;
+            &:hover {
+                .filter-icon-column {
+                    color: white;   
+                }
+            }
         }
-    
+
         .sort-header {
+            width: 100%;
             display: flex;
-            width: 90%;
     
             .hidden-icon {
                 visibility: hidden;
             }
         }
     
-        p {
-            margin: 0px;
-        }
-    
         .filter-icon-column {
+            margin-left: auto;
             color: transparent;
-
-            &:hover{
-                color:white;
-            }
         }
 
         .filter-icon-column-visible {
+            margin-left: auto;
             color: white;
         }
     
@@ -43,6 +41,10 @@
     
         &:hover {
             background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+        }
+        
+        .dropdown {
+            width: 100%;
         }
 
         .dropdown-menu {

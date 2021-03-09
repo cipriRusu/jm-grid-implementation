@@ -53,10 +53,10 @@ const Filters = (props: IColumns) => {
     const displayArrows = (name: string) => (
                 <span className="sort-icon-container">
                     { sortContext.sort.field_id === name && 
-                      sortContext.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
+                      sortContext.sort.sort_type === "asc" ? <i className="fa fa-arrow-up" aria-hidden="true"></i> :
                       sortContext.sort.field_id === name && 
-                      sortContext.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i> : 
-                      <i className="fa fa-sort" 
+                      sortContext.sort.sort_type === "desc" ? <i className="fa fa-arrow-down" aria-hidden="true"></i> : 
+                      <i className="fa fa-arrow-up" 
                        hidden={showArrow}
                       ></i>}
                   </span>
@@ -115,7 +115,7 @@ const Filters = (props: IColumns) => {
                 <div id="header">
                     <div className="column-name"  onClick={()=>handleColumnSorting(header.name)}>
                         {displayArrows(header.name)}
-                        <p>{header.name}</p>
+                        <p style={{ margin: '0px' }}>{header.name}</p>
                         <span hidden={showFilter}>
                         { sortContext.sort.field_id === header.name 
                             ? <i className="icon-column fa fa-filter" ></i>
@@ -123,8 +123,8 @@ const Filters = (props: IColumns) => {
                         }
                     </span>
                     </div>                 
-                </div>    
-                    
+                </div>
+
                 <Form>
                     <Form.Control as="select" >
                     {(header['type'] === 'number' || header['type'] === 'date')
@@ -136,14 +136,13 @@ const Filters = (props: IColumns) => {
                          <span onClick={(e:any) => handleDeleteFilter(e, header)}>
                            {displayDeleteIcon(header)}
                          </span>
-                       
+                        
                         <Form.Control
                         type="text" 
                         placeholder="Filter..."
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
                         value={getFieldValue(header)}
-       
                     />
                     </div>
 

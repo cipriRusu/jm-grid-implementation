@@ -25,15 +25,15 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
 
     columns.forEach((x) => {
       if(x.name === sort.field_id && sort.sort_type === "asc"){
-        currentSort = <i className="sort-icon-title fa fa-sort-asc" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-arrow-up" aria-hidden="true"></i> 
       }
       else if(x.name === sort.field_id && sort.sort_type === "desc") {
-        currentSort = <i className="sort-icon-title fa fa-sort-desc" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-arrow-down" aria-hidden="true"></i> 
       }
    })
 
     if (currentSort === null) {
-      currentSort = <i className="sort-icon-title fa fa-sort hidden-icon"></i>
+      currentSort = <i className="sort-icon-title fa fa-arrow-down hidden-icon"></i>
     }
 
     return currentSort;
@@ -45,13 +45,13 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     columns.forEach((column) => {
       filter.forEach((filter) => {
         if(filter !== undefined && column.name === filter.name){
-          currentFilter = <i className="filter-icon-title fa fa-filter" aria-hidden="true"></i>
+          currentFilter = <i className="fa fa-filter filter-icon" aria-hidden="true"></i>
         }
       })
     })
 
     if (currentFilter === null) {
-      currentFilter = <i className="filter-icon-title fa fa-filter hidden-icon" aria-hidden="true"></i>
+      currentFilter = <i className="fa fa-filter filter-icon-hoverable" aria-hidden="true"></i>
     }
 
     return currentFilter;
@@ -65,10 +65,9 @@ function Title(props: ITitle) {
         <div className="header-contents">
           { handleSortIcon(value.sort, props.columns) }
             <p>{props.title}</p>
-            { handleFilterIcon(value.selectedFilterContext, props.columns) }
             <Dropdown>
               <Dropdown.Toggle as={CustomToggle}>
-                <i className="icon-header fa fa-cog" aria-hidden="true"></i>
+                { handleFilterIcon(value.selectedFilterContext, props.columns) }
               </Dropdown.Toggle>
               <Dropdown.Menu className='dropdown-menu'>
                 <Filters columns={props.columns} />

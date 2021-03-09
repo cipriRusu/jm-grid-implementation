@@ -27,21 +27,25 @@
             display: flex;
             align-items: center;
 
-            .dropdown-menu{
+            .dropdown-menu {
                 padding: 0.2rem;
             }
 
+            .filter-icon {
+                color: white;
+            }
+            
             .hidden-icon {
-                visibility: hidden !important;
+                visibility: hidden;
+                color: white;
             }
 
-            .filter-icon-title {
-                visibility: hidden;
-                margin-left: 1rem;
-            }
+            .filter-icon-hoverable {
+                color: transparent;
 
-            .sort-icon-title{
-                visibility: hidden;
+                &:hover {
+                    color: white;
+                }
             }
         }
 }
@@ -51,18 +55,10 @@
         .dropdown {
             display: none;
         }
-    }
-}
 
-@media (max-width: 40rem) {
-    .header-title{
-        .header-contents{
+        .header-contents {
             .sort-icon-title {
-                visibility: visible;
-            }
-
-            .filter-icon-title {
-                visibility: visible;
+                visibility: hidden;
             }
         }
     }

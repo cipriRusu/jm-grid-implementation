@@ -42,7 +42,7 @@ class Column extends React.Component<IColumn, IColumn> {
    value.setSort(value.sort);
   }
 
-  handleFilterIcon(value: any){
+  handleFilterIcon(value: any) {
     var currentFilter = null;
 
     value.selectedFilterContext.map((x: any) => {
@@ -54,47 +54,39 @@ class Column extends React.Component<IColumn, IColumn> {
     if(currentFilter === null) {
       currentFilter = <i className="filter-icon-column fa fa-filter" aria-hidden="true"></i>
     }
-    
+
     return currentFilter;
   }
 
   handleSortIcon(value: any) {
       return value.sort.field_id === this.props.name && 
-      value.sort.sort_type === "asc" ? <i className="fa fa-sort-asc" aria-hidden="true"></i> :
+      value.sort.sort_type === "asc" ? <i className="fa fa-arrow-up" aria-hidden="true"></i>:
       value.sort.field_id === this.props.name && 
-      value.sort.sort_type === "desc" ? <i className="fa fa-sort-desc" aria-hidden="true"></i>:
-      <i className="fa fa-sort hidden-icon"></i>;
+      value.sort.sort_type === "desc" ? <i className="fa fa-arrow-down" aria-hidden="true"></i>:
+      <i className="fa fa-arrow-down hidden-icon" aria-hidden="true"></i>;
   }
 
   render() {return(
-  <GridContext.Consumer>
-    {value =>
-    <div className={`column-header ${this.props.size}`}>
-      <div className='column'>
-        <div className='sort-header' onClick={() => this.handleColumnSorting(value) }>
-          <div>
-            { this.handleSortIcon(value) }
-          </div>
-          <div>
-            <p>{this.props.name}</p>
-          </div>
-        </div>
-      </div>
-    <div className='column-container'>
-      <Dropdown>
-        <Dropdown.Toggle as={CustomToggle}>
-        <div>
-          { this.handleFilterIcon(value) }
-        </div>
-        </Dropdown.Toggle>
-        <Dropdown.Menu className='dropdown-menu'>
-          <Filters columns={[this.props]}/>
-        </Dropdown.Menu>
-      </Dropdown>
-     </div>
-    </div>
-    }
-  </GridContext.Consumer>)}
-}
+      <div className={`column-header ${this.props.size}`}>
+        <GridContext.Consumer>
+          {value => 
+          <Dropdown>
+             <Dropdown.Toggle as={CustomToggle}>
+               <div className='column'>
+                 <div className='sort-header'>
+                    {this.handleSortIcon(value)}
+                    {this.props.name}
+                    {this.handleFilterIcon(value)}
+                  </div>
+                </div>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className='dropdown-menu'>
+                <Filters columns={[this.props]}/>
+              </Dropdown.Menu>
+          </Dropdown>
+          }
+        </GridContext.Consumer>
+      </div>)}
+  }
 
 export default Column;

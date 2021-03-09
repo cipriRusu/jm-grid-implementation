@@ -11,12 +11,6 @@
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
 
-        .filter-icon{
-            .fa-filter{
-                margin-right: 0.8rem;
-            } 
-        }
-
         .column-name{
             display: grid;
             grid-template-columns: auto 1fr auto;
@@ -35,8 +29,6 @@
                 background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
             }
             .sort-icon-container {
-                margin-right: 0.4rem;
-    
                 [hidden] {
                     display: block !important;
                     visibility: hidden;
