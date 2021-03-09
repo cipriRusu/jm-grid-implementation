@@ -80,7 +80,7 @@ class Column extends React.Component<IColumn, IColumn> {
                   </div>
                 </div>
               </Dropdown.Toggle>
-              <Dropdown.Menu className='dropdown-menu'>
+              <Dropdown.Menu>
                 <Filters columns={[this.props]}/>
               </Dropdown.Menu>
           </Dropdown>

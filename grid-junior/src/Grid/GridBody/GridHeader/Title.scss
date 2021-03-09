@@ -1,65 +1,68 @@
 .header-title {
-    display: flex;
-    width: 95%;
-    justify-content: space-between;
-    border-bottom: 0.1rem solid white;
-
-        p {
-            margin: 0px;
-            margin-left: 5px;
-        }
-
-        .icon-header {
-            color: white;
-            display: none;
-        }
-
-        .dropdown {
-            margin: auto;
-        }
+        display: flex;
+        width: 95%;
+        justify-content: space-between;
+        border-bottom: 0.1rem solid white;
+        color: white;
     
-        .dropdown a:hover {
-            text-decoration: none;
-        }
-
-        .header-contents {
-            width: 100%;
-            display: flex;
-            align-items: center;
-
-            .dropdown-menu {
-                padding: 0.2rem;
+            p {
+                margin: 0px;
+                margin-left: 5px;
             }
-
-            .filter-icon {
+    
+            .icon-header {
                 color: white;
-            }
-            
-            .hidden-icon {
-                visibility: hidden;
-                color: white;
+                display: none;
             }
 
-            .filter-icon-hoverable {
-                color: transparent;
+            .header-contents {
+                width: 100%;
+                display: flex;
+                align-items: center;
 
                 &:hover {
+                    .filter-icon-hoverable {
+                        color: white;
+                    }
+                }
+    
+                .filter-icon {
                     color: white;
+                    margin-left: auto;
+                }
+                
+                .hidden-icon {
+                    visibility: hidden;
+                    color: white;
+                }
+    
+                .filter-icon-hoverable {
+                    color: transparent;
+                    margin-left: auto;
                 }
             }
         }
-}
 
 @media (min-width: 40rem){
-    .header-title{
-        .dropdown {
-            display: none;
-        }
-
         .header-contents {
             .sort-icon-title {
                 visibility: hidden;
             }
+
+            .filter-icon {
+                visibility: hidden;
+            }
+
+            .filter-icon-hoverable {
+                visibility: hidden;
+            }
+        }
+
+        .grid-header {
+            .header-container {
+                .dd {
+                    visibility: hidden;
+                }
+            }
         }
     }
-}

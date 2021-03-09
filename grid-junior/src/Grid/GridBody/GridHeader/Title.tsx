@@ -9,7 +9,7 @@ import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
-    <a
+    <a style={{ textDecoration: "none" }}
       href="#/"
       ref={ref}
       onClick={(e) => {
@@ -59,23 +59,23 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
 
 function Title(props: ITitle) {
   return (
-    <GridContext.Consumer>
-      {value =>
-      <div className="header-title">
-        <div className="header-contents">
-          { handleSortIcon(value.sort, props.columns) }
-            <p>{props.title}</p>
+      <GridContext.Consumer>
+        {value =>
             <Dropdown>
-              <Dropdown.Toggle as={CustomToggle}>
-                { handleFilterIcon(value.selectedFilterContext, props.columns) }
-              </Dropdown.Toggle>
-              <Dropdown.Menu className='dropdown-menu'>
-                <Filters columns={props.columns} />
+            <Dropdown.Toggle as={CustomToggle}>
+              <div className="header-title">
+                <div className="header-contents">
+                  { handleSortIcon(value.sort, props.columns) }
+                  <p>{props.title}</p>
+                  { handleFilterIcon(value.selectedFilterContext, props.columns) }
+                </div>
+              </div>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className='dd'>
+              <Filters columns={props.columns} />
               </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      </div>}
-    </GridContext.Consumer>)
+            </Dropdown>}
+      </GridContext.Consumer>)
 }
 
 export default Title
