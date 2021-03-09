@@ -4,7 +4,6 @@ import { IColumns } from '../Interfaces/GridTools/IColumns';
 import {GridContext} from '../Grid';
 import './Filters.scss';
 import { IColumn } from '../Interfaces/GridBody/IColumn';
-import Column from '../GridBody/GridHeader/Column';
 
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
@@ -99,6 +98,11 @@ const Filters = (props: IColumns) => {
         }
     };
 
+    const handleFilterIcon = (header: IColumn) => {
+        return sortContext.selectedFilterContext.map((x) => {
+            return header.name === x.name ? <i className="icon-column fa fa-filter" ></i> : null })
+    }
+
     useEffect(() => {
         const timeout = setTimeout(() => {
             if(filterSelected.value !== ""){
@@ -116,12 +120,9 @@ const Filters = (props: IColumns) => {
                     <div className="column-name"  onClick={()=>handleColumnSorting(header.name)}>
                         {displayArrows(header.name)}
                         <p style={{ margin: '0px' }}>{header.name}</p>
-                        <span hidden={showFilter}>
-                        { sortContext.sort.field_id === header.name 
-                            ? <i className="icon-column fa fa-filter" ></i>
-                            : null
-                        }
-                    </span>
+                            <span>
+                                {handleFilterIcon(header)}
+                            </span>
                     </div>                 
                 </div>
 
