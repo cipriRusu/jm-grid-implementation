@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useReducer} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import { IColumns } from '../Interfaces/GridTools/IColumns';
 import {GridContext} from '../Grid';
@@ -86,22 +86,6 @@ const Filters = (props: IColumns) => {
         }
     };
 
-    const handleAddFilter = () => {
-        let all_filters = new Array<IColumn>();
-        
-        let res = sortContext.selectedFilterContext.filter(x => x.name !== filterSelected.name);
-
-        if(res.length > 0) {
-            all_filters = all_filters.concat(res);
-        }
-        
-        all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value})
-
-        sortContext.setFilter(all_filters);
-
-        setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value});
-    };
-
     const handleDeleteFilter = (e: any, column: IColumn) => {
         if(column.value !== "") {
             const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
@@ -118,11 +102,24 @@ const Filters = (props: IColumns) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             if(filterSelected.value !== ""){
+                const handleAddFilter = () => {
+                    let all_filters = new Array<IColumn>();
+                    let res = sortContext.selectedFilterContext.filter(x => x.name !== filterSelected.name);
+                    
+                    if(res.length > 0) {
+                        all_filters = all_filters.concat(res);
+                    }
+
+                    all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value})
+                    sortContext.setFilter(all_filters);
+                    setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value});
+                };
+
                 handleAddFilter();
             }
         }, 1000);
         return () => clearTimeout(timeout);
-    },[filterSelected.value]);
+    },[filterSelected, sortContext]);
 
     return (
         <>
