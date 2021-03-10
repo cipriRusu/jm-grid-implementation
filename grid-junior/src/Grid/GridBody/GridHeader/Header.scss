@@ -2,7 +2,6 @@
     display: flex;
     background-color: #111010;
     padding: 0.5rem;
-
         .header-container {
             color: white;
             width: 120rem;
@@ -20,6 +19,12 @@
     .header-container{
         .column-container{
             display: none;
+        }
+    }
+
+    .header-container {
+        .header-contents {
+            cursor: pointer;
         }
     }
 }
