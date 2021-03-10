@@ -45,7 +45,7 @@ class Column extends React.Component<IColumn, IColumn> {
   handleFilterIcon(value: any) {
     var currentFilter = null;
 
-    value.selectedFilterContext.map((x: any) => {
+    value.selectedFilterContext.forEach((x: any) => {
       if(this.state.name === x.name) {
         currentFilter = <i className="filter-icon-column-visible fa fa-filter" aria-hidden="true"></i>
       }

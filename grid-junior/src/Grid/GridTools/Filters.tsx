@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useReducer} from 'react';
 import { Form } from 'react-bootstrap';
 import { IColumns } from '../Interfaces/GridTools/IColumns';
 import {GridContext} from '../Grid';
@@ -8,7 +8,6 @@ import { IColumn } from '../Interfaces/GridBody/IColumn';
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
-    const [showFilter, setShowFiler] = useState(true);
     const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "" });
 
 
@@ -69,38 +68,51 @@ const Filters = (props: IColumns) => {
     };
 
     const getFieldValue = (header: IColumn) => {
-        let filter = sortContext.selectedFilterContext.find(x => x.name === header.name);
-        return filter !== undefined && filter.name === header.name ? filter.value : header.name === filterSelected.name ? filterSelected.value : '';
+        if(header.name === filterSelected.name) {
+            return filterSelected.value;
+        }
+
+        var filter = sortContext.selectedFilterContext.find(x => x.name === header.name);
+
+        return filter !== undefined ? filter.value : '';
     }
 
     const handleOnChange = (e: any, column:IColumn) => {
-        setShowFiler(false);
         sortContext.sort.field_id = column.name;
         setFilterSelected({name: column.name, size: column.size, value: e.target.value});
         if(e.target.value === ''){
-            setShowFiler(true);
             handleDeleteFilter(e, column);
-        }
-    };
-
-    const handleAddFilter = () => {
-       setFilterSelected({ name: "", size: "", value: "" })
-       const newList = sortContext.selectedFilterContext.concat(filterSelected);
-       sortContext.setFilter(newList);
-    };
-
-    const handleDeleteFilter = (e: any, column: IColumn) => {
-        setShowFiler(true);
-        if(column.value !== ""){
-            const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
-            sortContext.setFilter(newList);
             setFilterSelected({ name: "", size: "", value: "" });
         }
     };
 
+    const handleAddFilter = () => {
+        let all_filters = new Array<IColumn>();
+        
+        let res = sortContext.selectedFilterContext.filter(x => x.name !== filterSelected.name);
+
+        if(res.length > 0) {
+            all_filters = all_filters.concat(res);
+        }
+        
+        all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value})
+
+        sortContext.setFilter(all_filters);
+
+        setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value});
+    };
+
+    const handleDeleteFilter = (e: any, column: IColumn) => {
+        if(column.value !== "") {
+            const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
+            sortContext.setFilter(newList);
+            setFilterSelected({name: '', size: '', value: ''});
+        }
+    };
+
     const handleFilterIcon = (header: IColumn) => {
-        return sortContext.selectedFilterContext.map((x) => {
-            return header.name === x.name ? <i className="icon-column fa fa-filter" ></i> : null })
+        return sortContext.selectedFilterContext.map((x, index: number) => {
+            return header.name === x.name ? <i key={index} className="icon-column fa fa-filter" ></i> : null })
     }
 
     useEffect(() => {
@@ -111,7 +123,7 @@ const Filters = (props: IColumns) => {
         }, 1000);
         return () => clearTimeout(timeout);
     },[filterSelected.value]);
-        
+
     return (
         <>
         {props.columns.map((header:IColumn, index:number) => (

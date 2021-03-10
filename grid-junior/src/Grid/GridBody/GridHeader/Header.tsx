@@ -14,7 +14,7 @@ function Header() {
         { gridContext.all_headers
         .find(headerContainer => headerContainer.name === gridContext.visibleHeader)!.headers
         .map((value: IColumnContainer, key: number) => { 
-            return <div className="header-container">
+            return <div className="header-container" key={key}>
                         <Title key={key}
                                title={value.name}
                                columns={value.columns}/>
