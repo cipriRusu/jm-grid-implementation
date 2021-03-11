@@ -1,8 +1,9 @@
 import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import './GridTools/ViewItem.scss';
-import GridToolsLayout from './GridTools/GridToolsLayout'
+import GridToolsLayout from './GridTools/GridToolsLayout';
 import Header from './GridBody/GridHeader/Header';
+import GridRow from './GridBody/GridRows/GridRow';
 import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
@@ -64,13 +65,12 @@ class Grid extends Component<IGridProps, IGridState>{
             
             <div className="grid">
                 <Header />
-
-                <div id="view-item" >
-                    {this.props.items.length <= 1 ? 
-                        this.props.items[0] :
-                        defaultView}
+                <div id="view-item" className="grid-rows">
+                    { this.props.items.map((x: any, y: number) => 
+                        {return <GridRow key={y} rowdata={x}/>}) 
+                    }
                 </div>
-            </div> 
+            </div>
             
         </GridContext.Provider>);
     }

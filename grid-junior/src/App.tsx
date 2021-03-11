@@ -8,6 +8,23 @@ const viewPartItems = [
   'Third View'
 ];
 
+const dummy_data = [
+  { 'prenume': 'gigi', 
+    'nume': 'vasile', 
+    'email':'gvasile@gmail.com', 
+    'telefon': '010292991' },
+
+  { 'prenume': 'coco', 
+    'nume': 'mihai', 
+    'email':'cmihai@gmail.com', 
+    'telefon': '098098098' },
+
+  { 'prenume': 'nelu',
+    'nume': 'nicu',
+    'email': 'enicu@gmail.com',
+    'telefon': '90878998'}
+]
+
 const headers = 
 [
   {'name': 'firstHeader',
@@ -69,7 +86,7 @@ const headers =
 function App(){
     return (
       <div className="App">
-        <Grid items={viewPartItems} 
+        <Grid items={dummy_data} 
               headers={headers} />
       </div>  
     );

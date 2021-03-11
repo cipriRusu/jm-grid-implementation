@@ -4,10 +4,10 @@ import { IColumns } from "./IColumns";
 
 export interface IGridContext {
     all_headers: IHeader[],
-    items: string[],
+    items: Object[],
     visibleHeader : string,
     selectViewHandler: (value: string) => void,
-    selectedViewItemContext: string,
+    selectedViewItemContext: Object,
     headersContext: IHeader[],
     selectedFilterContext:  IColumn[],
     setFilter: (values: IColumn[]) => void

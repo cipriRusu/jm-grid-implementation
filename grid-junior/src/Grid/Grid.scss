@@ -2,6 +2,9 @@
     padding: 3px;
 }
 
-.grid-rows {
-    padding: 0px;
+.grid {
+    .grid-rows {
+        display: grid;
+        row-gap: 0.5rem;
+    }
 }

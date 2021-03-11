@@ -1,0 +1,20 @@
+.grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .first-offset {
+        padding-left: 1.7rem;
+    }
+
+    .second-offset {
+        padding-left: 1.6rem;
+    }
+
+    .third-offset {
+        padding-left: 1.3rem;
+    }
+
+    .fourth-offset {
+        padding-left: 1rem;
+    }
+}
