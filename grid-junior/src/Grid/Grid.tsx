@@ -1,6 +1,5 @@
 import React, { Component, createContext } from 'react';
 import './Grid.scss';
-import './GridTools/ViewItem.scss';
 import GridToolsLayout from './GridTools/GridToolsLayout';
 import Header from './GridBody/GridHeader/Header';
 import GridRow from './GridBody/GridRows/GridRow';
@@ -62,15 +61,10 @@ class Grid extends Component<IGridProps, IGridState>{
             selectedFilterContext: this.state.selectedFilter,
             setFilter: this.setFilter
             }}>
-            
-            <div className="grid">
                 <Header />
-                <div id="view-item" className="grid-rows">
-                    { this.props.items.map((x: any, y: number) => 
-                        {return <GridRow key={y} rowdata={x}/>}) 
-                    }
+                <div className="main-grid-layout">
+                    <GridRow rowdata={this.props.items}/>
                 </div>
-            </div>
             
         </GridContext.Provider>);
     }

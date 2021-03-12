@@ -2,13 +2,13 @@ import React from 'react';
 import './GridRow.scss';
 
 const GridRow = (props: any) => {
-    return (
-    <div className="grid-row">
-        <div className="first-offset">{props.rowdata.prenume}</div>
-        <div className="second-offset">{props.rowdata.nume}</div>
-        <div className="third-offset">{props.rowdata.email}</div>
-        <div className="fourth-offset">{props.rowdata.telefon}</div>
-    </div>)
+    return props.rowdata.map((x: any) => {
+        return (
+            [<div className="cell"><p>{x.nume}</p></div>,
+            <div className="cell"><p>{x.prenume}</p></div>,
+            <div className="cell"><p>{x.email}</p></div>,
+            <div className="cell"><p>{x.telefon}</p></div>])
+    })
 }
 
 export default GridRow;
