@@ -29,11 +29,39 @@ class Grid extends Component<IGridProps, IGridState>{
         selectedViewItem: "",
         selectedSort: { sort_type: '', field_id: ''},
         visibleHeader: 'firstHeader',
-        selectedFilter: []
+        selectedFilter: [],
+        local_items: this.props.items
     }
 
     setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
+        
+        //Sort normally handled by API (?)
+        let sort = this.props.items.slice();
+
+        if(selectedSort.sort_type !== '') {
+            switch(selectedSort.field_id) {
+                case 'Prenume' :
+                    sort.sort((x, y) => { return x.prenume.localeCompare(y.prenume) })
+                break;
+                case 'Nume' :
+                    sort.sort((x, y) => { return x.nume.localeCompare(y.nume) })
+                break;
+                case 'Email' :
+                    sort.sort((x, y) => { return x.email.localeCompare(y.email) })
+                break;
+                case 'Nr Telefon' :
+                    sort.sort((x, y) => { return x.telefon.localeCompare(y.telefon) })
+                break;
+            }
+
+            if(selectedSort.sort_type === 'desc')  { sort.reverse() }
+
+            this.setState({ local_items: sort})
+        }
+        else {
+            this.setState({ local_items: this.props.items })
+        }
     };
 
     setFilter = (filters: IColumn[]) => {
@@ -52,7 +80,7 @@ class Grid extends Component<IGridProps, IGridState>{
         return (
         <GridContext.Provider value={{
             all_headers: this.props.headers,
-            items: this.props.items,
+            items: this.state.local_items,
             selectedViewItemContext: defaultView,
             visibleHeader: this.state.visibleHeader, 
             selectViewHandler: this.selectItemHandler,
@@ -64,7 +92,7 @@ class Grid extends Component<IGridProps, IGridState>{
             }}>
                 <Header />
                 <div className="main-grid-layout">
-                    <GridRow rowdata={this.props.items}/>
+                    <GridRow rowdata={this.state.local_items}/>
                 </div>
             
         </GridContext.Provider>);

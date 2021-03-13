@@ -22,7 +22,17 @@ const dummy_data = [
   { 'prenume': 'nelu',
     'nume': 'nicu',
     'email': 'enicu@gmail.com',
-    'telefon': '90878998'}
+    'telefon': '90878998'},
+
+  { 'prenume': 'andrei', 
+    'nume': 'duncan', 
+    'email':'adcan@gmail.com', 
+    'telefon': '0178970192' },
+
+  { 'prenume': 'richard', 
+    'nume': 'william', 
+    'email':'rwilliam@gmail.com', 
+    'telefon': '879875675' },
 ]
 
 const headers = 
