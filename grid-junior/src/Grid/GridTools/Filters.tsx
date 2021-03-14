@@ -99,9 +99,13 @@ const Filters = (props: IColumns) => {
             return header.name === x.name ? <i key={index} className="icon-column fa fa-filter" ></i> : null })
     }
 
+    const checkCurrentFilters = () => {
+        return !sortContext.selectedFilterContext.some(x => x.name === filterSelected.name && x.value === filterSelected.value)
+    }
+
     useEffect(() => {
         const timeout = setTimeout(() => {
-            if(filterSelected.value !== ""){
+            if(filterSelected.value !== "" && checkCurrentFilters()){
                 const handleAddFilter = () => {
                     let all_filters = new Array<IColumn>();
                     let res = sortContext.selectedFilterContext.filter(x => x.name !== filterSelected.name);
@@ -136,7 +140,9 @@ const Filters = (props: IColumns) => {
                 </div>
 
                 <Form>
-                    <Form.Control as="select" >
+                    <Form.Control as="select" 
+                                  onChange={(e:any) => console.log(e.target.options.selectedIndex)}
+                    >
                     {(header['type'] === 'number' || header['type'] === 'date')
                         ? displayOptions(optionsForNumbers)
                         : displayOptions(optionsForStrings)
