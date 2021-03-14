@@ -8,7 +8,7 @@ import { IColumn } from '../Interfaces/GridBody/IColumn';
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
-    const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "" });
+    const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "", option: 0 });
 
 
     let optionsForStrings = [
@@ -68,9 +68,8 @@ const Filters = (props: IColumns) => {
     };
 
     const getFieldValue = (header: IColumn) => {
-        if(header.name === filterSelected.name) {
-            return filterSelected.value;
-        }
+        if(header.name === filterSelected.name) 
+        { return filterSelected.value; }
 
         var filter = sortContext.selectedFilterContext.find(x => x.name === header.name);
 
@@ -79,10 +78,10 @@ const Filters = (props: IColumns) => {
 
     const handleOnChange = (e: any, column:IColumn) => {
         sortContext.sort.field_id = column.name;
-        setFilterSelected({name: column.name, size: column.size, value: e.target.value});
+        setFilterSelected({name: column.name, size: column.size, value: e.target.value, option: filterSelected.option});
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
-            setFilterSelected({ name: "", size: "", value: "" });
+            setFilterSelected({ name: "", size: "", value: "", option: 0 });
         }
     };
 
@@ -90,7 +89,7 @@ const Filters = (props: IColumns) => {
         if(column.value !== "") {
             const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
             sortContext.setFilter(newList);
-            setFilterSelected({name: '', size: '', value: ''});
+            setFilterSelected({name: '', size: '', value: '', option: 0});
         }
     };
 
@@ -99,13 +98,17 @@ const Filters = (props: IColumns) => {
             return header.name === x.name ? <i key={index} className="icon-column fa fa-filter" ></i> : null })
     }
 
+    const handleFilterSelection = (e: any) => {
+        setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: e.target.options.selectedIndex })
+    }
+
     const checkCurrentFilters = () => {
-        return !sortContext.selectedFilterContext.some(x => x.name === filterSelected.name && x.value === filterSelected.value)
+        return !sortContext.selectedFilterContext.some(x => x.name === filterSelected.name && x.value === filterSelected.value && x.option === filterSelected.option)
     }
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            if(filterSelected.value !== "" && checkCurrentFilters()){
+            if(filterSelected.value !== "" && filterSelected.value !== undefined && checkCurrentFilters()){
                 const handleAddFilter = () => {
                     let all_filters = new Array<IColumn>();
                     let res = sortContext.selectedFilterContext.filter(x => x.name !== filterSelected.name);
@@ -114,9 +117,9 @@ const Filters = (props: IColumns) => {
                         all_filters = all_filters.concat(res);
                     }
 
-                    all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value})
+                    all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: filterSelected.option})
                     sortContext.setFilter(all_filters);
-                    setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value});
+                    setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: filterSelected.option});
                 };
 
                 handleAddFilter();
@@ -141,7 +144,7 @@ const Filters = (props: IColumns) => {
 
                 <Form>
                     <Form.Control as="select" 
-                                  onChange={(e:any) => console.log(e.target.options.selectedIndex)}
+                                  onChange={(e:any) => handleFilterSelection(e)}
                     >
                     {(header['type'] === 'number' || header['type'] === 'date')
                         ? displayOptions(optionsForNumbers)
