@@ -1,2 +1,8 @@
 .vs/
 node_modules/
+.idea/inspectionProfiles/Project_Default.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/grid-juniormind.iml
+.idea/workspace.xml
