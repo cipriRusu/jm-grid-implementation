@@ -4,5 +4,4 @@ export interface IColumn{
     type?: string;
     value?: string;
     operator?: string;
-    option?: number;
 }

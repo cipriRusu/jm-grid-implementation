@@ -8,7 +8,7 @@ import { IColumn } from '../Interfaces/GridBody/IColumn';
 const Filters = (props: IColumns) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
-    const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "", option: 0 });
+    const [filterSelected, setFilterSelected] = useState<IColumn>({ name: "", size: "", value: "" });
 
 
     let optionsForStrings = [
@@ -78,10 +78,10 @@ const Filters = (props: IColumns) => {
 
     const handleOnChange = (e: any, column:IColumn) => {
         sortContext.sort.field_id = column.name;
-        setFilterSelected({name: column.name, size: column.size, value: e.target.value, option: filterSelected.option});
+        setFilterSelected({name: column.name, size: column.size, value: e.target.value });
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
-            setFilterSelected({ name: "", size: "", value: "", option: 0 });
+            setFilterSelected({ name: "", size: "", value: "" });
         }
     };
 
@@ -89,7 +89,7 @@ const Filters = (props: IColumns) => {
         if(column.value !== "") {
             const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
             sortContext.setFilter(newList);
-            setFilterSelected({name: '', size: '', value: '', option: 0});
+            setFilterSelected({name: '', size: '', value: '' });
         }
     };
 
@@ -99,11 +99,11 @@ const Filters = (props: IColumns) => {
     }
 
     const handleFilterSelection = (e: any) => {
-        setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: e.target.options.selectedIndex })
+        setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value })
     }
 
     const checkCurrentFilters = () => {
-        return !sortContext.selectedFilterContext.some(x => x.name === filterSelected.name && x.value === filterSelected.value && x.option === filterSelected.option)
+        return !sortContext.selectedFilterContext.some(x => x.name === filterSelected.name && x.value === filterSelected.value )
     }
 
     useEffect(() => {
@@ -117,9 +117,9 @@ const Filters = (props: IColumns) => {
                         all_filters = all_filters.concat(res);
                     }
 
-                    all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: filterSelected.option})
+                    all_filters = all_filters.concat({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value })
                     sortContext.setFilter(all_filters);
-                    setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value, option: filterSelected.option});
+                    setFilterSelected({name: filterSelected.name, size: filterSelected.size, value: filterSelected.value });
                 };
 
                 handleAddFilter();
