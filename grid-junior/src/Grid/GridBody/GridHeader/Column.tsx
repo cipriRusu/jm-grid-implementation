@@ -24,6 +24,9 @@ class Column extends React.Component<IColumn, IColumn> {
     this.state = {
       name: this.props.name,
       size: this.props.size,
+      filter: this.props.filter,
+      value: this.props.value,
+      update_filter: this.props.update_filter
     };
   }
 
@@ -84,7 +87,9 @@ class Column extends React.Component<IColumn, IColumn> {
             </div>
             </div>
             <Dropdown.Menu>
-              <Filters columns={[this.props]}/>
+              <Filters columns={[this.props]}
+                       filter={this.props.filter}
+                       update_filter={this.props.update_filter}/>
             </Dropdown.Menu>
           </Dropdown>
           }

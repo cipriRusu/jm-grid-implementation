@@ -72,7 +72,9 @@ function Title(props: ITitle) {
               </div>
             </Dropdown.Toggle>
             <Dropdown.Menu className='dd'>
-              <Filters columns={props.columns} />
+              <Filters columns={props.columns}
+                       filter={props.filter}
+                       update_filter={props.update_filter} />
               </Dropdown.Menu>
             </Dropdown>}
       </GridContext.Consumer>)

@@ -1,7 +1,5 @@
 import React, { Component, createContext } from 'react';
 import './Grid.scss';
-import GridToolsLayout from './GridTools/GridToolsLayout';
-import { IGridEntry } from './Interfaces/GridBody/IGridEntry';
 import Header from './GridBody/GridHeader/Header';
 import GridRow from './GridBody/GridRows/GridRow';
 import { IGridProps } from './Interfaces/GridBody/IGridProps';
