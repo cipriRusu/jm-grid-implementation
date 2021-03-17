@@ -6,6 +6,12 @@
             color: white;
             width: 120rem;
             flex-direction: column;
+
+            .dropdown {
+                .dropdown-menu {
+                    transform: translate(7.5rem, 1.7rem) !important;
+                }
+            }
     
         .column-container {
             margin-bottom: 1px;
