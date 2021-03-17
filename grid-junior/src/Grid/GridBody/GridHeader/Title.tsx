@@ -10,7 +10,7 @@ import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     <a style={{ textDecoration: "none" }}
-      href="#/"
+      href="#"
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
@@ -21,37 +21,37 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   ));
 
   function handleSortIcon(sort: ISortStats, columns: IColumn[]) {
-    var currentSort = null;
+      let currentSort = null;
 
-    columns.forEach((x) => {
+      columns.forEach((x) => {
       if(x.name === sort.field_id && sort.sort_type === "asc"){
-        currentSort = <i className="sort-icon-title fa fa-arrow-up" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-arrow-up" aria-hidden="true"/>
       }
       else if(x.name === sort.field_id && sort.sort_type === "desc") {
-        currentSort = <i className="sort-icon-title fa fa-arrow-down" aria-hidden="true"></i> 
+        currentSort = <i className="sort-icon-title fa fa-arrow-down" aria-hidden="true"/>
       }
    })
 
     if (currentSort === null) {
-      currentSort = <i className="sort-icon-title fa fa-arrow-down hidden-icon"></i>
+      currentSort = <i className="sort-icon-title fa fa-arrow-down hidden-icon"/>
     }
 
     return currentSort;
   }
 
   function handleFilterIcon(filter: IColumn[], columns: IColumn[]) {
-    var currentFilter = null;
+      let currentFilter = null;
 
-    columns.forEach((column) => {
+      columns.forEach((column) => {
       filter.forEach((filter) => {
         if(filter !== undefined && column.name === filter.name){
-          currentFilter = <i className="fa fa-filter filter-icon" aria-hidden="true"></i>
+          currentFilter = <i className="fa fa-filter filter-icon" aria-hidden="true"/>
         }
       })
     })
 
     if (currentFilter === null) {
-      currentFilter = <i className="fa fa-filter filter-icon-hoverable" aria-hidden="true"></i>
+      currentFilter = <i className="fa fa-filter filter-icon-hoverable" aria-hidden="true"/>
     }
 
     return currentFilter;
@@ -71,7 +71,7 @@ function Title(props: ITitle) {
                 </div>
               </div>
             </Dropdown.Toggle>
-            <Dropdown.Menu className='dd'>
+            <Dropdown.Menu className='dd' align="right">
               <Filters columns={props.columns}
                        filter={props.filter}
                        update_filter={props.update_filter} />
