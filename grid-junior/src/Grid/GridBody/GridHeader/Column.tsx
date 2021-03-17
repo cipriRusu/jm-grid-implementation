@@ -86,7 +86,7 @@ class Column extends React.Component<IColumn, IColumn> {
               </Dropdown.Toggle>
             </div>
             </div>
-            <Dropdown.Menu>
+            <Dropdown.Menu align="right" flip={true}>
               <Filters columns={[this.props]}
                        filter={this.props.filter}
                        update_filter={this.props.update_filter}/>
