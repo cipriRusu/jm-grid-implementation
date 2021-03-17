@@ -8,6 +8,7 @@ import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
 import { IColumn } from './Interfaces/GridBody/IColumn';
+import { IGridEntry } from './Interfaces/GridBody/IGridEntry';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
@@ -33,33 +34,6 @@ class Grid extends Component<IGridProps, IGridState>{
 
     setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
-        
-        //Sort normally handled by API (?)
-        let sort = this.props.items.slice();
-
-        if(selectedSort.sort_type !== '') {
-            switch(selectedSort.field_id) {
-                case 'Prenume' :
-                    sort.sort((x, y) => { return x.prenume.localeCompare(y.prenume) })
-                break;
-                case 'Nume' :
-                    sort.sort((x, y) => { return x.nume.localeCompare(y.nume) })
-                break;
-                case 'Email' :
-                    sort.sort((x, y) => { return x.email.localeCompare(y.email) })
-                break;
-                case 'Nr Telefon' :
-                    sort.sort((x, y) => { return x.telefon.localeCompare(y.telefon) })
-                break;
-            }
-
-            if(selectedSort.sort_type === 'desc')  { sort.reverse() }
-
-            this.setState({ local_items: sort})
-        }
-        else {
-            this.setState({ local_items: this.props.items })
-        }
     };
 
     setFilter = (filters: IColumn[]) => {
@@ -89,8 +63,11 @@ class Grid extends Component<IGridProps, IGridState>{
             setFilter: this.setFilter
             }}>
                 <Header />
+                {/*TODO: Iterate object array and create grid*/}
                 <div className="main-grid-layout">
-                    <GridRow rowdata={this.state.local_items}/>
+                    {/* {this.props.items.map((x: IGridEntry) => {
+
+                    })} */}
                 </div>
             
         </GridContext.Provider>);
