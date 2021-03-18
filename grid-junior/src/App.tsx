@@ -3,16 +3,15 @@ import Grid from './Grid/Grid'
 import React from "react";
 
 const dummy_data = 
-[
-  {content: [ {cell_content: 'gigi'},
-              {cell_content: 'vasile'},
-              {cell_content: 'gvasile@gmail.com'},
-              {cell_content: '010292991'} ] },
+[{content: [ {cell_content: 'gigi'},
+             {cell_content: 'vasile'},
+             {cell_content: 'gvasile@gmail.com'}, 
+             {cell_content: '010292991'} ] },
 
-  {content: [ {cell_content: 'coco'}, 
-              {cell_content: 'mihai'}, 
-              {cell_content: 'cmihai@gmail.com'}, 
-              {cell_content: '098098098'} ] },
+ { content: [ {cell_content: 'coco'},
+              {cell_content: 'mihai'},
+              {cell_content: 'cmihai@gmail.com'},
+              {cell_content: '098098098'} ]},
 
   {content: [ {cell_content: 'nelu'}, 
               {cell_content: 'nicu'}, 

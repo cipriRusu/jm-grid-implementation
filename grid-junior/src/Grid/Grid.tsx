@@ -1,14 +1,13 @@
 import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import Header from './GridBody/GridHeader/Header';
-import GridRow from './GridBody/GridRows/GridRow';
+import RowContainer from './GridBody/GridRows/RowContainer';
 import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
 import { IColumn } from './Interfaces/GridBody/IColumn';
-import { IGridEntry } from './Interfaces/GridBody/IGridEntry';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
@@ -62,14 +61,10 @@ class Grid extends Component<IGridProps, IGridState>{
             selectedFilterContext: this.state.selectedFilter,
             setFilter: this.setFilter
             }}>
-                <Header />
-                {/*TODO: Iterate object array and create grid*/}
-                <div className="main-grid-layout">
-                    {/* {this.props.items.map((x: IGridEntry) => {
-
-                    })} */}
-                </div>
             
+            <Header />
+            <RowContainer content={this.props.items} />
+
         </GridContext.Provider>);
     }
 
