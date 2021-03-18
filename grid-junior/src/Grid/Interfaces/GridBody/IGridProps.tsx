@@ -1,7 +1,7 @@
 import { IHeader } from './IHeader';
-import { IGridEntry } from '../GridBody/IGridEntry';
+import { IRow } from './IRow';
 
 export interface IGridProps {
-    items: IGridEntry[];
+    items: IRow[];
     headers: IHeader[];
 };
