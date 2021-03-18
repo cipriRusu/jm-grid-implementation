@@ -5,8 +5,8 @@ import './RowContainer.scss';
 
 const RowContainer = (props: { content: IRow[] }) => {
     return (
-    <div className="row-container">{props.content.map((x: IRow) => 
-        { return (<Row rowdata={x.content}/>) 
+    <div className="row-container">{props.content.map((x: IRow, y: number) => 
+        { return (<Row key={y} rowdata={x.content}/>) 
         })}
     </div>)
 }

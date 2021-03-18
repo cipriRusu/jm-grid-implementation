@@ -5,8 +5,8 @@ import './Row.scss';
 
 const Row = (props: { rowdata: ICell[] }) => {
     return (
-    <div className="row">{props.rowdata.map((x: ICell) => 
-        { return <Cell cell_data={x}/> })}
+    <div className="row">{props.rowdata.map((x: ICell, y:number) => 
+        { return <Cell key={y} cell_data={x}/> })}
     </div>)
 }
 
