@@ -2,31 +2,32 @@ import './App.scss';
 import Grid from './Grid/Grid'
 import React from "react";
 
-const dummy_data = [
-  { 'Prenume': 'gigi', 
-    'Nume': 'vasile', 
-    'Email':'gvasile@gmail.com', 
-    'Nr Telefon': '010292991' },
+const dummy_data = 
+[
+  {content: [ {cell_content: 'gigi'},
+              {cell_content: 'vasile'},
+              {cell_content: 'gvasile@gmail.com'},
+              {cell_content: '010292991'} ] },
 
-  { 'Prenume': 'coco', 
-    'Nume': 'mihai', 
-    'Email':'cmihai@gmail.com', 
-    'Nr Telefon': '098098098' },
+  {content: [ {cell_content: 'coco'}, 
+              {cell_content: 'mihai'}, 
+              {cell_content: 'cmihai@gmail.com'}, 
+              {cell_content: '098098098'} ] },
 
-  { 'Prenume': 'nelu',
-    'Nume': 'nicu',
-    'Email': 'enicu@gmail.com',
-    'Nr Telefon': '90878998'},
+  {content: [ {cell_content: 'nelu'}, 
+              {cell_content: 'nicu'}, 
+              {cell_content: 'enicu@gmail.com'}, 
+              {cell_content: '90878998'}] },
 
-  { 'Prenume': 'andrei', 
-    'Nume': 'duncan', 
-    'Email':'adcan@gmail.com', 
-    'Nr Telefon': '0178970192' },
+  {content: [ {cell_content: 'andrei'}, 
+              {cell_content: 'duncan'},
+              {cell_content: 'adcan@gmail.com'}, 
+              {cell_content: '0178970192'} ] },
 
-  { 'Prenume': 'richard', 
-    'Nume': 'william', 
-    'Email':'rwilliam@gmail.com', 
-    'Nr Telefon': '879875675' },
+  {content: [ {cell_content: 'richard'}, 
+              {cell_content: 'william'}, 
+              {cell_content: 'rwilliam@gmail.com'}, 
+              {cell_content: '879875675'} ] },
 ]
 
 const headers = 
