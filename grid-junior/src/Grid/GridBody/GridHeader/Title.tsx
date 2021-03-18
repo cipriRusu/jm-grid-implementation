@@ -10,7 +10,7 @@ import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
     <a style={{ textDecoration: "none" }}
-      href="#"
+      href="#/"
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
