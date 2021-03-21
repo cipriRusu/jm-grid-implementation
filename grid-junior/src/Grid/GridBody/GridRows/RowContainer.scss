@@ -1,3 +1,10 @@
+.row {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .row-container {
     overflow: hidden;
     background-color: #1f1d1d;

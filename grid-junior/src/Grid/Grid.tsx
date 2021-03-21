@@ -40,7 +40,7 @@ class Grid extends Component<IGridProps, IGridState>{
         .map((header: IHeader) => {
             return header.headers.map((columns: IColumnContainer) => {
                 return columns.columns.map((column: IColumn) => {
-                    return column.name;
+                    return column
                 })
             })
         })
