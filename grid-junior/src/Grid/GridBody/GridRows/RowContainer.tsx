@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GridContext } from '../../Grid';
 import { IRow } from '../../Interfaces/GridBody/IRow';
-import Row from './Row';
 import './RowContainer.scss';
+import './Row.scss';
+import './Cell.scss';
 
 const RowContainer = (props: { content: IRow[] }) => {
-    return (
-    <div className="row-container">{props.content.map((x: IRow, y: number) => 
-        { return (<Row key={y} rowdata={x.content}/>) 
+    const gridContext = useContext(GridContext);
+
+    return (<div className="row-container">
+        {props.content.map((x: IRow) => {
+            return<div className='row'>
+                {gridContext.all_columns.map((y: string) => {
+                    return<div className="cell">
+                        {x[y]}
+                    </div>
+                })}
+            </div>
         })}
     </div>)
 }
