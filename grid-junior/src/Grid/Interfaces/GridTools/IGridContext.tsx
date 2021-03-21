@@ -4,6 +4,7 @@ import { IRow } from "../GridBody/IRow";
 
 export interface IGridContext {
     all_headers: IHeader[],
+    all_columns: string[],
     items: IRow[],
     visibleHeader : string,
     selectViewHandler: (value: string) => void,
