@@ -1,5 +1,23 @@
+.title-item {
+    font-size: medium;
+}
+
 .cell {
-    margin-left: 1.1rem;
+    margin-left: 1.2rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+}
+
+@media(max-width: 20rem) {
+    .row-container {
+        .row {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: solid thin;
+            .cell {
+                padding: 0px;
+            }
+        }
+    }
 }

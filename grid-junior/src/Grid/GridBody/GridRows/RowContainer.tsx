@@ -13,7 +13,9 @@ const RowContainer = (props: { content: IRow[] }) => {
         {props.content.map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {
-                    return <Cell key={cell_key} content={{cell_content: x[y.name], cell_type: y.type as Cell_Type}} />
+                    return <Cell key={cell_key} content={{cell_content: x[y.name], 
+                                                          cell_type: y.type as Cell_Type,
+                                                          cell_key: cell_key}} />
                 })}
             </div>
         })}
