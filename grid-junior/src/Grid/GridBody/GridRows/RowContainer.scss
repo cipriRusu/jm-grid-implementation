@@ -10,3 +10,17 @@
     background-color: #1f1d1d;
     color: white;
 }
+
+
+@media(max-width: 40rem) {
+.row {
+	display: flex;
+	flex-direction: column;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 1rem;
+		.cell {
+			padding: 0px;
+		}
+	}
+}
