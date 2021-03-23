@@ -2,19 +2,20 @@ import React, { Component, createContext } from 'react';
 import './Grid.scss';
 import Header from './GridBody/GridHeader/Header';
 import RowContainer from './GridBody/GridRows/RowContainer';
+import { IColumn } from './Interfaces/GridBody/IColumn';
+import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IGridProps } from './Interfaces/GridBody/IGridProps';
 import { IGridState } from './Interfaces/GridTools/IGridState';
 import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
-import { IColumn } from './Interfaces/GridBody/IColumn';
-import { IHeader } from './Interfaces/GridBody/IHeader';
 import { IColumnContainer } from './Interfaces/GridBody/IColumnContainer';
+import { DataObject } from './DataObject';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
     all_columns: [],
-    items: [],
+    data: new DataObject(),
     selectedViewItemContext: "",
     visibleHeader: "",
     selectViewHandler: (_value: string) => {},
@@ -31,7 +32,7 @@ class Grid extends Component<IGridProps, IGridState>{
         selectedSort: { sort_type: '', field_id: ''},
         visibleHeader: 'firstHeader',
         selectedFilter: [],
-        local_items: this.props.items
+        data: this.props.data
     }
 
     flatHeader = () => {
@@ -50,10 +51,12 @@ class Grid extends Component<IGridProps, IGridState>{
 
     setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
+        this.state.data.sort = selectedSort;
     };
 
     setFilter = (filters: IColumn[]) => {
         this.setState({ selectedFilter:  [...filters]});
+        this.state.data.filters = filters;
     }
 
     selectItemHandler = (selectedItem: string) => {  
@@ -62,14 +65,14 @@ class Grid extends Component<IGridProps, IGridState>{
 
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                this.props.items[0] :
+                this.props.data.get()[0] :
                 this.state.selectedViewItem;
 
         return (
         <GridContext.Provider value={{
             all_headers: this.props.headers,
             all_columns: this.flatHeader(),
-            items: this.state.local_items,
+            data: this.props.data,
             selectedViewItemContext: defaultView,
             visibleHeader: this.state.visibleHeader, 
             selectViewHandler: this.selectItemHandler,
@@ -81,7 +84,7 @@ class Grid extends Component<IGridProps, IGridState>{
             }}>
             
             <Header />
-            <RowContainer content={this.props.items}/>
+            <RowContainer content={this.state.data}/>
         </GridContext.Provider>);
     }
 
