@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
 import Cell from './Cell';
+import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
 import { GridContext } from '../../Grid';
 import { IColumn } from '../../Interfaces/GridBody/IColumn';
+import { IDataType } from '../../Interfaces/GridData/IDataType';
 import { IRow } from '../../Interfaces/GridBody/IRow';
-import './RowContainer.scss';
 
-const RowContainer = (props: { content: IRow[] }) => {
+const RowContainer = (props: { content: IDataType }) => {
     const gridContext = useContext(GridContext);
 
     return (<div className="row-container">
-        {props.content.map((x: IRow, row_key: number) => {
+        {props.content.get()
+        .map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {
                     return <Cell key={cell_key} content={{cell_content: x[y.name], 
