@@ -21,7 +21,7 @@ const ViewPart: React.FC = () => {
             </Dropdown.Toggle> 
               
             <Dropdown.Menu className="custom-dropdown" >
-                {gridContext.items.map((item, index) => {
+                {gridContext.data.get().map((item, index) => {
                     return <Dropdown.Item href="#/action-1"    
                                 active={item===gridContext.selectedViewItemContext}
                                 key={index} 
