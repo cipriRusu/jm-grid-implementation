@@ -4,7 +4,7 @@
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: center;
-        background-color: #1F1D1D;
+        background-color: #2a0985;
         color: white;
         cursor: pointer;
         background-clip: padding-box;
@@ -26,7 +26,7 @@
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
            
             &:hover {
-                background-image: radial-gradient(circle, #7d7e7d, #646463, #4c4b4a, #353332, #1f1d1d);
+                background-image: linear-gradient(#0b0652, #9ba1f1);
             }
             .sort-icon-container {
                 [hidden] {
