@@ -5,12 +5,8 @@ import { dummy_data } from "./JSONData/DummyData";
 
 export class DataObject implements IDataType {
     data: any[];
-    sort: ISortStats;
-    filters: IColumn[];
     constructor () {
         this.data = dummy_data;
-        this.sort = { sort_type: '', field_id: ''}
-        this.filters = [];
     }
 
     _sort_function(key: string) {
@@ -21,14 +17,32 @@ export class DataObject implements IDataType {
         } 
     }
 
-    get() {
-        if(this.sort.sort_type) {
-            let sorted_data = Object.create(this.data)
-            sorted_data.sort(this._sort_function(this.sort.field_id))
-            return this.sort.sort_type === 'asc' ? sorted_data : sorted_data.reverse();
+    get(sort: ISortStats, filters: IColumn[]) {
+        let returned_data = Object.create(this.data)
+
+        if(filters !== undefined) {
+            filters.forEach(((x: IColumn) => {
+                returned_data = returned_data.filter((y: any) => {  
+                    return y[x.name].includes(x.value) 
+                })
+            }))
         }
-        else {
-            return this.data;
+
+        if(sort !== undefined) {
+            if(sort.field_id) {
+                switch(sort.sort_type) {
+                    case "asc":
+                        returned_data.sort(this._sort_function(sort.field_id));
+                        break;
+                    case "desc":
+                        returned_data.sort(this._sort_function(sort.field_id)).reverse();
+                        break;
+                    default:
+                        return returned_data
+                }
+            }
         }
+
+        return returned_data
     }
 }

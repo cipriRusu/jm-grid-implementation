@@ -3,7 +3,5 @@ import { IRow } from '../GridBody/IRow';
 import { ISortStats } from '../GridBody/ISortStats';
 
 export interface IDataType {
-    sort: ISortStats;
-    filters: IColumn[];
-    get: () => IRow[];
+    get: (sort: ISortStats, filters: IColumn[]) => IRow[];
 }

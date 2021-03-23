@@ -11,7 +11,7 @@ const RowContainer = (props: { content: IDataType }) => {
     const gridContext = useContext(GridContext);
 
     return (<div className="row-container">
-        {props.content.get()
+        {props.content.get(gridContext.sort, gridContext.selectedFilterContext)
         .map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {

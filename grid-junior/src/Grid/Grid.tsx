@@ -51,12 +51,10 @@ class Grid extends Component<IGridProps, IGridState>{
 
     setSort = (selectedSort: ISortStats): void => {
         this.setState({selectedSort: selectedSort})
-        this.state.data.sort = selectedSort;
     };
 
     setFilter = (filters: IColumn[]) => {
-        this.setState({ selectedFilter:  [...filters]});
-        this.state.data.filters = filters;
+        this.setState({selectedFilter:  [...filters]});
     }
 
     selectItemHandler = (selectedItem: string) => {  
@@ -65,7 +63,7 @@ class Grid extends Component<IGridProps, IGridState>{
 
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                this.props.data.get()[0] :
+                this.props.data.get(this.context.sort, this.context.selectedFilterContext)[0] :
                 this.state.selectedViewItem;
 
         return (
