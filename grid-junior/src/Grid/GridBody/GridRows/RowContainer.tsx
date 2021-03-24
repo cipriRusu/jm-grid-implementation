@@ -4,7 +4,7 @@ import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
 import { GridContext } from '../../Grid';
 import { IColumn } from '../../Interfaces/GridBody/IColumn';
-import { IDataType } from '../../Interfaces/GridData/IDataType';
+import { IDataType } from '../../Interfaces/GridData/IDataSource';
 import { IRow } from '../../Interfaces/GridBody/IRow';
 
 const RowContainer = (props: { content: IDataType }) => {

@@ -1,4 +1,4 @@
-import { IDataType } from '../GridData/IDataType';
+import { IDataType } from '../GridData/IDataSource';
 import { IHeader } from './IHeader';
 
 export interface IGridProps {

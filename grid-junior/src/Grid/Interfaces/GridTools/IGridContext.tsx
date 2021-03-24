@@ -1,6 +1,6 @@
 import { IColumn } from "../GridBody/IColumn";
 import { IHeader } from "../GridBody/IHeader";
-import { IDataType } from "../GridData/IDataType";
+import { IDataType } from "../GridData/IDataSource";
 
 export interface IGridContext {
     all_headers: IHeader[],

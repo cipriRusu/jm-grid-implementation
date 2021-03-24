@@ -1,6 +1,6 @@
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
-import { IDataType } from "./Interfaces/GridData/IDataType";
+import { IDataType } from "./Interfaces/GridData/IDataSource";
 import { dummy_data } from "./JSONData/DummyData";
 
 export class DataObject implements IDataType {

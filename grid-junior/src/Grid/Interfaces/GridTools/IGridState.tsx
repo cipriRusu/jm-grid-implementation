@@ -1,6 +1,6 @@
 import { ISortStats } from '../GridBody/ISortStats';
 import { IColumn } from '../GridBody/IColumn';
-import { IDataType } from '../GridData/IDataType';
+import { IDataType } from '../GridData/IDataSource';
 
 export interface IGridState {
     data: IDataType,

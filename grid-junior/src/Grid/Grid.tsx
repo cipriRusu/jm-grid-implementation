@@ -10,7 +10,7 @@ import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
 import { IColumnContainer } from './Interfaces/GridBody/IColumnContainer';
-import { DataObject } from './DataObject';
+import { DataObject } from './DataSource';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
