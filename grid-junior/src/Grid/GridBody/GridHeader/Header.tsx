@@ -31,6 +31,7 @@ function Header() {
                                 return <Column key={key}
                                                name={value.name} 
                                                size={value.size}
+                                               type={value.type}
                                                filter={filter}
                                                update_filter={update_filter}/>
                                 })}
