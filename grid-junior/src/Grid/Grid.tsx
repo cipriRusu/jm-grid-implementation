@@ -10,12 +10,11 @@ import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
 import { IColumnContainer } from './Interfaces/GridBody/IColumnContainer';
-import { DataObject } from './DataSource';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
     all_columns: [],
-    data: new DataObject(),
+    data: { get: (sort: ISortStats, filters: IColumn[]) => []},
     selectedViewItemContext: "",
     visibleHeader: "",
     selectViewHandler: (_value: string) => {},

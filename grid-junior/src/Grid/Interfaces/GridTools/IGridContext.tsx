@@ -1,11 +1,11 @@
 import { IColumn } from "../GridBody/IColumn";
 import { IHeader } from "../GridBody/IHeader";
-import { IDataType } from "../GridData/IDataSource";
+import { IDataSource } from "../GridData/IDataSource";
 
 export interface IGridContext {
     all_headers: IHeader[],
     all_columns: IColumn[],
-    data: IDataType,
+    data: IDataSource,
     visibleHeader : string,
     selectViewHandler: (value: string) => void,
     selectedViewItemContext: Object,

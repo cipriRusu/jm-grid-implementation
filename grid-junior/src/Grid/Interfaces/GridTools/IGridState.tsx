@@ -1,9 +1,9 @@
 import { ISortStats } from '../GridBody/ISortStats';
 import { IColumn } from '../GridBody/IColumn';
-import { IDataType } from '../GridData/IDataSource';
+import { IDataSource } from '../GridData/IDataSource';
 
 export interface IGridState {
-    data: IDataType,
+    data: IDataSource,
     selectedViewItem: string;
     selectedSort: ISortStats;
     visibleHeader: string;

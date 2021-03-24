@@ -20,15 +20,15 @@ const ViewPart: React.FC = () => {
                 <span className="btn-title">{gridContext.selectedViewItemContext || "View Part"}</span>
             </Dropdown.Toggle> 
               
-            <Dropdown.Menu className="custom-dropdown" >
-                {gridContext.data.get(gridContext.sort, gridContext.selectedFilterContext).map((item, index) => {
+            {/* <Dropdown.Menu className="custom-dropdown" >
+               {gridContext.data.get(gridContext.sort, gridContext.selectedFilterContext).map((item, index) => {
                     return <Dropdown.Item href="#/action-1"    
                                 active={item===gridContext.selectedViewItemContext}
                                 key={index} 
                                 onClick={handleSelect}>{item}
                             </Dropdown.Item>
                 })}
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
         </Dropdown>
     );
 }

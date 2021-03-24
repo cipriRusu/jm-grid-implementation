@@ -4,10 +4,10 @@ import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
 import { GridContext } from '../../Grid';
 import { IColumn } from '../../Interfaces/GridBody/IColumn';
-import { IDataType } from '../../Interfaces/GridData/IDataSource';
+import { IDataSource } from '../../Interfaces/GridData/IDataSource';
 import { IRow } from '../../Interfaces/GridBody/IRow';
 
-const RowContainer = (props: { content: IDataType }) => {
+const RowContainer = (props: { content: IDataSource }) => {
     const gridContext = useContext(GridContext);
 
     return (<div className="row-container">

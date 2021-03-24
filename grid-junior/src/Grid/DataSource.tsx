@@ -1,9 +1,9 @@
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
-import { IDataType } from "./Interfaces/GridData/IDataSource";
+import { IDataSource } from "./Interfaces/GridData/IDataSource";
 import { dummy_data } from "./JSONData/DummyData";
 
-export class DataObject implements IDataType {
+export class DataSource implements IDataSource{
     data: any[];
     constructor () {
         this.data = dummy_data;
