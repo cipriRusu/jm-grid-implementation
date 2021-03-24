@@ -14,8 +14,9 @@
     }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 50rem) {
 .grid-header{
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     .header-container{
         .column-container{
             display: none;
