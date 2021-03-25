@@ -1,3 +1,10 @@
+//remove spinners from number input
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .custom-dropdown-item{
     padding: 0!important;
     #header {
