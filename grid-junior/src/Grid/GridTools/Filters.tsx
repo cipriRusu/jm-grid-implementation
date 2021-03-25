@@ -74,7 +74,11 @@ const Filters = (props: any) => {
     }
 
     const handleOnChange = (e: any, column:IColumn) => {
-        props.update_filter({name: column.name, size: column.size, value: e.target.value, type: e.target.type })
+        props.update_filter({name: column.name, 
+                             size: column.size, 
+                             value: e.target.value, 
+                             type: e.target.type, 
+                             operator: e.target.selectedIndex })
 
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
@@ -96,7 +100,6 @@ const Filters = (props: any) => {
     }
 
     useEffect(() => {
-        console.log(props)
         const timeout = setTimeout(() => {
             const checkCurrentFilters = () => {
                 return !sortContext.selectedFilterContext.some(x => x.name === props.filter.name && x.value === props.filter.value )
@@ -110,9 +113,13 @@ const Filters = (props: any) => {
                     if(res.length > 0) 
                     { all_filters = all_filters.concat(res); }
 
-                    all_filters = all_filters.concat({name: props.filter.name, size: props.filter.size, value: props.filter.value, type: props.filter.type })
+                    all_filters = all_filters.concat({name: props.filter.name, 
+                                                      size: props.filter.size, 
+                                                      value: props.filter.value, 
+                                                      type: props.filter.type,
+                                                      operator: '0'})
                     sortContext.setFilter(all_filters);
-                    props.update_filter({ name: "", size: "", value: "", type: "" })
+                    props.update_filter({ name: "", size: "", value: "", type: "", operator: "" })
                 };
 
                 handleAddFilter();
@@ -124,7 +131,7 @@ const Filters = (props: any) => {
     return (
         <>
         {props.columns.map((header:IColumn, index:number) => (
-            <div className="dropdown-item custom-dropdown-item" key={index}>
+            <div className="dropdown-item custom-dropdown-item" key={index} onChange={(e:any) => { console.log(e.target.selectedIndex === undefined ? 0 : e.target.selectedIndex)}}>
                 <div id="header">
                     <div className="column-name"  onClick={() => handleColumnSorting(header.name)}>
                         {displayArrows(header.name)}
@@ -148,7 +155,7 @@ const Filters = (props: any) => {
                          </span>
                         
                         <Form.Control
-                        type={header.type} 
+                        type={header.type}
                         placeholder="Filter..."
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
