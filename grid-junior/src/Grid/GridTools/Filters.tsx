@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import {GridContext} from '../Grid';
-import './Filters.scss';
 import { IColumn } from '../Interfaces/GridBody/IColumn';
+import './Filters.scss';
 
 const Filters = (props: any) => {
     const sortContext = useContext(GridContext);
@@ -24,6 +24,16 @@ const Filters = (props: any) => {
         'Greater than'
     ];
 
+    const convertOption = (column: IColumn) =>  {
+        var filter = sortContext.selectedFilterContext.find(x => x.name === column.name);
+
+        if (filter === undefined) {
+            return 0;
+        } else {
+            return optionsForStrings[filter.operator === undefined ? 0 : filter.operator];
+        }
+    }
+
     const handleColumnSorting = (column_name: string) => {
         setShowArrow(false);
 
@@ -43,7 +53,7 @@ const Filters = (props: any) => {
         setShowArrow(true);
       };
 
-    const displayOptions = (options: string[]) => options.map(option => (<option key={option}>{option}</option>));
+    const displayOptions = (options: string[]) => options.map((option, index) => (<option key={index}>{option}</option>));
   
     const displayArrows = (name: string) => (
                 <span className="sort-icon-container">
@@ -154,10 +164,11 @@ const Filters = (props: any) => {
                 </div>
 
                 <Form>
-                    <Form.Control as="select" onChange={(e: any) => { props.update_filter({ name: header.name, 
+                    <Form.Control as="select" value={ convertOption(header)} 
+                                              onChange={(e: any) => { props.update_filter({ name: header.name,
                                                                                             size: header.size,
-                                                                                            value: props.filter.value,
-                                                                                            type: props.filter.type,
+                                                                                            value: getFieldValue(header),
+                                                                                            type: header.type,
                                                                                             operator: e.target.selectedIndex})}}>
                     {(header['type'] === 'number' || header['type'] === 'date')
                         ? displayOptions(optionsForNumbers)
@@ -165,7 +176,7 @@ const Filters = (props: any) => {
                     }
                     </Form.Control>
                     <div className="input-icons">
-                         <span onClick={(e:any) => handleDeleteFilter(e, header)}>
+                         <span onClick={(e:any) => { handleDeleteFilter(e, header) }}>
                            {displayDeleteIcon(header)}
                          </span>
                         
