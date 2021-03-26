@@ -7,6 +7,7 @@ import './Filters.scss';
 const Filters = (props: any) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
+    const [selectedComponent, setSelected] = useState(0);
 
     let optionsForStrings = [ 
         'Contains',
@@ -28,7 +29,7 @@ const Filters = (props: any) => {
         var filter = sortContext.selectedFilterContext.find(x => x.name === column.name);
 
         if (filter === undefined) {
-            return 0;
+            return optionsForStrings[selectedComponent] 
         } else {
             return optionsForStrings[filter.operator === undefined ? 0 : filter.operator];
         }
@@ -88,7 +89,8 @@ const Filters = (props: any) => {
                              size: column.size, 
                              value: e.target.value, 
                              type: column.type,
-                             operator: e.target.selectedIndex})
+                             operator: selectedComponent })
+
 
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
@@ -164,19 +166,19 @@ const Filters = (props: any) => {
                 </div>
 
                 <Form>
-                    <Form.Control as="select" value={ convertOption(header)} 
-                                              onChange={(e: any) => { props.update_filter({ name: header.name,
-                                                                                            size: header.size,
-                                                                                            value: getFieldValue(header),
-                                                                                            type: header.type,
-                                                                                            operator: e.target.selectedIndex})}}>
+                    <Form.Control as="select" value={ convertOption(header) } onChange={(e: any) => { props.update_filter({ name: header.name,
+                                                                                                                            size: header.size,
+                                                                                                                            value: getFieldValue(header),
+                                                                                                                            type: header.type,
+                                                                                                                            operator: e.target.selectedIndex});
+                                                                                                                            setSelected(e.target.selectedIndex)}}>
                     {(header['type'] === 'number' || header['type'] === 'date')
                         ? displayOptions(optionsForNumbers)
                         : displayOptions(optionsForStrings)
                     }
                     </Form.Control>
                     <div className="input-icons">
-                         <span onClick={(e:any) => { handleDeleteFilter(e, header) }}>
+                         <span onClick={(e:any) => { handleDeleteFilter(e, header); setSelected(0) }}>
                            {displayDeleteIcon(header)}
                          </span>
                         
