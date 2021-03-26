@@ -29,15 +29,16 @@
     }
 }
 
-@media(max-width: 40rem) {
+@media(max-width: 30rem) {
     .grid-header {
         display: none; 
     }
     .row-container {
         .row {
             display: flex !important;
+            flex-direction: row;
             .cell {
-                margin-right: 10rem;
+                margin-right: 20rem;
             }
 
             .title-wrapper {
