@@ -18,6 +18,7 @@ export class DataSource implements IDataSource{
     }
 
     get(sort: ISortStats, filters: IColumn[]) {
+        console.log(filters)
         let returned_data = Object.create(this.data)
 
         if(filters !== undefined) {

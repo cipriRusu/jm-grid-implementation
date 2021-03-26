@@ -27,7 +27,8 @@ class Column extends React.Component<IColumn, IColumn> {
       filter: this.props.filter,
       value: this.props.value,
       update_filter: this.props.update_filter,
-      type: this.props.type
+      type: this.props.type,
+      operator: this.props.operator
     };
   }
 

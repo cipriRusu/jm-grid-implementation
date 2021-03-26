@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function Header() {
     const gridContext = useContext(GridContext);
-    const [filter, setFilter] = useState<IColumn>({name:"", size: "", value: ""});
+    const [filter, setFilter] = useState<IColumn>({name:"", size: "", type: "", value: "", operator: 0});
 
     function update_filter(updated_filter: IColumn) {
         setFilter(updated_filter)
@@ -32,6 +32,7 @@ function Header() {
                                                name={value.name} 
                                                size={value.size}
                                                type={value.type}
+                                               operator={filter.operator}
                                                filter={filter}
                                                update_filter={update_filter}/>
                                 })}

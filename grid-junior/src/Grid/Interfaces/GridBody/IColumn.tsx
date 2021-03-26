@@ -5,5 +5,5 @@ export interface IColumn{
     update_filter?: (updated_filter: IColumn) => void;
     type?: string;
     value?: string;
-    operator?: string;
+    operator?: number;
 }

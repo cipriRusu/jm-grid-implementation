@@ -74,15 +74,19 @@ const Filters = (props: any) => {
     }
 
     const handleOnChange = (e: any, column:IColumn) => {
-        props.update_filter({name: column.name, 
+        props.update_filter({name: column.name,
                              size: column.size, 
                              value: e.target.value, 
-                             type: e.target.type, 
-                             operator: e.target.selectedIndex })
+                             type: column.type,
+                             operator: e.target.selectedIndex})
 
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
-            props.update_filter({ name: "", size: "", value: "" })
+            props.update_filter({ name: "",
+                                  size: "",
+                                  type: "", 
+                                  value: "", 
+                                  operator: 0 })
         }
     };
 
@@ -90,7 +94,11 @@ const Filters = (props: any) => {
         if(column.value !== "") {
             const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
             sortContext.setFilter(newList);
-            props.update_filter({ name: "", size: "", value: "" })
+            props.update_filter({ name: "",
+                                  size: "",
+                                  type: "", 
+                                  value: "", 
+                                  operator: 0 })
         }
     };
 
@@ -102,14 +110,16 @@ const Filters = (props: any) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             const checkCurrentFilters = () => {
-                return !sortContext.selectedFilterContext.some(x => x.name === props.filter.name && x.value === props.filter.value )
+                  return !sortContext.selectedFilterContext.some(x => x.name === props.filter.name &&
+                                                                      x.size === props.filter.size &&
+                                                                      x.type === props.filter.type &&
+                                                                      x.value === props.filter.value &&
+                                                                      x.operator === props.filter.operator) 
             }
-
-            if(props.filter.value !== undefined && props.filter.value !== "" && checkCurrentFilters()){
+            if(props.filter.value !== undefined && props.filter.value !== "" && checkCurrentFilters()) {
                 const handleAddFilter = () => {
                     let all_filters = new Array<IColumn>();
                     let res = sortContext.selectedFilterContext.filter(x => x.name !== props.filter.name);
-                    
                     if(res.length > 0) 
                     { all_filters = all_filters.concat(res); }
 
@@ -117,10 +127,10 @@ const Filters = (props: any) => {
                                                       size: props.filter.size, 
                                                       value: props.filter.value, 
                                                       type: props.filter.type,
-                                                      operator: '0'})
+                                                      operator: props.filter.operator })
+
                     sortContext.setFilter(all_filters);
-                    props.update_filter({ name: "", size: "", value: "", type: "", operator: "" })
-                };
+                    }
 
                 handleAddFilter();
             }
@@ -131,9 +141,10 @@ const Filters = (props: any) => {
     return (
         <>
         {props.columns.map((header:IColumn, index:number) => (
-            <div className="dropdown-item custom-dropdown-item" key={index} onChange={(e:any) => { console.log(e.target.selectedIndex === undefined ? 0 : e.target.selectedIndex)}}>
+            <div className="dropdown-item custom-dropdown-item" 
+                 key={index}>
                 <div id="header">
-                    <div className="column-name"  onClick={() => handleColumnSorting(header.name)}>
+                    <div className="column-name" onClick={() => { handleColumnSorting(header.name)}}>
                         {displayArrows(header.name)}
                         <p style={{ margin: '0px' }}>{header.name}</p>
                             <span>
@@ -143,7 +154,11 @@ const Filters = (props: any) => {
                 </div>
 
                 <Form>
-                    <Form.Control as="select">
+                    <Form.Control as="select" onChange={(e: any) => { props.update_filter({ name: header.name, 
+                                                                                            size: header.size,
+                                                                                            value: props.filter.value,
+                                                                                            type: props.filter.type,
+                                                                                            operator: e.target.selectedIndex})}}>
                     {(header['type'] === 'number' || header['type'] === 'date')
                         ? displayOptions(optionsForNumbers)
                         : displayOptions(optionsForStrings)
