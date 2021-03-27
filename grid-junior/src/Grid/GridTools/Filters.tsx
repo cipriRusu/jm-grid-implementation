@@ -101,7 +101,6 @@ const Filters = (props: any) => {
                              type: column.type,
                              operator: selectedComponent })
 
-
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
             props.update_filter({ name: "",

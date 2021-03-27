@@ -1,3 +1,4 @@
+import { parse } from "node:url";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";
@@ -19,14 +20,49 @@ export class DataSource implements IDataSource{
 
     get(sort: ISortStats, filters: IColumn[]) {
         console.log(filters)
-        let returned_data = Object.create(this.data)
+        let returned_data = Object.create(this.data) 
 
         if(filters !== undefined) {
-            filters.forEach(((x: IColumn) => {
-                returned_data = returned_data.filter((y: any) => {  
-                    return y[x.name].includes(x.value) 
+            filters.forEach((x: IColumn) => {
+                returned_data = returned_data.filter((y: any) => {
+                    if(x.type === 'number') {
+                        let value = x.value === undefined ? 0 : parseInt(x.value);
+                        if(x.operator === 0 || x.operator === undefined){
+                            return parseInt(y[x.name]) === value;
+                        }
+                        else if(x.operator === 1) {
+                            return parseInt(y[x.name]) !== value;
+                        }
+                        else if(x.operator === 2) {
+                            return parseInt(y[x.name]) < value;
+                        }
+                        else if(x.operator === 3) {
+                            return parseInt(y[x.name]) > value;
+                        }
+                    }
+
+                    if(x.type === undefined) {                
+                        if(x.operator === 0 || x.operator === undefined) {
+                            return y[x.name].includes(x.value)
+                        }
+                        else if(x.operator === 1) {
+                            return !y[x.name].includes(x.value)
+                        }
+                        else if(x.operator === 2) {
+                            return y[x.name].startsWith(x.value)
+                        }
+                        else if(x.operator === 3) {
+                            return y[x.name].endsWith(x.value)
+                        }
+                        else if(x.operator === 4) {
+                            return y[x.name] === x.value;
+                        }
+                        else if(x.operator === 5) {
+                            return y[x.name] !== x.value;
+                        }
+                    }
                 })
-            }))
+            })
         }
 
         if(sort !== undefined) {
