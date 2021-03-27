@@ -29,9 +29,19 @@ const Filters = (props: any) => {
         var filter = sortContext.selectedFilterContext.find(x => x.name === column.name);
 
         if (filter === undefined) {
-            return optionsForStrings[selectedComponent] 
+            switch(column.type){
+                case 'number':
+                    return optionsForNumbers[selectedComponent];
+                default:
+                    return optionsForStrings[selectedComponent]
+            }
         } else {
-            return optionsForStrings[filter.operator === undefined ? 0 : filter.operator];
+            switch(column.type){
+                case 'number':
+                    return optionsForNumbers[filter.operator === undefined ? 0 : filter.operator];
+                default:
+                    return optionsForStrings[filter.operator === undefined ? 0 : filter.operator];
+            }
         }
     }
 
