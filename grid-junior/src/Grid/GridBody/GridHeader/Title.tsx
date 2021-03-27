@@ -9,7 +9,7 @@ import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
 
 const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
-    <a style={{ textDecoration: "none" }}
+    <a tabIndex={-1} style={{ textDecoration: "none" }}
       href="#/"
       ref={ref}
       onClick={(e) => {
