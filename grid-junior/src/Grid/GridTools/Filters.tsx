@@ -151,12 +151,14 @@ const Filters = (props: any) => {
     },[props, sortContext]);
 
     return (
-        <>
+    <>
         {props.columns.map((header:IColumn, index:number) => (
             <div className="dropdown-item custom-dropdown-item" 
                  key={index}>
                 <div id="header">
-                    <div className="column-name" onClick={() => { handleColumnSorting(header.name)}}>
+                    <div className="column-name" 
+                         onKeyPress={() => handleColumnSorting(header.name)} 
+                         onClick={() => { handleColumnSorting(header.name)}}>
                         {displayArrows(header.name)}
                         <p style={{ margin: '0px' }}>{header.name}</p>
                             <span>
@@ -185,6 +187,7 @@ const Filters = (props: any) => {
                         <Form.Control
                         type={header.type}
                         placeholder="Filter..."
+                        onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
                         onChange={(e:any) => handleOnChange(e, header)}
                         name={header.name}
                         value={getFieldValue(header)}
@@ -193,7 +196,7 @@ const Filters = (props: any) => {
                 </Form>
             </div>
         ))}
-        </>  
+    </> 
     );
 }
 
