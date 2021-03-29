@@ -21,8 +21,10 @@ export class StringFilter {
                         return y[x.name].endsWith(x.value);
                     case 4:
                         return y[x.name] === x.value;
+                    case 5:
+                        return y[x.name] !== x.value;
                     default:
-                        return  y[x.name].includes(x.value);
+                        return y[x.name].includes(x.value);
                 }
             })
         })

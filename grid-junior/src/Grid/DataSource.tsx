@@ -1,4 +1,3 @@
-import { parse } from "node:url";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";
