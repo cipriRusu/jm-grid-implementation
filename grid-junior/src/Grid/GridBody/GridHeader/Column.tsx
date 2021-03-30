@@ -10,12 +10,10 @@ const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
   <div
     ref={ref}
     onClick={(e) => {
-      e.preventDefault();
       props.onClick(e);
     }}
 
     onKeyPress={(e) => {
-      e.preventDefault();
       props.onClick(e);
     }}
   >
@@ -82,7 +80,7 @@ class Column extends React.Component<IColumn, IColumn> {
           {value => 
           <Dropdown>
             <div className='column'>
-              <div 
+              <div
                 className='sort-header' tabIndex={0} 
                 onKeyPress={() => this.handleColumnSorting(value)} 
                 onClick={() => this.handleColumnSorting(value)}>
@@ -95,15 +93,10 @@ class Column extends React.Component<IColumn, IColumn> {
                 </div>
               </Dropdown.Toggle>
             </div>
-            <div>
-              <Dropdown.Menu align="right"
-                             flip={true}>
-              <Filters 
-              columns={[this.props]}
+              <Filters
+                       columns={[this.props]}
                        filter={this.props.filter}
                        update_filter={this.props.update_filter}/>
-            </Dropdown.Menu>
-            </div>
             </Dropdown>
           }
         </GridContext.Consumer>

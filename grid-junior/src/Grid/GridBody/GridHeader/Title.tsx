@@ -62,22 +62,20 @@ function Title(props: ITitle) {
       <GridContext.Consumer>
         {value =>
             <Dropdown>
-            <Dropdown.Toggle as={CustomToggle}>
-              <div className="header-title">
-                <div className="header-contents">
-                  { handleSortIcon(value.sort, props.columns) }
-                  <p>{props.title}</p>
-                  { handleFilterIcon(value.selectedFilterContext, props.columns) }
+              <Dropdown.Toggle as={CustomToggle}>
+                <div className="header-title">
+                  <div className="header-contents">
+                    { handleSortIcon(value.sort, props.columns) }
+                    <p>{props.title}</p>
+                    { handleFilterIcon(value.selectedFilterContext, props.columns) }
+                  </div>
                 </div>
-              </div>
-            </Dropdown.Toggle>
-            <Dropdown.Menu className='dd' align="right">
+              </Dropdown.Toggle>
               <Filters columns={props.columns}
                        filter={props.filter}
                        update_filter={props.update_filter} />
-              </Dropdown.Menu>
             </Dropdown>}
-      </GridContext.Consumer>)
+     </GridContext.Consumer>)
 }
 
 export default Title
