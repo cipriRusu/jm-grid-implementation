@@ -9,8 +9,22 @@
     overflow: hidden;
     background-color:#4d4d61;
     color: white;
+    height: 21rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(87, 89, 107);
+  }
 
 @media(max-width: 50rem) {
     .row-container {
