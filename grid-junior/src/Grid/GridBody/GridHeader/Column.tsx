@@ -31,7 +31,8 @@ class Column extends React.Component<IColumn, IColumn> {
       value: this.props.value,
       update_filter: this.props.update_filter,
       type: this.props.type,
-      operator: this.props.operator
+      operator: this.props.operator,
+      isFilterVisible: false
     };
   }
 
@@ -87,13 +88,27 @@ class Column extends React.Component<IColumn, IColumn> {
                   {this.handleSortIcon(value)}
                   {this.props.name}
               </div>
-              <Dropdown.Toggle as={CustomToggle}>
-                <div tabIndex={0} className='filter-header'>
-                  {this.handleFilterIcon(value)}
-                </div>
-              </Dropdown.Toggle>
+              <div tabIndex={0} 
+              className='filter-header' 
+
+              onClick={(e:any) => { 
+                if( this.state.isFilterVisible === false) 
+                {this.setState({ isFilterVisible: true })}
+                else
+                {this.setState({ isFilterVisible: false})}
+                }}
+
+              onKeyPress={(e:any) => {
+                if( this.state.isFilterVisible === false) 
+                {this.setState({ isFilterVisible: true })}
+                else
+                {this.setState({ isFilterVisible: false})}
+                }}>
+                {this.handleFilterIcon(value)}
+              </div>
+              
             </div>
-              <Filters
+              <Filters isVisible={this.state.isFilterVisible}
                        columns={[this.props]}
                        filter={this.props.filter}
                        update_filter={this.props.update_filter}/>

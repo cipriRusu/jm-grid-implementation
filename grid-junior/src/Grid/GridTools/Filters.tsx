@@ -162,61 +162,52 @@ const Filters = (props: any) => {
     return (
     <>
         {props.columns.map((header:IColumn, index:number) => (
-            <div className="dropdown-item custom-dropdown-item"
+        <div className="dropdown-item custom-dropdown-item"
                  key={index}>
-                     <Dropdown.Menu align="right"
-                                    flip={true}
-                                    onClick={(e:any) => { e.preventDefault() }}>
-                                        <Dropdown.Item onClick={(e:any) => { e.stopPropagation() }}>
-                                            <div id="header">
-                                                <div className="column-name" 
-                                                     tabIndex={0}
-                                                     onKeyPress={() => handleColumnSorting(header.name)} 
-                                                     onClick={() => { handleColumnSorting(header.name)}}>
-                                                         {displayArrows(header.name)}
-                                                         <p style={{ margin: '0px' }}>{header.name}</p>
-                                                            <span>
-                                                             {handleFilterIcon(header)}
-                                                            </span>
-                                                </div>                 
-                                            </div>
-                                        </Dropdown.Item>
-                                        <Form>
-                                            <Dropdown.Item>
-                                                <Form.Control as="select" 
-                                                              value={ convertOption(header) } 
-                                                              onChange={(e: any) => { props.update_filter({ name: header.name,
-                                                                                                            size: header.size,
-                                                                                                            value: getFieldValue(header),
-                                                                                                            type: header.type,
-                                                                                                            operator: e.target.selectedIndex});
-                                                                                                            setSelected(e.target.selectedIndex)}}>
-                                                                                                                {(header['type'] === 'number' || header['type'] === 'date') ? 
-                                                                                                                displayOptions(optionsForNumbers) : 
-                                                                                                                displayOptions(optionsForStrings)}
-                                                </Form.Control>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <div 
-                                                    className="input-icons">
-                                                        <span 
-                                                            onClick={(e:any) => { handleDeleteFilter(e, header); 
-                                                            setSelected(0) }}>
-                                                                {displayDeleteIcon(header)}
-                                                        </span>
-                                                <Form.Control
-                                                            type={header.type}
-                                                            placeholder="Filter..."
-                                                            onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
-                                                            onChange={(e:any) => handleOnChange(e, header)}
-                                                            name={header.name}
-                                                            value={getFieldValue(header)}/>
-                                                </div>
-                                            </Dropdown.Item>
-                                        </Form>
-                        </Dropdown.Menu>
-                </div>
-            ))}
+                    <div className={`dropdown ${props.isVisible === true ? 'show' : ''}`}>
+                        <div id="header">
+                            <div className="column-name" 
+                            tabIndex={0}
+                            onKeyPress={() => handleColumnSorting(header.name)} 
+                            onClick={() => { handleColumnSorting(header.name)}}>
+                                {displayArrows(header.name)}
+                                <p style={{ margin: '0px' }}>{header.name}</p>
+                                <span>
+                                    {handleFilterIcon(header)}
+                                </span>
+                            </div>    
+                        </div>
+                        <Form>
+                            <Form.Control as="select" 
+                            value={ convertOption(header) } 
+                            onChange={(e: any) => { props.update_filter({ name: header.name,
+                                                                        size: header.size,
+                                                                        value: getFieldValue(header),
+                                                                        type: header.type,
+                                                                        operator: e.target.selectedIndex});
+                                                                        setSelected(e.target.selectedIndex)}}>
+                                                                            {(header['type'] === 'number' || header['type'] === 'date') ? 
+                                                                            displayOptions(optionsForNumbers) : 
+                                                                            displayOptions(optionsForStrings)}
+                            </Form.Control>
+                            <div 
+                            className="input-icons">
+                                <span 
+                                onClick={(e:any) => { handleDeleteFilter(e, header); 
+                                setSelected(0) }}>
+                                    {displayDeleteIcon(header)}
+                                </span>
+                                <Form.Control
+                                type={header.type}
+                                placeholder="Filter..."
+                                onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
+                                onChange={(e:any) => handleOnChange(e, header)}
+                                name={header.name}
+                                value={getFieldValue(header)}/>
+                            </div>
+                        </Form>
+                    </div>
+        </div>))}
     </> );
     }
 

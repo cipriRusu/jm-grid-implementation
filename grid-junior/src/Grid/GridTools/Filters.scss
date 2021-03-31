@@ -7,6 +7,17 @@ input[type=number]::-webkit-inner-spin-button {
 
 .custom-dropdown-item{
     padding: 0!important;
+
+    .dropdown {
+        display: none;
+        position: absolute;
+    }
+
+    .show {
+        display: block;
+        position: absolute;
+    }
+
     #header {
         display: grid;
         grid-template-columns: 1fr auto;
