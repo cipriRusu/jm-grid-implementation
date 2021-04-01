@@ -11,5 +11,7 @@ export interface IGridContext {
     selectedViewItemContext: Object,
     headersContext: IHeader[],
     selectedFilterContext:  IColumn[],
-    setFilter: (values: IColumn[]) => void
+    setFilter: (values: IColumn[]) => void,
+    toggledFilter: string,
+    setToggled: (value: string) => void
 } 

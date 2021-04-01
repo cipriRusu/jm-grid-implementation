@@ -60,10 +60,6 @@ class Column extends React.Component<IColumn, IColumn> {
       <i className="fa fa-arrow-down hidden-icon" aria-hidden="true"></i>;
   }
 
-  updateToggled = (value: any) => {
-    this.setState({toggled: value})
-  }
-
   render() {return(
       <div className={`column-header ${this.props.size}`}>
         <GridContext.Consumer>
@@ -82,16 +78,14 @@ class Column extends React.Component<IColumn, IColumn> {
               <div
               tabIndex={0} 
               className='filter-header'
-              onClick={() => { this.state.toggled === false ? this.updateToggled(true) : this.updateToggled(false)}}
-              onKeyPress={() => { this.state.toggled === false ? this.updateToggled(true) : this.updateToggled(false)}}
+              onClick={() => value.setToggled(this.state.name)}
+              onKeyPress={() => value.setToggled(this.state.name)}
               >
                 {this.handleFilterIcon(value)}
               </div>
             </div>
 
               <Filters
-              toggled={this.state.toggled}
-              updateToggled={this.updateToggled}
               columns={[this.props]}
               filter={this.props.filter}
               update_filter={this.props.update_filter}/>

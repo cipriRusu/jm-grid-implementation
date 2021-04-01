@@ -8,4 +8,5 @@ export interface IGridState {
     selectedSort: ISortStats;
     visibleHeader: string;
     selectedFilter: IColumn[];
+    toggledFilter: string;
 };

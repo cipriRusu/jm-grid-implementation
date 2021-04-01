@@ -134,10 +134,8 @@ const Filters = (props: any) => {
 
             Array.from(visibleDropdowns).forEach(dropdown => {
                 if(!dropdown.contains(e.target) && !e.target.classList.contains('fa')) {
-                        if(typeof props.updateToggled === 'function') {
-                            props.updateToggled(false)
-                        }
-                    }})
+                    sortContext.setToggled('none')
+                }})
         })
     },[props])
 
@@ -177,7 +175,7 @@ const Filters = (props: any) => {
         {props.columns.map((header:IColumn, index:number) => (
         <div className="dropdown-item custom-dropdown-item"
                  key={index}>
-                    <div className={`dropdown ${ props.toggled === true ? 'show' : '' }`}>
+                    <div className={`dropdown ${ sortContext.toggledFilter === header.name ? 'show' : '' }`}>
                         <div id="header">
                             <div className="column-name" 
                             tabIndex={0}

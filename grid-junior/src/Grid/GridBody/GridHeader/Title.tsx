@@ -62,18 +62,16 @@ function Title(props: ITitle) {
       <GridContext.Consumer>
         {value =>
             <Dropdown>
-              <Dropdown.Toggle as={CustomToggle}>
                 <div className="header-title">
-                  <div className="header-contents">
+                  <div className="header-contents" onClick={() => value.setToggled('none')}>
                     { handleSortIcon(value.sort, props.columns) }
                     <p>{props.title}</p>
                     { handleFilterIcon(value.selectedFilterContext, props.columns) }
                   </div>
                 </div>
-              </Dropdown.Toggle>
-              <Filters columns={props.columns}
+              {/* <Filters columns={props.columns}
                        filter={props.filter}
-                       update_filter={props.update_filter} />
+                       update_filter={props.update_filter} /> */}
             </Dropdown>}
      </GridContext.Consumer>)
 }
