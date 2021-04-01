@@ -94,7 +94,7 @@ const Filters = (props: any) => {
         return filter !== undefined ? filter.value : '';
     }
 
-    const handleOnChange = (e: any, column:IColumn) => {
+    const handleOnUserInput = (e: any, column:IColumn) => {
         props.update_filter({name: column.name,
                              size: column.size, 
                              value: e.target.value, 
@@ -110,6 +110,16 @@ const Filters = (props: any) => {
                                   operator: 0 })
         }
     };
+
+    const handleOnOptionChange = (e: any, column: IColumn) => {
+        props.update_filter({ name: column.name, 
+                              size: column.size, 
+                              value: getFieldValue(column), 
+                              type: column.type, 
+                              operator: e.target.selectedIndex})
+        
+        setSelected(e.target.selectedIndex)
+    }
 
     const handleDeleteFilter = (e: any, column: IColumn) => {
         if(column.value !== "") {
@@ -137,7 +147,7 @@ const Filters = (props: any) => {
                     !e.target.classList.contains('fa') && 
                     !e.target.classList.contains('form-control'))
                     {
-                    sortContext.setToggled('none')
+                    sortContext.setToggled([])
                 }})
         })
     },[props])
@@ -177,7 +187,7 @@ const Filters = (props: any) => {
     <div className={'filter-container'}>
         {props.columns.map((header:IColumn, index:number) => (
         <div 
-            className={`filter ${ sortContext.toggledFilter === header.name ? 'show' : '' }`}
+            className={`filter ${ sortContext.toggledFilter.includes(header.name) ? 'show' : '' }`}
             key={index}>
                 <div 
                     id="header">
@@ -196,16 +206,13 @@ const Filters = (props: any) => {
                 <Form>
                     <Form.Control 
                         as="select" 
-                        value={ convertOption(header) } 
-                        onChange={(e: any) => { props.update_filter({ name: header.name,
-                                                                      size: header.size,
-                                                                      value: getFieldValue(header),
-                                                                      type: header.type,
-                                                                      operator: e.target.selectedIndex});
-                                                                      setSelected(e.target.selectedIndex)}}>
-                                                                          {(header['type'] === 'number' || header['type'] === 'date') ? 
-                                                                          displayOptions(optionsForNumbers) : 
-                                                                          displayOptions(optionsForStrings)}
+                        value={ convertOption(header) }
+                        onChange={(e:any) =>  { handleOnOptionChange(e, header) }}>
+                            {(header['type'] === 'number' || header['type'] === 'date') ? 
+                            displayOptions(optionsForNumbers) : 
+                            displayOptions(optionsForStrings)
+                        
+                        }
                     </Form.Control>
                     <div 
                         className="input-icons">
@@ -218,7 +225,7 @@ const Filters = (props: any) => {
                         type={header.type}
                         placeholder="Filter..."
                         onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
-                        onChange={(e:any) => handleOnChange(e, header)}
+                        onChange={(e:any) => handleOnUserInput(e, header)}
                         name={header.name}
                         value={getFieldValue(header)}/>
                     </div>

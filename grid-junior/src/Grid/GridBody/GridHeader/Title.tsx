@@ -62,14 +62,15 @@ function Title(props: ITitle) {
                           toDisplay.push(x.name)
                         })
 
-                        
+                        value.setToggled(toDisplay)
                       }}>
+                        
                         { handleSortIcon(value.sort, props.columns) }
                         <p>{props.title}</p>
                         { handleFilterIcon(value.selectedFilterContext, props.columns) }
                   </div>
             </div>
-            <div className="header-filter">
+            <div className="header-filter" style={{ display: 'grid'}}>
               <Filters
                     columns={props.columns}
                     filter={props.filter}

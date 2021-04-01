@@ -23,8 +23,8 @@ export const GridContext = createContext<IGridContext & ISortable>({
     setSort: (selectedSort: ISortStats) => {},
     selectedFilterContext: [],
     setFilter: (_values: IColumn[]) => {},
-    toggledFilter: 'none',
-    setToggled: (value: string) => {}
+    toggledFilter: [],
+    setToggled: (value: string[]) => {}
 });
 
 class Grid extends Component<IGridProps, IGridState>{
@@ -34,7 +34,7 @@ class Grid extends Component<IGridProps, IGridState>{
         visibleHeader: 'firstHeader',
         selectedFilter: [],
         data: this.props.data,
-        toggledFilter: 'none'
+        toggledFilter: []
     }
 
     flatHeader = () => {
@@ -59,7 +59,7 @@ class Grid extends Component<IGridProps, IGridState>{
         this.setState({selectedFilter:  [...filters]});
     }
 
-    setToggled = (toggled: string) => {
+    setToggled = (toggled: string[]) => {
         this.setState({toggledFilter: toggled})
     }
 

@@ -1,6 +1,6 @@
 .header {
     .header-filter {
-        display: none !important;
+        display: none;
     }
 }
 
@@ -53,13 +53,13 @@
             }
         }
 
+
 @media (min-width: 50rem){
     .header {
         .header-filter {
-            display: block;
+            display: none !important;
         }
     }
-
         .header-contents {
             .sort-icon-title {
                 visibility: hidden;
