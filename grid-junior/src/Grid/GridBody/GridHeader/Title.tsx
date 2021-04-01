@@ -8,18 +8,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
 
-const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
-    <a tabIndex={-1} style={{ textDecoration: "none" }}
-      href="#/"
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        props.onClick(e);
-      }}>
-      {props.children}
-    </a>
-  ));
-
   function handleSortIcon(sort: ISortStats, columns: IColumn[]) {
       let currentSort = null;
 
@@ -61,19 +49,35 @@ function Title(props: ITitle) {
   return (
       <GridContext.Consumer>
         {value =>
-            <Dropdown>
-                <div className="header-title">
-                  <div className="header-contents" onClick={() => value.setToggled('none')}>
-                    { handleSortIcon(value.sort, props.columns) }
-                    <p>{props.title}</p>
-                    { handleFilterIcon(value.selectedFilterContext, props.columns) }
+        <div className="header">
+          <Dropdown>
+            <div
+                className="header-title">
+                  <div 
+                      className="header-contents" 
+                      onClick={() => {
+                        let toDisplay = new Array<string>();
+
+                        props.columns.forEach(x => {
+                          toDisplay.push(x.name)
+                        })
+
+                        
+                      }}>
+                        { handleSortIcon(value.sort, props.columns) }
+                        <p>{props.title}</p>
+                        { handleFilterIcon(value.selectedFilterContext, props.columns) }
                   </div>
-                </div>
-              {/* <Filters columns={props.columns}
-                       filter={props.filter}
-                       update_filter={props.update_filter} /> */}
-            </Dropdown>}
-     </GridContext.Consumer>)
+            </div>
+            <div className="header-filter">
+              <Filters
+                    columns={props.columns}
+                    filter={props.filter}
+                    update_filter={props.update_filter} />
+            </div>
+          </Dropdown>
+        </div>}
+      </GridContext.Consumer>)
 }
 
 export default Title

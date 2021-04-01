@@ -1,3 +1,9 @@
+.header {
+    .header-filter {
+        display: none !important;
+    }
+}
+
 .header-title {
         display: flex;
         width: 95%;
@@ -48,6 +54,12 @@
         }
 
 @media (min-width: 50rem){
+    .header {
+        .header-filter {
+            display: block;
+        }
+    }
+
         .header-contents {
             .sort-icon-title {
                 visibility: hidden;

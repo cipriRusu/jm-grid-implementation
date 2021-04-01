@@ -5,14 +5,11 @@ input[type=number]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.custom-dropdown-item{
+.filter{
     padding: 0!important;
-
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0rem;
-    }
+    display: none;
+    position: absolute;
+    right: 0rem;
 
     .show {
         display: block;
@@ -75,4 +72,12 @@ input[type=number]::-webkit-inner-spin-button {
         }
     }
    
+}
+
+.show {
+    display: block;
+}
+
+.title-show {
+    display: none;
 }

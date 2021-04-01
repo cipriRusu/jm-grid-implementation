@@ -133,7 +133,10 @@ const Filters = (props: any) => {
             let visibleDropdowns = document.getElementsByClassName('show');
 
             Array.from(visibleDropdowns).forEach(dropdown => {
-                if(!dropdown.contains(e.target) && !e.target.classList.contains('fa')) {
+                if(!dropdown.contains(e.target) && 
+                    !e.target.classList.contains('fa') && 
+                    !e.target.classList.contains('form-control'))
+                    {
                     sortContext.setToggled('none')
                 }})
         })
@@ -171,13 +174,15 @@ const Filters = (props: any) => {
     },[props, sortContext]);
 
     return (
-    <>
+    <div className={'filter-container'}>
         {props.columns.map((header:IColumn, index:number) => (
-        <div className="dropdown-item custom-dropdown-item"
-                 key={index}>
-                    <div className={`dropdown ${ sortContext.toggledFilter === header.name ? 'show' : '' }`}>
-                        <div id="header">
-                            <div className="column-name" 
+        <div 
+            className={`filter ${ sortContext.toggledFilter === header.name ? 'show' : '' }`}
+            key={index}>
+                <div 
+                    id="header">
+                        <div 
+                            className="column-name" 
                             tabIndex={0}
                             onKeyPress={() => handleColumnSorting(header.name)} 
                             onClick={() => { handleColumnSorting(header.name)}}>
@@ -186,40 +191,39 @@ const Filters = (props: any) => {
                                 <span>
                                     {handleFilterIcon(header)}
                                 </span>
-                            </div>    
                         </div>
-                        <Form>
-                            <Form.Control as="select" 
-                            value={ convertOption(header) } 
-                            onChange={(e: any) => { props.update_filter({ name: header.name,
-                                                                        size: header.size,
-                                                                        value: getFieldValue(header),
-                                                                        type: header.type,
-                                                                        operator: e.target.selectedIndex});
-                                                                        setSelected(e.target.selectedIndex)}}>
-                                                                            {(header['type'] === 'number' || header['type'] === 'date') ? 
-                                                                            displayOptions(optionsForNumbers) : 
-                                                                            displayOptions(optionsForStrings)}
-                            </Form.Control>
-                            <div 
-                            className="input-icons">
-                                <span 
+                </div>
+                <Form>
+                    <Form.Control 
+                        as="select" 
+                        value={ convertOption(header) } 
+                        onChange={(e: any) => { props.update_filter({ name: header.name,
+                                                                      size: header.size,
+                                                                      value: getFieldValue(header),
+                                                                      type: header.type,
+                                                                      operator: e.target.selectedIndex});
+                                                                      setSelected(e.target.selectedIndex)}}>
+                                                                          {(header['type'] === 'number' || header['type'] === 'date') ? 
+                                                                          displayOptions(optionsForNumbers) : 
+                                                                          displayOptions(optionsForStrings)}
+                    </Form.Control>
+                    <div 
+                        className="input-icons">
+                            <span 
                                 onClick={(e:any) => { handleDeleteFilter(e, header); 
                                 setSelected(0) }}>
                                     {displayDeleteIcon(header)}
-                                </span>
-                                <Form.Control
-                                type={header.type}
-                                placeholder="Filter..."
-                                onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
-                                onChange={(e:any) => handleOnChange(e, header)}
-                                name={header.name}
-                                value={getFieldValue(header)}/>
-                            </div>
-                        </Form>
+                            </span>
+                    <Form.Control
+                        type={header.type}
+                        placeholder="Filter..."
+                        onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
+                        onChange={(e:any) => handleOnChange(e, header)}
+                        name={header.name}
+                        value={getFieldValue(header)}/>
                     </div>
+                </Form>
         </div>))}
-    </> );
-    }
+    </div>);}
 
 export default Filters;
