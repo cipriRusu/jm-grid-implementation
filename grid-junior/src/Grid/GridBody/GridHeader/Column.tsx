@@ -6,21 +6,6 @@ import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { GridContext } from '../../Grid';
 import Filters from '../../GridTools/Filters';
 
-const CustomToggle = React.forwardRef(( props: any , ref: any ) => (
-  <div
-    ref={ref}
-    onClick={(e) => {
-      props.onClick(e);
-    }}
-
-    onKeyPress={(e) => {
-      props.onClick(e);
-    }}
-  >
-    {props.children}
-  </div>
-));
-
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
     super(props);
@@ -32,7 +17,7 @@ class Column extends React.Component<IColumn, IColumn> {
       update_filter: this.props.update_filter,
       type: this.props.type,
       operator: this.props.operator,
-      isFilterVisible: false
+      toggled: this.props.toggled
     };
   }
 
@@ -75,43 +60,41 @@ class Column extends React.Component<IColumn, IColumn> {
       <i className="fa fa-arrow-down hidden-icon" aria-hidden="true"></i>;
   }
 
+  updateToggled = (value: any) => {
+    this.setState({toggled: value})
+  }
+
   render() {return(
       <div className={`column-header ${this.props.size}`}>
         <GridContext.Consumer>
           {value => 
           <Dropdown>
-            <div className='column'>
+            <div
+            className='column'>
               <div
-                className='sort-header' tabIndex={0} 
-                onKeyPress={() => this.handleColumnSorting(value)} 
-                onClick={() => this.handleColumnSorting(value)}>
-                  {this.handleSortIcon(value)}
-                  {this.props.name}
+              className='sort-header' 
+              tabIndex={0} 
+              onKeyPress={() => this.handleColumnSorting(value)} 
+              onClick={() => this.handleColumnSorting(value)}>
+                {this.handleSortIcon(value)}
+                {this.props.name}
               </div>
-              <div tabIndex={0} 
-              className='filter-header' 
-
-              onClick={(e:any) => { 
-                if( this.state.isFilterVisible === false) 
-                {this.setState({ isFilterVisible: true })}
-                else
-                {this.setState({ isFilterVisible: false})}
-                }}
-
-              onKeyPress={(e:any) => {
-                if( this.state.isFilterVisible === false) 
-                {this.setState({ isFilterVisible: true })}
-                else
-                {this.setState({ isFilterVisible: false})}
-                }}>
+              <div
+              tabIndex={0} 
+              className='filter-header'
+              onClick={() => { this.state.toggled === false ? this.updateToggled(true) : this.updateToggled(false)}}
+              onKeyPress={() => { this.state.toggled === false ? this.updateToggled(true) : this.updateToggled(false)}}
+              >
                 {this.handleFilterIcon(value)}
               </div>
-              
             </div>
-              <Filters isVisible={this.state.isFilterVisible}
-                       columns={[this.props]}
-                       filter={this.props.filter}
-                       update_filter={this.props.update_filter}/>
+
+              <Filters
+              toggled={this.state.toggled}
+              updateToggled={this.updateToggled}
+              columns={[this.props]}
+              filter={this.props.filter}
+              update_filter={this.props.update_filter}/>
             </Dropdown>
           }
         </GridContext.Consumer>

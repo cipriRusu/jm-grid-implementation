@@ -6,5 +6,5 @@ export interface IColumn{
     type?: string;
     value?: string;
     operator?: number;
-    isFilterVisible?: boolean;
+    toggled?: boolean;
 }

@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { Dropdown, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import {GridContext} from '../Grid';
 import { IColumn } from '../Interfaces/GridBody/IColumn';
 import './Filters.scss';
@@ -129,6 +129,19 @@ const Filters = (props: any) => {
     }
 
     useEffect(() => {
+        document.addEventListener('click', (e:any) => {
+            let visibleDropdowns = document.getElementsByClassName('show');
+
+            Array.from(visibleDropdowns).forEach(dropdown => {
+                if(!dropdown.contains(e.target) && !e.target.classList.contains('fa')) {
+                        if(typeof props.updateToggled === 'function') {
+                            props.updateToggled(false)
+                        }
+                    }})
+        })
+    },[props])
+
+    useEffect(() => {
         const timeout = setTimeout(() => {
             const checkCurrentFilters = () => {
                   return !sortContext.selectedFilterContext.some(x => x.name === props.filter.name &&
@@ -164,7 +177,7 @@ const Filters = (props: any) => {
         {props.columns.map((header:IColumn, index:number) => (
         <div className="dropdown-item custom-dropdown-item"
                  key={index}>
-                    <div className={`dropdown ${props.isVisible === true ? 'show' : ''}`}>
+                    <div className={`dropdown ${ props.toggled === true ? 'show' : '' }`}>
                         <div id="header">
                             <div className="column-name" 
                             tabIndex={0}

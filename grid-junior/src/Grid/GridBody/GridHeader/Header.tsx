@@ -34,6 +34,7 @@ function Header() {
                                                type={value.type}
                                                operator={filter.operator}
                                                filter={filter}
+                                               toggled={false}
                                                update_filter={update_filter}/>
                                 })}
                         </div>
