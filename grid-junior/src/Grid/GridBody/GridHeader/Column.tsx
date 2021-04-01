@@ -78,8 +78,8 @@ class Column extends React.Component<IColumn, IColumn> {
               <div
               tabIndex={0} 
               className='filter-header'
-              onClick={() => value.setToggled(this.state.name)}
-              onKeyPress={() => value.setToggled(this.state.name)}
+              onClick={() => { value.toggledFilter === this.state.name ? value.setToggled('none') : value.setToggled(this.state.name) }}
+              onKeyPress={() => { value.toggledFilter === this.state.name ? value.setToggled('none') : value.setToggled(this.state.name) }}
               >
                 {this.handleFilterIcon(value)}
               </div>
