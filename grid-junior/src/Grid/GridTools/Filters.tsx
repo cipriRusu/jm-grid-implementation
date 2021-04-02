@@ -144,10 +144,11 @@ const Filters = (props: any) => {
 
             Array.from(visibleDropdowns).forEach(dropdown => {
                 if(!dropdown.contains(e.target) && 
-                    !e.target.classList.contains('fa') && 
+                    !e.target.classList.contains('fa') &&
                     !e.target.classList.contains('form-control'))
                     {
-                    sortContext.setToggled([])
+                    sortContext.setToggledColumn({name: '', size: '', type: '', value: '', operator: 0})
+                    sortContext.setToggledHeader([])
                 }})
         })
     },[props, sortContext])
@@ -187,7 +188,7 @@ const Filters = (props: any) => {
     <div className={'filter-container'}>
         {props.columns.map((header:IColumn, index:number) => (
         <div 
-            className={`filter ${ sortContext.toggledFilter.includes(header.name) ? 'show' : '' }`}
+            className="filter"
             key={index}>
                 <div
                     id="header">

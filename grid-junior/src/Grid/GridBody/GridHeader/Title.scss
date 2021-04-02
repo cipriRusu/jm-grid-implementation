@@ -49,8 +49,13 @@
         }
 
     .title-dropdown {
+        display: none;
         position: absolute;
         right: 0.8rem;
+    }
+
+    .show {
+        display: block;
     }
 }
 

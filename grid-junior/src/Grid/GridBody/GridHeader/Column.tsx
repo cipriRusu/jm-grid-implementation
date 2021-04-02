@@ -78,18 +78,19 @@ class Column extends React.Component<IColumn, IColumn> {
               <div
               tabIndex={0} 
               className='filter'
-              onClick={() => { value.toggledFilter.includes(this.state.name) ? 
-                               value.setToggled([]) : 
-                               value.setToggled([this.state.name]) }}
-
-              onKeyPress={() => { value.toggledFilter.includes(this.state.name) ? 
-                                  value.setToggled([]) : 
-                                  value.setToggled([this.state.name]) }}
-              >
+              onClick={() => { 
+                if(value.toggledColumn === this.state) {
+                  value.setToggledColumn({name:"", size: ""})
+                }
+                else {
+                  value.setToggledColumn(this.state)
+                } 
+                }}>
+                
                 {this.handleFilterIcon(value)}
               </div>
             </div>
-            <div className='filter-dropdown'>
+            <div className={`filter-dropdown ${this.state === value.toggledColumn ? 'show' : ''}`}>
               <Filters
                       columns={[this.props]}
                       filter={this.props.filter}
