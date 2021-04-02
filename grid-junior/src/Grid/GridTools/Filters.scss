@@ -6,12 +6,6 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .filter-container {
-    background-color: oldlace;
-    border-radius: 0.3rem;
-    position: absolute;
-    right: 0rem;
-    top:1.7rem;
-
     .filter{
             padding: 0!important;
             display: none;
@@ -21,6 +15,10 @@ input[type=number]::-webkit-inner-spin-button {
                 display: block;
                 right: 0rem;
                 width: 80%;
+            }
+
+            .hide {
+                display: none;
             }
         
             #header {

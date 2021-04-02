@@ -39,7 +39,7 @@ import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
     })
 
     if (currentFilter === null) {
-      currentFilter = <i className="fa fa-filter filter-icon-hoverable" aria-hidden="true"/>
+      currentFilter = <i tabIndex={0} className="fa fa-filter filter-icon-hoverable" aria-hidden="true"/>
     }
 
     return currentFilter;
@@ -49,12 +49,11 @@ function Title(props: ITitle) {
   return (
       <GridContext.Consumer>
         {value =>
-        <div className="header">
-          <Dropdown>
+          <Dropdown className="title-container">
             <div
-                className="header-title">
-                  <div 
-                      className="header-contents" 
+                className="title">
+                  <div
+                      className="title-bar" 
                       onClick={() => {
                         let toDisplay = new Array<string>();
 
@@ -64,20 +63,22 @@ function Title(props: ITitle) {
 
                         value.setToggled(toDisplay)
                       }}>
-                        
                         { handleSortIcon(value.sort, props.columns) }
                         <p>{props.title}</p>
                         { handleFilterIcon(value.selectedFilterContext, props.columns) }
                   </div>
             </div>
-            <div className="header-filter" style={{ display: 'grid'}}>
-              <Filters
-                    columns={props.columns}
-                    filter={props.filter}
-                    update_filter={props.update_filter} />
+            <div className="title-dropdown">
+              <div style={{ backgroundColor: 'white', borderRadius: 5 }}>
+              {props.columns.map(x => {
+                return (<Filters 
+                                columns={[x]}
+                                filter={props.filter}
+                                update_filter={props.update_filter} />)
+              })}
+              </div>
             </div>
-          </Dropdown>
-        </div>}
+          </Dropdown>}
       </GridContext.Consumer>)
 }
 

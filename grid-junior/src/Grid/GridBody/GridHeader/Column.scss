@@ -1,9 +1,4 @@
-.column-header {
-    .custom-dropdown-item {
-        .dropdown-item{
-            padding: 0px;
-        }
-    }
+.column-container {
     .fa {
         text-decoration: none;
         margin-right: 5px;
@@ -34,13 +29,18 @@
             color: white;
         }
 
-        .filter-header {
+        .filter {
             margin-left: auto;
         }
 
-        .sort-header {
+        .sort {
             width: 90%;
         }
+    }
+
+    .filter-dropdown {
+        position: absolute;
+        right: 0;
     }
     
     .sort-icon {
@@ -73,4 +73,12 @@
     display: flex;
     flex: 0 0 30rem;
     flex: 2;
+}
+
+@media (max-width: 50rem) {
+    .column-container {
+        .filter-dropdown {
+            display: none;
+        }
+    }
 }

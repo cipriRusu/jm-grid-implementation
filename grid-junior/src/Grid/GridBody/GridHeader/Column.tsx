@@ -61,14 +61,14 @@ class Column extends React.Component<IColumn, IColumn> {
   }
 
   render() {return(
-      <div className={`column-header ${this.props.size}`}>
+      <div className={`column-container ${this.props.size}`}>
         <GridContext.Consumer>
           {value => 
           <Dropdown>
             <div
             className='column'>
               <div
-              className='sort-header' 
+              className='sort'
               tabIndex={0} 
               onKeyPress={() => this.handleColumnSorting(value)} 
               onClick={() => this.handleColumnSorting(value)}>
@@ -77,7 +77,7 @@ class Column extends React.Component<IColumn, IColumn> {
               </div>
               <div
               tabIndex={0} 
-              className='filter-header'
+              className='filter'
               onClick={() => { value.toggledFilter.includes(this.state.name) ? 
                                value.setToggled([]) : 
                                value.setToggled([this.state.name]) }}
@@ -89,11 +89,12 @@ class Column extends React.Component<IColumn, IColumn> {
                 {this.handleFilterIcon(value)}
               </div>
             </div>
-
+            <div className='filter-dropdown'>
               <Filters
-              columns={[this.props]}
-              filter={this.props.filter}
-              update_filter={this.props.update_filter}/>
+                      columns={[this.props]}
+                      filter={this.props.filter}
+                      update_filter={this.props.update_filter}/>
+            </div>
             </Dropdown>
           }
         </GridContext.Consumer>

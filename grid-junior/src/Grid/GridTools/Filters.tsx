@@ -189,7 +189,7 @@ const Filters = (props: any) => {
         <div 
             className={`filter ${ sortContext.toggledFilter.includes(header.name) ? 'show' : '' }`}
             key={index}>
-                <div 
+                <div
                     id="header">
                         <div 
                             className="column-name" 
