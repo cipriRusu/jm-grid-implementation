@@ -64,7 +64,7 @@ class Column extends React.Component<IColumn, IColumn> {
       <div className={`column-container ${this.props.size}`}>
         <GridContext.Consumer>
           {value => 
-          <Dropdown>
+          <Dropdown>  
             <div
             className='column'>
               <div
@@ -79,14 +79,29 @@ class Column extends React.Component<IColumn, IColumn> {
               tabIndex={0} 
               className='filter'
               onClick={() => { 
-                if(value.toggledColumn === this.state) {
-                  value.setToggledColumn({name:"", size: ""})
+
+                if(value.toggledColumn === this.state) 
+                { 
+                  value.setToggledColumn({name:"", size: ""}) 
                 }
-                else {
-                  value.setToggledColumn(this.state)
+                else 
+                { 
+                  value.setToggledColumn(this.state) 
                 } 
-                }}>
+                }}
+
+              onKeyPress={() => {
+                if(value.toggledColumn === this.state)
+                {
+                  value.setToggledColumn({name: "", size: ""})
+                }
+                else
+                {
+                  value.setToggledColumn(this.state)
+                }
                 
+              }}>
+
                 {this.handleFilterIcon(value)}
               </div>
             </div>

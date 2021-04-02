@@ -53,13 +53,22 @@ function Title(props: ITitle) {
             <div
                 className="title">
                   <div
-                      className="title-bar" 
+                      className="title-bar"
+                      
                       onClick={() => { 
                         if(props.columns === value.toggledHeader) {
                           value.setToggledHeader([])
                         } else {
                           value.setToggledHeader(props.columns)
-                        }}}>
+                        }}}
+      
+                      onKeyPress={() => {
+                        if(props.columns === value.toggledHeader) {
+                          value.setToggledHeader([])
+                        } else {
+                          value.setToggledHeader(props.columns)
+                      }}}>
+
                         { handleSortIcon(value.sort, props.columns) }
                         <p>{props.title}</p>
                         { handleFilterIcon(value.selectedFilterContext, props.columns) }
@@ -67,8 +76,8 @@ function Title(props: ITitle) {
             </div>
             <div className={`title-dropdown ${props.columns === value.toggledHeader ? 'show' : ''}`}>
               <div style={{ backgroundColor: 'white', borderRadius: 5 }}>
-              {props.columns.map(x => {
-                return (<Filters 
+              {props.columns.map((x: IColumn, y: number) => {
+                return (<Filters key={y}
                                 columns={[x]}
                                 filter={props.filter}
                                 update_filter={props.update_filter} />)

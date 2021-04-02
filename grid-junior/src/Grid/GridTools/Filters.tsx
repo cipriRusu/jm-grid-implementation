@@ -151,6 +151,33 @@ const Filters = (props: any) => {
                     sortContext.setToggledHeader([])
                 }})
         })
+
+        document.addEventListener('keydown', (e:any) => {
+            if(e.key === 'Escape') {
+                let visibleDropdowns = document.getElementsByClassName('show');
+
+                Array.from(visibleDropdowns).forEach(dropdown => {
+                    sortContext.setToggledColumn({name: '', size: ''})
+                    sortContext.setToggledHeader([])
+                })
+            }
+        })
+
+        document.addEventListener('keydown', (e: any) => {
+            if(e.key === 'Tab') {
+                let ddown = document.querySelector('.show')
+                console.log(e.target.className)
+
+                if(!ddown?.contains(e.target) && e.target.className==='sort') {
+                    let visibleDropdowns = document.getElementsByClassName('show');
+                    
+                    Array.from(visibleDropdowns).forEach(dropdown => {
+                        sortContext.setToggledColumn({name: '', size: ''})
+                        sortContext.setToggledHeader([])
+                    })
+                }
+            }
+        })
     },[props, sortContext])
 
     useEffect(() => {
