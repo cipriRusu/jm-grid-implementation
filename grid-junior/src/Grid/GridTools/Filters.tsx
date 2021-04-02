@@ -7,7 +7,7 @@ import './Filters.scss';
 const Filters = (props: any) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
-    const [selectedComponent, setSelected] = useState(0);
+    const [option, setOption] = useState(0);
 
     let optionsForStrings = [ 
         'Contains',
@@ -31,9 +31,9 @@ const Filters = (props: any) => {
         if (filter === undefined) {
             switch(column.type){
                 case 'number':
-                    return optionsForNumbers[selectedComponent];
+                    return optionsForNumbers[option];
                 default:
-                    return optionsForStrings[selectedComponent]
+                    return optionsForStrings[option]
             }
         } else {
             switch(column.type){
@@ -99,7 +99,7 @@ const Filters = (props: any) => {
                              size: column.size, 
                              value: e.target.value, 
                              type: column.type,
-                             operator: selectedComponent })
+                             operator: option })
 
         if(e.target.value === ''){
             handleDeleteFilter(e, column);
@@ -118,7 +118,7 @@ const Filters = (props: any) => {
                               type: column.type, 
                               operator: e.target.selectedIndex})
         
-        setSelected(e.target.selectedIndex)
+        setOption(e.target.selectedIndex)
     }
 
     const handleDeleteFilter = (e: any, column: IColumn) => {
@@ -150,7 +150,7 @@ const Filters = (props: any) => {
                     sortContext.setToggled([])
                 }})
         })
-    },[props])
+    },[props, sortContext])
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -182,7 +182,7 @@ const Filters = (props: any) => {
         }, 1000);
         return () => clearTimeout(timeout);
     },[props, sortContext]);
-
+ 
     return (
     <div className={'filter-container'}>
         {props.columns.map((header:IColumn, index:number) => (
@@ -205,7 +205,7 @@ const Filters = (props: any) => {
                 </div>
                 <Form>
                     <Form.Control 
-                        as="select" 
+                        as="select"
                         value={ convertOption(header) }
                         onChange={(e:any) =>  { handleOnOptionChange(e, header) }}>
                             {(header['type'] === 'number' || header['type'] === 'date') ? 
@@ -216,9 +216,9 @@ const Filters = (props: any) => {
                     </Form.Control>
                     <div 
                         className="input-icons">
-                            <span 
+                            <span
                                 onClick={(e:any) => { handleDeleteFilter(e, header); 
-                                setSelected(0) }}>
+                                setOption(0) }}>
                                     {displayDeleteIcon(header)}
                             </span>
                     <Form.Control
