@@ -33,7 +33,7 @@ import { ISortStats } from '../../Interfaces/GridBody/ISortStats';
       columns.forEach((column) => {
       filter.forEach((filter) => {
         if(filter !== undefined && column.name === filter.name){
-          currentFilter = <i className="fa fa-filter filter-icon" aria-hidden="true"/>
+          currentFilter = <i tabIndex={0} className="fa fa-filter filter-icon" aria-hidden="true"/>
         }
       })
     })

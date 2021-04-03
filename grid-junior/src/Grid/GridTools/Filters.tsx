@@ -8,6 +8,7 @@ const Filters = (props: any) => {
     const sortContext = useContext(GridContext);
     const [showArrow, setShowArrow] = useState(true);
     const [option, setOption] = useState(0);
+    const [remove, setRemove] = useState(false);
 
     let optionsForStrings = [ 
         'Contains',
@@ -81,6 +82,7 @@ const Filters = (props: any) => {
     const displayDeleteIcon = (column:IColumn) => {
         const findFilter = sortContext.selectedFilterContext.findIndex(filter => filter.name === column.name);
         if (findFilter !== -1){
+            if(remove === false) { setRemove(true) }
             return (<i className="icon-trash icon"></i>)
         }
     };
@@ -241,13 +243,6 @@ const Filters = (props: any) => {
                         
                         }
                     </Form.Control>
-                    <div 
-                        className="input-icons">
-                            <span
-                                onClick={(e:any) => { handleDeleteFilter(e, header); 
-                                setOption(0) }}>
-                                    {displayDeleteIcon(header)}
-                            </span>
                     <Form.Control
                         type={header.type}
                         placeholder="Filter..."
@@ -255,7 +250,13 @@ const Filters = (props: any) => {
                         onChange={(e:any) => handleOnUserInput(e, header)}
                         name={header.name}
                         value={getFieldValue(header)}/>
-                    </div>
+                        <div
+                            className="input-icons">
+                                <div tabIndex={remove === true ? 0 : -1}
+                                     onKeyPress={(e:any) => { handleDeleteFilter(e, header); setOption(0) }}>
+                                         {displayDeleteIcon(header)}
+                                </div>
+                        </div>
                 </Form>
         </div>))}
     </div>);}
