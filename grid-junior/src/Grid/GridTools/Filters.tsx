@@ -132,6 +132,7 @@ const Filters = (props: any) => {
                                   type: "", 
                                   value: "", 
                                   operator: 0 })
+            setRemove(false)
         }
     };
 
