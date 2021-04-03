@@ -163,7 +163,7 @@ const Filters = (props: any) => {
             }
         })
 
-        document.addEventListener('keydown', (e: any) => {
+        document.addEventListener('keyup', (e: any) => {
             if(e.key === 'Tab') {
                 let ddown = document.querySelector('.show')
                 console.log(e.target.className)
