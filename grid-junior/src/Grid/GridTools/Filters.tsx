@@ -157,7 +157,7 @@ const Filters = (props: any) => {
                 let visibleDropdowns = document.getElementsByClassName('show');
 
                 Array.from(visibleDropdowns).forEach(dropdown => {
-                    sortContext.setToggledColumn({name: '', size: ''})
+                    sortContext.setToggledColumn({name: '', size: '', type: '', value: '', operator: 0})
                     sortContext.setToggledHeader([])
                 })
             }
@@ -171,7 +171,7 @@ const Filters = (props: any) => {
                     let visibleDropdowns = document.getElementsByClassName('show'); 
                     
                     Array.from(visibleDropdowns).forEach(dropdown => {
-                        sortContext.setToggledColumn({name: '', size: ''})
+                        sortContext.setToggledColumn({name: '', size: '', type: '', value: '', operator: 0})
                         sortContext.setToggledHeader([])
                     })
                 }
