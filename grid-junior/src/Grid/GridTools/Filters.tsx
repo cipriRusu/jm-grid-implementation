@@ -166,10 +166,9 @@ const Filters = (props: any) => {
         document.addEventListener('keyup', (e: any) => {
             if(e.key === 'Tab') {
                 let ddown = document.querySelector('.show')
-                console.log(e.target.className)
-
-                if(!ddown?.contains(e.target) && e.target.className==='sort') {
-                    let visibleDropdowns = document.getElementsByClassName('show');
+                
+                if(!ddown?.contains(e.target)) {
+                    let visibleDropdowns = document.getElementsByClassName('show'); 
                     
                     Array.from(visibleDropdowns).forEach(dropdown => {
                         sortContext.setToggledColumn({name: '', size: ''})
