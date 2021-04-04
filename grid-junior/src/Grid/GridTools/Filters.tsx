@@ -225,15 +225,15 @@ const Filters = (props: any) => {
                         <div
                             id="header">
                                 <div 
-                                className="column-name" 
-                                tabIndex={0}
-                                onKeyPress={() => handleColumnSorting(header.name)} 
-                                onClick={() => { handleColumnSorting(header.name)}}>
-                                    {displayArrows(header.name)}
-                                    <p style={{ margin: '0px' }}>{header.name}</p>
-                                    <span>
-                                        {handleFilterIcon(header)}
-                                    </span>
+                                    className="column-name" 
+                                    tabIndex={0}
+                                    onKeyPress={() => handleColumnSorting(header.name)} 
+                                    onClick={() => { handleColumnSorting(header.name)}}>
+                                        {displayArrows(header.name)}
+                                        <p style={{ margin: '0px' }}>{header.name}</p>
+                                            <span>
+                                                {handleFilterIcon(header)}
+                                            </span>
                                 </div>
                         </div>
                         <Form.Control 
