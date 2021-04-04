@@ -217,48 +217,49 @@ const Filters = (props: any) => {
     <div className={'filter-container'}>
         {props.columns.map((header:IColumn, index:number) => (
         <div 
-            className="filter"
-            key={index}>
+            className="single-filter-wrapper"
+            key={index}
+            >
                 <div
-                    id="header">
-                        <div 
-                            className="column-name" 
-                            tabIndex={0}
-                            onKeyPress={() => handleColumnSorting(header.name)} 
-                            onClick={() => { handleColumnSorting(header.name)}}>
-                                {displayArrows(header.name)}
-                                <p style={{ margin: '0px' }}>{header.name}</p>
-                                <span>
-                                    {handleFilterIcon(header)}
-                                </span>
-                        </div>
-                </div>
-                <Form>
-                    <Form.Control 
-                        as="select"
-                        value={ convertOption(header) }
-                        onChange={(e:any) =>  { handleOnOptionChange(e, header) }}>
-                            {(header['type'] === 'number' || header['type'] === 'date') ? 
-                            displayOptions(optionsForNumbers) : 
-                            displayOptions(optionsForStrings)
-                        
-                        }
-                    </Form.Control>
-                    <Form.Control
-                        type={header.type}
-                        placeholder="Filter..."
-                        onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
-                        onChange={(e:any) => handleOnUserInput(e, header)}
-                        name={header.name}
-                        value={getFieldValue(header)}/>
+                    className="filter">
                         <div
-                            className="input-icons">
-                                <div tabIndex={remove === true ? 0 : -1}
-                                     onKeyPress={(e:any) => { handleDeleteFilter(e, header); setOption(0) }}>
-                                         {displayDeleteIcon(header)}
+                            id="header">
+                                <div 
+                                className="column-name" 
+                                tabIndex={0}
+                                onKeyPress={() => handleColumnSorting(header.name)} 
+                                onClick={() => { handleColumnSorting(header.name)}}>
+                                    {displayArrows(header.name)}
+                                    <p style={{ margin: '0px' }}>{header.name}</p>
+                                    <span>
+                                        {handleFilterIcon(header)}
+                                    </span>
                                 </div>
                         </div>
-                </Form>
+                        <Form.Control 
+                            as="select"
+                            value={ convertOption(header) }
+                            onChange={(e:any) =>  { handleOnOptionChange(e, header) }}>
+                                {(header['type'] === 'number' || header['type'] === 'date') ? 
+                                displayOptions(optionsForNumbers) :
+                                displayOptions(optionsForStrings)}
+                        </Form.Control>
+                        <Form.Control
+                            type={header.type}
+                            placeholder="Filter..." 
+                            onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
+                            onChange={(e:any) => handleOnUserInput(e, header)}
+                            name={header.name}
+                            value={getFieldValue(header)}/>
+                        <div
+                            className="input-icons">
+                                 <div 
+                                    tabIndex={remove === true ? 0 : -1}
+                                    onKeyPress={(e:any) => { handleDeleteFilter(e, header); setOption(0) }}>
+                                        {displayDeleteIcon(header)}
+                                 </div>
+                        </div>
+                </div>
         </div>))}
     </div>);}
 

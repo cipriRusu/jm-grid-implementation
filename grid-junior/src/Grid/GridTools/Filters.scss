@@ -6,6 +6,9 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .filter-container {
+    .single-filter-wrapper {
+        position: relative;
+    }
     .filter{
             padding: 0!important;
             right: 0rem;
@@ -47,15 +50,14 @@ input[type=number]::-webkit-inner-spin-button {
               
                 }
             }
-           
-            form {
                 .input-icons {
+                    position: absolute;
+                    right: 0.5rem;
+                    bottom: 0.5rem;
                     .icon{
                         color:red;
                     }
-                }
-            }
-           
+                }           
         }
         
         .title-show {
