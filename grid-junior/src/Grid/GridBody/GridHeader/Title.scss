@@ -30,6 +30,12 @@
                         color: white;
                     }
                 }
+
+                &:focus-within {
+                    .filter-icon-hoverable {
+                        color: white;
+                    }
+                }
     
                 .filter-icon {
                     color: white;
