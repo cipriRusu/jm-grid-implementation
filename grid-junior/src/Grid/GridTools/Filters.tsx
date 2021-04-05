@@ -255,7 +255,8 @@ const Filters = (props: any) => {
                             className="input-icons">
                                  <div 
                                     tabIndex={remove === true ? 0 : -1}
-                                    onKeyPress={(e:any) => { handleDeleteFilter(e, header); setOption(0) }}>
+                                    onKeyPress={(e:any) => { handleDeleteFilter(e, header); setOption(0) }}
+                                    onClick={(e:any) => {handleDeleteFilter(e, header); setOption(0) }}>
                                         {displayDeleteIcon(header)}
                                  </div>
                         </div>
