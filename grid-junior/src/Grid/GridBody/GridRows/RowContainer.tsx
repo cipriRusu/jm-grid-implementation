@@ -20,7 +20,7 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
     },[page, updatePage, props.pageSize])
 
     return (<div className="row-container">
-        {props.content.get(gridContext.sort, gridContext.selectedFilterContext).slice(0, page)
+        {props.content.get(gridContext.sort, gridContext.selectedFilterContext, page)
         .map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {

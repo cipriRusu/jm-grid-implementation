@@ -19,7 +19,7 @@ export class DataSource implements IDataSource{
         } 
     }
 
-    get(sort: ISortStats, filters: IColumn[]) {
+    get(sort: ISortStats, filters: IColumn[], pageCount: number) {
         
         let returned_data = Object.create(this.data)
 
@@ -53,17 +53,17 @@ export class DataSource implements IDataSource{
             if(sort.field_id) {
                 switch(sort.sort_type) {
                     case "asc":
-                        returned_data.sort(this._sort_function(sort.field_id));
+                        returned_data.sort(this._sort_function(sort.field_id)).slice(0, pageCount);
                         break;
                     case "desc":
-                        returned_data.sort(this._sort_function(sort.field_id)).reverse();
+                        returned_data.sort(this._sort_function(sort.field_id)).reverse().slice(0, pageCount);
                         break;
                     default:
-                        return returned_data
+                        return returned_data.slice(0, pageCount)
                 }
             }
         }
 
-        return returned_data
+        return returned_data.slice(0, pageCount)
     }
 }
