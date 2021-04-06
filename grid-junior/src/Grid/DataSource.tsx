@@ -19,7 +19,7 @@ export class DataSource implements IDataSource{
         } 
     }
 
-    get(sort: ISortStats, filters: IColumn[], pageCount: number) {
+    get(sort: ISortStats, filters: IColumn[], page: number, pageCount: number) {
         
         let returned_data = Object.create(this.data)
 
@@ -42,28 +42,28 @@ export class DataSource implements IDataSource{
         }
 
         if(string_filters.length > 0) {
-            returned_data = new StringFilter(returned_data).applyFilters(string_filters);
+            returned_data = new StringFilter(returned_data).applyFilters(string_filters).slice(0, page * pageCount);
         }
 
         if(number_filters.length > 0) {
-            returned_data = new NumberFilter(returned_data).applyFilters(number_filters);
+            returned_data = new NumberFilter(returned_data).applyFilters(number_filters).slice(0, page * pageCount);
         }
 
         if(sort !== undefined) {
             if(sort.field_id) {
                 switch(sort.sort_type) {
                     case "asc":
-                        returned_data.sort(this._sort_function(sort.field_id)).slice(0, pageCount);
+                        returned_data.sort(this._sort_function(sort.field_id)).slice(0, page * pageCount);
                         break;
                     case "desc":
-                        returned_data.sort(this._sort_function(sort.field_id)).reverse().slice(0, pageCount);
+                        returned_data.sort(this._sort_function(sort.field_id)).reverse().slice(0, page * pageCount);
                         break;
                     default:
-                        return returned_data.slice(0, pageCount)
+                        return returned_data.slice(0, page *pageCount)
                 }
             }
         }
 
-        return returned_data.slice(0, pageCount)
+        return returned_data.slice(0, page * pageCount)
     }
 }

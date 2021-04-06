@@ -9,18 +9,18 @@ import { IRow } from '../../Interfaces/GridBody/IRow';
 
 const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
     const gridContext = useContext(GridContext);
-    const[page, updatePage] = useState(props.pageSize);
+    const[page, updatePage] = useState(1);
 
     useEffect(() => {
         document.addEventListener('scroll', (event: any) => {
             if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-                updatePage(page + props.pageSize)
+                updatePage(page + 1)
             }
         }, true)
     },[page, updatePage, props.pageSize])
 
     return (<div className="row-container">
-        {props.content.get(gridContext.sort, gridContext.selectedFilterContext, page)
+        {props.content.get(gridContext.sort, gridContext.selectedFilterContext, page, props.pageSize)
         .map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {

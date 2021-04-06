@@ -76,7 +76,7 @@ class Grid extends Component<IGridProps, IGridState>{
 
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                this.props.data.get(this.context.sort, this.context.selectedFilterContext, this.props.pageSize)[0] :
+                this.props.data.get(this.context.sort, this.context.selectedFilterContext, this.props.pageSize, 0)[0] :
                 this.state.selectedViewItem;
 
         return (
