@@ -4,7 +4,7 @@ import React from "react";
 import { headers } from './Grid/JSONData/HeadersData';
 import { DataSource } from './Grid/DataSource';
 
-const PAGE_SIZE = 7;
+const PAGE_SIZE = 11;
 
 function App(){
    return (
