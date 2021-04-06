@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Cell from './Cell';
 import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
@@ -7,11 +7,20 @@ import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { IDataSource } from '../../Interfaces/GridData/IDataSource';
 import { IRow } from '../../Interfaces/GridBody/IRow';
 
-const RowContainer = (props: { content: IDataSource }) => {
+const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
     const gridContext = useContext(GridContext);
+    const[page, updatePage] = useState(props.pageSize);
+
+    useEffect(() => {
+        document.addEventListener('scroll', (event: any) => {
+            if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+                updatePage(page + props.pageSize)
+            }
+        }, true)
+    },[page, updatePage, props.pageSize])
 
     return (<div className="row-container">
-        {props.content.get(gridContext.sort, gridContext.selectedFilterContext)
+        {props.content.get(gridContext.sort, gridContext.selectedFilterContext).slice(0, page)
         .map((x: IRow, row_key: number) => {
             return<div key={row_key} className='row'>
                 {gridContext.all_columns.map((y: IColumn, cell_key: number) => {
