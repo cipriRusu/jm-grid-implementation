@@ -4,6 +4,7 @@ import { IDataSource } from '../GridData/IDataSource';
 
 export interface IGridState {
     data: IDataSource,
+    page: number;
     selectedViewItem: string;
     selectedSort: ISortStats;
     visibleHeader: string;

@@ -6,6 +6,8 @@ export interface IGridContext {
     all_headers: IHeader[],
     all_columns: IColumn[],
     data: IDataSource,
+    page: number,
+    setPage: (newPage: number) => void,
     visibleHeader : string,
     selectViewHandler: (value: string) => void,
     selectedViewItemContext: Object,
