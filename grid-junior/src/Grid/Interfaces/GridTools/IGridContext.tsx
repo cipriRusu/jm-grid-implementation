@@ -1,5 +1,6 @@
 import { IColumn } from "../GridBody/IColumn";
 import { IHeader } from "../GridBody/IHeader";
+import { IRow } from "../GridBody/IRow";
 import { IDataSource } from "../GridData/IDataSource";
 
 export interface IGridContext {
@@ -7,10 +8,12 @@ export interface IGridContext {
     all_columns: IColumn[],
     data: IDataSource,
     page: number,
+    items: IRow[],
+    setItems: (updatedItems: IRow[]) => void,
     setPage: (newPage: number) => void,
     visibleHeader : string,
     selectViewHandler: (value: string) => void,
-    selectedViewItemContext: Object,
+    selectedViewItem: Object,
     headersContext: IHeader[],
     selectedFilterContext:  IColumn[],
     setFilter: (values: IColumn[]) => void,

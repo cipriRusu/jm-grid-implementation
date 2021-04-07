@@ -17,7 +17,7 @@ const ViewPart: React.FC = () => {
                 variant="secondary" 
                 className="dropdown-basic grid-button ">
                 <i className="icon-eye-open icon-large"></i>
-                <span className="btn-title">{gridContext.selectedViewItemContext || "View Part"}</span>
+                <span className="btn-title">{gridContext.selectedViewItem || "View Part"}</span>
             </Dropdown.Toggle> 
               
             {/* <Dropdown.Menu className="custom-dropdown" >

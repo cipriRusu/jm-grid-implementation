@@ -10,17 +10,19 @@ import { ISortStats } from './Interfaces/GridBody/ISortStats';
 import { IGridContext } from './Interfaces/GridTools/IGridContext';
 import { ISortable } from './Interfaces/GridBody/ISortable';
 import { IColumnContainer } from './Interfaces/GridBody/IColumnContainer';
+import { IRow } from './Interfaces/GridBody/IRow';
 
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
     all_columns: [],
     data: { get: (sort: ISortStats, filters: IColumn[]) => []},
-    page: 0,
-    setPage: (newPage: number) => {},
-    selectedViewItemContext: "",
-    visibleHeader: "",
-    selectViewHandler: (_value: string) => {},
     headersContext: [],
+    items: [],
+    page: 0,
+    setItems: (updatedItems: IRow[]) => {},
+    setPage: (newPage: number) => {},
+    selectedViewItem: "",
+    selectViewHandler: (_value: string) => {},
     sort: { sort_type: '', field_id: ''},
     setSort: (selectedSort: ISortStats) => {},
     selectedFilterContext: [],
@@ -28,7 +30,8 @@ export const GridContext = createContext<IGridContext & ISortable>({
     toggledColumn: {name: "", size: ""},
     setToggledColumn: (value: IColumn) => {},
     toggledHeader : [],
-    setToggledHeader: (value: IColumn[]) => {}
+    setToggledHeader: (value: IColumn[]) => {},
+    visibleHeader: ""
 });
 
 class Grid extends Component<IGridProps, IGridState>{
@@ -40,7 +43,8 @@ class Grid extends Component<IGridProps, IGridState>{
         data: this.props.data,
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
-        page: 1
+        page: 0,
+        items: this.props.data.get({sort_type: '', field_id: ''}, [], 0, this.props.pageSize),
     }
 
     flatHeader = () => {
@@ -55,6 +59,10 @@ class Grid extends Component<IGridProps, IGridState>{
         })
 
         return all_columns.flat().flat();
+    }
+
+    setItems = (updatedItems: IRow[]) =>  {
+        this.setState({items: updatedItems});
     }
 
     setPage = (newPage: number) : void => {
@@ -83,17 +91,21 @@ class Grid extends Component<IGridProps, IGridState>{
 
     render(){
         const defaultView = this.state.selectedViewItem === "" ?
-                this.props.data.get(this.context.sort, this.context.selectedFilterContext, this.props.pageSize, 0)[0] :
-                this.state.selectedViewItem;
-
+                            this.props.data.get(this.context.sort, 
+                                                this.context.selectedFilterContext, 
+                                                this.props.pageSize, 0)[0] :
+                            this.state.selectedViewItem;
+                                                 
         return (
         <GridContext.Provider value={{
             all_headers: this.props.headers,
             all_columns: this.flatHeader(),
             data: this.props.data,
+            items: this.state.items,
+            setItems: this.setItems,
             page: this.state.page,
             setPage: this.setPage,
-            selectedViewItemContext: defaultView,
+            selectedViewItem: defaultView,
             visibleHeader: this.state.visibleHeader,
             selectViewHandler: this.selectItemHandler,
             headersContext: this.props.headers,
