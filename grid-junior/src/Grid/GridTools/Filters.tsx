@@ -141,6 +141,17 @@ const Filters = (props: any) => {
             return header.name === x.name ? <i key={index} className="icon-column fa fa-filter" ></i> : null })
     }
 
+    const handleFilterCloseOnEnter = (event: any) => {
+        if(event.key === 'Enter') {
+            let visibleDropdowns = document.getElementsByClassName('show');
+
+                Array.from(visibleDropdowns).forEach(dropdown => {
+                    sortContext.setToggledColumn({name: '', size: '', type: '', value: '', operator: 0})
+                    sortContext.setToggledHeader([])
+                })
+        }
+    }
+
     useEffect(() => {
         document.addEventListener('click', (e:any) => {
             let visibleDropdowns = document.getElementsByClassName('show');
@@ -246,8 +257,8 @@ const Filters = (props: any) => {
                         </Form.Control>
                         <Form.Control
                             type={header.type}
-                            placeholder="Filter..." 
-                            onKeyPress={(e:any) => {return e.key === "Enter" ? e.preventDefault() : ''}}
+                            placeholder="Filter..."
+                            onKeyPress={(e:any) => handleFilterCloseOnEnter(e)}
                             onChange={(e:any) => handleOnUserInput(e, header)}
                             name={header.name}
                             value={getFieldValue(header)}/>
