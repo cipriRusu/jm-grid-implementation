@@ -12,29 +12,39 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+
+            let currentCachedItems = gridContext.items;
+
+            let newCache = props.content.get(
+                gridContext.sort, 
+                gridContext.selectedFilterContext, 
+                gridContext.page, 
+                props.pageSize)
+
+            gridContext.setItems(currentCachedItems.concat(newCache))
+
             gridContext.setPage(gridContext.page + 1)
         }
     }
 
     useEffect(() => {
-        if(gridContext.items.length === 0) {
-            gridContext.setItems(props.content.get({sort_type: '', field_id: ''},
-                                                    [],
-                                                    0,
-                                                    props.pageSize))
-        }
-    },[props.content, props.pageSize])
+        gridContext.setPage(0); 
 
-    useEffect(() => {
-        gridContext.setItems(props.content.get(gridContext.sort, 
-                                               gridContext.selectedFilterContext, 
-                                               gridContext.page, 
-                                               props.pageSize))
-    },[gridContext.selectedFilterContext, 
-       gridContext.sort.field_id, 
-       gridContext.sort.sort_type,
-       props.content, props.pageSize]
-    )
+        gridContext.setItems(
+            props.content.get(
+            gridContext.sort, 
+            gridContext.selectedFilterContext, 
+            0, 
+            props.pageSize))
+
+    },[gridContext.sort.field_id, 
+        gridContext.sort.sort_type, 
+        gridContext.setSort,
+        gridContext.selectedFilterContext, 
+        gridContext.setItems,
+        props.content,
+        props.pageSize
+    ])
 
     return (
     <GridContext.Consumer>
