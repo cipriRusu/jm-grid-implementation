@@ -44,7 +44,7 @@ class Grid extends Component<IGridProps, IGridState>{
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
         page: 0,
-        items: this.props.data.get({ sort_type: '', field_id: ''}, [], 0, this.props.pageSize)
+        items:[]
     }
 
     flatHeader = () => {

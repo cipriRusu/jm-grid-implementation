@@ -28,14 +28,18 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
     }
 
     useEffect(() => {
-        gridContext.setPage(0); 
+        gridContext.page = 0;
 
-        gridContext.setItems(
-            props.content.get(
-            gridContext.sort, 
-            gridContext.filters, 
-            0, 
-            props.pageSize))
+            gridContext.setItems(
+                props.content.get(
+                gridContext.sort, 
+                gridContext.filters, 
+                0,
+                props.pageSize))
+
+        if(gridContext.page === 0) {
+            gridContext.setPage(1)
+        }
 
     },[gridContext.sort.field_id, 
         gridContext.sort.sort_type, 
