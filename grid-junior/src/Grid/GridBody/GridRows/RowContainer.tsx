@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Cell from './Cell';
 import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
@@ -15,6 +15,26 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
             gridContext.setPage(gridContext.page + 1)
         }
     }
+
+    useEffect(() => {
+        if(gridContext.items.length === 0) {
+            gridContext.setItems(props.content.get({sort_type: '', field_id: ''},
+                                                    [],
+                                                    0,
+                                                    props.pageSize))
+        }
+    },[props.content, props.pageSize])
+
+    useEffect(() => {
+        gridContext.setItems(props.content.get(gridContext.sort, 
+                                               gridContext.selectedFilterContext, 
+                                               gridContext.page, 
+                                               props.pageSize))
+    },[gridContext.selectedFilterContext, 
+       gridContext.sort.field_id, 
+       gridContext.sort.sort_type,
+       props.content, props.pageSize]
+    )
 
     return (
     <GridContext.Consumer>

@@ -44,7 +44,7 @@ class Grid extends Component<IGridProps, IGridState>{
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
         page: 0,
-        items: this.props.data.get({sort_type: '', field_id: ''}, [], 0, this.props.pageSize),
+        items: []
     }
 
     flatHeader = () => {
@@ -93,7 +93,8 @@ class Grid extends Component<IGridProps, IGridState>{
         const defaultView = this.state.selectedViewItem === "" ?
                             this.props.data.get(this.context.sort, 
                                                 this.context.selectedFilterContext, 
-                                                this.props.pageSize, 0)[0] :
+                                                0, 
+                                                this.props.pageSize)[0] :
                             this.state.selectedViewItem;
                                                  
         return (
