@@ -71,7 +71,7 @@ function Title(props: ITitle) {
 
                         { handleSortIcon(value.sort, props.columns) }
                         <p>{props.title}</p>
-                        { handleFilterIcon(value.selectedFilterContext, props.columns) }
+                        { handleFilterIcon(value.filters, props.columns) }
                   </div>
             </div>
             <div className={`title-dropdown ${props.columns === value.toggledHeader ? 'show' : ''}`}>

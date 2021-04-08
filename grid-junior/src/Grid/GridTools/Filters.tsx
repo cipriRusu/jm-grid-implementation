@@ -27,7 +27,7 @@ const Filters = (props: any) => {
     ];
 
     const convertOption = (column: IColumn) =>  {
-        var filter = sortContext.selectedFilterContext.find(x => x.name === column.name);
+        var filter = sortContext.filters.find(x => x.name === column.name);
 
         if (filter === undefined) {
             switch(column.type){
@@ -80,7 +80,7 @@ const Filters = (props: any) => {
     );
 
     const displayDeleteIcon = (column:IColumn) => {
-        const findFilter = sortContext.selectedFilterContext.findIndex(filter => filter.name === column.name);
+        const findFilter = sortContext.filters.findIndex(filter => filter.name === column.name);
         if (findFilter !== -1){
             if(remove === false) { setRemove(true) }
             return (<i className="icon-trash icon"></i>)
@@ -91,7 +91,7 @@ const Filters = (props: any) => {
         if(header.name === props.filter.name)
         { return props.filter.value; }
 
-        var filter = sortContext.selectedFilterContext.find(x => x.name === header.name);
+        var filter = sortContext.filters.find(x => x.name === header.name);
 
         return filter !== undefined ? filter.value : '';
     }
@@ -125,7 +125,7 @@ const Filters = (props: any) => {
 
     const handleDeleteFilter = (e: any, column: IColumn) => {
         if(column.value !== "") {
-            const newList = sortContext.selectedFilterContext.filter(item => item.name !== column.name);
+            const newList = sortContext.filters.filter(item => item.name !== column.name);
             sortContext.setFilter(newList);
             props.update_filter({ name: "",
                                   size: "",
@@ -137,7 +137,7 @@ const Filters = (props: any) => {
     };
 
     const handleFilterIcon = (header: IColumn) => {
-        return sortContext.selectedFilterContext.map((x, index: number) => {
+        return sortContext.filters.map((x, index: number) => {
             return header.name === x.name ? <i key={index} className="icon-column fa fa-filter" ></i> : null })
     }
 
@@ -196,7 +196,7 @@ const Filters = (props: any) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             const checkCurrentFilters = () => {
-                  return !sortContext.selectedFilterContext.some(x => x.name === props.filter.name &&
+                  return !sortContext.filters.some(x => x.name === props.filter.name &&
                                                                       x.size === props.filter.size &&
                                                                       x.type === props.filter.type &&
                                                                       x.value === props.filter.value &&
@@ -205,7 +205,7 @@ const Filters = (props: any) => {
             if(props.filter.value !== undefined && props.filter.value !== "" && checkCurrentFilters()) {
                 const handleAddFilter = () => {
                     let all_filters = new Array<IColumn>();
-                    let res = sortContext.selectedFilterContext.filter(x => x.name !== props.filter.name);
+                    let res = sortContext.filters.filter(x => x.name !== props.filter.name);
                     if(res.length > 0) 
                     { all_filters = all_filters.concat(res); }
 

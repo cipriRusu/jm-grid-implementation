@@ -14,7 +14,7 @@ const GridToolsLayout: React.FC = () =>  {
             <AdvancedFilters />
             <AppliedFilters /> 
             <SavedFilters/>
-            {gridContext.data.get(gridContext.sort, gridContext.selectedFilterContext, 0, 0).length > 1 && 
+            {gridContext.data.get(gridContext.sort, gridContext.filters, 0, 0).length > 1 && 
             <ViewPart/>
             }  
         </div>

@@ -17,7 +17,7 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
 
             let newCache = props.content.get(
                 gridContext.sort, 
-                gridContext.selectedFilterContext, 
+                gridContext.filters, 
                 gridContext.page, 
                 props.pageSize)
 
@@ -33,14 +33,14 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
         gridContext.setItems(
             props.content.get(
             gridContext.sort, 
-            gridContext.selectedFilterContext, 
+            gridContext.filters, 
             0, 
             props.pageSize))
 
     },[gridContext.sort.field_id, 
         gridContext.sort.sort_type, 
         gridContext.setSort,
-        gridContext.selectedFilterContext, 
+        gridContext.filters, 
         gridContext.setItems,
         props.content,
         props.pageSize
