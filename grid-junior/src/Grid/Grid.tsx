@@ -114,7 +114,10 @@ class Grid extends Component<IGridProps, IGridState>{
             }}>
             
             <Header />
-            <RowContainer content={this.state.data} pageSize={this.props.pageSize}/>
+            <RowContainer content={this.state.data} 
+                          pageSize={this.props.pageSize} 
+                          pageCache={this.props.cacheSize}/>
+                          
         </GridContext.Provider>);
     }
 

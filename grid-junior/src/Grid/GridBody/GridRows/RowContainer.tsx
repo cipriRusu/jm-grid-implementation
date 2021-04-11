@@ -7,12 +7,15 @@ import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { IDataSource } from '../../Interfaces/GridData/IDataSource';
 import { IRow } from '../../Interfaces/GridBody/IRow';
 
-const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
+const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache: number }) => {
     const gridContext = useContext(GridContext);
 
     const UpdateContainer = (event: any) =>  {
-        if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+        if(event.target.scrollTop === 0) {
+            //load data if scrolled to top
+        }
 
+        if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
             let currentCachedItems = gridContext.items;
 
             let newCache = props.content.get(
@@ -22,6 +25,10 @@ const RowContainer = (props: { content: IDataSource, pageSize: number }) => {
                 props.pageSize)
 
             gridContext.setItems(currentCachedItems.concat(newCache))
+
+            if(gridContext.items.length > props.pageCache) {
+                gridContext.setItems(gridContext.items.splice(props.pageCache));
+            }
 
             gridContext.setPage(gridContext.page + 1)
         }

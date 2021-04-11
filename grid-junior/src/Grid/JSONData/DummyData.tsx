@@ -9,8 +9,8 @@ var characters = "abcdefghiklmnopqrstuvwxyz";
 for(var i = 0; i < 100; i++) {
   const current: {[x: string]: any} = {}
 
-  keys.map((type: string, k_key: number) => {
-    res.map((value: string, v_key: number) => {
+  keys.forEach((type: string, k_key: number) => {
+    res.forEach((value: string, v_key: number) => {
       if(k_key === 0 || k_key === 1 || k_key === 2) {
         value = characters[Math.floor(Math.random() * 20)] + 
                 characters[Math.floor(Math.random() * 20)] + value;

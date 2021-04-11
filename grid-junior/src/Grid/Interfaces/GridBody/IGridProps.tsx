@@ -4,5 +4,6 @@ import { IHeader } from './IHeader';
 export interface IGridProps {
     data: IDataSource,
     headers: IHeader[],
-    pageSize: number
+    pageSize: number,
+    cacheSize: number
 };
