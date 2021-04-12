@@ -5,7 +5,7 @@ import { headers } from './Grid/JSONData/HeadersData';
 import { DataSource } from './Grid/DataSource';
 
 const PAGE_SIZE = 11;
-const CACHE_SIZE = 22;
+const CACHE_SIZE = 33;
 
 function App(){
    return (

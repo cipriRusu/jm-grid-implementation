@@ -19,9 +19,9 @@ export class DataSource implements IDataSource{
         } 
     }
 
-    get(sort: ISortStats, filters: IColumn[], page: number, pageCount: number) {
+    get(sort: ISortStats, filters: IColumn[], page: number, pageIndex: number) {
 
-        let currentPage = page * pageCount;
+        let currentPage = page * pageIndex;
         
         let returned_data = Object.create(this.data)
 
@@ -44,28 +44,28 @@ export class DataSource implements IDataSource{
         }
 
         if(string_filters.length > 0) {
-            returned_data = new StringFilter(returned_data).applyFilters(string_filters).slice(page * pageCount, currentPage + pageCount);
+            returned_data = new StringFilter(returned_data).applyFilters(string_filters).slice(page * pageIndex, currentPage + pageIndex);
         }
 
         if(number_filters.length > 0) {
-            returned_data = new NumberFilter(returned_data).applyFilters(number_filters).slice(page * pageCount, currentPage + pageCount);
+            returned_data = new NumberFilter(returned_data).applyFilters(number_filters).slice(page * pageIndex, currentPage + pageIndex);
         }
 
         if(sort !== undefined) {
             if(sort.field_id) {
                 switch(sort.sort_type) {
                     case "asc":
-                        returned_data.sort(this._sort_function(sort.field_id)).slice(page * pageCount, currentPage + pageCount);
+                        returned_data.sort(this._sort_function(sort.field_id)).slice(page * pageIndex, currentPage + pageIndex);
                         break;
                     case "desc":
-                        returned_data.sort(this._sort_function(sort.field_id)).reverse().slice(page * pageCount, currentPage + pageCount);
+                        returned_data.sort(this._sort_function(sort.field_id)).reverse().slice(page * pageIndex, currentPage + pageIndex);
                         break;
                     default:
-                        return returned_data.slice(page, pageCount)
+                        return returned_data.slice(page, pageIndex)
                 }
             }
         }
 
-        return returned_data.slice(page * pageCount, currentPage + pageCount);
+        return returned_data.slice(page * pageIndex, currentPage + pageIndex);
     }
 }

@@ -24,11 +24,18 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
                 gridContext.page, 
                 props.pageSize)
 
-            gridContext.setItems(currentCachedItems.concat(newCache))
+            let updatedCache = currentCachedItems.concat(newCache);
 
             if(gridContext.items.length > props.pageCache) {
-                gridContext.setItems(gridContext.items.splice(props.pageCache));
+
+                updatedCache.splice(0, props.pageSize);
+
+                gridContext.setItems(updatedCache);
+
+                document.getElementById((props.pageCache - 10).toString())?.scrollIntoView();
             }
+
+            gridContext.setItems(updatedCache)
 
             gridContext.setPage(gridContext.page + 1)
         }
@@ -63,7 +70,7 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
         <div className="row-container" onScroll={(e: any) => UpdateContainer(e)}>
             {gridContext.items
             .map((x: IRow, row_key: number) => {
-                return<div key={row_key} className='row'>
+                return<div id={row_key.toString()} key={row_key} className='row'>
                     {gridContext.all_columns.map((y: IColumn, cell_key: number) => {
                         return <Cell key={cell_key} content={{cell_content: x[y.name], 
                                                               cell_type: y.type as Cell_Type,
