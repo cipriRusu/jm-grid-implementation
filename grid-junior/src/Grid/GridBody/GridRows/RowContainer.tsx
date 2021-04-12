@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Cell from './Cell';
 import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
@@ -9,10 +9,32 @@ import { IRow } from '../../Interfaces/GridBody/IRow';
 
 const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache: number }) => {
     const gridContext = useContext(GridContext);
+    const [offsetPage, updateOffset] = useState(-1);
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollTop === 0) {
-            //load data if scrolled to top
+            if(offsetPage >= 0) {
+                let newCache = props.content.get(
+                    gridContext.sort, 
+                    gridContext.filters, 
+                    offsetPage,
+                    props.pageSize)
+
+                let updatedCache = [...newCache, ...gridContext.items];
+
+                if(gridContext.items.length > props.pageCache) {
+
+                    updatedCache.splice(-11, props.pageSize)
+
+                    updateOffset(offsetPage - 1);
+                }
+
+                gridContext.setItems(updatedCache)
+
+                gridContext.setPage(gridContext.page - 1)
+
+                document.getElementById((props.pageSize).toString())?.scrollIntoView();
+            }
         }
 
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
@@ -20,8 +42,8 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
 
             let newCache = props.content.get(
                 gridContext.sort, 
-                gridContext.filters, 
-                gridContext.page, 
+                gridContext.filters,
+                gridContext.page,
                 props.pageSize)
 
             let updatedCache = currentCachedItems.concat(newCache);
@@ -30,9 +52,9 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
 
                 updatedCache.splice(0, props.pageSize);
 
-                gridContext.setItems(updatedCache);
-
                 document.getElementById((props.pageCache - 10).toString())?.scrollIntoView();
+
+                updateOffset(offsetPage + 1);
             }
 
             gridContext.setItems(updatedCache)
