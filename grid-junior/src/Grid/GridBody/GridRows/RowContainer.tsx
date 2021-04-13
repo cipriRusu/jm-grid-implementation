@@ -10,10 +10,12 @@ import { IRow } from '../../Interfaces/GridBody/IRow';
 const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache: number }) => {
     const gridContext = useContext(GridContext);
     const [offsetPage, updateOffset] = useState(-1);
+    const [flagEnd, setFlagEnd] = useState(false);
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollTop === 0) {
             if(offsetPage >= 0) {
+                
                 let newCache = props.content.get(
                     gridContext.sort, 
                     gridContext.filters, 
@@ -38,6 +40,7 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
         }
 
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+            
             let currentCachedItems = gridContext.items;
 
             let newCache = props.content.get(
@@ -46,6 +49,17 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
                 gridContext.page,
                 props.pageSize)
 
+            if(newCache.length < props.pageSize) {
+                if(!flagEnd) {
+                    
+                    gridContext.setItems(gridContext.items.concat(newCache))
+
+                    setFlagEnd(true);
+
+                    gridContext.setPage(gridContext.page + 1)
+                }
+            }
+
             let updatedCache = currentCachedItems.concat(newCache);
 
             if(gridContext.items.length > props.pageCache) {
@@ -53,13 +67,19 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
                 updatedCache.splice(0, props.pageSize);
 
                 document.getElementById((props.pageCache - 10).toString())?.scrollIntoView();
-
-                updateOffset(offsetPage + 1);
+                
+                if(!flagEnd) {
+                    updateOffset(offsetPage + 1);
+                }
             }
 
-            gridContext.setItems(updatedCache)
+            if(newCache.length === props.pageSize) {
+                
+                gridContext.setItems(updatedCache)
 
-            gridContext.setPage(gridContext.page + 1)
+                gridContext.setPage(gridContext.page + 1)
+
+            }
         }
     }
 
