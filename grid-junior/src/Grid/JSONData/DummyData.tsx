@@ -28,3 +28,7 @@ for(var i = 0; i < 100; i++) {
 
   dummy_data.push(current)
 }
+
+dummy_data.forEach((x: any, y: number) => {
+  x['Prenume'] = y.toString().concat(x['Prenume'])
+})
