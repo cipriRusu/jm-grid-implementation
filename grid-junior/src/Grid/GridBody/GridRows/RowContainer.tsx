@@ -9,28 +9,48 @@ import { IRow } from '../../Interfaces/GridBody/IRow';
 
 const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache: number }) => {
     const gridContext = useContext(GridContext);
+    const [frontUnloaded, setUnloaded] = useState(-1);
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollTop === 0) {
-            let currentCachedItems = gridContext.items;
+            if(frontUnloaded >= 0) {
+                let currentCachedItems = gridContext.items;
 
-            let newCache = props.content.get(gridContext.sort, gridContext.filters, gridContext.lastLoadedBottom, props.pageSize)
+                let newCache = props.content.get(gridContext.sort, gridContext.filters, frontUnloaded, props.pageSize);
+
+                document.getElementById((props.pageSize).toString())?.scrollIntoView();
+
+                let updatedCache = [...newCache, ...currentCachedItems];
+
+                gridContext.setItems(updatedCache)
+
+                setUnloaded(frontUnloaded - 1);
+            }
         }
 
 
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-            if(props.content.getCount(gridContext.sort, gridContext.filters, gridContext.lastLoadedBottom, props.pageSize)) {
+            if(props.content.getCount(gridContext.sort, 
+                                      gridContext.filters, 
+                                      gridContext.lastLoadedBottom, 
+                                      props.pageSize)) {
+
                 let currentCachedItems = gridContext.items;
 
-                let newCache = props.content.get(gridContext.sort, gridContext.filters, gridContext.lastLoadedBottom, props.pageSize)
-
+                let newCache = props.content.get(gridContext.sort, 
+                                                 gridContext.filters, 
+                                                 gridContext.lastLoadedBottom, 
+                                                 props.pageSize)
+                                        
                 let updatedCache = currentCachedItems.concat(newCache)
 
-                if(gridContext.items.length > props.pageCache) {
+                if(gridContext.items.length > props.pageCache && newCache.length === props.pageSize) {
 
                     updatedCache.splice(0, props.pageSize);
     
                     document.getElementById((props.pageCache - 10).toString())?.scrollIntoView();
+
+                    setUnloaded(frontUnloaded + 1);
                 }
 
                 gridContext.setItems(updatedCache)
