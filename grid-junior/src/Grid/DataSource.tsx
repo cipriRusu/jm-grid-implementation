@@ -19,6 +19,10 @@ export class DataSource implements IDataSource{
         } 
     }
 
+    getCount(sort: ISortStats, filters: IColumn[], page: number, pageCount: number) {
+        return this.get(sort, filters, page, pageCount).length;
+    }
+
     get(sort: ISortStats, filters: IColumn[], page: number, pageIndex: number) {
 
         let currentPage = page * pageIndex;

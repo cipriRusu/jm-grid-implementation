@@ -7,7 +7,7 @@ export interface IGridContext {
     all_headers: IHeader[],
     all_columns: IColumn[],
     data: IDataSource,
-    page: number,
+    lastLoadedBottom: number,
     items: IRow[],
     setItems: (updatedItems: IRow[]) => void,
     setPage: (newPage: number) => void,

@@ -15,11 +15,12 @@ import { IRow } from './Interfaces/GridBody/IRow';
 export const GridContext = createContext<IGridContext & ISortable>({
     all_headers: [],
     all_columns: [],
-    data: { get: (sort: ISortStats, filters: IColumn[]) => []},
+    data: { get: (sort: ISortStats, filters: IColumn[]) => [],
+            getCount: (sort: ISortStats, filters: IColumn[]) => 0 },
     headersContext: [],
     items: [],
     setItems: (updatedItems: IRow[]) => {},
-    page: 0,
+    lastLoadedBottom: 0,
     setPage: (newPage: number) => {},
     selectedViewItem: "",
     selectViewHandler: (_value: string) => {},
@@ -43,7 +44,7 @@ class Grid extends Component<IGridProps, IGridState>{
         data: this.props.data,
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
-        page: 0,
+        lastLoadedPage: 0,
         items:[]
     }
 
@@ -66,7 +67,7 @@ class Grid extends Component<IGridProps, IGridState>{
     }
 
     setPage = (newPage: number) : void => {
-        this.setState({page: newPage});
+        this.setState({lastLoadedPage: newPage});
     }
 
     setSort = (selectedSort: ISortStats): void => {
@@ -97,7 +98,7 @@ class Grid extends Component<IGridProps, IGridState>{
             data: this.props.data,
             items: this.state.items,
             setItems: this.setItems,
-            page: this.state.page,
+            lastLoadedBottom: this.state.lastLoadedPage,
             setPage: this.setPage,
             selectedViewItem: '',
             visibleHeader: this.state.visibleHeader,
