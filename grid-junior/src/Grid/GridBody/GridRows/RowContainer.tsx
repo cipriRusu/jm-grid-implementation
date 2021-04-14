@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Cell from './Cell';
 import './RowContainer.scss';
 import { Cell_Type } from '../../CustomTypes/Cell_Type';
-import { GridContext } from '../../Grid';
+import Grid, { GridContext } from '../../Grid';
 import { IColumn } from '../../Interfaces/GridBody/IColumn';
 import { IDataSource } from '../../Interfaces/GridData/IDataSource';
 import { IRow } from '../../Interfaces/GridBody/IRow';
@@ -12,12 +12,32 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollTop === 0) {
+            if(gridContext.top >= 0) {
+                let currentCachedItems = gridContext.items;
 
+                let newCache = props.content.get(gridContext.sort, gridContext.filters, gridContext.top, props.pageSize)
+
+                let updatedCache = [...newCache, ...currentCachedItems]
+
+                if(updatedCache.length > props.pageCache) {
+                    updatedCache = updatedCache.slice(0, props.pageCache);
+                }
+
+                document.getElementById((props.pageSize - 1).toString())?.scrollIntoView();
+
+                gridContext.setItems(updatedCache);
+
+                gridContext.setTop(gridContext.top - 1);
+
+                gridContext.setBottom(gridContext.bottom - 1);
+            }
         }
 
 
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
             if(props.content.getCount(gridContext.sort, gridContext.filters, gridContext.bottom, props.pageSize)) {
+
+                console.log(gridContext.items)
 
                 let currentCachedItems = gridContext.items;
 
@@ -26,16 +46,18 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
                                                  gridContext.bottom, 
                                                  props.pageSize)
 
-                let updatedCache = currentCachedItems.concat(newCache)
+                let updatedCache = currentCachedItems.concat(newCache);
 
                 if(updatedCache.length > props.pageCache) {
 
                     updatedCache.splice(0, props.pageSize)
 
-                    document.getElementById((props.pageSize + 1).toString())?.scrollIntoView();
+                    document.getElementById((props.pageSize).toString())?.scrollIntoView();
+
+                    gridContext.setTop(gridContext.top + 1);
                 }
 
-                gridContext.setItems(updatedCache)
+                gridContext.setItems(updatedCache);
 
                 gridContext.setBottom(gridContext.bottom + 1);
             }

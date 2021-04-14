@@ -47,7 +47,7 @@ class Grid extends Component<IGridProps, IGridState>{
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
         bottom: 0,
-        top: 0,
+        top: -1,
         items:[]
     }
 
