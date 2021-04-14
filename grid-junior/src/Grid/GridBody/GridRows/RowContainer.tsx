@@ -9,59 +9,41 @@ import { IRow } from '../../Interfaces/GridBody/IRow';
 
 const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache: number }) => {
     const gridContext = useContext(GridContext);
-    const [frontUnloaded, setUnloaded] = useState(-1);
 
     const UpdateContainer = (event: any) =>  {
         if(event.target.scrollTop === 0) {
-            if(frontUnloaded >= 0) {
-                let currentCachedItems = gridContext.items;
 
-                let newCache = props.content.get(gridContext.sort, gridContext.filters, frontUnloaded, props.pageSize);
-
-                document.getElementById((props.pageSize).toString())?.scrollIntoView();
-
-                let updatedCache = [...newCache, ...currentCachedItems];
-
-                gridContext.setItems(updatedCache)
-
-                setUnloaded(frontUnloaded - 1);
-            }
         }
 
 
         if(event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-            if(props.content.getCount(gridContext.sort, 
-                                      gridContext.filters, 
-                                      gridContext.lastLoadedBottom, 
-                                      props.pageSize)) {
+            if(props.content.getCount(gridContext.sort, gridContext.filters, gridContext.bottom, props.pageSize)) {
 
                 let currentCachedItems = gridContext.items;
 
                 let newCache = props.content.get(gridContext.sort, 
                                                  gridContext.filters, 
-                                                 gridContext.lastLoadedBottom, 
+                                                 gridContext.bottom, 
                                                  props.pageSize)
-                                        
+
                 let updatedCache = currentCachedItems.concat(newCache)
 
-                if(gridContext.items.length > props.pageCache && newCache.length === props.pageSize) {
+                if(updatedCache.length > props.pageCache) {
 
-                    updatedCache.splice(0, props.pageSize);
-    
-                    document.getElementById((props.pageCache - 10).toString())?.scrollIntoView();
+                    updatedCache.splice(0, props.pageSize)
 
-                    setUnloaded(frontUnloaded + 1);
+                    document.getElementById((props.pageSize + 1).toString())?.scrollIntoView();
                 }
 
                 gridContext.setItems(updatedCache)
 
-                gridContext.setPage(gridContext.lastLoadedBottom + 1);
+                gridContext.setBottom(gridContext.bottom + 1);
             }
         }
     }
 
     useEffect(() => {
-        gridContext.lastLoadedBottom = 0;
+        gridContext.bottom = 0;
 
             gridContext.setItems(
                 props.content.get(
@@ -70,8 +52,8 @@ const RowContainer = (props: { content: IDataSource, pageSize: number, pageCache
                 0,
                 props.pageSize))
 
-        if(gridContext.lastLoadedBottom === 0) {
-            gridContext.setPage(1)
+        if(gridContext.bottom === 0) {
+            gridContext.setBottom(1)
         }
 
     },[gridContext.sort.field_id, 
