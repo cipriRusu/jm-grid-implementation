@@ -6,6 +6,7 @@ import { IRow } from '../GridBody/IRow';
 export interface IGridState {
     data: IDataSource,
     bottom: number;
+    top: number;
     items: IRow[];
     selectedViewItem: string;
     selectedSort: ISortStats;

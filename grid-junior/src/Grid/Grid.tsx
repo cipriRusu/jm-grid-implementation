@@ -21,7 +21,9 @@ export const GridContext = createContext<IGridContext & ISortable>({
     items: [],
     setItems: (updatedItems: IRow[]) => {},
     bottom: 0,
-    setPage: (newPage: number) => {},
+    top: 0,
+    setTop: (newPage: number) => {},
+    setBottom: (newPage: number) => {},
     selectedViewItem: "",
     selectViewHandler: (_value: string) => {},
     sort: { sort_type: '', field_id: ''},
@@ -45,6 +47,7 @@ class Grid extends Component<IGridProps, IGridState>{
         toggledColumn: {name: "", size: ""},
         toggledHeader: [],
         bottom: 0,
+        top: 0,
         items:[]
     }
 
@@ -68,6 +71,10 @@ class Grid extends Component<IGridProps, IGridState>{
 
     setBottom = (newPage: number) : void => {
         this.setState({bottom: newPage});
+    }
+
+    setTop = (newPage: number) : void => {
+        this.setState({top: newPage});
     }
 
     setSort = (selectedSort: ISortStats): void => {
@@ -96,10 +103,12 @@ class Grid extends Component<IGridProps, IGridState>{
             all_headers: this.props.headers,
             all_columns: this.flatHeader(),
             bottom: this.state.bottom,
+            top: this.state.top,
             data: this.props.data,
             items: this.state.items,
             setItems: this.setItems,
-            setPage: this.setBottom,
+            setBottom: this.setBottom,
+            setTop: this.setTop,
             selectedViewItem: '',
             visibleHeader: this.state.visibleHeader,
             selectViewHandler: this.selectItemHandler,
