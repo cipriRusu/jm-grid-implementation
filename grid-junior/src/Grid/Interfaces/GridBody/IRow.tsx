@@ -1,3 +1,3 @@
 export interface IRow {
-    [key: string] : string;
+  [key: string]: string;
 }

@@ -1,6 +1,6 @@
-import { ISortStats } from './ISortStats';
+import { ISortStats } from "./ISortStats";
 
 export interface ISortable {
-    sort: ISortStats;
-    setSort: (selectedSort: ISortStats) => void;
+  sort: ISortStats;
+  setSort: (selectedSort: ISortStats) => void;
 }

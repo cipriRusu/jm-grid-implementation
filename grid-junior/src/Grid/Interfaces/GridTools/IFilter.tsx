@@ -1,4 +1,4 @@
 export interface IFilter {
-    selectedFilterContext: string;
-    setFilter: (value: string) => void;
-};
+  selectedFilterContext: string;
+  setFilter: (value: string) => void;
+}

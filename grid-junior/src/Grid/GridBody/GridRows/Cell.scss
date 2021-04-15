@@ -1,23 +1,23 @@
 .title-item {
-    font-size: medium;
+  font-size: medium;
 }
 
 .cell {
-    margin-left: 1.4rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    display: flex;
+  margin-left: 1.4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
 }
 
-@media(max-width: 40rem) {
-    .row-container {
-        .row {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: solid thin;
-            .cell {
-                padding: 0px;
-            }
-        }
+@media (max-width: 40rem) {
+  .row-container {
+    .row {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: solid thin;
+      .cell {
+        padding: 0px;
+      }
     }
+  }
 }

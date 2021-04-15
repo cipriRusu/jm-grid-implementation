@@ -1,64 +1,64 @@
 .row {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .row-container {
-    overflow: hidden;
-    background-color:#4d4d61;
-    color: white;
-    height: 35rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  overflow: hidden;
+  background-color: #4d4d61;
+  color: white;
+  height: 35rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 0.5rem;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgb(87, 89, 107);
-  }
-
-@media(max-width: 50rem) {
-    .row-container {
-        .row {
-            display: grid;
-            grid-auto-flow: column;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: solid thin;
-            .cell {
-                padding: 0px;
-            }
-        }
-    }
+  background: #f1f1f1;
 }
 
-@media(max-width: 30rem) {
-    .grid-header {
-        display: none; 
-    }
-    .row-container {
-        .row {
-            display: flex !important;
-            flex-direction: row;
-            .cell {
-                margin-right: 20rem;
-            }
+::-webkit-scrollbar-thumb {
+  background: rgb(87, 89, 107);
+}
 
-            .title-wrapper {
-                font-size: large;
-                margin-right: -1rem;
-            }
-        }
+@media (max-width: 50rem) {
+  .row-container {
+    .row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: solid thin;
+      .cell {
+        padding: 0px;
+      }
     }
+  }
+}
+
+@media (max-width: 30rem) {
+  .grid-header {
+    display: none;
+  }
+  .row-container {
+    .row {
+      display: flex !important;
+      flex-direction: row;
+      .cell {
+        margin-right: 20rem;
+      }
+
+      .title-wrapper {
+        font-size: large;
+        margin-right: -1rem;
+      }
+    }
+  }
 }

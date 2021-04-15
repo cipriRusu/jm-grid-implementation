@@ -1,6 +1,6 @@
-import { IColumn } from './IColumn';
+import { IColumn } from "./IColumn";
 
 export interface IColumnContainer {
-    name: string;
-    columns: IColumn[];
+  name: string;
+  columns: IColumn[];
 }
