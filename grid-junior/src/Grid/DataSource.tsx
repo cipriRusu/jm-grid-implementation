@@ -51,36 +51,33 @@ export class DataSource implements IDataSource {
     }
 
     if (string_filters.length > 0) {
-      returned_data = new StringFilter(returned_data)
-        .applyFilters(string_filters)
-        .slice(page * pageIndex, currentPage + pageIndex);
+      returned_data = new StringFilter(returned_data).applyFilters(
+        string_filters
+      );
     }
 
     if (number_filters.length > 0) {
-      returned_data = new NumberFilter(returned_data)
-        .applyFilters(number_filters)
-        .slice(page * pageIndex, currentPage + pageIndex);
+      returned_data = new NumberFilter(returned_data).applyFilters(
+        number_filters
+      );
     }
 
     if (sort !== undefined) {
       if (sort.field_id) {
         switch (sort.sort_type) {
           case "asc":
-            returned_data
-              .sort(this._sort_function(sort.field_id))
-              .slice(page * pageIndex, currentPage + pageIndex);
+            returned_data.sort(this._sort_function(sort.field_id));
             break;
           case "desc":
-            returned_data
-              .sort(this._sort_function(sort.field_id))
-              .reverse()
-              .slice(page * pageIndex, currentPage + pageIndex);
+            returned_data.sort(this._sort_function(sort.field_id)).reverse();
             break;
           default:
             return returned_data.slice(page, pageIndex);
         }
       }
     }
+
+    console.log(returned_data);
 
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
   }
