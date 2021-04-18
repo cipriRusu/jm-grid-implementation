@@ -49,7 +49,7 @@ const RowContainer = (props: {
       event.target.scrollHeight - event.target.scrollTop ===
       event.target.clientHeight
     ) {
-      if (gridContext.loadedPages < allPages) {
+      if (gridContext.loadedPages <= allPages) {
         let currentCachedItems = gridContext.items;
 
         let newCache = props.content.get(
