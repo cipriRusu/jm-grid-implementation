@@ -8,6 +8,7 @@ export interface IGridState {
   bottom: number;
   top: number;
   items: IRow[];
+  loadedPages: number;
   selectedViewItem: string;
   selectedSort: ISortStats;
   visibleHeader: string;

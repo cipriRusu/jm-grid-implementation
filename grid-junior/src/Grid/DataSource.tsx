@@ -19,13 +19,54 @@ export class DataSource implements IDataSource {
     };
   }
 
-  getCount(
-    sort: ISortStats,
-    filters: IColumn[],
-    page: number,
-    pageCount: number
-  ) {
-    return this.get(sort, filters, page, pageCount).length;
+  getTotal(sort: ISortStats, filters: IColumn[]) {
+    let returned_data = Object.create(this.data);
+
+    let string_filters = Array<IColumn>();
+
+    let number_filters = Array<IColumn>();
+
+    if (filters !== undefined) {
+      filters.forEach((x: IColumn) => {
+        switch (x.type) {
+          case undefined:
+            string_filters.push(x);
+            break;
+          case "number":
+            number_filters.push(x);
+            break;
+        }
+      });
+    }
+
+    if (string_filters.length > 0) {
+      returned_data = new StringFilter(returned_data).applyFilters(
+        string_filters
+      );
+    }
+
+    if (number_filters.length > 0) {
+      returned_data = new NumberFilter(returned_data).applyFilters(
+        number_filters
+      );
+    }
+
+    if (sort !== undefined) {
+      if (sort.field_id) {
+        switch (sort.sort_type) {
+          case "asc":
+            returned_data.sort(this._sort_function(sort.field_id));
+            break;
+          case "desc":
+            returned_data.sort(this._sort_function(sort.field_id)).reverse();
+            break;
+          default:
+            return returned_data.length;
+        }
+      }
+    }
+
+    return returned_data.length;
   }
 
   get(sort: ISortStats, filters: IColumn[], page: number, pageIndex: number) {
@@ -76,8 +117,6 @@ export class DataSource implements IDataSource {
         }
       }
     }
-
-    console.log(returned_data);
 
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
   }

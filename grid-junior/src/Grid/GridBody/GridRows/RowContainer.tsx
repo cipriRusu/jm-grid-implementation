@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cell from "./Cell";
 import "./RowContainer.scss";
 import { Cell_Type } from "../../CustomTypes/Cell_Type";
@@ -13,6 +13,7 @@ const RowContainer = (props: {
   pageCache: number;
 }) => {
   const gridContext = useContext(GridContext);
+  const [allPages, updateAllPages] = useState(0);
 
   const UpdateContainer = (event: any) => {
     if (event.target.scrollTop === 0) {
@@ -36,6 +37,8 @@ const RowContainer = (props: {
 
         gridContext.setItems(updatedCache);
 
+        gridContext.setLoaded(gridContext.loadedPages - newCache.length);
+
         gridContext.setTop(gridContext.top - 1);
 
         gridContext.setBottom(gridContext.bottom - 1);
@@ -46,14 +49,7 @@ const RowContainer = (props: {
       event.target.scrollHeight - event.target.scrollTop ===
       event.target.clientHeight
     ) {
-      if (
-        props.content.getCount(
-          gridContext.sort,
-          gridContext.filters,
-          gridContext.bottom,
-          props.pageSize
-        )
-      ) {
+      if (gridContext.loadedPages < allPages) {
         let currentCachedItems = gridContext.items;
 
         let newCache = props.content.get(
@@ -73,6 +69,8 @@ const RowContainer = (props: {
           gridContext.setTop(gridContext.top + 1);
         }
 
+        gridContext.setLoaded(gridContext.loadedPages + newCache.length);
+
         gridContext.setItems(updatedCache);
 
         gridContext.setBottom(gridContext.bottom + 1);
@@ -83,14 +81,28 @@ const RowContainer = (props: {
   useEffect(() => {
     gridContext.bottom = 0;
 
-    gridContext.setItems(
-      props.content.get(
-        gridContext.sort,
-        gridContext.filters,
-        0,
-        props.pageSize
-      )
+    gridContext.top = -1;
+
+    gridContext.setItems([]);
+
+    gridContext.setTop(-1);
+
+    gridContext.setBottom(0);
+
+    let loadingElements = props.content.get(
+      gridContext.sort,
+      gridContext.filters,
+      0,
+      props.pageSize
     );
+
+    updateAllPages(
+      props.content.getTotal(gridContext.sort, gridContext.filters)
+    );
+
+    gridContext.setItems(loadingElements);
+
+    gridContext.setLoaded(loadingElements.length);
 
     if (gridContext.bottom === 0) {
       gridContext.setBottom(1);
@@ -100,9 +112,11 @@ const RowContainer = (props: {
   }, [
     gridContext.sort.field_id,
     gridContext.sort.sort_type,
-    gridContext.setSort,
     gridContext.filters,
+    gridContext.setSort,
+    gridContext.setFilter,
     gridContext.setItems,
+    gridContext.setLoaded,
     props.content,
     props.pageSize,
   ]);

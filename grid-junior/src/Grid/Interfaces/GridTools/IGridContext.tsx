@@ -10,6 +10,8 @@ export interface IGridContext {
   bottom: number;
   top: number;
   items: IRow[];
+  loadedPages: number;
+  setLoaded: (updatedPages: number) => void;
   setItems: (updatedItems: IRow[]) => void;
   setBottom: (newPage: number) => void;
   setTop: (newPage: number) => void;
