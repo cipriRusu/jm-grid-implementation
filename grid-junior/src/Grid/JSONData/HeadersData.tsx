@@ -5,6 +5,7 @@ export const headers = [
       {
         name: "Utilizator",
         columns: [
+          { name: "Status", size: "standard", type: "select" },
           { name: "Prenume", size: "standard" },
           { name: "Nume", size: "standard" },
         ],

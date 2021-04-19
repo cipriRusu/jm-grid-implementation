@@ -28,6 +28,10 @@ const Filters = (props: any) => {
       switch (column.type) {
         case "number":
           return optionsForNumbers[option];
+        case "select":
+          return Array.from(new Set(sortContext.items.map((x) => x.Status)))[
+            option
+          ];
         default:
           return optionsForStrings[option];
       }
@@ -36,6 +40,10 @@ const Filters = (props: any) => {
         case "number":
           return optionsForNumbers[
             filter.operator === undefined ? 0 : filter.operator
+          ];
+        case "select":
+          return Array.from(new Set(sortContext.items.map((x) => x.Status)))[
+            option
           ];
         default:
           return optionsForStrings[
@@ -177,6 +185,21 @@ const Filters = (props: any) => {
     }
   };
 
+  const handleSelectionOptions = (header: IColumn) => {
+    switch (header.type) {
+      case "number":
+        return displayOptions(optionsForNumbers);
+      case "date":
+        return displayOptions(optionsForNumbers);
+      case "select":
+        return displayOptions(
+          Array.from(new Set(sortContext.items.map((x) => x.Status)))
+        );
+      case undefined:
+        return displayOptions(optionsForStrings);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("click", (e: any) => {
       let visibleDropdowns = document.getElementsByClassName("show");
@@ -307,9 +330,7 @@ const Filters = (props: any) => {
                 handleOnOptionChange(e, header);
               }}
             >
-              {header["type"] === "number" || header["type"] === "date"
-                ? displayOptions(optionsForNumbers)
-                : displayOptions(optionsForStrings)}
+              {handleSelectionOptions(header)}
             </Form.Control>
             <Form.Control
               type={header.type}

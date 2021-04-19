@@ -1,8 +1,10 @@
 export const dummy_data = [] as any;
 
-let keys = ["Prenume", "Nume", "Email", "Nr Telefon"];
+let keys = ["Status", "Prenume", "Nume", "Email", "Nr Telefon"];
 
-let res = ["John", "Doe", "jdoe@gmail.com", "010292991"];
+let res = ["Status", "John", "Doe", "jdoe@gmail.com", "010292991"];
+
+let status = ["Disponibil", "Ocupat", "Offline"];
 
 var characters = "abcdefghiklmnopqrstuvwxyz";
 
@@ -11,14 +13,18 @@ for (var i = 0; i < 100; i++) {
 
   keys.forEach((type: string, k_key: number) => {
     res.forEach((value: string, v_key: number) => {
-      if (k_key === 0 || k_key === 1 || k_key === 2) {
+      if (k_key === 0) {
+        value = status[Math.floor(Math.random() * status.length)];
+      }
+
+      if (k_key === 1 || k_key === 2 || k_key === 3) {
         value =
           characters[Math.floor(Math.random() * 20)] +
           characters[Math.floor(Math.random() * 20)] +
           value;
       }
 
-      if (k_key === 3) {
+      if (k_key === 4) {
         value = Math.floor(Math.random() * 1000000000).toString();
       }
 
