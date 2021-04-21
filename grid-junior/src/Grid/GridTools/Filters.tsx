@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, FormCheck } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import "./Filters.scss";
@@ -28,10 +28,6 @@ const Filters = (props: any) => {
       switch (column.type) {
         case "number":
           return optionsForNumbers[option];
-        case "select":
-          return Array.from(new Set(sortContext.items.map((x) => x.Status)))[
-            option
-          ];
         default:
           return optionsForStrings[option];
       }
@@ -40,10 +36,6 @@ const Filters = (props: any) => {
         case "number":
           return optionsForNumbers[
             filter.operator === undefined ? 0 : filter.operator
-          ];
-        case "select":
-          return Array.from(new Set(sortContext.items.map((x) => x.Status)))[
-            option
           ];
         default:
           return optionsForStrings[
@@ -185,16 +177,69 @@ const Filters = (props: any) => {
     }
   };
 
+  const handleSelectionFilter = (header: IColumn) => {
+    let filter = sortContext.selectionFilters.filter(
+      (filters) => filters.name === header.name
+    )[0];
+
+    let selectionValues = filter.values;
+
+    return selectionValues?.map((value) => {
+      return (
+        <Form.Check
+          className="formCheck"
+          type="checkbox"
+          label={value}
+        ></Form.Check>
+      );
+    });
+  };
+
+  const handleStandardFilter = (header: IColumn) => {
+    return (
+      <div>
+        <Form.Control
+          as="select"
+          value={convertOption(header)}
+          onChange={(e: any) => {
+            handleOnOptionChange(e, header);
+          }}
+        >
+          {handleSelectionOptions(header)}
+        </Form.Control>
+        <Form.Control
+          type={header.type}
+          placeholder="Filter..."
+          onKeyPress={(e: any) => handleFilterCloseOnEnter(e)}
+          onChange={(e: any) => handleOnUserInput(e, header)}
+          name={header.name}
+          value={getFieldValue(header)}
+        />
+        <div className="input-icons">
+          <div
+            tabIndex={remove === true ? 0 : -1}
+            onKeyPress={(e: any) => {
+              handleDeleteFilter(e, header);
+              setOption(0);
+            }}
+            onClick={(e: any) => {
+              handleDeleteFilter(e, header);
+              setOption(0);
+            }}
+          >
+            {displayDeleteIcon(header)}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const handleSelectionOptions = (header: IColumn) => {
     switch (header.type) {
       case "number":
         return displayOptions(optionsForNumbers);
       case "date":
         return displayOptions(optionsForNumbers);
-      case "select":
-        return displayOptions(
-          Array.from(new Set(sortContext.items.map((x) => x.Status)))
-        );
       case undefined:
         return displayOptions(optionsForStrings);
     }
@@ -323,38 +368,8 @@ const Filters = (props: any) => {
                 <span>{handleFilterIcon(header)}</span>
               </div>
             </div>
-            <Form.Control
-              as="select"
-              value={convertOption(header)}
-              onChange={(e: any) => {
-                handleOnOptionChange(e, header);
-              }}
-            >
-              {handleSelectionOptions(header)}
-            </Form.Control>
-            <Form.Control
-              type={header.type}
-              placeholder="Filter..."
-              onKeyPress={(e: any) => handleFilterCloseOnEnter(e)}
-              onChange={(e: any) => handleOnUserInput(e, header)}
-              name={header.name}
-              value={getFieldValue(header)}
-            />
-            <div className="input-icons">
-              <div
-                tabIndex={remove === true ? 0 : -1}
-                onKeyPress={(e: any) => {
-                  handleDeleteFilter(e, header);
-                  setOption(0);
-                }}
-                onClick={(e: any) => {
-                  handleDeleteFilter(e, header);
-                  setOption(0);
-                }}
-              >
-                {displayDeleteIcon(header)}
-              </div>
-            </div>
+            {header.type === "select" ? handleSelectionFilter(header) : ""}
+            {header.type !== "select" ? handleStandardFilter(header) : ""}
           </div>
         </div>
       ))}

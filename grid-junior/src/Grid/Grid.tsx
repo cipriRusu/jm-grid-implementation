@@ -33,6 +33,7 @@ export const GridContext = createContext<IGridContext & ISortable>({
   sort: { sort_type: "", field_id: "" },
   setSort: (selectedSort: ISortStats) => {},
   filters: [],
+  selectionFilters: [],
   setFilter: (_values: IColumn[]) => {},
   toggledColumn: { name: "", size: "" },
   setToggledColumn: (value: IColumn) => {},
@@ -128,6 +129,9 @@ class Grid extends Component<IGridProps, IGridState> {
           sort: this.state.selectedSort,
           setSort: this.setSort,
           filters: this.state.selectedFilter,
+          selectionFilters: this.flatHeader().filter(
+            (column) => column.type === "select"
+          ),
           setFilter: this.setFilter,
           toggledColumn: this.state.toggledColumn,
           setToggledColumn: this.setToggledColumn,

@@ -20,6 +20,7 @@ export interface IGridContext {
   selectedViewItem: Object;
   headersContext: IHeader[];
   filters: IColumn[];
+  selectionFilters: IColumn[];
   setFilter: (values: IColumn[]) => void;
   toggledColumn: IColumn;
   setToggledColumn: (value: IColumn) => void;
