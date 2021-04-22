@@ -102,6 +102,8 @@ function Title(props: ITitle) {
                     key={y}
                     columns={[x]}
                     filter={props.filter}
+                    selectionFilter={props.selectionFilter}
+                    update_selection={props.update_selection}
                     update_filter={props.update_filter}
                   />
                 );

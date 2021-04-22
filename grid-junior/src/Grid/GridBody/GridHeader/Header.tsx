@@ -21,6 +21,12 @@ function Header() {
     setStandardFilter(updated_filter);
   }
 
+  const [selectionFilter, setSelectionFilter] = useState<string[]>([]);
+
+  function update_selection(updated_selection: string[]) {
+    setSelectionFilter(updated_selection);
+  }
+
   return (
     <div className="grid-header">
       {gridContext.allHeaders
@@ -36,6 +42,8 @@ function Header() {
                 title={value.name}
                 columns={value.columns}
                 filter={standardFilter}
+                selectionFilter={selectionFilter}
+                update_selection={update_selection}
                 update_filter={update_filter}
               />
               <div className="column-container">
@@ -46,9 +54,11 @@ function Header() {
                       name={value.name}
                       size={value.size}
                       type={value.type}
-                      operator={standardFilter.operator}
-                      filter={standardFilter}
                       toggled={false}
+                      filter={standardFilter}
+                      operator={standardFilter.operator}
+                      selectionFilter={selectionFilter}
+                      update_selection={update_selection}
                       update_filter={update_filter}
                     />
                   );

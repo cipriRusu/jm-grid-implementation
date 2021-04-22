@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form, FormCheck } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import "./Filters.scss";
@@ -184,15 +184,51 @@ const Filters = (props: any) => {
 
     let selectionValues = filter.values;
 
-    return selectionValues?.map((value) => {
+    return selectionValues?.map((value, key) => {
       return (
         <Form.Check
+          key={key}
           className="formCheck"
           type="checkbox"
           label={value}
+          checked={handleFilterDisplay(header, props.selectionFilter, value)}
+          onChange={(e: any) => {
+            e.stopPropagation();
+            handleAddSelectionFilter(header, value, e.target.checked);
+          }}
         ></Form.Check>
       );
     });
+  };
+
+  const handleFilterDisplay = (
+    header: IColumn,
+    selectionFilter: string[],
+    currentValue: string
+  ) => {
+    return selectionFilter.some((x) => x === currentValue);
+  };
+
+  const handleAddSelectionFilter = (
+    header: IColumn,
+    option: string,
+    checked: boolean
+  ) => {
+    if (checked === true) {
+      let currentFilters = props.selectionFilter;
+
+      let allFilters = currentFilters.concat(option);
+
+      props.update_selection(allFilters);
+    }
+
+    if (checked === false) {
+      let currentFilters = props.selectionFilter;
+
+      currentFilters = currentFilters.filter((x: any) => x !== option);
+
+      props.update_selection(currentFilters);
+    }
   };
 
   const handleStandardFilter = (header: IColumn) => {

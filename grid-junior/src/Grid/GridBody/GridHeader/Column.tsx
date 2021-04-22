@@ -13,11 +13,13 @@ class Column extends React.Component<IColumn, IColumn> {
       name: this.props.name,
       size: this.props.size,
       filter: this.props.filter,
+      selectionFilter: this.props.selectionFilter,
       value: this.props.value,
-      update_filter: this.props.update_filter,
       type: this.props.type,
       operator: this.props.operator,
       toggled: this.props.toggled,
+      update_filter: this.props.update_filter,
+      update_selection: this.props.update_selection,
     };
   }
 
@@ -120,6 +122,8 @@ class Column extends React.Component<IColumn, IColumn> {
                   columns={[this.props]}
                   filter={this.props.filter}
                   update_filter={this.props.update_filter}
+                  selectionFilter={this.props.selectionFilter}
+                  update_selection={this.props.update_selection}
                 />
               </div>
             </Dropdown>
