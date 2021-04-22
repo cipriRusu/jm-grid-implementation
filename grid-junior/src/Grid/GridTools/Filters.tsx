@@ -188,13 +188,24 @@ const Filters = (props: any) => {
       return (
         <Form.Check
           key={key}
-          className="formCheck"
+          className="form-check"
           type="checkbox"
           label={value}
           checked={handleFilterDisplay(header, props.selectionFilter, value)}
           onChange={(e: any) => {
             e.stopPropagation();
             handleAddSelectionFilter(header, value, e.target.checked);
+          }}
+          onKeyPress={(e: any) => {
+            if (e.key === "Enter") {
+              let activeElement = document.activeElement as HTMLElement;
+
+              if (activeElement !== null) {
+                activeElement.click();
+              }
+
+              handleAddSelectionFilter(header, value, e.target.checked);
+            }
           }}
         ></Form.Check>
       );
