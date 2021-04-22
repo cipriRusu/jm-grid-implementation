@@ -25,6 +25,7 @@ function Header() {
 
   function update_selection(updated_selection: string[]) {
     setSelectionFilter(updated_selection);
+    gridContext.setSelectionFilters(updated_selection);
   }
 
   return (

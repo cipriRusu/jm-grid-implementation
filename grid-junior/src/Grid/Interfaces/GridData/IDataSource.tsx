@@ -6,9 +6,14 @@ export interface IDataSource {
   get: (
     sort: ISortStats,
     filters: IColumn[],
+    selectionFilters: string[],
     page: number,
     pageCount: number
   ) => IRow[];
 
-  getTotal: (sort: ISortStats, filters: IColumn[]) => number;
+  getTotal: (
+    sort: ISortStats,
+    filters: IColumn[],
+    selectionFilters: string[]
+  ) => number;
 }

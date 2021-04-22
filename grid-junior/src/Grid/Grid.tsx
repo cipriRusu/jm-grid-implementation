@@ -34,7 +34,9 @@ export const GridContext = createContext<IGridContext & ISortable>({
   setSort: (selectedSort: ISortStats) => {},
   filters: [],
   selectionFilters: [],
+  selectionOptions: [],
   setFilter: (_values: IColumn[]) => {},
+  setSelectionFilters: (filters: string[]) => {},
   toggledColumn: { name: "", size: "" },
   setToggledColumn: (value: IColumn) => {},
   toggledHeader: [],
@@ -47,7 +49,8 @@ class Grid extends Component<IGridProps, IGridState> {
     selectedViewItem: "",
     selectedSort: { sort_type: "", field_id: "" },
     visibleHeader: "firstHeader",
-    selectedFilter: [],
+    filters: [],
+    selectionFilters: [],
     data: this.props.data,
     toggledColumn: { name: "", size: "" },
     toggledHeader: [],
@@ -92,7 +95,11 @@ class Grid extends Component<IGridProps, IGridState> {
   };
 
   setFilter = (filters: IColumn[]) => {
-    this.setState({ selectedFilter: [...filters] });
+    this.setState({ filters: [...filters] });
+  };
+
+  setSelectionFilters = (filters: string[]) => {
+    this.setState({ selectionFilters: [...filters] });
   };
 
   setToggledColumn = (toggled: IColumn) => {
@@ -132,9 +139,11 @@ class Grid extends Component<IGridProps, IGridState> {
           headersContext: this.props.headers,
           sort: this.state.selectedSort,
           setSort: this.setSort,
-          filters: this.state.selectedFilter,
-          selectionFilters: allSelectionFilters,
+          selectionFilters: this.state.selectionFilters,
+          filters: this.state.filters,
+          selectionOptions: allSelectionFilters,
           setFilter: this.setFilter,
+          setSelectionFilters: this.setSelectionFilters,
           toggledColumn: this.state.toggledColumn,
           setToggledColumn: this.setToggledColumn,
           toggledHeader: this.state.toggledHeader,

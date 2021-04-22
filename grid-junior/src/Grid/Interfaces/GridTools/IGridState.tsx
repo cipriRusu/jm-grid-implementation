@@ -12,7 +12,8 @@ export interface IGridState {
   selectedViewItem: string;
   selectedSort: ISortStats;
   visibleHeader: string;
-  selectedFilter: IColumn[];
+  filters: IColumn[];
+  selectionFilters: string[];
   toggledColumn: IColumn;
   toggledHeader: IColumn[];
 }

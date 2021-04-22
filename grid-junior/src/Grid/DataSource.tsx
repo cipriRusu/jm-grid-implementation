@@ -19,7 +19,7 @@ export class DataSource implements IDataSource {
     };
   }
 
-  getTotal(sort: ISortStats, filters: IColumn[]) {
+  getTotal(sort: ISortStats, filters: IColumn[], selectionFilters: string[]) {
     let returned_data = Object.create(this.data);
 
     let string_filters = Array<IColumn>();
@@ -66,10 +66,22 @@ export class DataSource implements IDataSource {
       }
     }
 
+    if (selectionFilters.length > 0) {
+      returned_data = returned_data.filter((x: any) => {
+        return selectionFilters.includes(x.Status);
+      });
+    }
+
     return returned_data.length;
   }
 
-  get(sort: ISortStats, filters: IColumn[], page: number, pageIndex: number) {
+  get(
+    sort: ISortStats,
+    filters: IColumn[],
+    selectionFilters: string[],
+    page: number,
+    pageIndex: number
+  ) {
     let currentPage = page * pageIndex;
 
     let returned_data = Object.create(this.data);
@@ -116,6 +128,12 @@ export class DataSource implements IDataSource {
             return returned_data.slice(page, pageIndex);
         }
       }
+    }
+
+    if (selectionFilters.length > 0) {
+      returned_data = returned_data.filter((x: any) => {
+        return selectionFilters.includes(x.Status);
+      });
     }
 
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);

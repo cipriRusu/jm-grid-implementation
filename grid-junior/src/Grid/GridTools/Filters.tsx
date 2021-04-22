@@ -178,7 +178,7 @@ const Filters = (props: any) => {
   };
 
   const handleSelectionFilter = (header: IColumn) => {
-    let filter = sortContext.selectionFilters.filter(
+    let filter = sortContext.selectionOptions.filter(
       (filters) => filters.name === header.name
     )[0];
 
