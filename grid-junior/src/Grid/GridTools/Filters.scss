@@ -61,6 +61,12 @@ input[type="number"]::-webkit-inner-spin-button {
       border: solid 0.1rem #ced4da;
       border-radius: 0.25rem;
     }
+
+    .formCheck {
+      .form-check-label {
+        color: black;
+      }
+    }
   }
 
   .title-show {
