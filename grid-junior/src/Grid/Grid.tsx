@@ -108,6 +108,10 @@ class Grid extends Component<IGridProps, IGridState> {
   };
 
   render() {
+    let allSelectionFilters = this.flatHeader().filter(
+      (column) => column.type === "select"
+    );
+
     return (
       <GridContext.Provider
         value={{
@@ -129,9 +133,7 @@ class Grid extends Component<IGridProps, IGridState> {
           sort: this.state.selectedSort,
           setSort: this.setSort,
           filters: this.state.selectedFilter,
-          selectionFilters: this.flatHeader().filter(
-            (column) => column.type === "select"
-          ),
+          selectionFilters: allSelectionFilters,
           setFilter: this.setFilter,
           toggledColumn: this.state.toggledColumn,
           setToggledColumn: this.setToggledColumn,
