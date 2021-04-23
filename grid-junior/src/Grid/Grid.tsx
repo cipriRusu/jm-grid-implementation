@@ -14,6 +14,7 @@ import { IColumnContainer } from "./Interfaces/GridBody/IColumnContainer";
 import { IRow } from "./Interfaces/GridBody/IRow";
 
 export const GridContext = createContext<IGridContext & ISortable>({
+  activeFilter: { name: "", value: "" },
   allHeaders: [],
   allColumns: [],
   bottom: 0,
@@ -21,30 +22,32 @@ export const GridContext = createContext<IGridContext & ISortable>({
     get: (sort: ISortStats, filters: IFilter[]) => [],
     getTotal: (sort: ISortStats, filters: IFilter[]) => 0,
   },
+  filters: [{ name: "", type: "", value: "", operator: 0, selection: [] }],
   headersContext: [],
   items: [],
   loadedPages: 0,
   setLoaded: (updatedPages: number) => {},
   setItems: (updatedItems: IRow[]) => {},
-  top: -1,
   setTop: (newPage: number) => {},
   setBottom: (newPage: number) => {},
   selectedViewItem: "",
   selectViewHandler: (_value: string) => {},
   sort: { sort_type: "", field_id: "" },
   setSort: (selectedSort: ISortStats) => {},
-  filters: [{ name: "", type: "", value: "", operator: 0, selection: [] }],
   selectionOptions: [],
+  setActiveFilter: (newFilter: IFilter) => {},
   setFilter: (_values: IFilter[]) => {},
-  toggledColumn: { name: "", size: "" },
   setToggledColumn: (value: IColumn) => {},
-  toggledHeader: [],
   setToggledHeader: (value: IColumn[]) => {},
+  top: -1,
+  toggledColumn: { name: "", size: "" },
+  toggledHeader: [],
   visibleHeader: "",
 });
 
 class Grid extends Component<IGridProps, IGridState> {
   state: IGridState = {
+    activeFilter: { name: "" },
     selectedViewItem: "",
     selectedSort: { sort_type: "", field_id: "" },
     visibleHeader: "firstHeader",
@@ -92,6 +95,10 @@ class Grid extends Component<IGridProps, IGridState> {
     this.setState({ selectedSort: selectedSort });
   };
 
+  setActiveFilter = (newFilter: IFilter) => {
+    this.setState({ activeFilter: newFilter });
+  };
+
   setFilter = (filters: IFilter[]) => {
     this.setState({ filters: [...filters] });
   };
@@ -116,6 +123,7 @@ class Grid extends Component<IGridProps, IGridState> {
     return (
       <GridContext.Provider
         value={{
+          activeFilter: this.state.activeFilter,
           allHeaders: this.props.headers,
           allColumns: this.flatHeader(),
           bottom: this.state.bottom,
@@ -132,6 +140,7 @@ class Grid extends Component<IGridProps, IGridState> {
           selectViewHandler: this.selectItemHandler,
           headersContext: this.props.headers,
           sort: this.state.selectedSort,
+          setActiveFilter: this.setActiveFilter,
           setSort: this.setSort,
           filters: this.state.filters,
           selectionOptions: allSelectionFilters,

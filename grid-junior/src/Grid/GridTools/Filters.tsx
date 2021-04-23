@@ -94,8 +94,8 @@ const Filters = (props: any) => {
   };
 
   const getFieldValue = (header: IColumn) => {
-    if (header.name === props.filter.name) {
-      return props.filter.value;
+    if (header.name === sortContext.activeFilter.name) {
+      return sortContext.activeFilter.value;
     }
 
     var filter = sortContext.filters.find((x) => x.name === header.name);
@@ -104,9 +104,8 @@ const Filters = (props: any) => {
   };
 
   const handleOnUserInput = (e: any, column: IColumn) => {
-    props.update_filter({
+    sortContext.setActiveFilter({
       name: column.name,
-      size: column.size,
       value: e.target.value,
       type: column.type,
       operator: option,
@@ -114,20 +113,19 @@ const Filters = (props: any) => {
 
     if (e.target.value === "") {
       handleDeleteFilter(e, column);
-      props.update_filter({
+
+      sortContext.setActiveFilter({
         name: "",
-        size: "",
-        type: "",
         value: "",
+        type: "",
         operator: 0,
       });
     }
   };
 
   const handleOnOptionChange = (e: any, column: IColumn) => {
-    props.update_filter({
+    sortContext.setActiveFilter({
       name: column.name,
-      size: column.size,
       value: getFieldValue(column),
       type: column.type,
       operator: e.target.selectedIndex,
@@ -142,13 +140,14 @@ const Filters = (props: any) => {
         (item) => item.name !== column.name
       );
       sortContext.setFilter(newList);
-      props.update_filter({
+
+      sortContext.setActiveFilter({
         name: "",
-        size: "",
-        type: "",
         value: "",
+        type: "",
         operator: 0,
       });
+
       setRemove(false);
     }
   };
@@ -379,32 +378,32 @@ const Filters = (props: any) => {
       const checkCurrentFilters = () => {
         return !sortContext.filters.some(
           (x) =>
-            x.name === props.filter.name &&
-            x.type === props.filter.type &&
-            x.value === props.filter.value &&
-            x.operator === props.filter.operator &&
-            x.selection === props.filter.selection
+            x.name === sortContext.activeFilter.name &&
+            x.type === sortContext.activeFilter.type &&
+            x.value === sortContext.activeFilter.value &&
+            x.operator === sortContext.activeFilter.operator &&
+            x.selection === sortContext.activeFilter.selection
         );
       };
       if (
-        props.filter.value !== undefined &&
-        props.filter.value !== "" &&
+        sortContext.activeFilter.value !== undefined &&
+        sortContext.activeFilter.value !== "" &&
         checkCurrentFilters()
       ) {
         const handleAddFilter = () => {
           let all_filters = new Array<IFilter>();
           let res = sortContext.filters.filter(
-            (x) => x.name !== props.filter.name
+            (x) => x.name !== sortContext.activeFilter.name
           );
           if (res.length > 0) {
             all_filters = all_filters.concat(res);
           }
 
           all_filters = all_filters.concat({
-            name: props.filter.name,
-            value: props.filter.value,
-            type: props.filter.type,
-            operator: props.filter.operator,
+            name: sortContext.activeFilter.name,
+            value: sortContext.activeFilter.value,
+            type: sortContext.activeFilter.type,
+            operator: sortContext.activeFilter.operator,
             selection: [],
           });
 

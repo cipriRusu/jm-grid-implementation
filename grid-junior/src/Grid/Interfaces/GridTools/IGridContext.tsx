@@ -5,6 +5,7 @@ import { IDataSource } from "../GridData/IDataSource";
 import { IFilter } from "../GridTools/IFilter";
 
 export interface IGridContext {
+  activeFilter: IFilter;
   allHeaders: IHeader[];
   allColumns: IColumn[];
   data: IDataSource;
@@ -22,6 +23,7 @@ export interface IGridContext {
   selectedViewItem: Object;
   headersContext: IHeader[];
   selectionOptions: IColumn[];
+  setActiveFilter: (newFilter: IFilter) => void;
   setFilter: (values: IFilter[]) => void;
   toggledColumn: IColumn;
   setToggledColumn: (value: IColumn) => void;

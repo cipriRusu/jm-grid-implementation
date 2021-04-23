@@ -5,6 +5,7 @@ import { IDataSource } from "../GridData/IDataSource";
 import { IRow } from "../GridBody/IRow";
 
 export interface IGridState {
+  activeFilter: IFilter;
   data: IDataSource;
   bottom: number;
   top: number;

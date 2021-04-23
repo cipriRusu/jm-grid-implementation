@@ -98,14 +98,7 @@ function Title(props: ITitle) {
           >
             <div style={{ backgroundColor: "white", borderRadius: 5 }}>
               {props.columns.map((x: IColumn, y: number) => {
-                return (
-                  <Filters
-                    key={y}
-                    columns={[x]}
-                    filter={props.filter}
-                    update_filter={props.update_filter}
-                  />
-                );
+                return <Filters key={y} columns={[x]} />;
               })}
             </div>
           </div>

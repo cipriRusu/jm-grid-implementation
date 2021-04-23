@@ -12,12 +12,10 @@ class Column extends React.Component<IColumn, IColumn> {
     this.state = {
       name: this.props.name,
       size: this.props.size,
-      filter: this.props.filter,
       value: this.props.value,
       type: this.props.type,
       operator: this.props.operator,
       toggled: this.props.toggled,
-      update_filter: this.props.update_filter,
     };
   }
 
@@ -116,11 +114,7 @@ class Column extends React.Component<IColumn, IColumn> {
                   this.state === value.toggledColumn ? "show" : ""
                 }`}
               >
-                <Filters
-                  columns={[this.props]}
-                  filter={this.props.filter}
-                  update_filter={this.props.update_filter}
-                />
+                <Filters columns={[this.props]} />
               </div>
             </Dropdown>
           )}
