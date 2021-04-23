@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
+import { IFilter } from "../Interfaces/GridTools/IFilter";
 import "./Filters.scss";
 
 const Filters = (props: any) => {
@@ -191,7 +192,7 @@ const Filters = (props: any) => {
           className="form-check"
           type="checkbox"
           label={value}
-          checked={handleFilterDisplay(header, props.selectionFilter, value)}
+          checked={handleFilterDisplay(header, value)}
           onChange={(e: any) => {
             e.stopPropagation();
             handleAddSelectionFilter(header, value, e.target.checked);
@@ -212,12 +213,16 @@ const Filters = (props: any) => {
     });
   };
 
-  const handleFilterDisplay = (
-    header: IColumn,
-    selectionFilter: string[],
-    currentValue: string
-  ) => {
-    return selectionFilter.some((x) => x === currentValue);
+  const handleFilterDisplay = (header: IColumn, currentValue: string) => {
+    let allFilters = sortContext.filters.filter((filter: IFilter) => {
+      return filter.name === header.name;
+    })[0];
+
+    if (allFilters !== undefined && allFilters.selection !== undefined) {
+      return allFilters.selection.includes(currentValue) ? true : false;
+    }
+
+    return false;
   };
 
   const handleAddSelectionFilter = (
@@ -226,19 +231,35 @@ const Filters = (props: any) => {
     checked: boolean
   ) => {
     if (checked === true) {
-      let currentFilters = props.selectionFilter;
+      let currentFilters = sortContext.filters;
 
-      let allFilters = currentFilters.concat(option);
+      if (currentFilters.some((x: IFilter) => x.name === header.name)) {
+        let defaultFilter = currentFilters.filter(
+          (x: IFilter) => x.name === header.name
+        )[0];
 
-      props.update_selection(allFilters);
-    }
+        if (
+          defaultFilter.selection !== undefined &&
+          !defaultFilter.selection.includes(option)
+        ) {
+          defaultFilter.selection = defaultFilter.selection.concat(option);
 
-    if (checked === false) {
-      let currentFilters = props.selectionFilter;
+          sortContext.setFilter(currentFilters);
+        }
+      } else {
+        let newFilter = {
+          name: header.name,
+          type: header.type,
+          value: header.value,
+          operator: header.operator,
+          selection: [option],
+        };
 
-      currentFilters = currentFilters.filter((x: any) => x !== option);
-
-      props.update_selection(currentFilters);
+        if (newFilter !== undefined && newFilter.selection !== undefined) {
+          let current = [...sortContext.filters, newFilter];
+          sortContext.setFilter(current);
+        }
+      }
     }
   };
 
@@ -359,10 +380,10 @@ const Filters = (props: any) => {
         return !sortContext.filters.some(
           (x) =>
             x.name === props.filter.name &&
-            x.size === props.filter.size &&
             x.type === props.filter.type &&
             x.value === props.filter.value &&
-            x.operator === props.filter.operator
+            x.operator === props.filter.operator &&
+            x.selection === props.filter.selection
         );
       };
       if (
@@ -371,7 +392,7 @@ const Filters = (props: any) => {
         checkCurrentFilters()
       ) {
         const handleAddFilter = () => {
-          let all_filters = new Array<IColumn>();
+          let all_filters = new Array<IFilter>();
           let res = sortContext.filters.filter(
             (x) => x.name !== props.filter.name
           );
@@ -381,10 +402,10 @@ const Filters = (props: any) => {
 
           all_filters = all_filters.concat({
             name: props.filter.name,
-            size: props.filter.size,
             value: props.filter.value,
             type: props.filter.type,
             operator: props.filter.operator,
+            selection: [],
           });
 
           sortContext.setFilter(all_filters);

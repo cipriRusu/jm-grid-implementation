@@ -1,6 +1,6 @@
-import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";
+import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { dummy_data } from "./JSONData/DummyData";
 import { NumberFilter } from "./NumberFilter";
 import { StringFilter } from "./StringFilter";
@@ -19,15 +19,15 @@ export class DataSource implements IDataSource {
     };
   }
 
-  getTotal(sort: ISortStats, filters: IColumn[], selectionFilters: string[]) {
+  getTotal(sort: ISortStats, filters: IFilter[]) {
     let returned_data = Object.create(this.data);
 
-    let string_filters = Array<IColumn>();
+    let string_filters = Array<IFilter>();
 
-    let number_filters = Array<IColumn>();
+    let number_filters = Array<IFilter>();
 
     if (filters !== undefined) {
-      filters.forEach((x: IColumn) => {
+      filters.forEach((x: IFilter) => {
         switch (x.type) {
           case undefined:
             string_filters.push(x);
@@ -66,32 +66,26 @@ export class DataSource implements IDataSource {
       }
     }
 
-    if (selectionFilters.length > 0) {
-      returned_data = returned_data.filter((x: any) => {
-        return selectionFilters.includes(x.Status);
-      });
-    }
+    // if (selectionFilters.length > 0) {
+    //   returned_data = returned_data.filter((x: any) => {
+    //     return selectionFilters.includes(x.Status);
+    //   });
+    // }
 
     return returned_data.length;
   }
 
-  get(
-    sort: ISortStats,
-    filters: IColumn[],
-    selectionFilters: string[],
-    page: number,
-    pageIndex: number
-  ) {
+  get(sort: ISortStats, filters: IFilter[], page: number, pageIndex: number) {
     let currentPage = page * pageIndex;
 
     let returned_data = Object.create(this.data);
 
-    let string_filters = Array<IColumn>();
+    let string_filters = Array<IFilter>();
 
-    let number_filters = Array<IColumn>();
+    let number_filters = Array<IFilter>();
 
     if (filters !== undefined) {
-      filters.forEach((x: IColumn) => {
+      filters.forEach((x: IFilter) => {
         switch (x.type) {
           case undefined:
             string_filters.push(x);
@@ -130,11 +124,11 @@ export class DataSource implements IDataSource {
       }
     }
 
-    if (selectionFilters.length > 0) {
-      returned_data = returned_data.filter((x: any) => {
-        return selectionFilters.includes(x.Status);
-      });
-    }
+    // if (selectionFilters.length > 0) {
+    //   returned_data = returned_data.filter((x: any) => {
+    //     return selectionFilters.includes(x.Status);
+    //   });
+    // }
 
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
   }

@@ -7,6 +7,7 @@ import { GridContext } from "../../Grid";
 import "font-awesome/css/font-awesome.min.css";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { ISortStats } from "../../Interfaces/GridBody/ISortStats";
+import { IFilter } from "../../Interfaces/GridTools/IFilter";
 
 function handleSortIcon(sort: ISortStats, columns: IColumn[]) {
   let currentSort = null;
@@ -32,7 +33,7 @@ function handleSortIcon(sort: ISortStats, columns: IColumn[]) {
   return currentSort;
 }
 
-function handleFilterIcon(filter: IColumn[], columns: IColumn[]) {
+function handleFilterIcon(filter: IFilter[], columns: IColumn[]) {
   let currentFilter = null;
 
   columns.forEach((column) => {
@@ -102,8 +103,6 @@ function Title(props: ITitle) {
                     key={y}
                     columns={[x]}
                     filter={props.filter}
-                    selectionFilter={props.selectionFilter}
-                    update_selection={props.update_selection}
                     update_filter={props.update_filter}
                   />
                 );

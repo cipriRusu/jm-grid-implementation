@@ -23,7 +23,6 @@ const RowContainer = (props: {
         let newCache = props.content.get(
           gridContext.sort,
           gridContext.filters,
-          gridContext.selectionFilters,
           gridContext.top,
           props.pageSize
         );
@@ -56,7 +55,6 @@ const RowContainer = (props: {
         let newCache = props.content.get(
           gridContext.sort,
           gridContext.filters,
-          gridContext.selectionFilters,
           gridContext.bottom,
           props.pageSize
         );
@@ -94,17 +92,12 @@ const RowContainer = (props: {
     let loadingElements = props.content.get(
       gridContext.sort,
       gridContext.filters,
-      gridContext.selectionFilters,
       0,
       props.pageSize
     );
 
     updateAllPages(
-      props.content.getTotal(
-        gridContext.sort,
-        gridContext.filters,
-        gridContext.selectionFilters
-      )
+      props.content.getTotal(gridContext.sort, gridContext.filters)
     );
 
     gridContext.setItems(loadingElements);
@@ -120,12 +113,10 @@ const RowContainer = (props: {
     gridContext.sort.field_id,
     gridContext.sort.sort_type,
     gridContext.filters,
-    gridContext.selectionFilters,
     gridContext.setSort,
     gridContext.setFilter,
     gridContext.setItems,
     gridContext.setLoaded,
-    gridContext.setSelectionFilters,
     props.content,
     props.pageSize,
   ]);

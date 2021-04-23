@@ -2,12 +2,14 @@ import { IColumn } from "../GridBody/IColumn";
 import { IHeader } from "../GridBody/IHeader";
 import { IRow } from "../GridBody/IRow";
 import { IDataSource } from "../GridData/IDataSource";
+import { IFilter } from "../GridTools/IFilter";
 
 export interface IGridContext {
   allHeaders: IHeader[];
   allColumns: IColumn[];
   data: IDataSource;
   bottom: number;
+  filters: IFilter[];
   top: number;
   items: IRow[];
   loadedPages: number;
@@ -19,11 +21,8 @@ export interface IGridContext {
   selectViewHandler: (value: string) => void;
   selectedViewItem: Object;
   headersContext: IHeader[];
-  filters: IColumn[];
-  selectionFilters: string[];
   selectionOptions: IColumn[];
-  setFilter: (values: IColumn[]) => void;
-  setSelectionFilters: (filters: string[]) => void;
+  setFilter: (values: IFilter[]) => void;
   toggledColumn: IColumn;
   setToggledColumn: (value: IColumn) => void;
   toggledHeader: IColumn[];

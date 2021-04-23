@@ -1,19 +1,14 @@
-import { IColumn } from "../GridBody/IColumn";
 import { IRow } from "../GridBody/IRow";
 import { ISortStats } from "../GridBody/ISortStats";
+import { IFilter } from "../GridTools/IFilter";
 
 export interface IDataSource {
   get: (
     sort: ISortStats,
-    filters: IColumn[],
-    selectionFilters: string[],
+    filters: IFilter[],
     page: number,
     pageCount: number
   ) => IRow[];
 
-  getTotal: (
-    sort: ISortStats,
-    filters: IColumn[],
-    selectionFilters: string[]
-  ) => number;
+  getTotal: (sort: ISortStats, filters: IFilter[]) => number;
 }

@@ -1,14 +1,13 @@
-import { IColumn } from "./Interfaces/GridBody/IColumn";
-import { IColumns } from "./Interfaces/GridTools/IColumns";
+import { IFilter } from "./Interfaces/GridTools/IFilter";
 
 export class NumberFilter {
-  data: IColumns[];
-  constructor(data: IColumns[]) {
+  data: IFilter[];
+  constructor(data: IFilter[]) {
     this.data = data;
   }
 
-  applyFilters(filters: IColumn[]) {
-    filters.forEach((x: IColumn) => {
+  applyFilters(filters: IFilter[]) {
+    filters.forEach((x: IFilter) => {
       this.data = this.data.filter((y: any) => {
         let value = x.value === undefined ? 0 : parseInt(x.value);
         switch (x.operator) {

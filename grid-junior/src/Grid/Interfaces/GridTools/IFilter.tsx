@@ -1,4 +1,7 @@
 export interface IFilter {
-  selectedFilterContext: string;
-  setFilter: (value: string) => void;
+  name: string;
+  type?: string;
+  value?: string;
+  operator?: number;
+  selection?: string[];
 }

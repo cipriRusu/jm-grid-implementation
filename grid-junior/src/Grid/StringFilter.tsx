@@ -1,13 +1,12 @@
-import { IColumn } from "./Interfaces/GridBody/IColumn";
-import { IColumns } from "./Interfaces/GridTools/IColumns";
+import { IFilter } from "./Interfaces/GridTools/IFilter";
 
 export class StringFilter {
-  data: IColumns[];
-  constructor(data: IColumns[]) {
+  data: IFilter[];
+  constructor(data: IFilter[]) {
     this.data = data;
   }
 
-  applyFilters(filters: IColumn[]) {
+  applyFilters(filters: IFilter[]) {
     filters.forEach((x: any) => {
       this.data = this.data.filter((y: any) => {
         switch (x.operator) {

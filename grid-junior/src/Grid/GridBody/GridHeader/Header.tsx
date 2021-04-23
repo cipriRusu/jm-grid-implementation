@@ -1,31 +1,25 @@
-import React, { useContext } from "react";
+import "./Header.scss";
+import { useContext } from "react";
+import { useState } from "react";
 import Column from "./Column";
 import Title from "./Title";
 import { GridContext } from "../../Grid";
 import { IColumnContainer } from "../../Interfaces/GridBody/IColumnContainer";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
-import "./Header.scss";
-import { useState } from "react";
+import { IFilter } from "../../Interfaces/GridTools/IFilter";
 
 function Header() {
   const gridContext = useContext(GridContext);
-  const [standardFilter, setStandardFilter] = useState<IColumn>({
+  const [standardFilter, setStandardFilter] = useState<IFilter>({
     name: "",
-    size: "",
     type: "",
     value: "",
     operator: 0,
+    selection: [""],
   });
 
-  function update_filter(updated_filter: IColumn) {
+  function update_filter(updated_filter: IFilter) {
     setStandardFilter(updated_filter);
-  }
-
-  const [selectionFilter, setSelectionFilter] = useState<string[]>([]);
-
-  function update_selection(updated_selection: string[]) {
-    setSelectionFilter(updated_selection);
-    gridContext.setSelectionFilters(updated_selection);
   }
 
   return (
@@ -43,8 +37,6 @@ function Header() {
                 title={value.name}
                 columns={value.columns}
                 filter={standardFilter}
-                selectionFilter={selectionFilter}
-                update_selection={update_selection}
                 update_filter={update_filter}
               />
               <div className="column-container">
@@ -58,8 +50,6 @@ function Header() {
                       toggled={false}
                       filter={standardFilter}
                       operator={standardFilter.operator}
-                      selectionFilter={selectionFilter}
-                      update_selection={update_selection}
                       update_filter={update_filter}
                     />
                   );

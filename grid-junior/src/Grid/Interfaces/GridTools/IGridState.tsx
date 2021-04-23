@@ -1,5 +1,6 @@
 import { ISortStats } from "../GridBody/ISortStats";
 import { IColumn } from "../GridBody/IColumn";
+import { IFilter } from "../GridTools/IFilter";
 import { IDataSource } from "../GridData/IDataSource";
 import { IRow } from "../GridBody/IRow";
 
@@ -12,8 +13,7 @@ export interface IGridState {
   selectedViewItem: string;
   selectedSort: ISortStats;
   visibleHeader: string;
-  filters: IColumn[];
-  selectionFilters: string[];
+  filters: IFilter[];
   toggledColumn: IColumn;
   toggledHeader: IColumn[];
 }
