@@ -124,11 +124,12 @@ class Grid extends Component<IGridProps, IGridState> {
       <GridContext.Provider
         value={{
           activeFilter: this.state.activeFilter,
-          allHeaders: this.props.headers,
           allColumns: this.flatHeader(),
+          allHeaders: this.props.headers,
           bottom: this.state.bottom,
-          top: this.state.top,
           data: this.props.data,
+          filters: this.state.filters,
+          headersContext: this.props.headers,
           items: this.state.items,
           loadedPages: this.state.loadedPages,
           setLoaded: this.setLoaded,
@@ -138,17 +139,16 @@ class Grid extends Component<IGridProps, IGridState> {
           selectedViewItem: "",
           visibleHeader: this.state.visibleHeader,
           selectViewHandler: this.selectItemHandler,
-          headersContext: this.props.headers,
           sort: this.state.selectedSort,
           setActiveFilter: this.setActiveFilter,
           setSort: this.setSort,
-          filters: this.state.filters,
           selectionOptions: allSelectionFilters,
           setFilter: this.setFilter,
           toggledColumn: this.state.toggledColumn,
           setToggledColumn: this.setToggledColumn,
           toggledHeader: this.state.toggledHeader,
           setToggledHeader: this.setToggledHeader,
+          top: this.state.top,
         }}
       >
         <Header />

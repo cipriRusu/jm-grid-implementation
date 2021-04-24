@@ -1,51 +1,14 @@
+import "./Filters.scss";
 import React, { useState, useContext, useEffect } from "react";
-import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
-import "./Filters.scss";
 import SelectionFilter from "./SelectionFilter";
+import StandardFilter from "./StandardFilter";
 
 const Filters = (props: any) => {
   const sortContext = useContext(GridContext);
   const [showArrow, setShowArrow] = useState(true);
-  const [option, setOption] = useState(0);
-  const [remove, setRemove] = useState(false);
-
-  let optionsForStrings = [
-    "Contains",
-    "Not contains",
-    "Starts with",
-    "Ends with",
-    "Equals",
-    "Not equals",
-  ];
-
-  let optionsForNumbers = ["Equals", "Not equals", "Less than", "Greater than"];
-
-  const convertOption = (column: IColumn) => {
-    var filter = sortContext.filters.find((x) => x.name === column.name);
-
-    if (filter === undefined) {
-      switch (column.type) {
-        case "number":
-          return optionsForNumbers[option];
-        default:
-          return optionsForStrings[option];
-      }
-    } else {
-      switch (column.type) {
-        case "number":
-          return optionsForNumbers[
-            filter.operator === undefined ? 0 : filter.operator
-          ];
-        default:
-          return optionsForStrings[
-            filter.operator === undefined ? 0 : filter.operator
-          ];
-      }
-    }
-  };
 
   const handleColumnSorting = (column_name: string) => {
     setShowArrow(false);
@@ -65,9 +28,6 @@ const Filters = (props: any) => {
     setShowArrow(true);
   };
 
-  const displayOptions = (options: string[]) =>
-    options.map((option, index) => <option key={index}>{option}</option>);
-
   const displayArrows = (name: string) => (
     <span className="sort-icon-container">
       {sortContext.sort.field_id === name &&
@@ -82,199 +42,12 @@ const Filters = (props: any) => {
     </span>
   );
 
-  const displayDeleteIcon = (column: IColumn) => {
-    const findFilter = sortContext.filters.findIndex(
-      (filter) => filter.name === column.name
-    );
-    if (findFilter !== -1) {
-      if (remove === false) {
-        setRemove(true);
-      }
-      return <i className="icon-trash icon"></i>;
-    }
-  };
-
-  const getFieldValue = (header: IColumn) => {
-    if (header.name === sortContext.activeFilter.name) {
-      return sortContext.activeFilter.value;
-    }
-    var filter = sortContext.filters.find((x) => x.name === header.name);
-
-    return filter !== undefined ? filter.value : "";
-  };
-
-  const handleOnUserInput = (e: any, column: IColumn) => {
-    sortContext.setActiveFilter({
-      name: column.name,
-      value: e.target.value,
-      type: column.type,
-      operator: option,
-    });
-
-    if (e.target.value === "") {
-      handleDeleteFilter(e, column);
-
-      sortContext.setActiveFilter({
-        name: "",
-        value: "",
-        type: "",
-        operator: 0,
-      });
-    }
-  };
-
-  const handleOnOptionChange = (e: any, column: IColumn) => {
-    sortContext.setActiveFilter({
-      name: column.name,
-      value: getFieldValue(column),
-      type: column.type,
-      operator: e.target.selectedIndex,
-    });
-
-    setOption(e.target.selectedIndex);
-  };
-
-  const handleDeleteFilter = (e: any, column: IColumn) => {
-    if (column.value !== "") {
-      const newList = sortContext.filters.filter(
-        (item) => item.name !== column.name
-      );
-      sortContext.setFilter(newList);
-
-      sortContext.setActiveFilter({
-        name: "",
-        value: "",
-        type: "",
-        operator: 0,
-      });
-
-      setRemove(false);
-    }
-  };
-
   const handleFilterIcon = (header: IColumn) => {
     return sortContext.filters.map((x, index: number) => {
       return header.name === x.name ? (
         <i key={index} className="icon-column fa fa-filter"></i>
       ) : null;
     });
-  };
-
-  const handleFilterCloseOnEnter = (event: any) => {
-    if (event.key === "Enter") {
-      let visibleDropdowns = document.getElementsByClassName("show");
-
-      Array.from(visibleDropdowns).forEach((dropdown) => {
-        sortContext.setToggledColumn({
-          name: "",
-          size: "",
-          type: "",
-          value: "",
-          operator: 0,
-        });
-        sortContext.setToggledHeader([]);
-      });
-    }
-  };
-
-  const handleFilterDisplay = (header: IColumn, currentValue: string) => {
-    let allFilters = sortContext.filters.filter((filter: IFilter) => {
-      return filter.name === header.name;
-    })[0];
-
-    if (allFilters !== undefined && allFilters.selection !== undefined) {
-      return allFilters.selection.includes(currentValue) ? true : false;
-    }
-
-    return false;
-  };
-
-  const handleAddSelectionFilter = (
-    header: IColumn,
-    option: string,
-    checked: boolean
-  ) => {
-    if (checked === true) {
-      let currentFilters = sortContext.filters;
-
-      if (currentFilters.some((x: IFilter) => x.name === header.name)) {
-        let defaultFilter = currentFilters.filter(
-          (x: IFilter) => x.name === header.name
-        )[0];
-
-        if (
-          defaultFilter.selection !== undefined &&
-          !defaultFilter.selection.includes(option)
-        ) {
-          defaultFilter.selection = defaultFilter.selection.concat(option);
-
-          sortContext.setFilter(currentFilters);
-        }
-      } else {
-        let newFilter = {
-          name: header.name,
-          type: header.type,
-          value: header.value,
-          operator: header.operator,
-          selection: [option],
-        };
-
-        if (newFilter !== undefined && newFilter.selection !== undefined) {
-          let current = [...sortContext.filters, newFilter];
-          sortContext.setFilter(current);
-        }
-      }
-    }
-  };
-
-  const handleStandardFilter = (header: IColumn) => {
-    return (
-      <div>
-        <Form.Control
-          as="select"
-          value={convertOption(header)}
-          onChange={(e: any) => {
-            handleOnOptionChange(e, header);
-          }}
-        >
-          {handleSelectionOptions(header)}
-        </Form.Control>
-        <Form.Control
-          type={header.type}
-          placeholder="Filter..."
-          onKeyPress={(e: any) => handleFilterCloseOnEnter(e)}
-          onChange={(e: any) => handleOnUserInput(e, header)}
-          name={header.name}
-          value={getFieldValue(header)}
-        />
-        <div className="input-icons">
-          <div
-            tabIndex={remove === true ? 0 : -1}
-            onKeyPress={(e: any) => {
-              handleDeleteFilter(e, header);
-              setOption(0);
-            }}
-            onClick={(e: any) => {
-              handleDeleteFilter(e, header);
-              setOption(0);
-            }}
-          >
-            {displayDeleteIcon(header)}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const handleSelectionOptions = (header: IColumn) => {
-    switch (header.type) {
-      case "number":
-        return displayOptions(optionsForNumbers);
-      case "date":
-        return displayOptions(optionsForNumbers);
-      case undefined:
-        return displayOptions(optionsForStrings);
-    }
   };
 
   useEffect(() => {
@@ -401,15 +174,15 @@ const Filters = (props: any) => {
               </div>
             </div>
             {header.type === "select" ? (
-              <SelectionFilter
-                header={header}
-                handleFilterDisplay={handleFilterDisplay}
-                handleAddSelectionFilter={handleAddSelectionFilter}
-              />
+              <SelectionFilter header={header} />
             ) : (
               ""
             )}
-            {header.type !== "select" ? handleStandardFilter(header) : ""}
+            {header.type === undefined ? (
+              <StandardFilter header={header} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       ))}
