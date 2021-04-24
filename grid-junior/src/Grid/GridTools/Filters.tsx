@@ -4,6 +4,7 @@ import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
 import "./Filters.scss";
+import SelectionFilter from "./SelectionFilter";
 
 const Filters = (props: any) => {
   const sortContext = useContext(GridContext);
@@ -174,41 +175,6 @@ const Filters = (props: any) => {
         sortContext.setToggledHeader([]);
       });
     }
-  };
-
-  const handleSelectionFilter = (header: IColumn) => {
-    let filter = sortContext.selectionOptions.filter(
-      (filters) => filters.name === header.name
-    )[0];
-
-    let selectionValues = filter.options;
-
-    return selectionValues?.map((value, key) => {
-      return (
-        <Form.Check
-          key={key}
-          className="form-check"
-          type="checkbox"
-          label={value}
-          checked={handleFilterDisplay(header, value)}
-          onChange={(e: any) => {
-            e.stopPropagation();
-            handleAddSelectionFilter(header, value, e.target.checked);
-          }}
-          onKeyPress={(e: any) => {
-            if (e.key === "Enter") {
-              let activeElement = document.activeElement as HTMLElement;
-
-              if (activeElement !== null) {
-                activeElement.click();
-              }
-
-              handleAddSelectionFilter(header, value, e.target.checked);
-            }
-          }}
-        ></Form.Check>
-      );
-    });
   };
 
   const handleFilterDisplay = (header: IColumn, currentValue: string) => {
@@ -434,7 +400,15 @@ const Filters = (props: any) => {
                 <span>{handleFilterIcon(header)}</span>
               </div>
             </div>
-            {header.type === "select" ? handleSelectionFilter(header) : ""}
+            {header.type === "select" ? (
+              <SelectionFilter
+                header={header}
+                handleFilterDisplay={handleFilterDisplay}
+                handleAddSelectionFilter={handleAddSelectionFilter}
+              />
+            ) : (
+              ""
+            )}
             {header.type !== "select" ? handleStandardFilter(header) : ""}
           </div>
         </div>
