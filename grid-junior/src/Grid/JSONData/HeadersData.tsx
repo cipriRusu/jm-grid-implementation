@@ -9,7 +9,7 @@ export const headers = [
             name: "Status",
             size: "standard",
             type: "select",
-            values: ["Disponibil", "Ocupat", "Offline"],
+            options: ["Disponibil", "Ocupat", "Offline"],
           },
           { name: "Prenume", size: "standard" },
           { name: "Nume", size: "standard" },

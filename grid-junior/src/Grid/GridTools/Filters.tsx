@@ -97,7 +97,6 @@ const Filters = (props: any) => {
     if (header.name === sortContext.activeFilter.name) {
       return sortContext.activeFilter.value;
     }
-
     var filter = sortContext.filters.find((x) => x.name === header.name);
 
     return filter !== undefined ? filter.value : "";
@@ -182,7 +181,7 @@ const Filters = (props: any) => {
       (filters) => filters.name === header.name
     )[0];
 
-    let selectionValues = filter.values;
+    let selectionValues = filter.options;
 
     return selectionValues?.map((value, key) => {
       return (

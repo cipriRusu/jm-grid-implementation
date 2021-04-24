@@ -2,9 +2,8 @@ export interface IColumn {
   name: string;
   size: string;
   type?: string;
-  selected?: string;
   value?: string;
-  values?: string[];
+  options?: string[];
   operator?: number;
   toggled?: boolean;
 }
