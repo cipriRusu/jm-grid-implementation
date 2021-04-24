@@ -2,39 +2,38 @@ import "./Filters.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
-import { IFilter } from "../Interfaces/GridTools/IFilter";
 import SelectionFilter from "./SelectionFilter";
 import StandardFilter from "./StandardFilter";
 
 const Filters = (props: any) => {
-  const sortContext = useContext(GridContext);
+  const gridContext = useContext(GridContext);
   const [showArrow, setShowArrow] = useState(true);
 
   const handleColumnSorting = (column_name: string) => {
     setShowArrow(false);
 
-    if (sortContext.sort.sort_type === "") {
-      sortContext.sort.sort_type = "asc";
-      sortContext.sort.field_id = column_name;
-    } else if (sortContext.sort.field_id === column_name) {
-      sortContext.sort.sort_type =
-        sortContext.sort.sort_type === "asc" ? "desc" : "";
+    if (gridContext.sort.sort_type === "") {
+      gridContext.sort.sort_type = "asc";
+      gridContext.sort.field_id = column_name;
+    } else if (gridContext.sort.field_id === column_name) {
+      gridContext.sort.sort_type =
+        gridContext.sort.sort_type === "asc" ? "desc" : "";
     } else {
-      sortContext.sort.field_id = column_name;
-      sortContext.sort.sort_type = "asc";
+      gridContext.sort.field_id = column_name;
+      gridContext.sort.sort_type = "asc";
     }
 
-    sortContext.setSort(sortContext.sort);
+    gridContext.setSort(gridContext.sort);
     setShowArrow(true);
   };
 
   const displayArrows = (name: string) => (
     <span className="sort-icon-container">
-      {sortContext.sort.field_id === name &&
-      sortContext.sort.sort_type === "asc" ? (
+      {gridContext.sort.field_id === name &&
+      gridContext.sort.sort_type === "asc" ? (
         <i className="fa fa-arrow-up" aria-hidden="true"></i>
-      ) : sortContext.sort.field_id === name &&
-        sortContext.sort.sort_type === "desc" ? (
+      ) : gridContext.sort.field_id === name &&
+        gridContext.sort.sort_type === "desc" ? (
         <i className="fa fa-arrow-down" aria-hidden="true"></i>
       ) : (
         <i className="fa fa-arrow-up" hidden={showArrow}></i>
@@ -43,7 +42,7 @@ const Filters = (props: any) => {
   );
 
   const handleFilterIcon = (header: IColumn) => {
-    return sortContext.filters.map((x, index: number) => {
+    return gridContext.filters.map((x, index: number) => {
       return header.name === x.name ? (
         <i key={index} className="icon-column fa fa-filter"></i>
       ) : null;
@@ -60,14 +59,14 @@ const Filters = (props: any) => {
           !e.target.classList.contains("fa") &&
           !e.target.classList.contains("form-control")
         ) {
-          sortContext.setToggledColumn({
+          gridContext.setToggledColumn({
             name: "",
             size: "",
             type: "",
             value: "",
             operator: 0,
           });
-          sortContext.setToggledHeader([]);
+          gridContext.setToggledHeader([]);
         }
       });
     });
@@ -77,14 +76,14 @@ const Filters = (props: any) => {
         let visibleDropdowns = document.getElementsByClassName("show");
 
         Array.from(visibleDropdowns).forEach((dropdown) => {
-          sortContext.setToggledColumn({
+          gridContext.setToggledColumn({
             name: "",
             size: "",
             type: "",
             value: "",
             operator: 0,
           });
-          sortContext.setToggledHeader([]);
+          gridContext.setToggledHeader([]);
         });
       }
     });
@@ -97,62 +96,19 @@ const Filters = (props: any) => {
           let visibleDropdowns = document.getElementsByClassName("show");
 
           Array.from(visibleDropdowns).forEach((dropdown) => {
-            sortContext.setToggledColumn({
+            gridContext.setToggledColumn({
               name: "",
               size: "",
               type: "",
               value: "",
               operator: 0,
             });
-            sortContext.setToggledHeader([]);
+            gridContext.setToggledHeader([]);
           });
         }
       }
     });
-  }, [props, sortContext]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const checkCurrentFilters = () => {
-        return !sortContext.filters.some(
-          (x) =>
-            x.name === sortContext.activeFilter.name &&
-            x.type === sortContext.activeFilter.type &&
-            x.value === sortContext.activeFilter.value &&
-            x.operator === sortContext.activeFilter.operator &&
-            x.selection === sortContext.activeFilter.selection
-        );
-      };
-      if (
-        sortContext.activeFilter.value !== undefined &&
-        sortContext.activeFilter.value !== "" &&
-        checkCurrentFilters()
-      ) {
-        const handleAddFilter = () => {
-          let all_filters = new Array<IFilter>();
-          let res = sortContext.filters.filter(
-            (x) => x.name !== sortContext.activeFilter.name
-          );
-          if (res.length > 0) {
-            all_filters = all_filters.concat(res);
-          }
-
-          all_filters = all_filters.concat({
-            name: sortContext.activeFilter.name,
-            value: sortContext.activeFilter.value,
-            type: sortContext.activeFilter.type,
-            operator: sortContext.activeFilter.operator,
-            selection: [],
-          });
-
-          sortContext.setFilter(all_filters);
-        };
-
-        handleAddFilter();
-      }
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [props, sortContext]);
+  }, [props, gridContext]);
 
   return (
     <div className={"filter-container"}>

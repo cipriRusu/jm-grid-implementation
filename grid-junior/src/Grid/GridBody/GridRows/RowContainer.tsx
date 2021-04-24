@@ -112,7 +112,7 @@ const RowContainer = (props: {
   }, [
     gridContext.sort.field_id,
     gridContext.sort.sort_type,
-    gridContext.filters.length,
+    gridContext.filters,
     gridContext.setSort,
     gridContext.setFilter,
     gridContext.setItems,

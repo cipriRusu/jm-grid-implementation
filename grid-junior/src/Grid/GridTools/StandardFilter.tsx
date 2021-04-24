@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
+import { IFilter } from "../Interfaces/GridTools/IFilter";
 
 const StandardFilter = (props: any) => {
   let optionsForStrings = [
@@ -145,6 +146,48 @@ const StandardFilter = (props: any) => {
       });
     }
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const checkCurrentFilters = () => {
+        return !gridContext.filters.some(
+          (x) =>
+            x.name === gridContext.activeFilter.name &&
+            x.type === gridContext.activeFilter.type &&
+            x.value === gridContext.activeFilter.value &&
+            x.operator === gridContext.activeFilter.operator
+        );
+      };
+      if (
+        gridContext.activeFilter.value !== undefined &&
+        gridContext.activeFilter.value !== "" &&
+        checkCurrentFilters()
+      ) {
+        const handleAddFilter = () => {
+          let all_filters = new Array<IFilter>();
+          let res = gridContext.filters.filter(
+            (x) => x.name !== gridContext.activeFilter.name
+          );
+          if (res.length > 0) {
+            all_filters = all_filters.concat(res);
+          }
+
+          all_filters = all_filters.concat({
+            name: gridContext.activeFilter.name,
+            value: gridContext.activeFilter.value,
+            type: gridContext.activeFilter.type,
+            operator: gridContext.activeFilter.operator,
+            selection: [],
+          });
+
+          gridContext.setFilter(all_filters);
+        };
+
+        handleAddFilter();
+      }
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [gridContext]);
 
   return (
     <>
