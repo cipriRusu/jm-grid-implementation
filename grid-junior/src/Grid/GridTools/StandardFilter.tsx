@@ -210,6 +210,7 @@ const StandardFilter = (props: any) => {
       />
       <div className="input-icons">
         <div
+          className="delete-icon"
           tabIndex={remove === true ? 0 : -1}
           onKeyPress={(e: any) => {
             deleteFilter(e, props.header);

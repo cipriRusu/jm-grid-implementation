@@ -57,7 +57,8 @@ const Filters = (props: any) => {
         if (
           !dropdown.contains(e.target) &&
           !e.target.classList.contains("fa") &&
-          !e.target.classList.contains("form-control")
+          !e.target.classList.contains("form-control") &&
+          !e.target.classList.contains("icon-trash")
         ) {
           gridContext.setToggledColumn({
             name: "",

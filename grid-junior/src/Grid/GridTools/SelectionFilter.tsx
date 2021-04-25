@@ -47,6 +47,27 @@ const SelectionFilter = (props: any) => {
         }
       }
     }
+
+    if (checked === false) {
+      let currentFilters = sortContext.filters;
+
+      let defaultFilter = currentFilters.filter((x: IFilter) => {
+        return x.name === header.name;
+      })[0];
+
+      if (
+        defaultFilter.selection !== undefined &&
+        defaultFilter.selection.includes(option)
+      ) {
+        let updatedSelection = defaultFilter.selection.filter((x: string) => {
+          return x !== option;
+        });
+
+        defaultFilter.selection = updatedSelection;
+
+        sortContext.setFilter(currentFilters);
+      }
+    }
   };
 
   const displayCheck = (header: IColumn, currentValue: string) => {
