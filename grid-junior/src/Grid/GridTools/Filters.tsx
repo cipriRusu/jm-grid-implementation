@@ -51,11 +51,11 @@ const Filters = (props: any) => {
           ) : null;
         });
       case "select":
-        return gridContext.filters.map((x: IFilter) => {
+        return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name &&
             x.selection !== undefined &&
             x.selection.length > 0 ? (
-            <i className="icon-column fa fa-filter"></i>
+            <i key={index} className="icon-column fa fa-filter"></i>
           ) : null;
         });
     }
