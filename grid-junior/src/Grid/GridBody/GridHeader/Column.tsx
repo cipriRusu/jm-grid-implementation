@@ -5,6 +5,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { GridContext } from "../../Grid";
 import Filters from "../../GridTools/Filters";
+import { IFilter } from "../../Interfaces/GridTools/IFilter";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
@@ -38,26 +39,56 @@ class Column extends React.Component<IColumn, IColumn> {
   }
 
   handleFilterIcon(value: any) {
-    var currentFilter = null;
-
-    value.filters.forEach((x: any) => {
-      if (this.state.name === x.name) {
-        currentFilter = (
-          <i
-            className="filter-icon-column-visible fa fa-filter"
-            aria-hidden="true"
-          ></i>
+    switch (this.state.type) {
+      case undefined:
+        if (
+          value.filters.some((x: IFilter) => {
+            return x.name === this.state.name;
+          })
+        ) {
+          return (
+            <i
+              className="filter-icon-column-visible fa fa-filter"
+              aria-hidden="true"
+            ></i>
+          );
+        } else {
+          return (
+            <i
+              className="filter-icon-column fa fa-filter"
+              aria-hidden="true"
+            ></i>
+          );
+        }
+      case "select":
+        if (
+          value.filters.some((x: IFilter) => {
+            return (
+              x.name === this.state.name &&
+              x.selection !== undefined &&
+              x.selection.length > 0
+            );
+          })
+        ) {
+          return (
+            <i
+              className="filter-icon-column-visible fa fa-filter"
+              aria-hidden="true"
+            ></i>
+          );
+        } else {
+          return (
+            <i
+              className="filter-icon-column fa fa-filter"
+              aria-hidden="true"
+            ></i>
+          );
+        }
+      default:
+        return (
+          <i className="filter-icon-column fa fa-filter" aria-hidden="true"></i>
         );
-      }
-    });
-
-    if (currentFilter === null) {
-      currentFilter = (
-        <i className="filter-icon-column fa fa-filter" aria-hidden="true"></i>
-      );
     }
-
-    return currentFilter;
   }
 
   handleSortIcon(value: any) {

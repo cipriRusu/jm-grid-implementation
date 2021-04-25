@@ -4,6 +4,7 @@ import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import SelectionFilter from "./SelectionFilter";
 import StandardFilter from "./StandardFilter";
+import { IFilter } from "../Interfaces/GridTools/IFilter";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -42,11 +43,22 @@ const Filters = (props: any) => {
   );
 
   const handleFilterIcon = (header: IColumn) => {
-    return gridContext.filters.map((x, index: number) => {
-      return header.name === x.name ? (
-        <i key={index} className="icon-column fa fa-filter"></i>
-      ) : null;
-    });
+    switch (header.type) {
+      case undefined:
+        return gridContext.filters.map((x: IFilter, index: number) => {
+          return header.name === x.name ? (
+            <i key={index} className="icon-column fa fa-filter"></i>
+          ) : null;
+        });
+      case "select":
+        return gridContext.filters.map((x: IFilter) => {
+          return header.name === x.name &&
+            x.selection !== undefined &&
+            x.selection.length > 0 ? (
+            <i className="icon-column fa fa-filter"></i>
+          ) : null;
+        });
+    }
   };
 
   useEffect(() => {
