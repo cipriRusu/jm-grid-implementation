@@ -65,6 +65,12 @@ const SelectionFilter = (props: any) => {
 
         defaultFilter.selection = updatedSelection;
 
+        if (defaultFilter.selection.length === 0) {
+          filters = filters.filter((x: IFilter) => {
+            return x.name !== header.name;
+          });
+        }
+
         sortContext.setFilter(filters);
       }
     }

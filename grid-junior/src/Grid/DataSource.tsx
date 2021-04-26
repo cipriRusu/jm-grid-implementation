@@ -3,6 +3,7 @@ import { IDataSource } from "./Interfaces/GridData/IDataSource";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { dummy_data } from "./JSONData/DummyData";
 import { NumberFilter } from "./NumberFilter";
+import { SelectionFilter } from "./SelectionFilter";
 import { StringFilter } from "./StringFilter";
 
 export class DataSource implements IDataSource {
@@ -66,11 +67,21 @@ export class DataSource implements IDataSource {
       }
     }
 
-    // if (selectionFilters.length > 0) {
-    //   returned_data = returned_data.filter((x: any) => {
-    //     return selectionFilters.includes(x.Status);
-    //   });
-    // }
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "select" &&
+          x.selection !== undefined &&
+          x.selection.length > 0
+        );
+      })
+    ) {
+      returned_data = new SelectionFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "select";
+        })
+      );
+    }
 
     return returned_data.length;
   }
@@ -124,12 +135,21 @@ export class DataSource implements IDataSource {
       }
     }
 
-    // if (selectionFilters.length > 0) {
-    //   returned_data = returned_data.filter((x: any) => {
-    //     return selectionFilters.includes(x.Status);
-    //   });
-    // }
-
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "select" &&
+          x.selection !== undefined &&
+          x.selection.length > 0
+        );
+      })
+    ) {
+      returned_data = new SelectionFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "select";
+        })
+      );
+    }
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
   }
 }
