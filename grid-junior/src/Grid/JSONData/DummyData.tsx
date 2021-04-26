@@ -1,10 +1,19 @@
 export const dummy_data = [] as any;
 
-let keys = ["Status", "Prenume", "Nume", "Email", "Nr Telefon"];
+let keys = ["Status", "Prenume", "Nume", "Validare", "Email", "Nr Telefon"];
 
-let res = ["Status", "John", "Doe", "jdoe@gmail.com", "010292991"];
+let intial_values = [
+  "Status",
+  "John",
+  "Doe",
+  true,
+  "jdoe@gmail.com",
+  "010292991",
+];
 
-let status = ["Disponibil", "Ocupat", "Offline"];
+let selection_statuses = ["Disponibil", "Ocupat", "Offline"];
+
+let boolean_statuses = [true, false];
 
 var characters = "abcdefghiklmnopqrstuvwxyz";
 
@@ -12,19 +21,26 @@ for (var i = 0; i < 100; i++) {
   const current: { [x: string]: any } = {};
 
   keys.forEach((type: string, k_key: number) => {
-    res.forEach((value: string, v_key: number) => {
+    intial_values.forEach((value: any, v_key: number) => {
       if (k_key === 0) {
-        value = status[Math.floor(Math.random() * status.length)];
+        value =
+          selection_statuses[
+            Math.floor(Math.random() * selection_statuses.length)
+          ];
       }
 
-      if (k_key === 1 || k_key === 2 || k_key === 3) {
+      if (k_key === 1 || k_key === 2 || k_key === 4) {
         value =
           characters[Math.floor(Math.random() * 20)] +
           characters[Math.floor(Math.random() * 20)] +
           value;
       }
 
-      if (k_key === 4) {
+      if (k_key === 3) {
+        value = boolean_statuses[Math.floor(Math.random() * 2)];
+      }
+
+      if (k_key === 5) {
         value = Math.floor(Math.random() * 1000000000).toString();
       }
 

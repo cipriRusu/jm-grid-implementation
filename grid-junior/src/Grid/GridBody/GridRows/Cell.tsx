@@ -1,4 +1,3 @@
-import React from "react";
 import { ICell } from "../../Interfaces/GridBody/ICell";
 import "./Cell.scss";
 
@@ -12,7 +11,23 @@ const Cell = (props: { content: ICell }) => {
   };
 
   return (
-    <div className={ApplyTitleStyling()}>{props.content.cell_content}</div>
+    <>
+      {props.content.cell_type === undefined ||
+      props.content.cell_type === "number" ||
+      props.content.cell_type.toString() === "select" ? (
+        <div className={ApplyTitleStyling()}>{props.content.cell_content}</div>
+      ) : props.content.cell_type.toString() === "boolean" ? (
+        <div className={ApplyTitleStyling()}>
+          {props.content.cell_content?.toString() === "true" ? (
+            <i className="fa fa-square-o" aria-hidden="true"></i>
+          ) : (
+            <i className="fa fa-square" aria-hidden="true"></i>
+          )}
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

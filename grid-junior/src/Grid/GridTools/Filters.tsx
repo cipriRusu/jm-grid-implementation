@@ -5,6 +5,7 @@ import { IColumn } from "../Interfaces/GridBody/IColumn";
 import SelectionFilter from "./SelectionFilter";
 import StandardFilter from "./StandardFilter";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
+import BooleanFilter from "./BooleanFilter";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -147,11 +148,12 @@ const Filters = (props: any) => {
             ) : (
               ""
             )}
-            {header.type === undefined ? (
+            {header.type === undefined || header.type === "number" ? (
               <StandardFilter header={header} />
             ) : (
               ""
             )}
+            {header.type === "boolean" ? <BooleanFilter /> : ""}
           </div>
         </div>
       ))}

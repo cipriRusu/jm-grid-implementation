@@ -13,6 +13,7 @@ export const headers = [
           },
           { name: "Prenume", size: "standard" },
           { name: "Nume", size: "standard" },
+          { name: "Validare", size: "standard", type: "boolean" },
         ],
       },
       {
