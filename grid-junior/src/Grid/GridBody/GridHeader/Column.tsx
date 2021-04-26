@@ -41,6 +41,8 @@ class Column extends React.Component<IColumn, IColumn> {
   handleFilterIcon(value: any) {
     switch (this.state.type) {
       case undefined:
+      case "number":
+      case "boolean":
         if (
           value.filters.some((x: IFilter) => {
             return x.name === this.state.name;

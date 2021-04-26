@@ -19,9 +19,9 @@ const Cell = (props: { content: ICell }) => {
       ) : props.content.cell_type.toString() === "boolean" ? (
         <div className={ApplyTitleStyling()}>
           {props.content.cell_content?.toString() === "true" ? (
-            <i className="fa fa-square-o" aria-hidden="true"></i>
-          ) : (
             <i className="fa fa-square" aria-hidden="true"></i>
+          ) : (
+            <i className="fa fa-square-o" aria-hidden="true"></i>
           )}
         </div>
       ) : (

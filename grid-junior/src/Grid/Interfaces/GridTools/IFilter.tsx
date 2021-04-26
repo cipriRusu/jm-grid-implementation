@@ -4,4 +4,5 @@ export interface IFilter {
   value?: string;
   operator?: number;
   selection?: string[];
+  boolean?: boolean[];
 }

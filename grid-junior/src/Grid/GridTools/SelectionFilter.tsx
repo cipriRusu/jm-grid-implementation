@@ -206,8 +206,6 @@ const SelectionFilter = (props: any) => {
                 if (activeElement !== null) {
                   activeElement.click();
                 }
-
-                addSelectionFilter(props.header, value, e.target.checked);
               }
             }}
           ></Form.Check>

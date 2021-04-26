@@ -46,11 +46,14 @@ const Filters = (props: any) => {
   const handleFilterIcon = (header: IColumn) => {
     switch (header.type) {
       case undefined:
+      case "boolean":
+      case "number":
         return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name ? (
             <i key={index} className="icon-column fa fa-filter"></i>
           ) : null;
         });
+
       case "select":
         return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name &&
@@ -153,7 +156,7 @@ const Filters = (props: any) => {
             ) : (
               ""
             )}
-            {header.type === "boolean" ? <BooleanFilter /> : ""}
+            {header.type === "boolean" ? <BooleanFilter header={header} /> : ""}
           </div>
         </div>
       ))}

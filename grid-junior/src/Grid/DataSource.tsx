@@ -1,3 +1,4 @@
+import { BooleanFilter } from "./BooleanFilter";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
@@ -83,6 +84,22 @@ export class DataSource implements IDataSource {
       );
     }
 
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "boolean" &&
+          x.boolean !== undefined &&
+          x.boolean.length > 0
+        );
+      })
+    ) {
+      returned_data = new BooleanFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "boolean";
+        })
+      );
+    }
+
     return returned_data.length;
   }
 
@@ -150,6 +167,23 @@ export class DataSource implements IDataSource {
         })
       );
     }
+
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "boolean" &&
+          x.boolean !== undefined &&
+          x.boolean.length > 0
+        );
+      })
+    ) {
+      returned_data = new BooleanFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "boolean";
+        })
+      );
+    }
+
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
   }
 }

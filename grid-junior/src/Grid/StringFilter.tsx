@@ -1,8 +1,8 @@
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 
 export class StringFilter {
-  data: IFilter[];
-  constructor(data: IFilter[]) {
+  data: any[];
+  constructor(data: any[]) {
     this.data = data;
   }
 
