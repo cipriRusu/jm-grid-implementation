@@ -57,8 +57,8 @@ const Filters = (props: any) => {
       case "select":
         return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name &&
-            x.selection !== undefined &&
-            x.selection.length > 0 ? (
+            x.value !== undefined &&
+            x.value.length > 0 ? (
             <i key={index} className="icon-column fa fa-filter"></i>
           ) : null;
         });
@@ -79,9 +79,7 @@ const Filters = (props: any) => {
           gridContext.setToggledColumn({
             name: "",
             size: "",
-            type: "",
-            value: "",
-            operator: 0,
+            type: ""
           });
           gridContext.setToggledHeader([]);
         }
@@ -96,9 +94,7 @@ const Filters = (props: any) => {
           gridContext.setToggledColumn({
             name: "",
             size: "",
-            type: "",
-            value: "",
-            operator: 0,
+            type: ""
           });
           gridContext.setToggledHeader([]);
         });
@@ -116,9 +112,7 @@ const Filters = (props: any) => {
             gridContext.setToggledColumn({
               name: "",
               size: "",
-              type: "",
-              value: "",
-              operator: 0,
+              type: ""
             });
             gridContext.setToggledHeader([]);
           });
