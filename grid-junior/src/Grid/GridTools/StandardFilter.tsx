@@ -62,7 +62,7 @@ const StandardFilter = (props: any) => {
   const handleOnOptionChange = (e: any, column: IColumn) => {
     gridContext.setActiveFilter({
       name: column.name,
-      value: [getFieldValue(column)],
+      value: getFieldValue(column) as string[],
       type: column.type,
       operator: e.target.selectedIndex,
     });
@@ -125,7 +125,7 @@ const StandardFilter = (props: any) => {
   const handleUserInput = (e: any, column: IColumn) => {
     gridContext.setActiveFilter({
       name: column.name,
-      value: [e.target.value],
+      value: e.target.value,
       type: column.type,
       operator: option
     });
@@ -149,13 +149,13 @@ const StandardFilter = (props: any) => {
           (x) =>
             x.name === gridContext.activeFilter.name &&
             x.type === gridContext.activeFilter.type &&
-            x.value.includes(gridContext.activeFilter.value) &&
+            x.value === gridContext.activeFilter.value &&
             x.operator === gridContext.activeFilter.operator
         );
       };
       if (
-        gridContext.activeFilter.value !== undefined &&
-        gridContext.activeFilter.value !== [] &&
+        gridContext.activeFilter.value[0] !== undefined &&
+        gridContext.activeFilter.value[0] !== [] &&
         checkCurrentFilters()
       ) {
         const handleAddFilter = () => {
@@ -170,7 +170,7 @@ const StandardFilter = (props: any) => {
           all_filters = all_filters.concat({
             name: gridContext.activeFilter.name,
             type: gridContext.activeFilter.type,
-            value: [gridContext.activeFilter.value],
+            value: gridContext.activeFilter.value,
             operator: gridContext.activeFilter.operator
           });
 
