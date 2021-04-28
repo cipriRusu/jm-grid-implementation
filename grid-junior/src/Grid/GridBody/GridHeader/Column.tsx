@@ -13,10 +13,8 @@ class Column extends React.Component<IColumn, IColumn> {
     this.state = {
       name: this.props.name,
       size: this.props.size,
-      value: this.props.value,
       type: this.props.type,
-      operator: this.props.operator,
-      toggled: this.props.toggled,
+      toggled: this.props.toggled
     };
   }
 
@@ -44,9 +42,7 @@ class Column extends React.Component<IColumn, IColumn> {
       case "number":
       case "boolean":
         if (
-          value.filters.some((x: IFilter) => {
-            return x.name === this.state.name;
-          })
+          value.filters.some((x: IFilter) => { return x.name === this.state.name; })
         ) {
           return (
             <i
@@ -64,13 +60,7 @@ class Column extends React.Component<IColumn, IColumn> {
         }
       case "select":
         if (
-          value.filters.some((x: IFilter) => {
-            return (
-              x.name === this.state.name &&
-              x.selection !== undefined &&
-              x.selection.length > 0
-            );
-          })
+          value.filters.some((x: IFilter) => { return (x.name === this.state.name) })
         ) {
           return (
             <i
@@ -126,14 +116,14 @@ class Column extends React.Component<IColumn, IColumn> {
                   className="filter"
                   onClick={() => {
                     if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({ name: "", size: "" });
+                      value.setToggledColumn({ name: "", size: "", toggled: false });
                     } else {
                       value.setToggledColumn(this.state);
                     }
                   }}
                   onKeyPress={() => {
                     if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({ name: "", size: "" });
+                      value.setToggledColumn({ name: "", size: "", toggled: false });
                     } else {
                       value.setToggledColumn(this.state);
                     }
@@ -143,9 +133,8 @@ class Column extends React.Component<IColumn, IColumn> {
                 </div>
               </div>
               <div
-                className={`filter-dropdown ${
-                  this.state === value.toggledColumn ? "show" : ""
-                }`}
+                className={`filter-dropdown ${this.state === value.toggledColumn ? "show" : ""
+                  }`}
               >
                 <Filters columns={[this.props]} />
               </div>
