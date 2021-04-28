@@ -25,10 +25,10 @@ const SelectionFilter = (props: any) => {
         )[0];
 
         if (
-          defaultFilter.selection !== undefined &&
-          !defaultFilter.selection.includes(option)
+          defaultFilter.value !== undefined &&
+          !defaultFilter.value.includes(option)
         ) {
-          defaultFilter.selection = defaultFilter.selection.concat(option);
+          defaultFilter.value = defaultFilter.value.concat(option);
 
           sortContext.setFilter(filters);
         }
@@ -36,12 +36,11 @@ const SelectionFilter = (props: any) => {
         let newFilter = {
           name: header.name,
           type: header.type,
-          value: header.value,
-          operator: header.operator,
-          selection: [option],
+          value: [option],
+          operator: 0
         };
 
-        if (newFilter !== undefined && newFilter.selection !== undefined) {
+        if (newFilter !== undefined && newFilter.value !== undefined) {
           let current = [...sortContext.filters, newFilter];
           sortContext.setFilter(current);
         }
@@ -56,16 +55,16 @@ const SelectionFilter = (props: any) => {
       })[0];
 
       if (
-        defaultFilter.selection !== undefined &&
-        defaultFilter.selection.includes(option)
+        defaultFilter.value !== undefined &&
+        defaultFilter.value.includes(option)
       ) {
-        let updatedSelection = defaultFilter.selection.filter((x: string) => {
+        let updatedSelection = defaultFilter.value.filter((x: string) => {
           return x !== option;
         });
 
-        defaultFilter.selection = updatedSelection;
+        defaultFilter.value = updatedSelection;
 
-        if (defaultFilter.selection.length === 0) {
+        if (defaultFilter.value.length === 0) {
           filters = filters.filter((x: IFilter) => {
             return x.name !== header.name;
           });
@@ -89,8 +88,8 @@ const SelectionFilter = (props: any) => {
           (x: IFilter) => x.name === header.name
         )[0];
 
-        if (defaultFilter.selection !== undefined) {
-          defaultFilter.selection = options;
+        if (defaultFilter.value !== undefined) {
+          defaultFilter.value = options;
 
           sortContext.setFilter(filters);
         }
@@ -98,9 +97,8 @@ const SelectionFilter = (props: any) => {
         let newFilter = {
           name: header.name,
           type: header.type,
-          value: header.value,
-          operator: header.operator,
-          selection: options,
+          value: options,
+          operator: 0
         };
 
         let updatedFilters = [...sortContext.filters, newFilter];
@@ -133,17 +131,17 @@ const SelectionFilter = (props: any) => {
 
     if (
       filter !== undefined &&
-      filter.selection !== undefined &&
+      filter.value !== undefined &&
       allValues.every(
         (x: string) =>
-          filter.selection !== undefined && filter.selection.includes(x)
+          filter.value !== undefined && filter.value.includes(x)
       )
     ) {
       return true;
     }
 
-    if (filter !== undefined && filter.selection !== undefined) {
-      return filter.selection.includes(currentValue) ? true : false;
+    if (filter !== undefined && filter.value !== undefined) {
+      return filter.value.includes(currentValue) ? true : false;
     }
 
     return false;

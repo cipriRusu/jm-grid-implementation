@@ -22,8 +22,8 @@ const BooleanFilter = (props: any) => {
           (x: IFilter) => x.name === header.name
         )[0];
 
-        if (defaultFilter.boolean !== undefined) {
-          defaultFilter.boolean = defaultFilter.boolean.concat(Boolean(option));
+        if (defaultFilter.value !== undefined) {
+          defaultFilter.value = defaultFilter.value.concat(option);
 
           gridContext.setFilter(filters);
         }
@@ -31,9 +31,8 @@ const BooleanFilter = (props: any) => {
         let newFilter = {
           name: header.name,
           type: header.type,
-          value: header.value,
-          operator: header.operator,
-          boolean: [Boolean(option)],
+          value: [option],
+          operator: 0
         };
 
         let updatedFilters = [...gridContext.filters, newFilter];
@@ -48,12 +47,12 @@ const BooleanFilter = (props: any) => {
           return x.name === header.name;
         })[0];
 
-        if (defaultFilter.boolean !== undefined) {
-          defaultFilter.boolean = defaultFilter.boolean.filter((x: boolean) => {
+        if (defaultFilter.value !== undefined) {
+          defaultFilter.value = defaultFilter.value.filter((x: boolean) => {
             return x !== option;
           });
 
-          if (defaultFilter.boolean.length === 0) {
+          if (defaultFilter.value.length === 0) {
             filters = filters.filter((x: IFilter) => {
               return x.name !== header.name;
             });

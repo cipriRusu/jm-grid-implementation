@@ -62,7 +62,7 @@ const StandardFilter = (props: any) => {
   const handleOnOptionChange = (e: any, column: IColumn) => {
     gridContext.setActiveFilter({
       name: column.name,
-      value: getFieldValue(column),
+      value: [getFieldValue(column)],
       type: column.type,
       operator: e.target.selectedIndex,
     });
@@ -91,22 +91,20 @@ const StandardFilter = (props: any) => {
   };
 
   const deleteFilter = (e: any, column: IColumn) => {
-    if (column.value !== "") {
-      const newList = gridContext.filters.filter(
-        (item) => item.name !== column.name
-      );
-      gridContext.setFilter(newList);
+    const newList = gridContext.filters.filter(
+      (item) => item.name !== column.name
+    );
 
-      gridContext.setActiveFilter({
-        name: "",
-        value: "",
-        type: "",
-        operator: 0,
-        selection: [],
-      });
+    gridContext.setFilter(newList);
 
-      setRemove(false);
-    }
+    gridContext.setActiveFilter({
+      name: "",
+      value: [],
+      type: "",
+      operator: 0
+    });
+
+    setRemove(false);
   };
 
   const closeFilterOnEnter = (event: any) => {
@@ -117,9 +115,7 @@ const StandardFilter = (props: any) => {
         gridContext.setToggledColumn({
           name: "",
           size: "",
-          type: "",
-          value: "",
-          operator: 0,
+          type: ""
         });
         gridContext.setToggledHeader([]);
       });
@@ -129,10 +125,9 @@ const StandardFilter = (props: any) => {
   const handleUserInput = (e: any, column: IColumn) => {
     gridContext.setActiveFilter({
       name: column.name,
-      value: e.target.value,
+      value: [e.target.value],
       type: column.type,
-      operator: option,
-      selection: [],
+      operator: option
     });
 
     if (e.target.value === "") {
@@ -140,7 +135,7 @@ const StandardFilter = (props: any) => {
 
       gridContext.setActiveFilter({
         name: "",
-        value: "",
+        value: [],
         type: "",
         operator: 0,
       });
@@ -154,13 +149,13 @@ const StandardFilter = (props: any) => {
           (x) =>
             x.name === gridContext.activeFilter.name &&
             x.type === gridContext.activeFilter.type &&
-            x.value === gridContext.activeFilter.value &&
+            x.value.includes(gridContext.activeFilter.value) &&
             x.operator === gridContext.activeFilter.operator
         );
       };
       if (
         gridContext.activeFilter.value !== undefined &&
-        gridContext.activeFilter.value !== "" &&
+        gridContext.activeFilter.value !== [] &&
         checkCurrentFilters()
       ) {
         const handleAddFilter = () => {
@@ -174,10 +169,9 @@ const StandardFilter = (props: any) => {
 
           all_filters = all_filters.concat({
             name: gridContext.activeFilter.name,
-            value: gridContext.activeFilter.value,
             type: gridContext.activeFilter.type,
-            operator: gridContext.activeFilter.operator,
-            selection: [],
+            value: [gridContext.activeFilter.value],
+            operator: gridContext.activeFilter.operator
           });
 
           gridContext.setFilter(all_filters);
