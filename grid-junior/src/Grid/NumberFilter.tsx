@@ -9,7 +9,7 @@ export class NumberFilter {
   applyFilters(filters: IFilter[]) {
     filters.forEach((x: IFilter) => {
       this.data = this.data.filter((y: any) => {
-        let value = x.value === undefined ? 0 : parseInt(x.value);
+        let value = x.value === undefined ? 0 : parseInt(x.value[0]);
         switch (x.operator) {
           case 0:
             return parseInt(y[x.name]) === value;

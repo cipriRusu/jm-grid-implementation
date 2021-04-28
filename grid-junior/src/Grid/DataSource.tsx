@@ -72,8 +72,8 @@ export class DataSource implements IDataSource {
       filters.some((x: IFilter) => {
         return (
           x.type === "select" &&
-          x.selection !== undefined &&
-          x.selection.length > 0
+          x.value !== undefined &&
+          x.value.length > 0
         );
       })
     ) {
@@ -88,8 +88,8 @@ export class DataSource implements IDataSource {
       filters.some((x: IFilter) => {
         return (
           x.type === "boolean" &&
-          x.boolean !== undefined &&
-          x.boolean.length > 0
+          x.value !== undefined &&
+          x.value.length > 0
         );
       })
     ) {
@@ -156,8 +156,8 @@ export class DataSource implements IDataSource {
       filters.some((x: IFilter) => {
         return (
           x.type === "select" &&
-          x.selection !== undefined &&
-          x.selection.length > 0
+          x.value !== undefined &&
+          x.value.length > 0
         );
       })
     ) {
@@ -172,8 +172,8 @@ export class DataSource implements IDataSource {
       filters.some((x: IFilter) => {
         return (
           x.type === "boolean" &&
-          x.boolean !== undefined &&
-          x.boolean.length > 0
+          x.value !== undefined &&
+          x.value.length > 0
         );
       })
     ) {

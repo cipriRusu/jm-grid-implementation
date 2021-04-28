@@ -10,7 +10,7 @@ export class SelectionFilter {
   applyFilters(filters: IFilter[]) {
     filters.forEach((filter: IFilter): void => {
       this.data = this.data.filter((entry: any) => {
-        return filter.selection?.includes(entry[filter.name]);
+        return filter.value?.includes(entry[filter.name]);
       });
     });
 
