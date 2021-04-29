@@ -2,6 +2,7 @@ import { ICell } from "../../Interfaces/GridBody/ICell";
 import StandardCell from "./StandardCell";
 import "./Cell.scss";
 import BooleanCell from "./BooleanCell";
+import SelectionCell from "./SelectionCell";
 
 const Cell = (props: { content: ICell }) => {
   const ApplyTitleStyling = () => {
@@ -16,7 +17,6 @@ const Cell = (props: { content: ICell }) => {
     switch (content.cell_type?.toString()) {
       case undefined:
       case "number":
-      case "select":
         return (
           <StandardCell
             cell_content={content.cell_content}
@@ -30,6 +30,15 @@ const Cell = (props: { content: ICell }) => {
             cell_content={content.cell_content}
             cell_key={content.cell_key}
             cell_type={content.cell_type}
+          />
+        );
+      case "select":
+        return (
+          <SelectionCell
+            cell_content={content.cell_content}
+            cell_key={content.cell_key}
+            cell_type={content.cell_type}
+            selection_options={content.selection_options}
           />
         );
     }

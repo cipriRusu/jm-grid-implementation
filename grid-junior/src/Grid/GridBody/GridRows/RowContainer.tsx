@@ -166,6 +166,7 @@ const RowContainer = (props: {
                         cell_content: x[y.name],
                         cell_type: y.type as Cell_Type,
                         cell_key: cell_key,
+                        selection_options: y.options,
                       }}
                     />
                   );
