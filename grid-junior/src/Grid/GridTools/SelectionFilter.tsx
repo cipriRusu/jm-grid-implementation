@@ -1,178 +1,156 @@
-import {useContext} from "react";
-import {Form} from "react-bootstrap";
-import {GridContext} from "../Grid";
-import {IColumn} from "../Interfaces/GridBody/IColumn";
-import {IFilter} from "../Interfaces/GridTools/IFilter";
+import { useContext } from "react";
+import { Form } from "react-bootstrap";
+import { GridContext } from "../Grid";
+import { IColumn } from "../Interfaces/GridBody/IColumn";
+import { IFilter } from "../Interfaces/GridTools/IFilter";
 
-const SelectionFilter = (props : any) => {
-    let sortContext = useContext(GridContext);
+const SelectionFilter = (props: any) => {
+  let gridContext = useContext(GridContext);
 
-    let filter = sortContext.selectionOptions.filter((filters) => filters.name === props.header.name)[0];
+  let filter = gridContext.selectionOptions.filter(
+    (filters) => filters.name === props.header.name
+  )[0];
 
-    const addSelectionFilter = (header : IColumn, option : string, checked : boolean) => {
-        if (checked === true) {
-            let filters = sortContext.filters;
+  const addSelectionFilter = (
+    header: IColumn,
+    option: string[],
+    checked: boolean
+  ) => {
+    if (checked === true) {
+      let filters = gridContext.filters;
 
-            if (filters.some((x : IFilter) => x.name === header.name)) {
-                let defaultFilter = filters.filter((x : IFilter) => x.name === header.name)[0];
+      if (filters.some((x: IFilter) => x.name === header.name)) {
+        let defaultFilter = filters.filter(
+          (x: IFilter) => x.name === header.name
+        )[0];
 
-                if (defaultFilter.value !== undefined && ! defaultFilter.value.includes(option)) {
-                    defaultFilter.value = defaultFilter.value.concat(option);
+        if (
+          defaultFilter.value !== undefined &&
+          !defaultFilter.value.includes(option)
+        ) {
+          defaultFilter.value = defaultFilter.value.concat(option);
 
-                    sortContext.setFilter(filters);
-                }
-            } else {
-                let newFilter = {
-                    name: header.name,
-                    type: header.type,
-                    value: [option],
-                    operator: 0
-                };
-
-                if (newFilter !== undefined && newFilter.value !== undefined) {
-                    let current = [
-                        ...sortContext.filters,
-                        newFilter
-                    ];
-                    sortContext.setFilter(current);
-                }
-            }
+          gridContext.setFilter(filters);
         }
+      } else {
+        let newFilter = {
+          name: header.name,
+          type: header.type,
+          value: option,
+          operator: 0,
+        };
 
-        if (checked === false) {
-            let filters = sortContext.filters;
+        let current = [...gridContext.filters, newFilter];
+        gridContext.setFilter(current);
+      }
+    }
 
-            let defaultFilter = filters.filter((x : IFilter) => {
-                return x.name === header.name;
-            })[0];
+    if (checked === false) {
+      let filters = gridContext.filters;
 
-            if (defaultFilter.value !== undefined && defaultFilter.value.includes(option)) {
-                let updatedSelection = defaultFilter.value.filter((x : string) => {
-                    return x !== option;
-                });
+      let defaultFilter = filters.filter((x: IFilter) => {
+        return x.name === header.name;
+      })[0];
 
-                defaultFilter.value = updatedSelection;
+      if (defaultFilter !== undefined) {
+        defaultFilter.value = defaultFilter.value.filter((x: string) => {
+          return !option.includes(x);
+        });
+      }
 
-                if (defaultFilter.value.length === 0) {
-                    filters = filters.filter((x : IFilter) => {
-                        return x.name !== header.name;
-                    });
-                }
+      if (defaultFilter !== undefined && defaultFilter.value.length === 0) {
+        filters = filters.filter((x: IFilter) => {
+          return x.name !== header.name;
+        });
+      }
 
-                sortContext.setFilter(filters);
-            }
-        }
-    };
+      gridContext.setFilter(filters);
+    }
+  };
 
-    const addAllSelectionFilters = (header : IColumn, options : string[], checked : boolean) => {
-        if (checked === true) {
-            let filters = sortContext.filters;
+  const displayCheck = (
+    header: IColumn,
+    currentValue: string,
+    allValues: string[]
+  ) => {
+    let filter = gridContext.filters.filter((filter: IFilter) => {
+      return filter.name === header.name;
+    })[0];
 
-            if (filters.some((x : IFilter) => x.name === header.name)) {
-                let defaultFilter = filters.filter((x : IFilter) => x.name === header.name)[0];
+    if (
+      filter !== undefined &&
+      filter.value !== undefined &&
+      allValues.every(
+        (x: string) => filter.value !== undefined && filter.value.includes(x)
+      )
+    ) {
+      return true;
+    }
 
-                if (defaultFilter.value !== undefined) {
-                    defaultFilter.value = options;
+    if (filter !== undefined && filter.value !== undefined) {
+      return filter.value.includes(currentValue) ? true : false;
+    }
 
-                    sortContext.setFilter(filters);
-                }
-            } else {
-                let newFilter = {
-                    name: header.name,
-                    type: header.type,
-                    value: options,
-                    operator: 0
-                };
+    return false;
+  };
 
-                let updatedFilters = [
-                    ...sortContext.filters,
-                    newFilter
-                ];
-
-                sortContext.setFilter(updatedFilters);
-            }
-        }
-
-        if (checked === false) {
-            let filters = sortContext.filters;
-
-            let defaultFilters = filters;
-
-            let updatedFilters = defaultFilters.filter((x : IFilter) => {
-                return x.name !== header.name;
-            });
-
-            sortContext.setFilter(updatedFilters);
-        }
-    };
-
-    const displayCheck = (header : IColumn, currentValue : string, allValues : string[]) => {
-        let filter = sortContext.filters.filter((filter : IFilter) => {
-            return filter.name === header.name;
-        })[0];
-
-        if (filter !== undefined && filter.value !== undefined && allValues.every((x : string) => filter.value !== undefined && filter.value.includes(x))) {
-            return true;
-        }
-
-        if (filter !== undefined && filter.value !== undefined) {
-            return filter.value.includes(currentValue) ? true : false;
-        }
-
-        return false;
-    };
-
-    return (<>
-        <Form.Check className="form-check all-selector" type="checkbox"
-            label={"Select All"}
-            checked={
-                displayCheck(props.header, "Select All", filter.options || new Array < string > ())
-            }
-            onChange={
-                (e : any) => {
-                    addAllSelectionFilters(props.header, filter.options || new Array < string > (), e.target.checked);
-                }
-            }
-            onKeyPress={
-                (e : any) => {
-                    if (e.key === "Enter") {
-                        let activeElement = document.activeElement as HTMLElement;
-
-                        if (activeElement !== null) {
-                            activeElement.click();
-                        }
-
-                        addAllSelectionFilters(props.header, filter.options || new Array < string > (), e.target.checked);
-                    }
-                }
-        }></Form.Check>
-{
-filter.options?.map((value, key) => {
-    return (<Form.Check key={key}
-        className="form-check"
+  return (
+    <>
+      <Form.Check
+        className="form-check all-selector"
         type="checkbox"
-        label={value}
-        checked={
-            displayCheck(props.header, value, filter.options || new Array < string > ())
-        }
-        onChange={
-            (e : any) => {
-                e.stopPropagation();
-                addSelectionFilter(props.header, value, e.target.checked);
-            }
-        }
-        onKeyPress={
-            (e : any) => {
-                if (e.key === "Enter") {
-                    let activeElement = document.activeElement as HTMLElement;
+        label={"Select All"}
+        checked={displayCheck(
+          props.header,
+          "Select All",
+          filter.options || new Array<string>()
+        )}
+        onChange={(e: any) => {
+          addSelectionFilter(
+            props.header,
+            filter.options || new Array<string>(),
+            e.target.checked
+          );
+        }}
+        onKeyPress={(e: any) => {
+          if (e.key === "Enter") {
+            let activeElement = document.activeElement as HTMLElement;
 
-                    if (activeElement !== null) {
-                        activeElement.click();
-                    }
-                }
+            if (activeElement !== null) {
+              activeElement.click();
             }
-    }></Form.Check>);
-})} </>);
+          }
+        }}
+      ></Form.Check>
+      {filter.options?.map((value, key) => {
+        return (
+          <Form.Check
+            key={key}
+            className="form-check"
+            type="checkbox"
+            label={value}
+            checked={displayCheck(
+              props.header,
+              value,
+              filter.options || new Array<string>()
+            )}
+            onChange={(e: any) => {
+              addSelectionFilter(props.header, [value], e.target.checked);
+            }}
+            onKeyPress={(e: any) => {
+              if (e.key === "Enter") {
+                let activeElement = document.activeElement as HTMLElement;
+
+                if (activeElement !== null) {
+                  activeElement.click();
+                }
+              }
+            }}
+          ></Form.Check>
+        );
+      })}{" "}
+    </>
+  );
 };
 
 export default SelectionFilter;
