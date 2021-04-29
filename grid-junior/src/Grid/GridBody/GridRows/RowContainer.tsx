@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import Cell from "./Cell";
+import ScrollDirection from "./ScrollDirection";
 import "./RowContainer.scss";
 import { Cell_Type } from "../../CustomTypes/Cell_Type";
 import { GridContext } from "../../Grid";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { IDataSource } from "../../Interfaces/GridData/IDataSource";
 import { IRow } from "../../Interfaces/GridBody/IRow";
+import { IGridContext } from "../../Interfaces/GridTools/IGridContext";
+import { ISortable } from "../../Interfaces/GridBody/ISortable";
 
 const RowContainer = (props: {
   content: IDataSource;
@@ -15,16 +18,35 @@ const RowContainer = (props: {
   const gridContext = useContext(GridContext);
   const [allPages, updateAllPages] = useState(0);
 
-  const UpdateContainer = (event: any) => {
+  const loadPage = (
+    gridContext: IGridContext & ISortable,
+    pageSize: number,
+    direction: ScrollDirection
+  ) => {
+    let scrollingDirection =
+      direction === ScrollDirection.Up
+        ? gridContext.top
+        : direction === ScrollDirection.Down
+        ? gridContext.bottom
+        : 0;
+
+    return props.content.get(
+      gridContext.sort,
+      gridContext.filters,
+      scrollingDirection,
+      pageSize
+    );
+  };
+
+  const loadOnScroolUp = (event: any) => {
     if (event.target.scrollTop === 0) {
       if (gridContext.top >= 0) {
         let currentCachedItems = gridContext.items;
 
-        let newCache = props.content.get(
-          gridContext.sort,
-          gridContext.filters,
-          gridContext.top,
-          props.pageSize
+        let newCache = loadPage(
+          gridContext,
+          props.pageSize,
+          ScrollDirection.Up
         );
 
         let updatedCache = [...newCache, ...currentCachedItems];
@@ -34,79 +56,84 @@ const RowContainer = (props: {
         }
 
         document.getElementById(props.pageSize.toString())?.scrollIntoView();
-
         gridContext.setItems(updatedCache);
-
         gridContext.setLoaded(gridContext.loadedPages - newCache.length);
-
         gridContext.setTop(gridContext.top - 1);
-
         gridContext.setBottom(gridContext.bottom - 1);
       }
     }
+  };
 
-    if (
-      event.target.scrollHeight - event.target.scrollTop ===
-      event.target.clientHeight
-    ) {
+  const loadOnScroolDown = (event: any) => {
+    const isBottomReached = (event: any) => {
+      return (
+        event.target.scrollHeight - event.target.scrollTop ===
+        event.target.clientHeight
+      );
+    };
+
+    if (isBottomReached(event)) {
       if (gridContext.loadedPages <= allPages) {
         let currentCachedItems = gridContext.items;
 
-        let newCache = props.content.get(
-          gridContext.sort,
-          gridContext.filters,
-          gridContext.bottom,
-          props.pageSize
+        let newCache = loadPage(
+          gridContext,
+          props.pageSize,
+          ScrollDirection.Down
         );
 
         let updatedCache = currentCachedItems.concat(newCache);
 
         if (updatedCache.length > props.pageCache) {
           updatedCache.splice(0, props.pageSize);
-
           document.getElementById(props.pageSize.toString())?.scrollIntoView();
-
           gridContext.setTop(gridContext.top + 1);
         }
 
         gridContext.setLoaded(gridContext.loadedPages + newCache.length);
-
         gridContext.setItems(updatedCache);
-
         gridContext.setBottom(gridContext.bottom + 1);
       }
     }
   };
 
+  const UpdateContainer = (event: any) => {
+    loadOnScroolUp(event);
+    loadOnScroolDown(event);
+  };
+
   useEffect(() => {
-    gridContext.bottom = 0;
+    const ReloadData = () => {
+      const ResetAllData = () => {
+        gridContext.bottom = 0;
+        gridContext.top = -1;
+        gridContext.setItems([]);
+        gridContext.setTop(-1);
+        gridContext.setBottom(0);
+      };
 
-    gridContext.top = -1;
+      ResetAllData();
 
-    gridContext.setItems([]);
+      let loadingElements = loadPage(
+        gridContext,
+        props.pageSize,
+        ScrollDirection.Initial
+      );
 
-    gridContext.setTop(-1);
+      updateAllPages(
+        props.content.getTotal(gridContext.sort, gridContext.filters)
+      );
 
-    gridContext.setBottom(0);
+      gridContext.setItems(loadingElements);
 
-    let loadingElements = props.content.get(
-      gridContext.sort,
-      gridContext.filters,
-      0,
-      props.pageSize
-    );
+      gridContext.setLoaded(loadingElements.length);
 
-    updateAllPages(
-      props.content.getTotal(gridContext.sort, gridContext.filters)
-    );
+      if (gridContext.bottom === 0) {
+        gridContext.setBottom(1);
+      }
+    };
 
-    gridContext.setItems(loadingElements);
-
-    gridContext.setLoaded(loadingElements.length);
-
-    if (gridContext.bottom === 0) {
-      gridContext.setBottom(1);
-    }
+    ReloadData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
