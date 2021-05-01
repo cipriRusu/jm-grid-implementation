@@ -3,8 +3,13 @@ import { Form } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 
 const DateFilter = (props: any) => {
+  const [option, setOption] = useState(0);
   const [firstDate, setFirstDate] = useState<Date | null>(null);
   const [secondDate, setSecondDate] = useState<Date | null>(null);
+
+  const ConvertOption = (option: number) => {
+    return optionsForDate[option];
+  };
 
   let optionsForDate = ["Equals", "After", "Before", "Not Equals", "Between"];
 
@@ -13,7 +18,15 @@ const DateFilter = (props: any) => {
 
   return (
     <div className="date-filter-containers">
-      <Form.Control as="select">{displayOptions(optionsForDate)}</Form.Control>
+      <Form.Control
+        as="select"
+        value={ConvertOption(option)}
+        onChange={(e: any) => {
+          setOption(e.target.selectedIndex);
+        }}
+      >
+        {displayOptions(optionsForDate)}
+      </Form.Control>
       <DatePicker
         value={firstDate}
         onChange={(value) =>
@@ -26,6 +39,7 @@ const DateFilter = (props: any) => {
         }
       />
       <DatePicker
+        className={option === 4 ? "date-filter-display" : "date-filter-hide"}
         value={secondDate}
         onChange={(value) =>
           setSecondDate(value !== null ? new Date(value.toString()) : null)
