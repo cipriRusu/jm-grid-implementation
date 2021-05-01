@@ -6,6 +6,7 @@ import SelectionFilter from "./SelectionFilter";
 import StandardFilter from "./StandardFilter";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
 import BooleanFilter from "./BooleanFilter";
+import DateFilter from "./DateFilter";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -79,7 +80,7 @@ const Filters = (props: any) => {
           gridContext.setToggledColumn({
             name: "",
             size: "",
-            type: ""
+            type: "",
           });
           gridContext.setToggledHeader([]);
         }
@@ -94,7 +95,7 @@ const Filters = (props: any) => {
           gridContext.setToggledColumn({
             name: "",
             size: "",
-            type: ""
+            type: "",
           });
           gridContext.setToggledHeader([]);
         });
@@ -112,7 +113,7 @@ const Filters = (props: any) => {
             gridContext.setToggledColumn({
               name: "",
               size: "",
-              type: ""
+              type: "",
             });
             gridContext.setToggledHeader([]);
           });
@@ -151,6 +152,7 @@ const Filters = (props: any) => {
               ""
             )}
             {header.type === "boolean" ? <BooleanFilter header={header} /> : ""}
+            {header.type === "date" ? <DateFilter header={header} /> : ""}
           </div>
         </div>
       ))}

@@ -17,6 +17,7 @@ const Cell = (props: { content: ICell }) => {
     switch (content.cell_type?.toString()) {
       case undefined:
       case "number":
+      case "date":
         return (
           <StandardCell
             cell_content={content.cell_content}

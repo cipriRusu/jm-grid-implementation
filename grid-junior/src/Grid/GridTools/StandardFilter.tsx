@@ -101,7 +101,7 @@ const StandardFilter = (props: any) => {
       name: "",
       value: [],
       type: "",
-      operator: 0
+      operator: 0,
     });
 
     setRemove(false);
@@ -115,7 +115,7 @@ const StandardFilter = (props: any) => {
         gridContext.setToggledColumn({
           name: "",
           size: "",
-          type: ""
+          type: "",
         });
         gridContext.setToggledHeader([]);
       });
@@ -127,7 +127,7 @@ const StandardFilter = (props: any) => {
       name: column.name,
       value: e.target.value,
       type: column.type,
-      operator: option
+      operator: option,
     });
 
     if (e.target.value === "") {
@@ -171,7 +171,7 @@ const StandardFilter = (props: any) => {
             name: gridContext.activeFilter.name,
             type: gridContext.activeFilter.type,
             value: gridContext.activeFilter.value,
-            operator: gridContext.activeFilter.operator
+            operator: gridContext.activeFilter.operator,
           });
 
           gridContext.setFilter(all_filters);

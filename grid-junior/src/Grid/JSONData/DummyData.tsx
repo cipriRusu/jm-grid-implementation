@@ -1,6 +1,14 @@
 export const dummy_data = [] as any;
 
-let keys = ["Status", "Prenume", "Nume", "Validare", "Email", "Nr Telefon"];
+let keys = [
+  "Status",
+  "Prenume",
+  "Nume",
+  "Validare",
+  "Email",
+  "Nr Telefon",
+  "Data Nasterii",
+];
 
 let intial_values = [
   "Status",
@@ -9,6 +17,7 @@ let intial_values = [
   true,
   "jdoe@gmail.com",
   "010292991",
+  "21.03.1983",
 ];
 
 let selection_statuses = ["Disponibil", "Ocupat", "Offline"];
@@ -42,6 +51,10 @@ for (var i = 0; i < 100; i++) {
 
       if (k_key === 5) {
         value = Math.floor(Math.random() * 1000000000).toString();
+      }
+
+      if (k_key === 6) {
+        value = "10.21.2013";
       }
 
       if (k_key === v_key) {
