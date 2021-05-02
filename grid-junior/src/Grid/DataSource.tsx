@@ -1,4 +1,5 @@
 import { BooleanFilter } from "./BooleanFilter";
+import { DateFilter } from "./DateFilter";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
@@ -71,9 +72,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "select" &&
-          x.value !== undefined &&
-          x.value.length > 0
+          x.type === "select" && x.value !== undefined && x.value.length > 0
         );
       })
     ) {
@@ -87,15 +86,25 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "boolean" &&
-          x.value !== undefined &&
-          x.value.length > 0
+          x.type === "boolean" && x.value !== undefined && x.value.length > 0
         );
       })
     ) {
       returned_data = new BooleanFilter(returned_data).applyFilters(
         filters.filter((x: IFilter) => {
           return x.type === "boolean";
+        })
+      );
+    }
+
+    if (
+      filters.some((x: IFilter) => {
+        return x.type === "date" && x.value !== undefined && x.value.length > 0;
+      })
+    ) {
+      returned_data = new DateFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "date";
         })
       );
     }
@@ -155,9 +164,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "select" &&
-          x.value !== undefined &&
-          x.value.length > 0
+          x.type === "select" && x.value !== undefined && x.value.length > 0
         );
       })
     ) {
@@ -171,15 +178,25 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "boolean" &&
-          x.value !== undefined &&
-          x.value.length > 0
+          x.type === "boolean" && x.value !== undefined && x.value.length > 0
         );
       })
     ) {
       returned_data = new BooleanFilter(returned_data).applyFilters(
         filters.filter((x: IFilter) => {
           return x.type === "boolean";
+        })
+      );
+    }
+
+    if (
+      filters.some((x: IFilter) => {
+        return x.type === "date" && x.value !== undefined && x.value.length > 0;
+      })
+    ) {
+      returned_data = new DateFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "date";
         })
       );
     }

@@ -26,6 +26,12 @@ let boolean_statuses = [true, false];
 
 var characters = "abcdefghiklmnopqrstuvwxyz";
 
+function randomDate(start: Date, end: Date) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+}
+
 for (var i = 0; i < 100; i++) {
   const current: { [x: string]: any } = {};
 
@@ -54,7 +60,14 @@ for (var i = 0; i < 100; i++) {
       }
 
       if (k_key === 6) {
-        value = "10.21.2013";
+        let generatedDate = randomDate(
+          new Date(1980, 0, 0),
+          new Date(2000, 0, 0)
+        );
+
+        generatedDate.setHours(0, 0, 0, 0);
+
+        value = generatedDate.toString();
       }
 
       if (k_key === v_key) {
