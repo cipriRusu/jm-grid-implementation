@@ -47,10 +47,48 @@ export class DataSource implements IDataSource {
         string_filters
       );
     }
-
     if (number_filters.length > 0) {
       returned_data = new NumberFilter(returned_data).applyFilters(
         number_filters
+      );
+    }
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "select" && x.values !== undefined && x.values.length > 0
+        );
+      })
+    ) {
+      returned_data = new SelectionFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "select";
+        })
+      );
+    }
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "boolean" && x.values !== undefined && x.values.length > 0
+        );
+      })
+    ) {
+      returned_data = new BooleanFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "boolean";
+        })
+      );
+    }
+    if (
+      filters.some((x: IFilter) => {
+        return (
+          x.type === "date" && x.values !== undefined && x.values.length > 0
+        );
+      })
+    ) {
+      returned_data = new DateFilter(returned_data).applyFilters(
+        filters.filter((x: IFilter) => {
+          return x.type === "date";
+        })
       );
     }
 
@@ -67,48 +105,6 @@ export class DataSource implements IDataSource {
             return returned_data.length;
         }
       }
-    }
-
-    if (
-      filters.some((x: IFilter) => {
-        return (
-          x.type === "select" && x.values !== undefined && x.values.length > 0
-        );
-      })
-    ) {
-      returned_data = new SelectionFilter(returned_data).applyFilters(
-        filters.filter((x: IFilter) => {
-          return x.type === "select";
-        })
-      );
-    }
-
-    if (
-      filters.some((x: IFilter) => {
-        return (
-          x.type === "boolean" && x.values !== undefined && x.values.length > 0
-        );
-      })
-    ) {
-      returned_data = new BooleanFilter(returned_data).applyFilters(
-        filters.filter((x: IFilter) => {
-          return x.type === "boolean";
-        })
-      );
-    }
-
-    if (
-      filters.some((x: IFilter) => {
-        return (
-          x.type === "date" && x.values !== undefined && x.values.length > 0
-        );
-      })
-    ) {
-      returned_data = new DateFilter(returned_data).applyFilters(
-        filters.filter((x: IFilter) => {
-          return x.type === "date";
-        })
-      );
     }
 
     return returned_data.length;
@@ -135,34 +131,16 @@ export class DataSource implements IDataSource {
         }
       });
     }
-
     if (string_filters.length > 0) {
       returned_data = new StringFilter(returned_data).applyFilters(
         string_filters
       );
     }
-
     if (number_filters.length > 0) {
       returned_data = new NumberFilter(returned_data).applyFilters(
         number_filters
       );
     }
-
-    if (sort !== undefined) {
-      if (sort.field_id) {
-        switch (sort.sort_type) {
-          case "asc":
-            returned_data.sort(this._sort_function(sort.field_id));
-            break;
-          case "desc":
-            returned_data.sort(this._sort_function(sort.field_id)).reverse();
-            break;
-          default:
-            return returned_data.slice(page, pageIndex);
-        }
-      }
-    }
-
     if (
       filters.some((x: IFilter) => {
         return (
@@ -176,7 +154,6 @@ export class DataSource implements IDataSource {
         })
       );
     }
-
     if (
       filters.some((x: IFilter) => {
         return (
@@ -190,7 +167,6 @@ export class DataSource implements IDataSource {
         })
       );
     }
-
     if (
       filters.some((x: IFilter) => {
         return (
@@ -203,6 +179,20 @@ export class DataSource implements IDataSource {
           return x.type === "date";
         })
       );
+    }
+    if (sort !== undefined) {
+      if (sort.field_id) {
+        switch (sort.sort_type) {
+          case "asc":
+            returned_data.sort(this._sort_function(sort.field_id));
+            break;
+          case "desc":
+            returned_data.sort(this._sort_function(sort.field_id)).reverse();
+            break;
+          default:
+            return returned_data.slice(page, pageIndex);
+        }
+      }
     }
 
     return returned_data.slice(page * pageIndex, currentPage + pageIndex);
