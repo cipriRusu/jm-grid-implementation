@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import DatePicker from "./DatePicker";
+import "./DateFilter.scss";
 
 const DateFilter = (props: any) => {
   const [option, setOption] = useState(0);
@@ -20,8 +21,6 @@ const DateFilter = (props: any) => {
     options.map((option, index) => <option key={index}>{option}</option>);
 
   const handleUserInputDate = (newDate: Date | null) => {
-    console.log(newDate);
-    newDate?.setHours(0, 0, 0, 0);
     if (newDate !== null) {
       setFirstDate(newDate);
       gridContext.setFilter([
@@ -45,7 +44,7 @@ const DateFilter = (props: any) => {
   };
 
   return (
-    <div className="date-filter-containers">
+    <div className="date-filter">
       <Form.Control
         as="select"
         value={ConvertOption(option)}
@@ -57,7 +56,7 @@ const DateFilter = (props: any) => {
       </Form.Control>
       <div className="date-filter-display">
         <DatePicker
-          firstDate={firstDate}
+          date={firstDate}
           handleUserInputDate={handleUserInputDate}
         />
       </div>
@@ -65,7 +64,7 @@ const DateFilter = (props: any) => {
         className={option === 4 ? "date-filter-display" : "date-filter-hide"}
       >
         <DatePicker
-          firstDate={secondDate}
+          date={secondDate}
           handleUserInputDate={handleUserInputDate}
         />
       </div>
