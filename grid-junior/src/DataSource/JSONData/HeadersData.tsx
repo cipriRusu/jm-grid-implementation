@@ -9,7 +9,11 @@ export const headers = [
             name: "Status",
             size: "standard",
             type: "select",
-            options: ["Disponibil", "Ocupat", "Offline"],
+            options: [
+              { Disponibil: "fa fa-circle" },
+              { Ocupat: "fa fa-dot-circle-o" },
+              { Offline: "fa fa-circle-o" },
+            ],
           },
           { name: "Prenume", size: "standard" },
           { name: "Nume", size: "standard" },
