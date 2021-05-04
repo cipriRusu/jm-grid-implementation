@@ -1,8 +1,8 @@
 import "./App.scss";
 import Grid from "./Grid/Grid";
 import React from "react";
-import { headers } from "./Grid/JSONData/HeadersData";
-import { DataSource } from "./Grid/DataSource";
+import { headers } from "./DataSource/JSONData/HeadersData";
+import { DataSource } from "./DataSource/DataSource";
 
 const PAGE_SIZE = 11;
 const CACHE_SIZE = 33;

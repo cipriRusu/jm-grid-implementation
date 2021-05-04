@@ -1,12 +1,12 @@
-import { BooleanFilter } from "./BooleanFilter";
-import { DateFilter } from "./DateFilter";
-import { ISortStats } from "./Interfaces/GridBody/ISortStats";
-import { IDataSource } from "./Interfaces/GridData/IDataSource";
-import { IFilter } from "./Interfaces/GridTools/IFilter";
-import { dummy_data } from "./JSONData/DummyData";
-import { NumberFilter } from "./NumberFilter";
-import { SelectionFilter } from "./SelectionFilter";
-import { StringFilter } from "./StringFilter";
+import { BooleanFilter } from "./DataFilters/BooleanFilter";
+import { DateFilter } from "./DataFilters/DateFilter";
+import { ISortStats } from "./Interfaces/ISortStats";
+import { IDataSource } from "./Interfaces/IDataSource";
+import { IFilter } from "./Interfaces/IFilter";
+import { dummy_data } from "../DataSource/JSONData/DummyData";
+import { NumberFilter } from "./DataFilters/NumberFilter";
+import { SelectionFilter } from "./DataFilters/SelectionFilter";
+import { StringFilter } from "./DataFilters/StringFilter";
 
 export class DataSource implements IDataSource {
   data: any[];

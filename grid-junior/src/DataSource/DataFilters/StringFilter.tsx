@@ -1,4 +1,4 @@
-import { IFilter } from "./Interfaces/GridTools/IFilter";
+import { IFilter } from "../Interfaces/IFilter";
 
 export class StringFilter {
   data: any[];

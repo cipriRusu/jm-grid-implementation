@@ -1,4 +1,4 @@
-import { IFilter } from "./Interfaces/GridTools/IFilter";
+import { IFilter } from "../../Grid/Interfaces/GridTools/IFilter";
 
 export class BooleanFilter {
   data: IFilter[];
