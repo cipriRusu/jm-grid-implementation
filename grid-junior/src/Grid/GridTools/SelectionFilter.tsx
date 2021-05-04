@@ -128,7 +128,7 @@ const SelectionFilter = (props: any) => {
             key={key}
             className="form-check"
             type="checkbox"
-            label={value}
+            label={Object.keys(value)[0]}
             checked={displayCheck(
               props.header,
               value,
