@@ -40,6 +40,7 @@ export const GridContext = createContext<IGridContext & ISortable>({
   sort: {
     sort_type: "",
     field_id: "",
+    field_type: "",
   },
   setSort: (selectedSort: ISortStats) => {},
   selectionOptions: [],
@@ -70,6 +71,7 @@ class Grid extends Component<IGridProps, IGridState> {
     selectedSort: {
       sort_type: "",
       field_id: "",
+      field_type: "",
     },
     visibleHeader: "firstHeader",
     filters: [],

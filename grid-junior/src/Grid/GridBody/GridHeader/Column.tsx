@@ -14,7 +14,7 @@ class Column extends React.Component<IColumn, IColumn> {
       name: this.props.name,
       size: this.props.size,
       type: this.props.type,
-      toggled: this.props.toggled
+      toggled: this.props.toggled,
     };
   }
 
@@ -22,6 +22,7 @@ class Column extends React.Component<IColumn, IColumn> {
     if (value.sort.sort_type === "") {
       value.sort.sort_type = "asc";
       value.sort.field_id = this.props.name;
+      value.sort.field_type = this.props.type;
     } else if (value.sort.field_id === this.props.name) {
       value.sort.sort_type = value.sort.sort_type === "asc" ? "desc" : "";
     } else {
@@ -31,6 +32,7 @@ class Column extends React.Component<IColumn, IColumn> {
 
     if (value.sort.sort_type === "") {
       value.sort.field_id = "";
+      value.sort.field_type = this.props.type;
     }
 
     value.setSort(value.sort);
@@ -42,7 +44,9 @@ class Column extends React.Component<IColumn, IColumn> {
       case "number":
       case "boolean":
         if (
-          value.filters.some((x: IFilter) => { return x.name === this.state.name; })
+          value.filters.some((x: IFilter) => {
+            return x.name === this.state.name;
+          })
         ) {
           return (
             <i
@@ -60,7 +64,9 @@ class Column extends React.Component<IColumn, IColumn> {
         }
       case "select":
         if (
-          value.filters.some((x: IFilter) => { return (x.name === this.state.name) })
+          value.filters.some((x: IFilter) => {
+            return x.name === this.state.name;
+          })
         ) {
           return (
             <i
@@ -116,14 +122,22 @@ class Column extends React.Component<IColumn, IColumn> {
                   className="filter"
                   onClick={() => {
                     if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({ name: "", size: "", toggled: false });
+                      value.setToggledColumn({
+                        name: "",
+                        size: "",
+                        toggled: false,
+                      });
                     } else {
                       value.setToggledColumn(this.state);
                     }
                   }}
                   onKeyPress={() => {
                     if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({ name: "", size: "", toggled: false });
+                      value.setToggledColumn({
+                        name: "",
+                        size: "",
+                        toggled: false,
+                      });
                     } else {
                       value.setToggledColumn(this.state);
                     }
@@ -133,8 +147,9 @@ class Column extends React.Component<IColumn, IColumn> {
                 </div>
               </div>
               <div
-                className={`filter-dropdown ${this.state === value.toggledColumn ? "show" : ""
-                  }`}
+                className={`filter-dropdown ${
+                  this.state === value.toggledColumn ? "show" : ""
+                }`}
               >
                 <Filters columns={[this.props]} />
               </div>
