@@ -22,6 +22,18 @@ export class DataSource implements IDataSource {
     };
   }
 
+  _sort_date_function(key: string) {
+    return function compare(a: any, b: any) {
+      let dateA = new Date(a[key]);
+      let dateB = new Date(b[key]);
+      return dateA.getTime() < dateB.getTime()
+        ? -1
+        : dateA.getTime() > dateB.getTime()
+        ? 1
+        : 0;
+    };
+  }
+
   getTotal(sort: ISortStats, filters: IFilter[]) {
     let returned_data = Object.create(this.data);
 
@@ -184,10 +196,28 @@ export class DataSource implements IDataSource {
       if (sort.field_id) {
         switch (sort.sort_type) {
           case "asc":
-            returned_data.sort(this._sort_function(sort.field_id));
+            switch (sort.field_type) {
+              case "date":
+                returned_data.sort(this._sort_date_function(sort.field_id));
+                break;
+              default:
+                returned_data.sort(this._sort_function(sort.field_id));
+                break;
+            }
             break;
           case "desc":
-            returned_data.sort(this._sort_function(sort.field_id)).reverse();
+            switch (sort.field_type) {
+              case "date":
+                returned_data
+                  .sort(this._sort_date_function(sort.field_id))
+                  .reverse();
+                break;
+              default:
+                returned_data
+                  .sort(this._sort_function(sort.field_id))
+                  .reverse();
+                break;
+            }
             break;
           default:
             return returned_data.slice(page, pageIndex);
