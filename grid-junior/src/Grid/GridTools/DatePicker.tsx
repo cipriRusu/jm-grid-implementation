@@ -1,21 +1,9 @@
+import "./DatePicker.scss";
+
 const DatePicker = (props: any) => {
-  return (
-    <>
-      <input
-        value={
-          (props.firstDate !== undefined
-            ? props.firstDate.toISOString().split("T")[0]
-            : undefined) || ""
-        }
-        type="date"
-        style={{ width: "100%" }}
-        onChange={(e) => {
-          props.handleUserInputDate(new Date(e.target.value));
-        }}
-        tabIndex={0}
-      />
+  const RemoveIcon = (date: Date) => {
+    return date !== undefined ? (
       <i
-        style={{ position: "absolute", right: "1.7rem", color: "red" }}
         className="fa fa-trash-o"
         aria-hidden="true"
         onClick={() => {
@@ -23,7 +11,33 @@ const DatePicker = (props: any) => {
         }}
         tabIndex={0}
       />
-    </>
+    ) : (
+      ""
+    );
+  };
+
+  const UserInput = (date: Date) => {
+    return (
+      <input
+        className="user-input"
+        type="date"
+        value={
+          (date !== undefined ? date.toISOString().split("T")[0] : undefined) ||
+          ""
+        }
+        onChange={(e) => {
+          props.handleUserInputDate(new Date(e.target.value));
+        }}
+        tabIndex={0}
+      />
+    );
+  };
+
+  return (
+    <div className="date-picker">
+      {RemoveIcon(props.date as Date)}
+      {UserInput(props.date as Date)}
+    </div>
   );
 };
 
