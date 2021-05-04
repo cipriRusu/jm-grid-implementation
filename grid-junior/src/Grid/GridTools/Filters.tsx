@@ -58,8 +58,8 @@ const Filters = (props: any) => {
       case "select":
         return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name &&
-            x.value !== undefined &&
-            x.value.length > 0 ? (
+            x.values !== undefined &&
+            x.values.length > 0 ? (
             <i key={index} className="icon-column fa fa-filter"></i>
           ) : null;
         });

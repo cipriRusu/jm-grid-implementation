@@ -20,6 +20,7 @@ const DateFilter = (props: any) => {
     options.map((option, index) => <option key={index}>{option}</option>);
 
   const handleUserInputDate = (newDate: Date | null) => {
+    console.log(newDate);
     newDate?.setHours(0, 0, 0, 0);
     if (newDate !== null) {
       setFirstDate(newDate);
@@ -27,7 +28,7 @@ const DateFilter = (props: any) => {
         {
           name: props.header.name,
           type: "date",
-          value: [newDate],
+          values: [newDate],
           operator: option,
         },
       ]);

@@ -9,7 +9,7 @@ export class BooleanFilter {
   applyFilters(filters: IFilter[]) {
     filters.forEach((filter: IFilter) => {
       this.data = this.data.filter((entry: any) => {
-        return filter.value?.includes(entry[filter.name]);
+        return filter.values?.includes(entry[filter.name]);
       });
     });
     return this.data;

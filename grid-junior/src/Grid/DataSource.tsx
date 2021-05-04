@@ -72,7 +72,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "select" && x.value !== undefined && x.value.length > 0
+          x.type === "select" && x.values !== undefined && x.values.length > 0
         );
       })
     ) {
@@ -86,7 +86,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "boolean" && x.value !== undefined && x.value.length > 0
+          x.type === "boolean" && x.values !== undefined && x.values.length > 0
         );
       })
     ) {
@@ -99,7 +99,9 @@ export class DataSource implements IDataSource {
 
     if (
       filters.some((x: IFilter) => {
-        return x.type === "date" && x.value !== undefined && x.value.length > 0;
+        return (
+          x.type === "date" && x.values !== undefined && x.values.length > 0
+        );
       })
     ) {
       returned_data = new DateFilter(returned_data).applyFilters(
@@ -164,7 +166,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "select" && x.value !== undefined && x.value.length > 0
+          x.type === "select" && x.values !== undefined && x.values.length > 0
         );
       })
     ) {
@@ -178,7 +180,7 @@ export class DataSource implements IDataSource {
     if (
       filters.some((x: IFilter) => {
         return (
-          x.type === "boolean" && x.value !== undefined && x.value.length > 0
+          x.type === "boolean" && x.values !== undefined && x.values.length > 0
         );
       })
     ) {
@@ -191,7 +193,9 @@ export class DataSource implements IDataSource {
 
     if (
       filters.some((x: IFilter) => {
-        return x.type === "date" && x.value !== undefined && x.value.length > 0;
+        return (
+          x.type === "date" && x.values !== undefined && x.values.length > 0
+        );
       })
     ) {
       returned_data = new DateFilter(returned_data).applyFilters(

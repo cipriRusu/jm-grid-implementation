@@ -13,19 +13,19 @@ export class DateFilter {
         switch (x.operator) {
           case 0:
             return (
-              new Date(y[x.name]).valueOf() === new Date(x.value[0]).valueOf()
+              new Date(y[x.name]).valueOf() === new Date(x.values[0]).valueOf()
             );
           case 1:
             return (
-              new Date(y[x.name]).valueOf() > new Date(x.value[0]).valueOf()
+              new Date(y[x.name]).valueOf() > new Date(x.values[0]).valueOf()
             );
           case 2:
             return (
-              new Date(y[x.name]).valueOf() < new Date(x.value[0]).valueOf()
+              new Date(y[x.name]).valueOf() < new Date(x.values[0]).valueOf()
             );
           case 3:
             return (
-              new Date(y[x.name]).valueOf() !== new Date(x.value[0]).valueOf()
+              new Date(y[x.name]).valueOf() !== new Date(x.values[0]).valueOf()
             );
           default:
             return false;

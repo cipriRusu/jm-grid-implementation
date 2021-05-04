@@ -25,10 +25,10 @@ const SelectionFilter = (props: any) => {
         )[0];
 
         if (
-          defaultFilter.value !== undefined &&
-          !defaultFilter.value.includes(option)
+          defaultFilter.values !== undefined &&
+          !defaultFilter.values.includes(option)
         ) {
-          defaultFilter.value = defaultFilter.value.concat(option);
+          defaultFilter.values = defaultFilter.values.concat(option);
 
           gridContext.setFilter(filters);
         }
@@ -36,7 +36,7 @@ const SelectionFilter = (props: any) => {
         let newFilter = {
           name: header.name,
           type: header.type,
-          value: option,
+          values: option,
           operator: 0,
         };
 
@@ -53,12 +53,12 @@ const SelectionFilter = (props: any) => {
       })[0];
 
       if (defaultFilter !== undefined) {
-        defaultFilter.value = defaultFilter.value.filter((x: string) => {
+        defaultFilter.values = defaultFilter.values.filter((x: string) => {
           return !option.includes(x);
         });
       }
 
-      if (defaultFilter !== undefined && defaultFilter.value.length === 0) {
+      if (defaultFilter !== undefined && defaultFilter.values.length === 0) {
         filters = filters.filter((x: IFilter) => {
           return x.name !== header.name;
         });
@@ -79,16 +79,16 @@ const SelectionFilter = (props: any) => {
 
     if (
       filter !== undefined &&
-      filter.value !== undefined &&
+      filter.values !== undefined &&
       allValues.every(
-        (x: string) => filter.value !== undefined && filter.value.includes(x)
+        (x: string) => filter.values !== undefined && filter.values.includes(x)
       )
     ) {
       return true;
     }
 
-    if (filter !== undefined && filter.value !== undefined) {
-      return filter.value.includes(currentValue) ? true : false;
+    if (filter !== undefined && filter.values !== undefined) {
+      return filter.values.includes(currentValue) ? true : false;
     }
 
     return false;

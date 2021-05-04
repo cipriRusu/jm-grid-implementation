@@ -17,7 +17,7 @@ export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
     name: "",
     type: "",
-    value: [],
+    values: [],
     operator: 0,
   },
   allHeaders: [],
@@ -63,7 +63,7 @@ class Grid extends Component<IGridProps, IGridState> {
     activeFilter: {
       name: "",
       type: "",
-      value: [],
+      values: [],
       operator: 0,
     },
     selectedViewItem: "",
