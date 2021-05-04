@@ -1,14 +1,13 @@
 import React, { useContext, useState } from "react";
-import DatePicker from "react-datepicker";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
-
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "./DatePicker";
 
 const DateFilter = (props: any) => {
   const [option, setOption] = useState(0);
-  const [firstDate, setFirstDate] = useState<Date | null>(null);
-  const [secondDate, setSecondDate] = useState<Date | null>(null);
+  const [firstDate, setFirstDate] = useState<Date | undefined>(undefined);
+  const [secondDate, setSecondDate] = useState<Date | undefined>(undefined);
+
   const gridContext = useContext(GridContext);
 
   const ConvertOption = (option: number) => {
@@ -20,8 +19,10 @@ const DateFilter = (props: any) => {
   const displayOptions = (options: string[]) =>
     options.map((option, index) => <option key={index}>{option}</option>);
 
-  const handleUserInputDate = (newDate: Date | Date[] | null) => {
+  const handleUserInputDate = (newDate: Date | null) => {
+    newDate?.setHours(0, 0, 0, 0);
     if (newDate !== null) {
+      setFirstDate(newDate);
       gridContext.setFilter([
         {
           name: props.header.name,
@@ -33,11 +34,13 @@ const DateFilter = (props: any) => {
     }
 
     if (newDate === null) {
+      setFirstDate(undefined);
       gridContext.setFilter([]);
-      setOption(0);
-    }
 
-    setFirstDate(newDate !== null ? new Date(newDate.toString()) : null);
+      if (option !== 4) {
+        setOption(0);
+      }
+    }
   };
 
   return (
@@ -53,34 +56,17 @@ const DateFilter = (props: any) => {
       </Form.Control>
       <div className="date-filter-display">
         <DatePicker
-          popperPlacement="bottom-end"
-          selected={firstDate}
-          onChange={(value) => handleUserInputDate(value)}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          isClearable={true}
-          shouldCloseOnSelect={false}
-          tabIndex={0}
-        ></DatePicker>
+          firstDate={firstDate}
+          handleUserInputDate={handleUserInputDate}
+        />
       </div>
-
       <div
         className={option === 4 ? "date-filter-display" : "date-filter-hide"}
       >
         <DatePicker
-          popperPlacement="bottom-end"
-          selected={secondDate}
-          onChange={(value) =>
-            setSecondDate(value !== null ? new Date(value.toString()) : null)
-          }
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          isClearable={true}
-          shouldCloseOnSelect={false}
-          tabIndex={0}
-        ></DatePicker>
+          firstDate={secondDate}
+          handleUserInputDate={handleUserInputDate}
+        />
       </div>
     </div>
   );
