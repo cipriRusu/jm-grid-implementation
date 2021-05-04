@@ -3,5 +3,5 @@ export interface IColumn {
   size: string;
   toggled?: boolean;
   type?: string;
-  options?: string[];
+  options?: any[];
 }
