@@ -9,8 +9,16 @@ export class SelectionFilter {
 
   applyFilters(filters: IFilter[]) {
     filters.forEach((filter: IFilter): void => {
+      let all_filters = Array<string>();
+
+      for (let key in filter.values) {
+        for (let object_key in filter.values[key]) {
+          all_filters.push(object_key);
+        }
+      }
+
       this.data = this.data.filter((entry: any) => {
-        return filter.values?.includes(entry[filter.name]);
+        return all_filters.includes(entry[filter.name]);
       });
     });
 
