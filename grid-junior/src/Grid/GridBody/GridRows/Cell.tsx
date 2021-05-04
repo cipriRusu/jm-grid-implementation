@@ -6,14 +6,6 @@ import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
 
 const Cell = (props: { content: ICell }) => {
-  const ApplyTitleStyling = () => {
-    if (props.content.cell_key === 0 || props.content.cell_key === 1) {
-      return "cell title-wrapper";
-    } else {
-      return "cell";
-    }
-  };
-
   const ComputeCellType = (content: ICell) => {
     switch (content.cell_type?.toString()) {
       case undefined:
