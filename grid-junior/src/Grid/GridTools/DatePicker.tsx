@@ -7,7 +7,7 @@ const DatePicker = (props: any) => {
         className="fa fa-trash-o"
         aria-hidden="true"
         onClick={() => {
-          props.handleUserInputDate(null);
+          props.handleUserInputDate(null, props.id);
         }}
         tabIndex={0}
       />
@@ -26,7 +26,10 @@ const DatePicker = (props: any) => {
           ""
         }
         onChange={(e) => {
-          props.handleUserInputDate(new Date(e.target.value));
+          props.handleUserInputDate(
+            new Date(e.target.value),
+            props.id as String
+          );
         }}
         tabIndex={0}
       />
