@@ -25,12 +25,16 @@ export class DateFilter {
               new Date(y[x.name]).toDateString() !==
               new Date(x.values[0]).toDateString()
             );
+          case 4:
+            return (
+              new Date(x.values[0]) <= new Date(y[x.name]) &&
+              new Date(y[x.name]) <= new Date(x.values[1])
+            );
           default:
             return false;
         }
       });
     });
-    console.log(this.data);
     return this.data;
   }
 }

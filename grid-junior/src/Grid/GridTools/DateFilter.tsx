@@ -1,9 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import DatePicker from "./DatePicker";
 import "./DateFilter.scss";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
+
+enum DateOptions {
+  "Equals",
+  "After",
+  "Before",
+  "Not Equals",
+  "Between",
+}
 
 const DateFilter = (props: any) => {
   const [option, setOption] = useState(0);
@@ -15,54 +23,57 @@ const DateFilter = (props: any) => {
   let optionsForDate = ["Equals", "After", "Before", "Not Equals", "Between"];
 
   const addNewFilter = (newDate: Date | null) => {
-    let allFilters = gridContext.filters.filter((x: IFilter) => {
-      return x.name !== props.header.name;
-    });
+    let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
+    updatedFilters = updatedFilters.concat(createNewFilter(newDate));
+    gridContext.setFilter(updatedFilters);
+  };
 
-    let newFilter = {
+  const convertOption = (option: number) => {
+    return DateOptions[option];
+  };
+
+  const createNewFilter = (newDate: Date | null) => {
+    return {
       name: props.header.name,
       type: "date",
       values: [newDate],
       operator: option,
     };
-
-    allFilters = allFilters.concat(newFilter);
-
-    gridContext.setFilter(allFilters);
-  };
-
-  const convertOption = (option: number) => {
-    return optionsForDate[option];
   };
 
   const displayOptions = (options: string[]) =>
     options.map((option, index) => <option key={index}>{option}</option>);
 
+  const getAllFiltersExceptCurrent = (allFilters: IFilter[]) => {
+    return allFilters.filter((x: IFilter) => {
+      return x.name !== props.header.name;
+    });
+  };
+
   const handleDateChange = (newDate: Date | null, id: string) => {
     if (newDate !== null) {
       setFieldById(id, newDate);
 
-      if (option !== 4) {
+      if (option !== DateOptions.Between) {
         addNewFilter(newDate);
       }
     }
 
     if (newDate === null) {
       setFieldById(id, undefined);
-      removeFilter();
 
-      if (option !== 4) {
+      if (option !== DateOptions.Between) {
+        removeFilter();
         setOption(0);
+      } else {
+        let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
+        gridContext.setFilter(updatedFilters);
       }
     }
   };
 
   const removeFilter = () => {
-    gridContext.setFilter(
-      gridContext.filters.filter((x: IFilter) => {
-        return x.name !== props.header.name;
-      })
-    );
+    gridContext.setFilter(getAllFiltersExceptCurrent(gridContext.filters));
   };
 
   const setFieldById = (id: string, date: Date | undefined) => {
@@ -75,6 +86,33 @@ const DateFilter = (props: any) => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (firstDate !== undefined && secondDate !== undefined) {
+      let newFilter = {
+        name: props.header.name,
+        type: "date",
+        values: [firstDate, secondDate],
+        operator: option,
+      };
+
+      let allFilters = gridContext.filters.filter((x: IFilter) => {
+        return x.name !== props.header.name;
+      });
+
+      allFilters = allFilters.concat(newFilter);
+
+      gridContext.setFilter(allFilters);
+    }
+    // eslint-disable-next-line
+  }, [
+    firstDate,
+    secondDate,
+    option,
+    props.header.name,
+    setFirstDate,
+    setSecondDate,
+  ]);
 
   return (
     <div className="date-filter">
@@ -98,7 +136,11 @@ const DateFilter = (props: any) => {
         />
       </div>
       <div
-        className={option === 4 ? "date-filter-display" : "date-filter-hide"}
+        className={
+          option === DateOptions.Between
+            ? "date-filter-display"
+            : "date-filter-hide"
+        }
       >
         <DatePicker
           id="second-date"
