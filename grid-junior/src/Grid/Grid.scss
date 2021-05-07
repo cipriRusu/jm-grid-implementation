@@ -1,16 +1,41 @@
 .main-grid {
-  display: grid;
-  .main-header {
+  background-color: black;
+  .main-grid-column-headers {
     display: grid;
     grid-auto-flow: column;
     background-color: black;
   }
-  .main-grid-title {
-    width: 100%;
+  .main-grid-column-names {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: black;
+    margin-right: 0.5rem;
   }
 
-  .main-grid-columns {
+  .main-grid-row-container {
+    overflow: hidden;
+    background-color: #4d4d61;
+    color: white;
+    height: 35rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .main-grid-row {
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: gray;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(87, 89, 107);
   }
 }

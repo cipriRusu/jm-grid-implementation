@@ -17,7 +17,7 @@ const SelectionCell = (content: ICell) => {
           content.selection_options || []
         )}
       </div>
-      <div style={{ marginLeft: "1rem" }}>{content.cell_content}</div>
+      <div>{content.cell_content}</div>
     </div>
   );
 };

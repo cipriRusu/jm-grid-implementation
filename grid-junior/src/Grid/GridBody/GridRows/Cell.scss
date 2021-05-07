@@ -3,10 +3,9 @@
 }
 
 .cell {
-  margin-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  display: flex;
+  display: grid;
+  margin: 1rem;
+  grid-auto-flow: column;
 }
 
 @media (max-width: 40rem) {
