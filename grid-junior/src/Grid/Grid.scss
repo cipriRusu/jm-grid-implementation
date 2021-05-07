@@ -1,3 +1,16 @@
-.dropdown-menu {
-  padding: 3px;
+.main-grid {
+  display: grid;
+  .main-header {
+    display: grid;
+    grid-auto-flow: column;
+    background-color: black;
+  }
+  .main-grid-title {
+    width: 100%;
+  }
+
+  .main-grid-columns {
+    display: grid;
+    grid-auto-flow: column;
+  }
 }
