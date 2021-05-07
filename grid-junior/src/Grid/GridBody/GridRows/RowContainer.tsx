@@ -3,7 +3,7 @@ import Cell from "./Cell";
 import ScrollDirection from "./ScrollDirection";
 import "./RowContainer.scss";
 import { Cell_Type } from "../../CustomTypes/Cell_Type";
-import { GridContext } from "../../Grid";
+import { GridContext } from "../../Main";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { IDataSource } from "../../Interfaces/GridData/IDataSource";
 import { IRow } from "../../Interfaces/GridBody/IRow";
@@ -84,6 +84,7 @@ const RowContainer = (props: {
 
         let updatedCache = currentCachedItems.concat(newCache);
 
+        console.log(props);
         if (updatedCache.length > props.pageCache) {
           updatedCache.splice(0, props.pageSize);
           document.getElementById(props.pageSize.toString())?.scrollIntoView();

@@ -8,6 +8,9 @@
   .column {
     display: flex;
     cursor: pointer;
+    #text {
+      color: white;
+    }
 
     &:hover {
       .filter-icon-column {
@@ -39,6 +42,7 @@
     }
 
     .sort {
+      color: white;
       width: 90%;
     }
 
@@ -77,9 +81,9 @@
 }
 
 .standard {
-  display: flex;
-  flex: 0 0 10rem;
-  flex: 1;
+  // display: flex;
+  // flex: 0 0 10rem;
+  // flex: 1;
 }
 
 .large {

@@ -1,5 +1,5 @@
 import "./App.scss";
-import Grid from "./Grid/Grid";
+import Main from "./Grid/Main";
 import React from "react";
 import { headers } from "./DataSource/JSONData/HeadersData";
 import { DataSource } from "./DataSource/DataSource";
@@ -10,7 +10,7 @@ const CACHE_SIZE = 33;
 function App() {
   return (
     <div className="App">
-      <Grid
+      <Main
         data={new DataSource()}
         headers={headers}
         pageSize={PAGE_SIZE}

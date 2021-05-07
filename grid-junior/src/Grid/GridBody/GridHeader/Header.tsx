@@ -2,7 +2,7 @@ import "./Header.scss";
 import { useContext } from "react";
 import Column from "./Column";
 import Title from "./Title";
-import { GridContext } from "../../Grid";
+import { GridContext } from "../../Main";
 import { IColumnContainer } from "../../Interfaces/GridBody/IColumnContainer";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 
@@ -11,12 +11,8 @@ function Header() {
 
   return (
     <div className="grid-header">
-      {gridContext.allHeaders
-        .find(
-          (headerContainer) =>
-            headerContainer.name === gridContext.visibleHeader
-        )!
-        .headers.map((value: IColumnContainer, key: number) => {
+      {gridContext.allHeaders[0].headers.map(
+        (value: IColumnContainer, key: number) => {
           return (
             <div className="header-container" key={key}>
               <Title key={key} title={value.name} columns={value.columns} />
@@ -35,7 +31,8 @@ function Header() {
               </div>
             </div>
           );
-        })}
+        }
+      )}
     </div>
   );
 }

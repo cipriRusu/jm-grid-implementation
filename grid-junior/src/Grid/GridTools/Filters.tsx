@@ -1,6 +1,6 @@
 import "./Filters.scss";
 import React, { useState, useContext, useEffect } from "react";
-import { GridContext } from "../Grid";
+import { GridContext } from "../Main";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import SelectionFilter from "./SelectionFilter";
 import StandardFilter from "./StandardFilter";

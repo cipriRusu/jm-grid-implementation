@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { GridContext } from "../Grid";
+import { GridContext } from "../Main";
 import DatePicker from "./DatePicker";
 import "./DateFilter.scss";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
