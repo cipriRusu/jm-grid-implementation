@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
 import "./Grid.scss";
 import Column from "./GridBody/GridHeader/Column";
 import Title from "./GridBody/GridHeader/Title";
@@ -15,6 +16,12 @@ import { Cell_Type } from "./CustomTypes/Cell_Type";
 export default function Grid(props: any) {
   let gridContext = useContext(GridContext);
   const [allPages, updateAllPages] = useState(0);
+
+  const MainGridHeaders = styled.div`
+    display: grid;
+    grid-auto-flow: column;
+    background-color: black;
+  `;
 
   const loadPage = (
     gridContext: IGridContext & ISortable,
@@ -152,7 +159,7 @@ export default function Grid(props: any) {
       {(context) => {
         return (
           <div className="main-grid">
-            <div className="main-grid-column-headers">
+            <MainGridHeaders>
               {gridContext.allHeaders[0].headers.map(
                 (value: IColumnContainer, key: number) => {
                   return (
@@ -164,7 +171,7 @@ export default function Grid(props: any) {
                   );
                 }
               )}
-            </div>
+            </MainGridHeaders>
             <div className="main-grid-column-names">
               {context.allColumns.map((value: IColumn, key: number) => {
                 return (
