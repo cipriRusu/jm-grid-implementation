@@ -28,6 +28,7 @@ const Cell = (props: { content: ICell }) => {
       case "select":
         return (
           <SelectionCell
+            id={content.id}
             cell_content={content.cell_content}
             cell_key={content.cell_key}
             cell_type={content.cell_type}

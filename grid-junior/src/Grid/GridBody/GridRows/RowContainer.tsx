@@ -164,6 +164,7 @@ const RowContainer = (props: {
                     <Cell
                       key={cell_key}
                       content={{
+                        id: row_key,
                         cell_content: x[y.name],
                         cell_type: y.type as Cell_Type,
                         cell_key: cell_key,

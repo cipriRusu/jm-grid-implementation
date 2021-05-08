@@ -13,15 +13,21 @@ import { IRow } from "./Interfaces/GridBody/IRow";
 import Cell from "./GridBody/GridRows/Cell";
 import { Cell_Type } from "./CustomTypes/Cell_Type";
 
+const MainGrid = styled.div<{ columnCount: number }>`
+  display: grid;
+  grid-template-columns: repeat(${(props) => props.columnCount}, 1fr);
+  height: 38rem;
+  overflow-y: scroll;
+  background-color: gray;
+`;
+
+const GridColumn = styled.div`
+  background-color: black;
+`;
+
 export default function Grid(props: any) {
   let gridContext = useContext(GridContext);
   const [allPages, updateAllPages] = useState(0);
-
-  const MainGridHeaders = styled.div`
-    display: grid;
-    grid-auto-flow: column;
-    background-color: black;
-  `;
 
   const loadPage = (
     gridContext: IGridContext & ISortable,
@@ -89,7 +95,6 @@ export default function Grid(props: any) {
 
         let updatedCache = currentCachedItems.concat(newCache);
 
-        console.log(props);
         if (updatedCache.length > props.pageCache) {
           updatedCache.splice(0, props.pageSize);
           document.getElementById(props.pageSize.toString())?.scrollIntoView();
@@ -158,23 +163,13 @@ export default function Grid(props: any) {
     <GridContext.Consumer>
       {(context) => {
         return (
-          <div className="main-grid">
-            <MainGridHeaders>
-              {gridContext.allHeaders[0].headers.map(
-                (value: IColumnContainer, key: number) => {
-                  return (
-                    <Title
-                      key={key}
-                      title={value.name}
-                      columns={value.columns}
-                    />
-                  );
-                }
-              )}
-            </MainGridHeaders>
-            <div className="main-grid-column-names">
-              {context.allColumns.map((value: IColumn, key: number) => {
-                return (
+          <MainGrid
+            columnCount={context.allColumns.length}
+            onScroll={(e: any) => UpdateContainer(e)}
+          >
+            {context.allColumns.map((value: IColumn, key: number) => {
+              return (
+                <GridColumn>
                   <Column
                     key={key}
                     name={value.name}
@@ -182,40 +177,26 @@ export default function Grid(props: any) {
                     type={value.type}
                     toggled={false}
                   />
-                );
-              })}
-            </div>
-            <div
-              className="main-grid-row-container"
-              onScroll={(e: any) => UpdateContainer(e)}
-            >
-              {gridContext.items.map((x: IRow, row_key: number) => {
+                </GridColumn>
+              );
+            })}
+            {gridContext.items.map((x: IRow, row_key: number) =>
+              gridContext.allColumns.map((y: IColumn, cell_key: number) => {
                 return (
-                  <div
-                    id={row_key.toString()}
-                    key={row_key}
-                    className="main-grid-row"
-                  >
-                    {gridContext.allColumns.map(
-                      (y: IColumn, cell_key: number) => {
-                        return (
-                          <Cell
-                            key={cell_key}
-                            content={{
-                              cell_content: x[y.name],
-                              cell_type: y.type as Cell_Type,
-                              cell_key: cell_key,
-                              selection_options: y.options,
-                            }}
-                          />
-                        );
-                      }
-                    )}
-                  </div>
+                  <Cell
+                    key={cell_key}
+                    content={{
+                      id: row_key,
+                      cell_content: x[y.name],
+                      cell_type: y.type as Cell_Type,
+                      cell_key: cell_key,
+                      selection_options: y.options,
+                    }}
+                  />
                 );
-              })}
-            </div>
-          </div>
+              })
+            )}
+          </MainGrid>
         );
       }}
     </GridContext.Consumer>

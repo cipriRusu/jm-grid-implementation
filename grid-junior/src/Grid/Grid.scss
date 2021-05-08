@@ -1,11 +1,5 @@
 .main-grid {
   background-color: black;
-  .main-grid-column-names {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    background-color: black;
-    margin-right: 0.5rem;
-  }
 
   .main-grid-row-container {
     overflow: hidden;
