@@ -2,20 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import "./Grid.scss";
 import Column from "./GridBody/GridHeader/Column";
-import Title from "./GridBody/GridHeader/Title";
 import { GridContext } from "./Main";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
-import { IColumnContainer } from "./Interfaces/GridBody/IColumnContainer";
 import { IGridContext } from "./Interfaces/GridTools/IGridContext";
 import { ISortable } from "./Interfaces/GridBody/ISortable";
 import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import Cell from "./GridBody/GridRows/Cell";
-import { Cell_Type } from "./CustomTypes/Cell_Type";
+import { Cell_Type } from "./CustomTypes/CellType";
 
-const MainGrid = styled.div<{ columnCount: number }>`
+const MainGrid = styled.div<{
+  inputColumns: IColumn[];
+  inputSizes: { [key: string]: string };
+}>`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.columnCount}, 1fr);
+  grid-template-columns: ${(props) =>
+    props.inputColumns.map((x) => {
+      return props.inputSizes[x.size] + " ";
+    })};
   height: 38rem;
   overflow-y: scroll;
   background-color: gray;
@@ -164,7 +168,8 @@ export default function Grid(props: any) {
       {(context) => {
         return (
           <MainGrid
-            columnCount={context.allColumns.length}
+            inputColumns={context.allColumns}
+            inputSizes={props.headerSize}
             onScroll={(e: any) => UpdateContainer(e)}
           >
             {context.allColumns.map((value: IColumn, key: number) => {
