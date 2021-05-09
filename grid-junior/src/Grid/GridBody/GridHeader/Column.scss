@@ -6,7 +6,8 @@
   }
 
   .column {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     cursor: pointer;
     #text {
       color: white;
@@ -72,24 +73,6 @@
   .dropdown {
     width: 100%;
   }
-}
-
-.thin {
-  display: flex;
-  flex: 0 0 5rem;
-  flex: 1;
-}
-
-.standard {
-  // display: flex;
-  // flex: 0 0 10rem;
-  // flex: 1;
-}
-
-.large {
-  display: flex;
-  flex: 0 0 30rem;
-  flex: 2;
 }
 
 @media (max-width: 50rem) {
