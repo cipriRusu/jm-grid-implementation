@@ -7,7 +7,7 @@ export const headers = [
         columns: [
           {
             name: "Status",
-            size: "standard",
+            size: "StandardColumn",
             type: "select",
             options: [
               { Disponibil: "fa fa-circle" },
@@ -15,19 +15,25 @@ export const headers = [
               { Offline: "fa fa-circle-o" },
             ],
           },
-          { name: "Prenume", size: "standard" },
-          { name: "Nume", size: "standard" },
-          { name: "Validare", size: "standard", type: "boolean" },
+          { name: "Prenume", size: "StandardColumn" },
+          { name: "Nume", size: "StandardColumn" },
+          { name: "Validare", size: "SmallColumn", type: "boolean" },
         ],
       },
       {
         name: "Detalii",
         columns: [
-          { name: "Email", size: "standard" },
-          { name: "Nr Telefon", size: "standard", type: "number" },
-          { name: "Data Nasterii", size: "standard", type: "date" },
+          { name: "Email", size: "StandardColumn" },
+          { name: "Nr Telefon", size: "StandardColumn", type: "number" },
+          { name: "Data Nasterii", size: "StandardColumn", type: "date" },
         ],
       },
     ],
   },
 ];
+
+export const headerSize = {
+  SmallColumn: "1.5fr",
+  StandardColumn: "2fr",
+  LargeColumn: "3fr",
+};
