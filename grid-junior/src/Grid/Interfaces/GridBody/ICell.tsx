@@ -1,4 +1,4 @@
-import { Cell_Type } from "../../CustomTypes/Cell_Type";
+import { Cell_Type } from "../../CustomTypes/CellType";
 
 export interface ICell {
   id?: number;
