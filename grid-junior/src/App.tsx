@@ -2,6 +2,7 @@ import "./App.scss";
 import Main from "./Grid/Main";
 import React from "react";
 import { headers } from "./DataSource/JSONData/HeadersData";
+import { headerSize } from "./DataSource/JSONData/HeadersData";
 import { DataSource } from "./DataSource/DataSource";
 
 const PAGE_SIZE = 11;
@@ -13,6 +14,7 @@ function App() {
       <Main
         data={new DataSource()}
         headers={headers}
+        headerSize={headerSize}
         pageSize={PAGE_SIZE}
         cacheSize={CACHE_SIZE}
       />
