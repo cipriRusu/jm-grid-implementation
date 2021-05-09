@@ -184,6 +184,7 @@ class Main extends Component<IGridProps, IGridState> {
           content={this.state.data}
           pageSize={this.props.pageSize}
           pageCache={this.props.cacheSize}
+          headerSize={this.props.headerSize}
         />
       </GridContext.Provider>
     );
