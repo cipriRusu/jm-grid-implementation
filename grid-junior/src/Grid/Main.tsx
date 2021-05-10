@@ -8,7 +8,7 @@ import { IGridState } from "./Interfaces/GridTools/IGridState";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IGridContext } from "./Interfaces/GridTools/IGridContext";
 import { ISortable } from "./Interfaces/GridBody/ISortable";
-import { IColumnContainer } from "./Interfaces/GridBody/IColumnContainer";
+import { IColumns } from "./Interfaces/GridBody/IColumns";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import Header from "./GridBody/GridHeader/Header";
 
@@ -92,7 +92,7 @@ class Main extends Component<IGridProps, IGridState> {
     let allColumns = this.props.headers
       .filter((x) => x.name === this.state.visibleHeader)
       .map((header: IHeader) => {
-        return header.headers.map((columns: IColumnContainer) => {
+        return header.headers.map((columns: IColumns) => {
           return columns.columns.map((column: IColumn) => {
             return column;
           });
