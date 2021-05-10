@@ -17,7 +17,7 @@ export const headers = [
           },
           { name: "Prenume", size: "StandardColumn" },
           { name: "Nume", size: "StandardColumn" },
-          { name: "Validare", size: "SmallColumn", type: "boolean" },
+          { name: "Valid", size: "SmallColumn", type: "boolean" },
         ],
       },
       {
@@ -33,7 +33,7 @@ export const headers = [
 ];
 
 export const headerSize = {
-  SmallColumn: "1.5fr",
+  SmallColumn: "1fr",
   StandardColumn: "2fr",
   LargeColumn: "3fr",
 };
