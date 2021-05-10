@@ -10,6 +10,8 @@ import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import Cell from "./GridBody/GridRows/Cell";
 import { Cell_Type } from "./CustomTypes/CellType";
+import { IColumns } from "./Interfaces/GridBody/IColumns";
+import Title from "./GridBody/GridHeader/Title";
 
 const MainGrid = styled.div<{
   inputColumns: IColumn[];
@@ -26,6 +28,13 @@ const MainGrid = styled.div<{
 `;
 
 const GridColumn = styled.div`
+  background-color: black;
+`;
+
+const GridTitle = styled.div<{ spanSize: number }>`
+  grid-column: ${(props) => {
+    return "span " + props.spanSize;
+  }};
   background-color: black;
 `;
 
@@ -172,6 +181,19 @@ export default function Grid(props: any) {
             inputSizes={props.headerSize}
             onScroll={(e: any) => UpdateContainer(e)}
           >
+            {gridContext.allHeaders[0].headers.map(
+              (value: IColumns, key: number) => {
+                return (
+                  <GridTitle spanSize={value.columns.length}>
+                    <Title
+                      key={key}
+                      title={value.name}
+                      columns={value.columns}
+                    />
+                  </GridTitle>
+                );
+              }
+            )}
             {context.allColumns.map((value: IColumn, key: number) => {
               return (
                 <GridColumn>
