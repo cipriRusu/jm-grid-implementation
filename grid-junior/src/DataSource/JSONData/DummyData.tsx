@@ -4,7 +4,7 @@ let keys = [
   "Status",
   "Prenume",
   "Nume",
-  "Validare",
+  "Valid",
   "Email",
   "Nr Telefon",
   "Data Nasterii",
