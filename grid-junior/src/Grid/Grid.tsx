@@ -22,12 +22,24 @@ const MainGrid = styled.div<{
     props.inputColumns.map((x) => {
       return props.inputSizes[x.size] + " ";
     })};
+  grid-template-rows: repeat(22, 1fr);
   height: 38rem;
   overflow-y: scroll;
   background-color: gray;
+
+  @media (max-width: 50rem) {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
+
+  @media (max-width: 30rem) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const GridColumn = styled.div`
+  @media (max-width: 50rem) {
+    display: none;
+  }
   background-color: black;
 `;
 
@@ -35,8 +47,19 @@ const GridTitle = styled.div<{ spanSize: number }>`
   grid-column: ${(props) => {
     return "span " + props.spanSize;
   }};
+
+  @media (max-width: 50rem) {
+    grid-column: unset !important;
+  }
+
+  @media (max-width: 30rem) {
+    display: none;
+  }
+
   background-color: black;
 `;
+
+const GridCell = styled.div<{}>``;
 
 export default function Grid(props: any) {
   let gridContext = useContext(GridContext);
@@ -210,16 +233,18 @@ export default function Grid(props: any) {
             {gridContext.items.map((x: IRow, row_key: number) =>
               gridContext.allColumns.map((y: IColumn, cell_key: number) => {
                 return (
-                  <Cell
-                    key={cell_key}
-                    content={{
-                      id: row_key,
-                      cell_content: x[y.name],
-                      cell_type: y.type as Cell_Type,
-                      cell_key: cell_key,
-                      selection_options: y.options,
-                    }}
-                  />
+                  <GridCell>
+                    <Cell
+                      key={cell_key}
+                      content={{
+                        id: row_key,
+                        cell_content: x[y.name],
+                        cell_type: y.type as Cell_Type,
+                        cell_key: cell_key,
+                        selection_options: y.options,
+                      }}
+                    />
+                  </GridCell>
                 );
               })
             )}
