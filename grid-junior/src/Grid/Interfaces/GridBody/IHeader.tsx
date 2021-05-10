@@ -1,6 +1,6 @@
-import { IColumnContainer } from "./IColumnContainer";
+import { IColumns } from "./IColumns";
 
 export interface IHeader {
   name: string;
-  headers: IColumnContainer[];
+  headers: IColumns[];
 }
