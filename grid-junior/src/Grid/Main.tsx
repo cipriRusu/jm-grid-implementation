@@ -1,23 +1,14 @@
-import React, {
-  Component,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import Grid from "./Grid";
+import React, { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { IHeader } from "./Interfaces/GridBody/IHeader";
 import { IGridProps } from "./Interfaces/GridBody/IGridProps";
-import { IGridState } from "./Interfaces/GridTools/IGridState";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IGridContext } from "./Interfaces/GridTools/IGridContext";
 import { ISortable } from "./Interfaces/GridBody/ISortable";
 import { IColumns } from "./Interfaces/GridBody/IColumns";
 import { IRow } from "./Interfaces/GridBody/IRow";
-import Header from "./GridBody/GridHeader/Header";
 import Cell from "./GridBody/GridRows/Cell";
 import { Cell_Type } from "./CustomTypes/CellType";
 import Column from "./GridBody/GridHeader/Column";
@@ -46,8 +37,6 @@ export const GridContext = createContext<IGridContext & ISortable>({
   setItems: (updatedItems: IRow[]) => {},
   setTop: (newPage: number) => {},
   setBottom: (newPage: number) => {},
-  selectedViewItem: "",
-  selectViewHandler: (_value: string) => {},
   sort: {
     sort_type: "",
     field_id: "",
@@ -67,7 +56,6 @@ export const GridContext = createContext<IGridContext & ISortable>({
     toggled: false,
   },
   toggledHeader: [],
-  visibleHeader: "",
 });
 
 const MainGrid = styled.div<{
@@ -118,7 +106,7 @@ const GridTitle = styled.div<{ spanSize: number }>`
 
 const GridCell = styled.div<{}>``;
 
-export default function Main<IGridProps, IGridState>(props: any) {
+export default function Main(props: IGridProps) {
   const [activeFilter, updateActiveFilter] = useState<IFilter>({
     name: "",
     type: "",
@@ -128,17 +116,11 @@ export default function Main<IGridProps, IGridState>(props: any) {
 
   const [allPages, updateAllPages] = useState(0);
 
-  const [data, setData] = useState(props.data);
-
-  const [selectedViewItem, updateSelectedViewItem] = useState("");
-
   const [sort, updateSelectedSort] = useState<ISortStats>({
     sort_type: "",
     field_id: "",
     field_type: "",
   });
-
-  const [visibleHeader, updateVisibleHeader] = useState("firstHeader");
 
   const [filters, updateFilters] = useState<IFilter[]>([]);
 
@@ -159,11 +141,11 @@ export default function Main<IGridProps, IGridState>(props: any) {
 
   const [loadedPages, updateLoadedPages] = useState(0);
 
-  let gridContext = useContext(GridContext);
+  const [offset, setOffset] = useState(0);
 
   const flatHeader = () => {
     let allColumns = props.headers
-      .filter((x: any) => x.name === visibleHeader)
+      .filter((x: any) => x.name === "firstHeader")
       .map((header: IHeader) => {
         return header.headers.map((columns: IColumns) => {
           return columns.columns.map((column: IColumn) => {
@@ -215,15 +197,7 @@ export default function Main<IGridProps, IGridState>(props: any) {
     updateToggledHeader(toggled);
   };
 
-  const selectItemHandler = (selectedItem: string) => {
-    updateSelectedViewItem(selectedItem);
-  };
-
-  const loadPage = (
-    gridContext: IGridContext & ISortable,
-    pageSize: number,
-    direction: ScrollDirection
-  ) => {
+  const loadPage = (pageSize: number, direction: ScrollDirection) => {
     let scrollingDirection =
       direction === ScrollDirection.Up
         ? top
@@ -237,13 +211,10 @@ export default function Main<IGridProps, IGridState>(props: any) {
   const loadOnScroolUp = (event: any) => {
     if (event.target.scrollTop === 0) {
       if (top >= 0) {
+        setOffset(0);
         let currentCachedItems = items;
 
-        let newCache = loadPage(
-          gridContext,
-          props.pageSize,
-          ScrollDirection.Up
-        );
+        let newCache = loadPage(props.pageSize, ScrollDirection.Up);
 
         let updatedCache = [...newCache, ...currentCachedItems];
 
@@ -257,9 +228,6 @@ export default function Main<IGridProps, IGridState>(props: any) {
 
         updateTop(top - 1);
         updateBottom(bottom - 1);
-
-        console.log(top);
-        console.log(bottom);
       }
     }
   };
@@ -273,14 +241,10 @@ export default function Main<IGridProps, IGridState>(props: any) {
     };
 
     if (isBottomReached(event)) {
-      if (loadedPages < allPages) {
+      if (loadedPages + offset < allPages) {
         let currentCachedItems = items;
 
-        let newCache = loadPage(
-          gridContext,
-          props.pageSize,
-          ScrollDirection.Down
-        );
+        let newCache = loadPage(props.pageSize, ScrollDirection.Down);
 
         let updatedCache = currentCachedItems.concat(newCache);
 
@@ -289,15 +253,23 @@ export default function Main<IGridProps, IGridState>(props: any) {
 
           document.getElementById(props.pageSize.toString())?.scrollIntoView();
 
-          updateTop(top + 1);
+          if (newCache.length === props.pageSize) {
+            updateTop(top + 1);
+          }
         }
 
-        updateLoadedPages(loadedPages + newCache.length);
-        updateItems(updatedCache);
-        updateBottom(bottom + 1);
+        if (newCache.length === props.pageSize) {
+          updateBottom(bottom + 1);
+          updateLoadedPages(loadedPages + newCache.length);
+          updateItems(updatedCache);
+        }
 
-        console.log(top);
-        console.log(bottom);
+        if (newCache.length < props.pageSize) {
+          let offsetCache = loadPage(props.pageSize, ScrollDirection.Down);
+
+          updateItems(items.concat(offsetCache));
+          setOffset(offsetCache.length);
+        }
       }
     }
   };
@@ -309,15 +281,16 @@ export default function Main<IGridProps, IGridState>(props: any) {
 
   useEffect(() => {
     const ReloadData = () => {
-      const ResetAllData = () => {};
+      const ResetAllData = () => {
+        setBottom(1);
+        setItems([]);
+        setOffset(0);
+        setTop(-1);
+      };
 
       ResetAllData();
 
-      let loadingElements = loadPage(
-        gridContext,
-        props.pageSize,
-        ScrollDirection.Initial
-      );
+      let loadingElements = loadPage(props.pageSize, ScrollDirection.Initial);
 
       updateAllPages(props.data.getTotal(sort, filters));
 
@@ -338,7 +311,7 @@ export default function Main<IGridProps, IGridState>(props: any) {
     sort.field_id,
     sort.field_type,
     sort.sort_type,
-    props.content,
+    props.data,
     props.pageSize,
   ]);
 
@@ -358,9 +331,6 @@ export default function Main<IGridProps, IGridState>(props: any) {
         setItems: setItems,
         setBottom: setBottom,
         setTop: setTop,
-        selectedViewItem: "",
-        visibleHeader: visibleHeader,
-        selectViewHandler: selectItemHandler,
         sort: sort,
         setActiveFilter: setActiveFilter,
         setSort: setSort,
@@ -386,7 +356,7 @@ export default function Main<IGridProps, IGridState>(props: any) {
               {context.allHeaders[0].headers.map(
                 (value: IColumns, key: number) => {
                   return (
-                    <GridTitle spanSize={value.columns.length}>
+                    <GridTitle spanSize={value.columns.length} key={key}>
                       <Title
                         key={key}
                         title={value.name}
@@ -398,7 +368,7 @@ export default function Main<IGridProps, IGridState>(props: any) {
               )}
               {context.allColumns.map((value: IColumn, key: number) => {
                 return (
-                  <GridColumn>
+                  <GridColumn key={key}>
                     <Column
                       key={key}
                       name={value.name}
@@ -412,7 +382,7 @@ export default function Main<IGridProps, IGridState>(props: any) {
               {context.items.map((x: IRow, row_key: number) =>
                 context.allColumns.map((y: IColumn, cell_key: number) => {
                   return (
-                    <GridCell>
+                    <GridCell key={cell_key}>
                       <Cell
                         key={cell_key}
                         content={{

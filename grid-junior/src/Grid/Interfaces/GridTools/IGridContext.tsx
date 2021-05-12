@@ -18,9 +18,6 @@ export interface IGridContext {
   setItems: (updatedItems: IRow[]) => void;
   setBottom: (newPage: number) => void;
   setTop: (newPage: number) => void;
-  visibleHeader: string;
-  selectViewHandler: (value: string) => void;
-  selectedViewItem: Object;
   headersContext: IHeader[];
   selectionOptions: IColumn[];
   setActiveFilter: (newFilter: IFilter) => void;
