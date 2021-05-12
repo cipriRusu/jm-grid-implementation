@@ -17,6 +17,7 @@ import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
 import MainGridStyled from "./MainGridStyled";
 import GridColumnStyled from "./GridColumnStyled";
 import GridTitleStyled from "./GridTitleStyled";
+import { LoadPage } from "./LoadPage";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -154,16 +155,7 @@ export default function Grid(props: IGridProps) {
     updateToggledHeader(toggled);
   };
 
-  const loadPage = (pageSize: number, direction: ScrollDirection) => {
-    let scrollingDirection =
-      direction === ScrollDirection.Up
-        ? top
-        : direction === ScrollDirection.Down
-        ? bottom
-        : 0;
-
-    return props.data.get(sort, filters, scrollingDirection, pageSize);
-  };
+  let pageLoader = new LoadPage(props.data);
 
   const loadOnScroolUp = (event: any) => {
     if (event.target.scrollTop === 0) {
@@ -172,7 +164,14 @@ export default function Grid(props: IGridProps) {
 
         let currentCachedItems = items;
 
-        let newCache = loadPage(props.pageSize, ScrollDirection.Up);
+        let newCache = pageLoader.getPage(
+          props.pageSize,
+          ScrollDirection.Up,
+          top,
+          bottom,
+          sort,
+          filters
+        );
 
         let updatedCache = [...newCache, ...currentCachedItems];
 
@@ -202,7 +201,14 @@ export default function Grid(props: IGridProps) {
       if (loadedPages + offset < allPages) {
         let currentCachedItems = items;
 
-        let newCache = loadPage(props.pageSize, ScrollDirection.Down);
+        let newCache = pageLoader.getPage(
+          props.pageSize,
+          ScrollDirection.Down,
+          top,
+          bottom,
+          sort,
+          filters
+        );
 
         let updatedCache = currentCachedItems.concat(newCache);
 
@@ -223,7 +229,15 @@ export default function Grid(props: IGridProps) {
         }
 
         if (newCache.length < props.pageSize) {
-          let offsetCache = loadPage(props.pageSize, ScrollDirection.Down);
+          let offsetCache = pageLoader.getPage(
+            props.pageSize,
+            ScrollDirection.Down,
+            top,
+            bottom,
+            sort,
+            filters
+          );
+
           updateItems(items.concat(offsetCache));
           setOffset(offsetCache.length);
         }
@@ -247,7 +261,14 @@ export default function Grid(props: IGridProps) {
 
       ResetAllData();
 
-      let loadingElements = loadPage(props.pageSize, ScrollDirection.Initial);
+      let loadingElements = pageLoader.getPage(
+        props.pageSize,
+        ScrollDirection.Initial,
+        top,
+        bottom,
+        sort,
+        filters
+      );
 
       updateAllPages(props.data.getTotal(sort, filters));
 
