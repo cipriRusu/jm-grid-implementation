@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { Cell_Type } from "./CustomTypes/CellType";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { IHeader } from "./Interfaces/GridBody/IHeader";
@@ -10,10 +11,12 @@ import { ISortable } from "./Interfaces/GridBody/ISortable";
 import { IColumns } from "./Interfaces/GridBody/IColumns";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import Cell from "./GridBody/GridRows/Cell";
-import { Cell_Type } from "./CustomTypes/CellType";
 import Column from "./GridBody/GridHeader/Column";
 import Title from "./GridBody/GridHeader/Title";
 import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
+import MainGridStyled from "./MainGridStyled";
+import GridColumnStyled from "./GridColumnStyled";
+import GridTitleStyled from "./GridTitleStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -57,52 +60,6 @@ export const GridContext = createContext<IGridContext & ISortable>({
   },
   toggledHeader: [],
 });
-
-const MainGrid = styled.div<{
-  inputColumns: IColumn[];
-  inputSizes: { [key: string]: string };
-}>`
-  display: grid;
-  grid-template-columns: ${(props) =>
-    props.inputColumns.map((x) => {
-      return props.inputSizes[x.size] + " ";
-    })};
-  grid-template-rows: repeat(22, 1fr);
-  height: 38rem;
-  overflow-y: scroll;
-  background-color: gray;
-
-  @media (max-width: 50rem) {
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-  }
-
-  @media (max-width: 30rem) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const GridColumn = styled.div`
-  @media (max-width: 50rem) {
-    display: none;
-  }
-  background-color: black;
-`;
-
-const GridTitle = styled.div<{ spanSize: number }>`
-  grid-column: ${(props) => {
-    return "span " + props.spanSize;
-  }};
-
-  @media (max-width: 50rem) {
-    grid-column: unset !important;
-  }
-
-  @media (max-width: 30rem) {
-    display: none;
-  }
-
-  background-color: black;
-`;
 
 const GridCell = styled.div<{}>``;
 
@@ -212,6 +169,7 @@ export default function Grid(props: IGridProps) {
     if (event.target.scrollTop === 0) {
       if (top >= 0) {
         setOffset(0);
+
         let currentCachedItems = items;
 
         let newCache = loadPage(props.pageSize, ScrollDirection.Up);
@@ -266,7 +224,6 @@ export default function Grid(props: IGridProps) {
 
         if (newCache.length < props.pageSize) {
           let offsetCache = loadPage(props.pageSize, ScrollDirection.Down);
-
           updateItems(items.concat(offsetCache));
           setOffset(offsetCache.length);
         }
@@ -348,7 +305,7 @@ export default function Grid(props: IGridProps) {
       <GridContext.Consumer>
         {(context) => {
           return (
-            <MainGrid
+            <MainGridStyled
               inputColumns={context.allColumns}
               inputSizes={props.headerSize}
               onScroll={(e: any) => UpdateContainer(e)}
@@ -356,19 +313,19 @@ export default function Grid(props: IGridProps) {
               {context.allHeaders[0].headers.map(
                 (value: IColumns, key: number) => {
                   return (
-                    <GridTitle spanSize={value.columns.length} key={key}>
+                    <GridTitleStyled spanSize={value.columns.length} key={key}>
                       <Title
                         key={key}
                         title={value.name}
                         columns={value.columns}
                       />
-                    </GridTitle>
+                    </GridTitleStyled>
                   );
                 }
               )}
               {context.allColumns.map((value: IColumn, key: number) => {
                 return (
-                  <GridColumn key={key}>
+                  <GridColumnStyled key={key}>
                     <Column
                       key={key}
                       name={value.name}
@@ -376,7 +333,7 @@ export default function Grid(props: IGridProps) {
                       type={value.type}
                       toggled={false}
                     />
-                  </GridColumn>
+                  </GridColumnStyled>
                 );
               })}
               {context.items.map((x: IRow, row_key: number) =>
@@ -397,7 +354,7 @@ export default function Grid(props: IGridProps) {
                   );
                 })
               )}
-            </MainGrid>
+            </MainGridStyled>
           );
         }}
       </GridContext.Consumer>
