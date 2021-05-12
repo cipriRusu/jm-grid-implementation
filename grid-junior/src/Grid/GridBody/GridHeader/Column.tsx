@@ -3,7 +3,7 @@ import "./Column.scss";
 import "font-awesome/css/font-awesome.min.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
-import { GridContext } from "../../Main";
+import { GridContext } from "../../Grid";
 import Filters from "../../GridTools/Filters";
 import { IFilter } from "../../Interfaces/GridTools/IFilter";
 

@@ -3,7 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { ITitle } from "../../Interfaces/GridBody/ITitle";
 import "./Title.scss";
 import Filters from "../../GridTools/Filters";
-import { GridContext } from "../../Main";
+import { GridContext } from "../../Grid";
 import "font-awesome/css/font-awesome.min.css";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { ISortStats } from "../../Interfaces/GridBody/ISortStats";

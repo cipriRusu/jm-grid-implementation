@@ -3,7 +3,7 @@ import Cell from "./Cell";
 import ScrollDirection from "./ScrollDirection";
 import "./RowContainer.scss";
 import { Cell_Type } from "../../CustomTypes/CellType";
-import { GridContext } from "../../Main";
+import { GridContext } from "../../Grid";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { IDataSource } from "../../Interfaces/GridData/IDataSource";
 import { IRow } from "../../Interfaces/GridBody/IRow";

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { GridContext } from "../Main";
+import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
 

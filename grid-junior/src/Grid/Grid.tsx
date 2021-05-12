@@ -1,17 +1,62 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import "./Grid.scss";
-import Column from "./GridBody/GridHeader/Column";
-import { GridContext } from "./Main";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
+import { IFilter } from "./Interfaces/GridTools/IFilter";
+import { IHeader } from "./Interfaces/GridBody/IHeader";
+import { IGridProps } from "./Interfaces/GridBody/IGridProps";
+import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IGridContext } from "./Interfaces/GridTools/IGridContext";
 import { ISortable } from "./Interfaces/GridBody/ISortable";
-import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
+import { IColumns } from "./Interfaces/GridBody/IColumns";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import Cell from "./GridBody/GridRows/Cell";
 import { Cell_Type } from "./CustomTypes/CellType";
-import { IColumns } from "./Interfaces/GridBody/IColumns";
+import Column from "./GridBody/GridHeader/Column";
 import Title from "./GridBody/GridHeader/Title";
+import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
+
+export const GridContext = createContext<IGridContext & ISortable>({
+  activeFilter: {
+    name: "",
+    type: "",
+    values: [],
+    operator: 0,
+  },
+  allHeaders: [],
+  allColumns: [],
+  bottom: 0,
+  data: {
+    get: (sort: ISortStats, filters: IFilter[]) => [],
+    getTotal: (sort: ISortStats, filters: IFilter[]) => 0,
+  },
+  filters: [],
+  headersContext: [],
+  items: [],
+  loadedPages: 0,
+  setLoaded: (updatedPages: number) => {},
+  setItems: (updatedItems: IRow[]) => {},
+  setTop: (newPage: number) => {},
+  setBottom: (newPage: number) => {},
+  sort: {
+    sort_type: "",
+    field_id: "",
+    field_type: "",
+  },
+  setSort: (selectedSort: ISortStats) => {},
+  selectionOptions: [],
+  setActiveFilter: (newFilter: IFilter) => {},
+  setFilter: (_values: IFilter[]) => {},
+  setToggledColumn: (value: IColumn) => {},
+  setToggledHeader: (value: IColumn[]) => {},
+  top: -1,
+  toggledColumn: {
+    name: "",
+    size: "",
+    type: "",
+    toggled: false,
+  },
+  toggledHeader: [],
+});
 
 const MainGrid = styled.div<{
   inputColumns: IColumn[];
@@ -61,52 +106,128 @@ const GridTitle = styled.div<{ spanSize: number }>`
 
 const GridCell = styled.div<{}>``;
 
-export default function Grid(props: any) {
-  let gridContext = useContext(GridContext);
+export default function Grid(props: IGridProps) {
+  const [activeFilter, updateActiveFilter] = useState<IFilter>({
+    name: "",
+    type: "",
+    values: [],
+    operator: 0,
+  });
+
   const [allPages, updateAllPages] = useState(0);
 
-  const loadPage = (
-    gridContext: IGridContext & ISortable,
-    pageSize: number,
-    direction: ScrollDirection
-  ) => {
+  const [sort, updateSelectedSort] = useState<ISortStats>({
+    sort_type: "",
+    field_id: "",
+    field_type: "",
+  });
+
+  const [filters, updateFilters] = useState<IFilter[]>([]);
+
+  const [toggledColumn, updateToggledColumn] = useState<IColumn>({
+    name: "",
+    size: "",
+    type: "",
+    toggled: false,
+  });
+
+  const [toggledHeader, updateToggledHeader] = useState<IColumn[]>([]);
+
+  const [bottom, updateBottom] = useState(0);
+
+  const [top, updateTop] = useState(-1);
+
+  const [items, updateItems] = useState<IRow[]>([]);
+
+  const [loadedPages, updateLoadedPages] = useState(0);
+
+  const [offset, setOffset] = useState(0);
+
+  const flatHeader = () => {
+    let allColumns = props.headers
+      .filter((x: any) => x.name === "firstHeader")
+      .map((header: IHeader) => {
+        return header.headers.map((columns: IColumns) => {
+          return columns.columns.map((column: IColumn) => {
+            return column;
+          });
+        });
+      });
+
+    return allColumns.flat().flat();
+  };
+
+  const setLoaded = (updatedPages: number) => {
+    updateLoadedPages(updatedPages);
+  };
+
+  const setItems = (updatedItems: IRow[]) => {
+    updateItems(updatedItems);
+  };
+
+  const setBottom = (newPage: number): void => {
+    updateBottom(newPage);
+  };
+
+  const setTop = (newPage: number): void => {
+    updateTop(newPage);
+  };
+
+  const setSort = (selectedSort: ISortStats): void => {
+    updateSelectedSort({
+      sort_type: selectedSort.sort_type,
+      field_id: selectedSort.field_id,
+      field_type: selectedSort.sort_type,
+    });
+  };
+
+  const setActiveFilter = (newFilter: IFilter) => {
+    updateActiveFilter(newFilter);
+  };
+
+  const setFilter = (filters: IFilter[]) => {
+    updateFilters(filters);
+  };
+
+  const setToggledColumn = (toggled: IColumn) => {
+    updateToggledColumn(toggled);
+  };
+
+  const setToggledHeader = (toggled: IColumn[]) => {
+    updateToggledHeader(toggled);
+  };
+
+  const loadPage = (pageSize: number, direction: ScrollDirection) => {
     let scrollingDirection =
       direction === ScrollDirection.Up
-        ? gridContext.top
+        ? top
         : direction === ScrollDirection.Down
-        ? gridContext.bottom
+        ? bottom
         : 0;
 
-    return props.content.get(
-      gridContext.sort,
-      gridContext.filters,
-      scrollingDirection,
-      pageSize
-    );
+    return props.data.get(sort, filters, scrollingDirection, pageSize);
   };
 
   const loadOnScroolUp = (event: any) => {
     if (event.target.scrollTop === 0) {
-      if (gridContext.top >= 0) {
-        let currentCachedItems = gridContext.items;
+      if (top >= 0) {
+        setOffset(0);
+        let currentCachedItems = items;
 
-        let newCache = loadPage(
-          gridContext,
-          props.pageSize,
-          ScrollDirection.Up
-        );
+        let newCache = loadPage(props.pageSize, ScrollDirection.Up);
 
         let updatedCache = [...newCache, ...currentCachedItems];
 
-        if (updatedCache.length > props.pageCache) {
-          updatedCache = updatedCache.slice(0, props.pageCache);
+        if (updatedCache.length > props.cacheSize) {
+          updatedCache = updatedCache.slice(0, props.cacheSize);
         }
 
         document.getElementById(props.pageSize.toString())?.scrollIntoView();
-        gridContext.setItems(updatedCache);
-        gridContext.setLoaded(gridContext.loadedPages - newCache.length);
-        gridContext.setTop(gridContext.top - 1);
-        gridContext.setBottom(gridContext.bottom - 1);
+        updateItems(updatedCache);
+        updateLoadedPages(loadedPages - newCache.length);
+
+        updateTop(top - 1);
+        updateBottom(bottom - 1);
       }
     }
   };
@@ -120,26 +241,35 @@ export default function Grid(props: any) {
     };
 
     if (isBottomReached(event)) {
-      if (gridContext.loadedPages <= allPages) {
-        let currentCachedItems = gridContext.items;
+      if (loadedPages + offset < allPages) {
+        let currentCachedItems = items;
 
-        let newCache = loadPage(
-          gridContext,
-          props.pageSize,
-          ScrollDirection.Down
-        );
+        let newCache = loadPage(props.pageSize, ScrollDirection.Down);
 
         let updatedCache = currentCachedItems.concat(newCache);
 
-        if (updatedCache.length > props.pageCache) {
+        if (updatedCache.length > props.cacheSize) {
           updatedCache.splice(0, props.pageSize);
+
           document.getElementById(props.pageSize.toString())?.scrollIntoView();
-          gridContext.setTop(gridContext.top + 1);
+
+          if (newCache.length === props.pageSize) {
+            updateTop(top + 1);
+          }
         }
 
-        gridContext.setLoaded(gridContext.loadedPages + newCache.length);
-        gridContext.setItems(updatedCache);
-        gridContext.setBottom(gridContext.bottom + 1);
+        if (newCache.length === props.pageSize) {
+          updateBottom(bottom + 1);
+          updateLoadedPages(loadedPages + newCache.length);
+          updateItems(updatedCache);
+        }
+
+        if (newCache.length < props.pageSize) {
+          let offsetCache = loadPage(props.pageSize, ScrollDirection.Down);
+
+          updateItems(items.concat(offsetCache));
+          setOffset(offsetCache.length);
+        }
       }
     }
   };
@@ -152,31 +282,24 @@ export default function Grid(props: any) {
   useEffect(() => {
     const ReloadData = () => {
       const ResetAllData = () => {
-        gridContext.bottom = 0;
-        gridContext.top = -1;
-        gridContext.setItems([]);
-        gridContext.setTop(-1);
-        gridContext.setBottom(0);
+        setBottom(1);
+        setItems([]);
+        setOffset(0);
+        setTop(-1);
       };
 
       ResetAllData();
 
-      let loadingElements = loadPage(
-        gridContext,
-        props.pageSize,
-        ScrollDirection.Initial
-      );
+      let loadingElements = loadPage(props.pageSize, ScrollDirection.Initial);
 
-      updateAllPages(
-        props.content.getTotal(gridContext.sort, gridContext.filters)
-      );
+      updateAllPages(props.data.getTotal(sort, filters));
 
-      gridContext.setItems(loadingElements);
+      updateItems(loadingElements);
 
-      gridContext.setLoaded(loadingElements.length);
+      updateLoadedPages(loadingElements.length);
 
-      if (gridContext.bottom === 0) {
-        gridContext.setBottom(1);
+      if (bottom === 0) {
+        updateBottom(1);
       }
     };
 
@@ -184,73 +307,100 @@ export default function Grid(props: any) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    gridContext.sort.field_id,
-    gridContext.sort.sort_type,
-    gridContext.filters,
-    gridContext.setSort,
-    gridContext.setFilter,
-    gridContext.setItems,
-    gridContext.setLoaded,
-    props.content,
+    filters,
+    sort.field_id,
+    sort.field_type,
+    sort.sort_type,
+    props.data,
     props.pageSize,
   ]);
 
   return (
-    <GridContext.Consumer>
-      {(context) => {
-        return (
-          <MainGrid
-            inputColumns={context.allColumns}
-            inputSizes={props.headerSize}
-            onScroll={(e: any) => UpdateContainer(e)}
-          >
-            {gridContext.allHeaders[0].headers.map(
-              (value: IColumns, key: number) => {
-                return (
-                  <GridTitle spanSize={value.columns.length}>
-                    <Title
-                      key={key}
-                      title={value.name}
-                      columns={value.columns}
-                    />
-                  </GridTitle>
-                );
-              }
-            )}
-            {context.allColumns.map((value: IColumn, key: number) => {
-              return (
-                <GridColumn>
-                  <Column
-                    key={key}
-                    name={value.name}
-                    size={value.size}
-                    type={value.type}
-                    toggled={false}
-                  />
-                </GridColumn>
-              );
-            })}
-            {gridContext.items.map((x: IRow, row_key: number) =>
-              gridContext.allColumns.map((y: IColumn, cell_key: number) => {
-                return (
-                  <GridCell>
-                    <Cell
-                      key={cell_key}
-                      content={{
-                        id: row_key,
-                        cell_content: x[y.name],
-                        cell_type: y.type as Cell_Type,
-                        cell_key: cell_key,
-                        selection_options: y.options,
-                      }}
-                    />
-                  </GridCell>
-                );
-              })
-            )}
-          </MainGrid>
-        );
+    <GridContext.Provider
+      value={{
+        activeFilter: activeFilter,
+        allColumns: flatHeader(),
+        allHeaders: props.headers,
+        bottom: bottom,
+        data: props.data,
+        filters: filters,
+        headersContext: props.headers,
+        items: items,
+        loadedPages: loadedPages,
+        setLoaded: setLoaded,
+        setItems: setItems,
+        setBottom: setBottom,
+        setTop: setTop,
+        sort: sort,
+        setActiveFilter: setActiveFilter,
+        setSort: setSort,
+        selectionOptions: flatHeader().filter(
+          (column: any) => column.type === "select"
+        ),
+        setFilter: setFilter,
+        toggledColumn: toggledColumn,
+        setToggledColumn: setToggledColumn,
+        toggledHeader: toggledHeader,
+        setToggledHeader: setToggledHeader,
+        top: top,
       }}
-    </GridContext.Consumer>
+    >
+      <GridContext.Consumer>
+        {(context) => {
+          return (
+            <MainGrid
+              inputColumns={context.allColumns}
+              inputSizes={props.headerSize}
+              onScroll={(e: any) => UpdateContainer(e)}
+            >
+              {context.allHeaders[0].headers.map(
+                (value: IColumns, key: number) => {
+                  return (
+                    <GridTitle spanSize={value.columns.length} key={key}>
+                      <Title
+                        key={key}
+                        title={value.name}
+                        columns={value.columns}
+                      />
+                    </GridTitle>
+                  );
+                }
+              )}
+              {context.allColumns.map((value: IColumn, key: number) => {
+                return (
+                  <GridColumn key={key}>
+                    <Column
+                      key={key}
+                      name={value.name}
+                      size={value.size}
+                      type={value.type}
+                      toggled={false}
+                    />
+                  </GridColumn>
+                );
+              })}
+              {context.items.map((x: IRow, row_key: number) =>
+                context.allColumns.map((y: IColumn, cell_key: number) => {
+                  return (
+                    <GridCell key={cell_key}>
+                      <Cell
+                        key={cell_key}
+                        content={{
+                          id: row_key,
+                          cell_content: x[y.name],
+                          cell_type: y.type as Cell_Type,
+                          cell_key: cell_key,
+                          selection_options: y.options,
+                        }}
+                      />
+                    </GridCell>
+                  );
+                })
+              )}
+            </MainGrid>
+          );
+        }}
+      </GridContext.Consumer>
+    </GridContext.Provider>
   );
 }

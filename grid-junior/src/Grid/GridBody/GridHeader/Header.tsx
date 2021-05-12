@@ -2,7 +2,7 @@ import "./Header.scss";
 import { useContext } from "react";
 import Column from "./Column";
 import Title from "./Title";
-import { GridContext } from "../../Main";
+import { GridContext } from "../../Grid";
 import { IColumns } from "../../Interfaces/GridBody/IColumns";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
 
