@@ -19,6 +19,7 @@ import GridColumnStyled from "./GridColumnStyled";
 import GridTitleStyled from "./GridTitleStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
+import HEADER_SIZES from "./HeaderSizes";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -283,7 +284,7 @@ export default function Grid(props: IGridProps) {
           return (
             <MainGridStyled
               inputColumns={context.allColumns}
-              inputSizes={props.headerSize}
+              inputSizes={HEADER_SIZES}
               onScroll={(e: any) => UpdateContainer(e)}
             >
               {context.allHeaders[0].headers.map(

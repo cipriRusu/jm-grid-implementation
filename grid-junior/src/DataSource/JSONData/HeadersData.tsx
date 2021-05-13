@@ -31,9 +31,3 @@ export const headers = [
     ],
   },
 ];
-
-export const headerSize = {
-  SmallColumn: "1fr",
-  StandardColumn: "2fr",
-  LargeColumn: "3fr",
-};
