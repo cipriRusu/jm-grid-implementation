@@ -217,14 +217,13 @@ export default function Grid(props: IGridProps) {
 
       ResetAllData();
 
-      let loadingElements = loadPage.getPage(
-        props.pageSize,
-        ScrollDirection.Initial,
-        top,
-        bottom,
-        sort,
-        filters
-      );
+      let loadingElements = loadPage.getPage(ScrollDirection.Initial, {
+        pageSize: props.pageSize,
+        top: top,
+        bottom: bottom,
+        sort: sort,
+        filters: filters,
+      });
 
       updateAllPages(props.data.getTotal(sort, filters));
 
@@ -337,4 +336,24 @@ export default function Grid(props: IGridProps) {
       </GridContext.Consumer>
     </GridContext.Provider>
   );
+}
+function params(
+  params: any,
+  arg1: {},
+  event: any,
+  items: IRow[],
+  loadedPages: number,
+  top: number,
+  bottom: number,
+  cacheSize: number,
+  pageSize: number,
+  sort: ISortStats,
+  filters: IFilter[],
+  updateTop: React.Dispatch<React.SetStateAction<number>>,
+  updateBottom: React.Dispatch<React.SetStateAction<number>>,
+  updateItems: React.Dispatch<React.SetStateAction<IRow[]>>,
+  updateLoadedPages: React.Dispatch<React.SetStateAction<number>>,
+  setOffset: React.Dispatch<React.SetStateAction<number>>
+) {
+  throw new Error("Function not implemented.");
 }

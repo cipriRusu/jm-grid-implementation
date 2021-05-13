@@ -41,14 +41,13 @@ export class ScrollPage {
       if (top >= 0) {
         setOffset(0);
         let currentCachedItems = items;
-        let newCache = this.loadPage.getPage(
-          pageSize,
-          ScrollDirection.Up,
-          top,
-          bottom,
-          sort,
-          filters
-        );
+        let newCache = this.loadPage.getPage(ScrollDirection.Up, {
+          pageSize: pageSize,
+          top: top,
+          bottom: bottom,
+          sort: sort,
+          filters: filters,
+        });
         let updatedCache = [...newCache, ...currentCachedItems];
         if (updatedCache.length > cacheSize) {
           updatedCache = updatedCache.slice(0, cacheSize);
@@ -92,14 +91,13 @@ export class ScrollPage {
         if (loadedPages + offset < allPages) {
           let currentCachedItems = items;
 
-          let newCache = this.loadPage.getPage(
-            pageSize,
-            ScrollDirection.Down,
-            top,
-            bottom,
-            sort,
-            filters
-          );
+          let newCache = this.loadPage.getPage(ScrollDirection.Down, {
+            pageSize: pageSize,
+            top: top,
+            bottom: bottom,
+            sort: sort,
+            filters: filters,
+          });
 
           let updatedCache = currentCachedItems.concat(newCache);
 
@@ -120,14 +118,13 @@ export class ScrollPage {
           }
 
           if (newCache.length < pageSize) {
-            let offsetCache = this.loadPage.getPage(
-              pageSize,
-              ScrollDirection.Down,
-              top,
-              bottom,
-              sort,
-              filters
-            );
+            let offsetCache = this.loadPage.getPage(ScrollDirection.Down, {
+              pageSize: pageSize,
+              top: top,
+              bottom: bottom,
+              sort: sort,
+              filters: filters,
+            });
 
             updateItems(items.concat(offsetCache));
             setOffset(offsetCache.length);
