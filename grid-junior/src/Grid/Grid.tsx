@@ -20,6 +20,7 @@ import GridRowStyled from "./GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import HEADER_SIZES from "./HeaderSizes";
+import styled from "styled-components";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -327,6 +328,7 @@ export default function Grid(props: IGridProps) {
                           cell_type: y.type as Cell_Type,
                           cell_key: cell_key,
                           selection_options: y.options,
+                          standard_type: y.name.toLowerCase() + "-cell",
                         }}
                       />
                     );

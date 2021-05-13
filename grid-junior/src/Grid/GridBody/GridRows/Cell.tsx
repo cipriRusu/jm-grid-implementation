@@ -15,6 +15,7 @@ const Cell = (props: { content: ICell }) => {
             cell_content={content.cell_content}
             cell_key={content.cell_key}
             cell_type={content.cell_type}
+            standard_type={content.standard_type}
           />
         );
       case "boolean":

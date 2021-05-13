@@ -5,5 +5,6 @@ export interface ICell {
   cell_key: number;
   cell_type?: Cell_Type;
   cell_content?: string;
+  standard_type?: string;
   selection_options?: any[];
 }
