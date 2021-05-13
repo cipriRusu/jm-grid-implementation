@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import styled from "styled-components";
 import { Cell_Type } from "./CustomTypes/CellType";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
@@ -17,6 +16,7 @@ import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
 import MainGridStyled from "./MainGridStyled";
 import GridColumnStyled from "./GridColumnStyled";
 import GridTitleStyled from "./GridTitleStyled";
+import GridRowStyled from "./GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import HEADER_SIZES from "./HeaderSizes";
@@ -63,8 +63,6 @@ export const GridContext = createContext<IGridContext & ISortable>({
   },
   toggledHeader: [],
 });
-
-const GridCell = styled.div<{}>``;
 
 export default function Grid(props: IGridProps) {
   const [activeFilter, updateActiveFilter] = useState<IFilter>({
@@ -312,10 +310,15 @@ export default function Grid(props: IGridProps) {
                   </GridColumnStyled>
                 );
               })}
-              {context.items.map((x: IRow, row_key: number) =>
-                context.allColumns.map((y: IColumn, cell_key: number) => {
-                  return (
-                    <GridCell key={cell_key}>
+              {context.items.map((x: IRow, row_key: number) => (
+                <GridRowStyled
+                  id={row_key.toString()}
+                  key={row_key}
+                  inputColumns={context.allColumns}
+                  inputSizes={HEADER_SIZES}
+                >
+                  {context.allColumns.map((y: IColumn, cell_key: number) => {
+                    return (
                       <Cell
                         key={cell_key}
                         content={{
@@ -326,10 +329,10 @@ export default function Grid(props: IGridProps) {
                           selection_options: y.options,
                         }}
                       />
-                    </GridCell>
-                  );
-                })
-              )}
+                    );
+                  })}
+                </GridRowStyled>
+              ))}
             </MainGridStyled>
           );
         }}
