@@ -10,7 +10,11 @@ const BooleanCell = (props: ICell) => {
     }
   };
 
-  return <div className="cell">{ComputeBool(Boolean(props.cell_content))}</div>;
+  return (
+    <div className="cell boolean-cell">
+      {ComputeBool(Boolean(props.cell_content))}
+    </div>
+  );
 };
 
 export default BooleanCell;

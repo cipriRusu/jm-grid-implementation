@@ -10,7 +10,7 @@ const SelectionCell = (content: ICell) => {
   };
 
   return (
-    <div className="cell" id={content.id?.toString()}>
+    <div className="cell selection-cell">
       <div>
         {DisplayIcon(
           content.cell_content || "",
