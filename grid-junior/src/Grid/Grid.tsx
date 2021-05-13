@@ -159,7 +159,7 @@ export default function Grid(props: IGridProps) {
 
   let loadPage = new LoadPage(props.data);
 
-  let scroolPage = new ScrollPage(props.data, loadPage);
+  let scroolPage = new ScrollPage(props.data);
 
   const loadOnScroolUp = (event: any) => {
     scroolPage.scrollUp(

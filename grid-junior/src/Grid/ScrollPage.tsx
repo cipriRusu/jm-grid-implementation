@@ -9,9 +9,9 @@ export class ScrollPage {
   dataSource: IDataSource;
   loadPage: LoadPage;
 
-  constructor(dataSource: IDataSource, loadPage: LoadPage) {
+  constructor(dataSource: IDataSource) {
     this.dataSource = dataSource;
-    this.loadPage = loadPage;
+    this.loadPage = new LoadPage(this.dataSource);
   }
 
   isBottomReached = (event: any) => {
