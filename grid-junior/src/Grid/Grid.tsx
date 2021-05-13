@@ -18,6 +18,7 @@ import MainGridStyled from "./MainGridStyled";
 import GridColumnStyled from "./GridColumnStyled";
 import GridTitleStyled from "./GridTitleStyled";
 import { LoadPage } from "./LoadPage";
+import { ScrollPage } from "./ScrollPage";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -155,94 +156,48 @@ export default function Grid(props: IGridProps) {
     updateToggledHeader(toggled);
   };
 
-  let pageLoader = new LoadPage(props.data);
+  let loadPage = new LoadPage(props.data);
+
+  let scroolPage = new ScrollPage(props.data, loadPage);
 
   const loadOnScroolUp = (event: any) => {
-    if (event.target.scrollTop === 0) {
-      if (top >= 0) {
-        setOffset(0);
-
-        let currentCachedItems = items;
-
-        let newCache = pageLoader.getPage(
-          props.pageSize,
-          ScrollDirection.Up,
-          top,
-          bottom,
-          sort,
-          filters
-        );
-
-        let updatedCache = [...newCache, ...currentCachedItems];
-
-        if (updatedCache.length > props.cacheSize) {
-          updatedCache = updatedCache.slice(0, props.cacheSize);
-        }
-
-        document.getElementById(props.pageSize.toString())?.scrollIntoView();
-        updateItems(updatedCache);
-        updateLoadedPages(loadedPages - newCache.length);
-
-        updateTop(top - 1);
-        updateBottom(bottom - 1);
-      }
-    }
+    scroolPage.scrollUp(
+      event,
+      items,
+      loadedPages,
+      top,
+      bottom,
+      props.cacheSize,
+      props.pageSize,
+      sort,
+      filters,
+      updateTop,
+      updateBottom,
+      updateItems,
+      updateLoadedPages,
+      setOffset
+    );
   };
 
   const loadOnScroolDown = (event: any) => {
-    const isBottomReached = (event: any) => {
-      return (
-        event.target.scrollHeight - event.target.scrollTop ===
-        event.target.clientHeight
-      );
-    };
-
-    if (isBottomReached(event)) {
-      if (loadedPages + offset < allPages) {
-        let currentCachedItems = items;
-
-        let newCache = pageLoader.getPage(
-          props.pageSize,
-          ScrollDirection.Down,
-          top,
-          bottom,
-          sort,
-          filters
-        );
-
-        let updatedCache = currentCachedItems.concat(newCache);
-
-        if (updatedCache.length > props.cacheSize) {
-          updatedCache.splice(0, props.pageSize);
-
-          document.getElementById(props.pageSize.toString())?.scrollIntoView();
-
-          if (newCache.length === props.pageSize) {
-            updateTop(top + 1);
-          }
-        }
-
-        if (newCache.length === props.pageSize) {
-          updateBottom(bottom + 1);
-          updateLoadedPages(loadedPages + newCache.length);
-          updateItems(updatedCache);
-        }
-
-        if (newCache.length < props.pageSize) {
-          let offsetCache = pageLoader.getPage(
-            props.pageSize,
-            ScrollDirection.Down,
-            top,
-            bottom,
-            sort,
-            filters
-          );
-
-          updateItems(items.concat(offsetCache));
-          setOffset(offsetCache.length);
-        }
-      }
-    }
+    scroolPage.scrollDown(
+      event,
+      items,
+      loadedPages,
+      top,
+      bottom,
+      props.cacheSize,
+      props.pageSize,
+      sort,
+      filters,
+      updateTop,
+      updateBottom,
+      updateItems,
+      updateLoadedPages,
+      setOffset,
+      offset,
+      allPages
+    );
   };
 
   const UpdateContainer = (event: any) => {
@@ -261,7 +216,7 @@ export default function Grid(props: IGridProps) {
 
       ResetAllData();
 
-      let loadingElements = pageLoader.getPage(
+      let loadingElements = loadPage.getPage(
         props.pageSize,
         ScrollDirection.Initial,
         top,
