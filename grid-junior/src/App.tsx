@@ -1,4 +1,3 @@
-import "./App.scss";
 import Grid from "./Grid/Grid";
 import React from "react";
 import { headers } from "./DataSource/JSONData/HeadersData";
