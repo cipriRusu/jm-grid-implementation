@@ -11,6 +11,9 @@ const GridRowStyled = styled.div<{
     props.inputColumns.map((x) => {
       return props.inputSizes[x.size] + " ";
     })};
+  border-bottom: solid;
+  border-width: thin;
+  border-color: darkgray;
 
   @media (max-width: 50rem) {
     grid-template-columns: ${(props) =>
