@@ -20,7 +20,6 @@ import GridRowStyled from "./GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import HEADER_SIZES from "./HeaderSizes";
-import styled from "styled-components";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
