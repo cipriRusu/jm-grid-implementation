@@ -323,6 +323,7 @@ export default function Grid(props: IGridProps) {
                   key={row_key}
                   inputColumns={context.allColumns}
                   inputSizes={HEADER_SIZES}
+                  inputTitles={context.allHeaders}
                 >
                   {context.allColumns.map((y: IColumn, cell_key: number) => {
                     return (
@@ -335,7 +336,7 @@ export default function Grid(props: IGridProps) {
                           cell_key: cell_key,
                           cell_size: y.size,
                           selection_options: y.options,
-                          standard_type: y.name.toLowerCase() + "-cell",
+                          cell_column: y.name.toLowerCase(),
                         }}
                       />
                     );

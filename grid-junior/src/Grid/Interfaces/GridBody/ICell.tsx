@@ -6,6 +6,6 @@ export interface ICell {
   cell_type?: Cell_Type;
   cell_content?: string;
   cell_size: string;
-  standard_type?: string;
+  cell_column?: string;
   selection_options?: any[];
 }

@@ -12,19 +12,21 @@ const Cell = (props: { content: ICell }) => {
       case undefined:
       case "number":
         return (
-          <CellStyled className={content.cell_size}>
+          <CellStyled
+            className={`${content.cell_size} ${content.cell_column}`}
+          >
             <StandardCell
               cell_content={content.cell_content}
               cell_key={content.cell_key}
               cell_type={content.cell_type}
-              standard_type={content.standard_type}
+              cell_column={content.cell_column}
               cell_size={content.cell_size}
             />
           </CellStyled>
         );
       case "boolean":
         return (
-          <CellStyled className={content.cell_size}>
+          <CellStyled className={`${content.cell_size} ${content.cell_column}`}>
             <BooleanCell
               cell_content={content.cell_content}
               cell_key={content.cell_key}
@@ -35,7 +37,7 @@ const Cell = (props: { content: ICell }) => {
         );
       case "select":
         return (
-          <CellStyled className={content.cell_size}>
+          <CellStyled className={`${content.cell_size} ${content.cell_column}`}>
             <SelectionCell
               id={content.id}
               cell_content={content.cell_content}
@@ -48,7 +50,7 @@ const Cell = (props: { content: ICell }) => {
         );
       case "date":
         return (
-          <CellStyled className={content.cell_size}>
+          <CellStyled className={`${content.cell_size} ${content.cell_column}`}>
             <DateCell
               cell_content={content.cell_content}
               cell_key={content.cell_key}
