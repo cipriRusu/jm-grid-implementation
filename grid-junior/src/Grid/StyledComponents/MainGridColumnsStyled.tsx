@@ -8,6 +8,7 @@ export const MainGridColumnsStyled = styled.div<{
 }>`
   display: grid;
   grid-column: span ${(props) => props.columns.length};
+  white-space: nowrap;
   grid-template-columns: ${(props) =>
     props.columns.map((x) => {
       return props.inputSizes[x.size] + " ";
