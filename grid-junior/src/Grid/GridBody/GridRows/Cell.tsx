@@ -4,6 +4,7 @@ import "./Cell.scss";
 import BooleanCell from "./BooleanCell";
 import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
+import { CellStyled } from "../../CellStyled";
 
 const Cell = (props: { content: ICell }) => {
   const ComputeCellType = (content: ICell) => {
@@ -11,39 +12,51 @@ const Cell = (props: { content: ICell }) => {
       case undefined:
       case "number":
         return (
-          <StandardCell
-            cell_content={content.cell_content}
-            cell_key={content.cell_key}
-            cell_type={content.cell_type}
-            standard_type={content.standard_type}
-          />
+          <CellStyled className={content.cell_size}>
+            <StandardCell
+              cell_content={content.cell_content}
+              cell_key={content.cell_key}
+              cell_type={content.cell_type}
+              standard_type={content.standard_type}
+              cell_size={content.cell_size}
+            />
+          </CellStyled>
         );
       case "boolean":
         return (
-          <BooleanCell
-            cell_content={content.cell_content}
-            cell_key={content.cell_key}
-            cell_type={content.cell_type}
-          />
+          <CellStyled className={content.cell_size}>
+            <BooleanCell
+              cell_content={content.cell_content}
+              cell_key={content.cell_key}
+              cell_type={content.cell_type}
+              cell_size={content.cell_size}
+            />
+          </CellStyled>
         );
       case "select":
         return (
-          <SelectionCell
-            id={content.id}
-            cell_content={content.cell_content}
-            cell_key={content.cell_key}
-            cell_type={content.cell_type}
-            selection_options={content.selection_options}
-          />
+          <CellStyled className={content.cell_size}>
+            <SelectionCell
+              id={content.id}
+              cell_content={content.cell_content}
+              cell_key={content.cell_key}
+              cell_type={content.cell_type}
+              cell_size={content.cell_size}
+              selection_options={content.selection_options}
+            />
+          </CellStyled>
         );
       case "date":
         return (
-          <DateCell
-            cell_content={content.cell_content}
-            cell_key={content.cell_key}
-            cell_type={content.cell_type}
-            selection_options={content.selection_options}
-          />
+          <CellStyled className={content.cell_size}>
+            <DateCell
+              cell_content={content.cell_content}
+              cell_key={content.cell_key}
+              cell_type={content.cell_type}
+              cell_size={content.cell_size}
+              selection_options={content.selection_options}
+            />
+          </CellStyled>
         );
     }
   };
