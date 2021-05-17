@@ -7,6 +7,7 @@ const GridRowStyled = styled.div<{
   inputSizes: { [key: string]: string };
 }>`
   grid-column: span ${(props) => props.inputColumns.length};
+
   display: grid;
   grid-template-columns: ${(props) =>
     props.inputColumns.map((x) => {
@@ -19,30 +20,23 @@ const GridRowStyled = styled.div<{
   @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
       props.inputColumns
+        .filter((x: IColumn) => {
+          return x.size !== "SmallColumn";
+        })
         .map((x) => {
           return props.inputSizes[x.size] + " ";
         })};
-
-    .boolean-cell {
-      display: none;
-    }
   }
 
   @media (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
     grid-template-columns: ${(props) =>
       props.inputColumns
-        .filter((x: IColumn) => x.type !== "boolean" && x.type !== "select")
+        .filter((x: IColumn) => {
+          return x.size !== "SmallColumn";
+        })
         .map((x) => {
           return props.inputSizes[x.size] + " ";
         })};
-
-    .boolean-cell {
-      display: none;
-    }
-
-    .selection-cell {
-      display: none;
-    }
   }
 
   @media (max-width: ${ScreenThresholds.SmallScreen}) {
@@ -53,10 +47,6 @@ const GridRowStyled = styled.div<{
         .map((x) => {
           return props.inputSizes[x.size] + " ";
         })};
-
-    .date-cell {
-      display: none;
-    }
   }
 `;
 
