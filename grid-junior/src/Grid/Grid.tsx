@@ -20,6 +20,7 @@ import GridRowStyled from "./GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import HEADER_SIZES from "./HeaderSizes";
+import { MainGridColumnsStyled } from "./MainGridColumnsStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -280,6 +281,7 @@ export default function Grid(props: IGridProps) {
         {(context) => {
           return (
             <MainGridStyled
+              className="main-grid"
               inputColumns={context.allColumns}
               inputSizes={HEADER_SIZES}
               onScroll={(e: any) => UpdateContainer(e)}
@@ -287,7 +289,7 @@ export default function Grid(props: IGridProps) {
               {context.allHeaders[0].headers.map(
                 (value: IColumns, key: number) => {
                   return (
-                    <GridTitleStyled spanSize={value.columns.length} key={key}>
+                    <GridTitleStyled columns={value.columns} key={key}>
                       <Title
                         key={key}
                         title={value.name}
@@ -297,19 +299,24 @@ export default function Grid(props: IGridProps) {
                   );
                 }
               )}
-              {context.allColumns.map((value: IColumn, key: number) => {
-                return (
-                  <GridColumnStyled key={key}>
-                    <Column
-                      key={key}
-                      name={value.name}
-                      size={value.size}
-                      type={value.type}
-                      toggled={false}
-                    />
-                  </GridColumnStyled>
-                );
-              })}
+              <MainGridColumnsStyled
+                columns={context.allColumns}
+                inputSizes={HEADER_SIZES}
+              >
+                {context.allColumns.map((value: IColumn, key: number) => {
+                  return (
+                    <GridColumnStyled className={value.size} key={key}>
+                      <Column
+                        key={key}
+                        name={value.name}
+                        size={value.size}
+                        type={value.type}
+                        toggled={false}
+                      />
+                    </GridColumnStyled>
+                  );
+                })}
+              </MainGridColumnsStyled>
               {context.items.map((x: IRow, row_key: number) => (
                 <GridRowStyled
                   id={row_key.toString()}
@@ -326,6 +333,7 @@ export default function Grid(props: IGridProps) {
                           cell_content: x[y.name],
                           cell_type: y.type as Cell_Type,
                           cell_key: cell_key,
+                          cell_size: y.size,
                           selection_options: y.options,
                           standard_type: y.name.toLowerCase() + "-cell",
                         }}
