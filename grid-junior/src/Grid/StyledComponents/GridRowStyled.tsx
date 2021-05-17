@@ -40,21 +40,37 @@ const GridRowStyled = styled.div<{
 
     .status {
       display: none;
-    };
+    }
 
     .data {
       display: none;
-    };
+    }
 
     .telefon {
       grid-row: 1;
       grid-column: 2;
-    };
+    }
   }
 
-  @media (max-width: ${ScreenThresholds.SmallScreen}) {
+  @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
+    .prenume {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
     .nume {
       grid-column: 2;
+      grid-row: 1;
+    }
+
+    .email {
+      grid-row: 2;
+      grid-column: 1 / span 2;
+    }
+    
+    .telefon {
+      grid-row: 3;
+      grid-column: 1 / span 2;
     }
   }
 `;
