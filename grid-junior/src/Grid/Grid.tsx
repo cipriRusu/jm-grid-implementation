@@ -13,14 +13,14 @@ import Cell from "./GridBody/GridRows/Cell";
 import Column from "./GridBody/GridHeader/Column";
 import Title from "./GridBody/GridHeader/Title";
 import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
-import MainGridStyled from "./MainGridStyled";
-import GridColumnStyled from "./GridColumnStyled";
-import GridTitleStyled from "./GridTitleStyled";
-import GridRowStyled from "./GridRowStyled";
+import MainGridStyled from "./StyledComponents/MainGridStyled";
+import GridColumnStyled from "./StyledComponents/GridColumnStyled";
+import GridTitleStyled from "./StyledComponents/GridTitleStyled";
+import GridRowStyled from "./StyledComponents/GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import HEADER_SIZES from "./HeaderSizes";
-import { MainGridColumnsStyled } from "./MainGridColumnsStyled";
+import { MainGridColumnsStyled } from "./StyledComponents/MainGridColumnsStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {

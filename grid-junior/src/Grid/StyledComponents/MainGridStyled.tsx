@@ -1,26 +1,36 @@
-import { IColumn } from "./Interfaces/GridBody/IColumn";
 import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
+import { IColumn } from "../Interfaces/GridBody/IColumn";
 
-export const MainGridColumnsStyled = styled.div<{
-  columns: IColumn[];
+const MainGrid = styled.div<{
+  inputColumns: IColumn[];
   inputSizes: { [key: string]: string };
 }>`
   display: grid;
-  grid-column: span ${(props) => props.columns.length};
   grid-template-columns: ${(props) =>
-    props.columns.map((x) => {
+    props.inputColumns.map((x) => {
       return props.inputSizes[x.size] + " ";
     })};
 
+  grid-template-rows: repeat(22, 1fr);
+  height: 38rem;
+  overflow-y: scroll;
+  background-color: gray;
+
   @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    .SmallColumn {
+      display: none;
+    }
+
     grid-template-columns: ${(props) =>
-      props.columns
+      props.inputColumns
         .filter((x: IColumn) => {
           return x.size !== "SmallColumn";
         })
-        .map((x) => {
+        .map((x: IColumn) => {
           return props.inputSizes[x.size] + " ";
         })};
   }
 `;
+
+export default MainGrid;

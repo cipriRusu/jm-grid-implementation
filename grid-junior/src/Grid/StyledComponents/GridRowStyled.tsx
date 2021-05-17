@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IColumn } from "./Interfaces/GridBody/IColumn";
+import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
 
 const GridRowStyled = styled.div<{

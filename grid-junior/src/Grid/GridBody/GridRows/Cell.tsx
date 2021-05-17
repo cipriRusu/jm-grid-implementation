@@ -4,7 +4,7 @@ import "./Cell.scss";
 import BooleanCell from "./BooleanCell";
 import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
-import { CellStyled } from "../../CellStyled";
+import { CellStyled } from "../../StyledComponents/CellStyled";
 
 const Cell = (props: { content: ICell }) => {
   const ComputeCellType = (content: ICell) => {
