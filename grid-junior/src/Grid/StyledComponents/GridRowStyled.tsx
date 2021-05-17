@@ -54,23 +54,38 @@ const GridRowStyled = styled.div<{
 
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
     .prenume {
+      font-size: x-large;
       grid-column: 1;
       grid-row: 1;
+
+      .cell {
+        margin: 0.5rem;
+      }
     }
 
     .nume {
+      font-size: x-large;
       grid-column: 2;
       grid-row: 1;
+      .cell {
+        margin: 0.5rem;
+      }
     }
 
     .email {
       grid-row: 2;
       grid-column: 1 / span 2;
+      .cell {
+        margin: 0.5rem;
+      }
     }
-    
+
     .telefon {
       grid-row: 3;
       grid-column: 1 / span 2;
+      .cell {
+        margin: 0.5rem 0rem 0.5rem 0.5rem;
+      }
     }
   }
 `;
