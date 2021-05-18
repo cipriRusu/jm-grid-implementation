@@ -19,6 +19,8 @@ const GridRowStyled = styled.div<{
   border-bottom: solid;
   border-width: thin;
   border-color: darkgray;
+  background-color: #404444;
+  color: white;
 
   @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>

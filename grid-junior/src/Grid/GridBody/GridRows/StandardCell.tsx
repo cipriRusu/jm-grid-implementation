@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { ICell } from "../../Interfaces/GridBody/ICell";
 
 const StandardCell = (props: ICell) => {
