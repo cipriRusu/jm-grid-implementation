@@ -102,6 +102,8 @@ export default function Grid(props: IGridProps) {
 
   const [offset, setOffset] = useState(0);
 
+  const [filterUpdate, setFilterUpdate] = useState(0);
+
   const flatHeader = () => {
     let allColumns = props.headers
       .filter((x: any) => x.name === "firstHeader")
@@ -145,6 +147,7 @@ export default function Grid(props: IGridProps) {
   };
 
   const setFilter = (filters: IFilter[]) => {
+    setFilterUpdate(Math.random());
     updateFilters(filters);
   };
 
@@ -240,6 +243,7 @@ export default function Grid(props: IGridProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filters,
+    filterUpdate,
     sort.field_id,
     sort.field_type,
     sort.sort_type,
