@@ -1,4 +1,5 @@
 import { IFilter } from "../Interfaces/IFilter";
+import { IColumnOptions } from "../Interfaces/IColumnOptions";
 
 export class SelectionFilter {
   data: any[];
@@ -11,11 +12,11 @@ export class SelectionFilter {
     filters.forEach((filter: IFilter): void => {
       let all_filters = Array<string>();
 
-      for (let key in filter.values) {
-        for (let object_key in filter.values[key]) {
-          all_filters.push(object_key);
-        }
-      }
+      filters.map((x: IFilter) => {
+        return x.values.map((y: IColumnOptions) => {
+          return all_filters.push(y.name);
+        });
+      });
 
       this.data = this.data.filter((entry: any) => {
         return all_filters.includes(entry[filter.name]);
