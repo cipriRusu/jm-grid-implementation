@@ -1,69 +1,86 @@
-export interface IColumn {
-  name: string;
-  size: ColumnSizes;
-  type?: ColumnTypes;
-  options?: any[];
-}
+import { IColumnOptions } from "../Interfaces/IColumnOptions";
+import { ColumnSizes } from "../CustomTypes/ColumnSizes";
+import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
+import { ColumnTypes } from "../CustomTypes/ColumnTypes";
+import { IHeader } from "../Interfaces/IHeader";
+import { IColumns } from "../Interfaces/IColumns";
+import { IColumn } from "../Interfaces/IColumn";
 
-export interface IColumns {
-  name: string;
-  columns: IColumn[];
-}
+let FirstOption = {} as IColumnOptions;
+FirstOption.name = "Disponibil";
+FirstOption.icon = "fa fa-circle";
 
-export interface IHeader {
-  name: string;
-  headers: IColumns[];
-}
+let SecondOption = {} as IColumnOptions;
+SecondOption.name = "Ocupat";
+SecondOption.icon = "fa fa-dot-circle-o";
 
-enum ColumnSizes {
-  SmallColumn = "SmallColumn",
-  StandardColumn = "StandardColumn",
-  LargeColumn = "LargeColumn",
-}
-
-enum ColumnTypes {
-  boolean = "boolean",
-  number = "number",
-  date = "date",
-  select = "select",
-}
+let ThirdOption = {} as IColumnOptions;
+ThirdOption.name = "Offline";
+ThirdOption.icon = "fa fa-circle-o";
 
 let Select = {} as IColumn;
 Select.name = "Status";
 Select.size = ColumnSizes.StandardColumn;
 Select.type = ColumnTypes.select;
-Select.options = [
-  { Disponibil: "fa fa-circle" },
-  { Ocupat: "fa fa-dot-circle-o" },
-  { Offline: "fa fa-circle-o" },
+Select.options = [FirstOption, SecondOption, ThirdOption];
+Select.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
 ];
 
 let Prenume = {} as IColumn;
 Prenume.name = "Prenume";
 Prenume.size = ColumnSizes.StandardColumn;
+Prenume.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
+];
 
 let Nume = {} as IColumn;
 Nume.name = "Nume";
 Nume.size = ColumnSizes.StandardColumn;
+Nume.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
+];
 
 let Valid = {} as IColumn;
 Valid.name = "Valid";
 Valid.type = ColumnTypes.boolean;
 Valid.size = ColumnSizes.SmallColumn;
+Valid.visibility = [ColumnVisibility.LargeVisible];
 
 let Email = {} as IColumn;
 Email.name = "Email";
 Email.size = ColumnSizes.StandardColumn;
+Email.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
+];
 
 let NrTelefon = {} as IColumn;
 NrTelefon.name = "Nr Telefon";
 NrTelefon.size = ColumnSizes.StandardColumn;
 NrTelefon.type = ColumnTypes.number;
+NrTelefon.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
+];
 
 let DataNasterii = {} as IColumn;
 DataNasterii.name = "Data Nasterii";
 DataNasterii.size = ColumnSizes.StandardColumn;
 DataNasterii.type = ColumnTypes.date;
+DataNasterii.visibility = [
+  ColumnVisibility.LargeVisible,
+  ColumnVisibility.StandardVisible,
+  ColumnVisibility.SmallVisible,
+];
 
 let firstHeader = {} as IColumns;
 firstHeader.name = "Utilizator";
