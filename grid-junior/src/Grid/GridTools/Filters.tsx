@@ -7,6 +7,7 @@ import StandardFilter from "./StandardFilter";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
 import BooleanFilter from "./BooleanFilter";
 import DateFilter from "./DateFilter";
+import { ColumnSizes } from "../ColumnSizes";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -79,8 +80,9 @@ const Filters = (props: any) => {
         ) {
           gridContext.setToggledColumn({
             name: "",
-            size: "",
+            size: ColumnSizes.StandardColumn,
             type: "",
+            visibility: [],
           });
           gridContext.setToggledHeader([]);
         }
@@ -94,8 +96,9 @@ const Filters = (props: any) => {
         Array.from(visibleDropdowns).forEach((dropdown) => {
           gridContext.setToggledColumn({
             name: "",
-            size: "",
+            size: ColumnSizes.StandardColumn,
             type: "",
+            visibility: [],
           });
           gridContext.setToggledHeader([]);
         });
@@ -112,8 +115,9 @@ const Filters = (props: any) => {
           Array.from(visibleDropdowns).forEach((dropdown) => {
             gridContext.setToggledColumn({
               name: "",
-              size: "",
+              size: ColumnSizes.StandardColumn,
               type: "",
+              visibility: [],
             });
             gridContext.setToggledHeader([]);
           });

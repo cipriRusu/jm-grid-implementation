@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ColumnSizes } from "../ColumnSizes";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
 
@@ -12,7 +13,7 @@ const GridTitle = styled.div<{ columns: IColumn[] }>`
       return (
         "span " +
         props.columns.filter((x: IColumn) => {
-          return x.size !== "SmallColumn";
+          return x.size !== ColumnSizes.SmallColumn;
         }).length
       );
     }};

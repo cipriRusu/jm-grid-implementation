@@ -6,6 +6,7 @@ import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { GridContext } from "../../Grid";
 import Filters from "../../GridTools/Filters";
 import { IFilter } from "../../Interfaces/GridTools/IFilter";
+import { ColumnSizes } from "../../ColumnSizes";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
@@ -15,6 +16,7 @@ class Column extends React.Component<IColumn, IColumn> {
       size: this.props.size,
       type: this.props.type,
       toggled: this.props.toggled,
+      visibility: this.props.visibility,
     };
   }
 
@@ -124,8 +126,9 @@ class Column extends React.Component<IColumn, IColumn> {
                     if (value.toggledColumn === this.state) {
                       value.setToggledColumn({
                         name: "",
-                        size: "",
+                        size: ColumnSizes.StandardColumn,
                         toggled: false,
+                        visibility: [],
                       });
                     } else {
                       value.setToggledColumn(this.state);
@@ -135,8 +138,9 @@ class Column extends React.Component<IColumn, IColumn> {
                     if (value.toggledColumn === this.state) {
                       value.setToggledColumn({
                         name: "",
-                        size: "",
+                        size: ColumnSizes.StandardColumn,
                         toggled: false,
+                        visibility: [],
                       });
                     } else {
                       value.setToggledColumn(this.state);

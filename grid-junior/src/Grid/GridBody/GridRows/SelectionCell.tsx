@@ -1,11 +1,14 @@
 import { ICell } from "../../Interfaces/GridBody/ICell";
+import { IColumnOptions } from "../../Interfaces/GridBody/IColumnOptions";
 
 const SelectionCell = (content: ICell) => {
   const DisplayIcon = (content: string, options: any[]) => {
-    let icon = options.filter((x) => x !== undefined && x[content])[0];
+    let selectionCellContent = options.filter(
+      (x: IColumnOptions) => x !== undefined && x.name === content
+    )[0] as IColumnOptions;
 
-    if (icon !== undefined) {
-      return <i className={icon[content]} aria-hidden="true"></i>;
+    if (selectionCellContent !== undefined) {
+      return <i className={selectionCellContent.icon} aria-hidden="true"></i>;
     }
   };
 

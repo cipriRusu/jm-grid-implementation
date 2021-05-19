@@ -24,6 +24,7 @@ function Header() {
                     size={value.size}
                     type={value.type}
                     toggled={false}
+                    visibility={value.visibility}
                   />
                 );
               })}

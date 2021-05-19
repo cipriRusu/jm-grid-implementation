@@ -12,9 +12,7 @@ const Cell = (props: { content: ICell }) => {
       case undefined:
       case "number":
         return (
-          <CellStyled
-            className={`${content.cell_size} ${content.cell_column}`}
-          >
+          <CellStyled className={`${content.cell_size} ${content.cell_column}`}>
             <StandardCell
               cell_content={content.cell_content}
               cell_key={content.cell_key}

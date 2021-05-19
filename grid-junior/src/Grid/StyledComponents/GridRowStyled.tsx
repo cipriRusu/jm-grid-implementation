@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IHeader } from "../Interfaces/GridBody/IHeader";
 import ScreenThresholds from "./ScreenThresholds";
-import HEADER_SIZES from "../HeaderSizes";
+import { ColumnSizes } from "../ColumnSizes";
 
 const GridRowStyled = styled.div<{
   inputColumns: IColumn[];
@@ -14,7 +14,7 @@ const GridRowStyled = styled.div<{
   display: grid;
   grid-template-columns: ${(props) =>
     props.inputColumns.map((x) => {
-      return props.inputSizes[x.size] + " ";
+      return x.size + " ";
     })};
   border-bottom: solid;
   border-width: thin;
@@ -26,17 +26,17 @@ const GridRowStyled = styled.div<{
     grid-template-columns: ${(props) =>
       props.inputColumns
         .filter((x: IColumn) => {
-          return x.size !== "SmallColumn";
+          return x.size !== ColumnSizes.SmallColumn;
         })
         .map((x) => {
-          return props.inputSizes[x.size] + " ";
+          return x.size + " ";
         })};
   }
 
   @media (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
     grid-template-columns: ${(props) => {
       return props.inputTitles[0].headers.map((x: any) => {
-        return HEADER_SIZES.StandardColumn + " ";
+        return ColumnSizes.StandardColumn + " ";
       });
     }};
 

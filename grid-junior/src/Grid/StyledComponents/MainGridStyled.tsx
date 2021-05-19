@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
+import { ColumnSizes } from "../ColumnSizes";
 
 const MainGrid = styled.div<{
   inputColumns: IColumn[];
@@ -9,7 +10,7 @@ const MainGrid = styled.div<{
   display: grid;
   grid-template-columns: ${(props) =>
     props.inputColumns.map((x) => {
-      return props.inputSizes[x.size] + " ";
+      return x.size + " ";
     })};
 
   grid-template-rows: repeat(22, 1fr);
@@ -18,17 +19,13 @@ const MainGrid = styled.div<{
   background-color: gray;
 
   @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
-    .SmallColumn {
-      display: none;
-    }
-
     grid-template-columns: ${(props) =>
       props.inputColumns
         .filter((x: IColumn) => {
-          return x.size !== "SmallColumn";
+          return x.size !== ColumnSizes.SmallColumn;
         })
         .map((x: IColumn) => {
-          return props.inputSizes[x.size] + " ";
+          return x.size + " ";
         })};
   }
 `;

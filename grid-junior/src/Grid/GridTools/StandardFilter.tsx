@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { ColumnSizes } from "../ColumnSizes";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
@@ -114,8 +115,9 @@ const StandardFilter = (props: any) => {
       Array.from(visibleDropdowns).forEach((dropdown) => {
         gridContext.setToggledColumn({
           name: "",
-          size: "",
+          size: ColumnSizes.StandardColumn,
           type: "",
+          visibility: [],
         });
         gridContext.setToggledHeader([]);
       });
