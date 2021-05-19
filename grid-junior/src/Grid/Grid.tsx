@@ -19,7 +19,7 @@ import GridTitleStyled from "./StyledComponents/GridTitleStyled";
 import GridRowStyled from "./StyledComponents/GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
-import { ColumnSizes } from "./ColumnSizes";
+import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { MainGridColumnsStyled } from "./StyledComponents/MainGridColumnsStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({

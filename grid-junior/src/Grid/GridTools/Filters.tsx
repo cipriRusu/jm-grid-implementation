@@ -7,7 +7,7 @@ import StandardFilter from "./StandardFilter";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
 import BooleanFilter from "./BooleanFilter";
 import DateFilter from "./DateFilter";
-import { ColumnSizes } from "../ColumnSizes";
+import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);

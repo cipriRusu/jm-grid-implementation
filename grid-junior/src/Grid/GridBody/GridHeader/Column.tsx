@@ -6,7 +6,7 @@ import { IColumn } from "../../Interfaces/GridBody/IColumn";
 import { GridContext } from "../../Grid";
 import Filters from "../../GridTools/Filters";
 import { IFilter } from "../../Interfaces/GridTools/IFilter";
-import { ColumnSizes } from "../../ColumnSizes";
+import { ColumnSizes } from "../../CustomTypes/ColumnSizes";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {

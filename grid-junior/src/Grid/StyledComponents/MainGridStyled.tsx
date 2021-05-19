@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
-import { ColumnSizes } from "../ColumnSizes";
+import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 
 const MainGrid = styled.div<{
   inputColumns: IColumn[];

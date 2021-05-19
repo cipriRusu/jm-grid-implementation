@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IHeader } from "../Interfaces/GridBody/IHeader";
 import ScreenThresholds from "./ScreenThresholds";
-import { ColumnSizes } from "../ColumnSizes";
+import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 
 const GridRowStyled = styled.div<{
   inputColumns: IColumn[];

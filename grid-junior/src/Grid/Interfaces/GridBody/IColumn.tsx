@@ -1,4 +1,4 @@
-import { ColumnSizes } from "../../ColumnSizes";
+import { ColumnSizes } from "../../CustomTypes/ColumnSizes";
 import { ColumnVisibility } from "../../CustomTypes/ColumnVisibility";
 
 export interface IColumn {
