@@ -20,7 +20,7 @@ import GridRowStyled from "./StyledComponents/GridRowStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
-import { MainGridColumnsStyled } from "./StyledComponents/MainGridColumnsStyled";
+import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -345,6 +345,7 @@ export default function Grid(props: IGridProps) {
                           cell_type: y.type as Cell_Type,
                           cell_key: cell_key,
                           cell_size: y.size,
+                          cell_visibility: y.visibility,
                           selection_options: y.options,
                           cell_column: y.name.toLowerCase(),
                         }}

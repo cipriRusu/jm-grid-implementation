@@ -1,28 +1,20 @@
-import styled from "styled-components";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
-import { IHeader } from "../Interfaces/GridBody/IHeader";
+import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
 
-const GridRowStyled = styled.div<{
-  inputColumns: IColumn[];
+export const MainGridColumnsStyled = styled.div<{
+  columns: IColumn[];
   inputSizes: { [key: string]: string };
-  inputTitles: IHeader[];
 }>`
-  grid-column: span ${(props) => props.inputColumns.length};
-
   display: grid;
+  grid-column: span ${(props) => props.columns.length};
+  white-space: nowrap;
   grid-template-columns: ${(props) =>
-    props.inputColumns.map((x) => {
+    props.columns.map((x) => {
       return x.size + " ";
     })};
-
-  border-bottom: solid;
-  border-width: thin;
-  border-color: darkgray;
-  background-color: #404444;
-  color: white;
 
   @media (min-width: ${ScreenThresholds.LargeScreen} + "rem") {
     .${ColumnVisibility.MaxVisible.toString()} {
@@ -60,7 +52,7 @@ const GridRowStyled = styled.div<{
     }
 
     grid-template-columns: ${(props) =>
-      props.inputColumns
+      props.columns
         .filter((x: IColumn) => {
           return x.size !== ColumnSizes.SmallColumn;
         })
@@ -89,33 +81,14 @@ const GridRowStyled = styled.div<{
     .${ColumnVisibility.SmallVisible.toString()} {
       display: none;
     }
-
-    grid-template-columns: ${(props) => {
-      return props.inputTitles[0].headers.map((x: any) => {
-        return ColumnSizes.StandardColumn + " ";
-      });
-    }};
-
-    grid-template-rows: ${(props) => {
-      return props.inputTitles[0].headers.map((x: any) => {
-        return ColumnSizes.StandardColumn + " ";
-      });
-    }};
-
-    .${ColumnVisibility.MediumVisible.toString()} {
-      display: block;
-    }
-
-    grid-auto-flow: column;
   }
 
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
-    grid-auto-flow: row;
     .${ColumnVisibility.MaxVisible.toString()} {
       display: none;
     }
 
-    ${ColumnVisibility.LargeVisible.toString()} {
+    .${ColumnVisibility.LargeVisible.toString()} {
       display: none;
     }
 
@@ -124,9 +97,7 @@ const GridRowStyled = styled.div<{
     }
 
     .${ColumnVisibility.SmallVisible.toString()} {
-      display: block;
+      display: none;
     }
   }
 `;
-
-export default GridRowStyled;

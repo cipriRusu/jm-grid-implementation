@@ -1,5 +1,6 @@
 export enum ColumnVisibility {
-  LargeVisible,
-  StandardVisible,
-  SmallVisible,
+  MaxVisible = "max-visible",
+  LargeVisible = "x-visible",
+  MediumVisible = "m-visible",
+  SmallVisible = "s-visible",
 }

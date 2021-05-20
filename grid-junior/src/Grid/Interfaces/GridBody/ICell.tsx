@@ -1,3 +1,4 @@
+import { ColumnVisibility } from "../../../DataSource/CustomTypes/ColumnVisibility";
 import { Cell_Type } from "../../CustomTypes/CellType";
 
 export interface ICell {
@@ -7,5 +8,6 @@ export interface ICell {
   cell_content?: string;
   cell_size: string;
   cell_column?: string;
+  cell_visibility: ColumnVisibility[];
   selection_options?: any[];
 }

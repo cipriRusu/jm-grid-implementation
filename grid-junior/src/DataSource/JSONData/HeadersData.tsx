@@ -24,8 +24,8 @@ Select.size = ColumnSizes.StandardColumn;
 Select.type = ColumnTypes.select;
 Select.options = [FirstOption, SecondOption, ThirdOption];
 Select.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
   ColumnVisibility.SmallVisible,
 ];
 
@@ -33,8 +33,9 @@ let Prenume = {} as IColumn;
 Prenume.name = "Prenume";
 Prenume.size = ColumnSizes.StandardColumn;
 Prenume.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
+  ColumnVisibility.MediumVisible,
   ColumnVisibility.SmallVisible,
 ];
 
@@ -42,8 +43,9 @@ let Nume = {} as IColumn;
 Nume.name = "Nume";
 Nume.size = ColumnSizes.StandardColumn;
 Nume.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
+  ColumnVisibility.MediumVisible,
   ColumnVisibility.SmallVisible,
 ];
 
@@ -51,14 +53,15 @@ let Valid = {} as IColumn;
 Valid.name = "Valid";
 Valid.type = ColumnTypes.boolean;
 Valid.size = ColumnSizes.SmallColumn;
-Valid.visibility = [ColumnVisibility.LargeVisible];
+Valid.visibility = [ColumnVisibility.MaxVisible];
 
 let Email = {} as IColumn;
 Email.name = "Email";
 Email.size = ColumnSizes.StandardColumn;
 Email.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
+  ColumnVisibility.MediumVisible,
   ColumnVisibility.SmallVisible,
 ];
 
@@ -67,8 +70,9 @@ NrTelefon.name = "Nr Telefon";
 NrTelefon.size = ColumnSizes.StandardColumn;
 NrTelefon.type = ColumnTypes.number;
 NrTelefon.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
+  ColumnVisibility.MediumVisible,
   ColumnVisibility.SmallVisible,
 ];
 
@@ -77,9 +81,8 @@ DataNasterii.name = "Data Nasterii";
 DataNasterii.size = ColumnSizes.StandardColumn;
 DataNasterii.type = ColumnTypes.date;
 DataNasterii.visibility = [
+  ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
-  ColumnVisibility.StandardVisible,
-  ColumnVisibility.SmallVisible,
 ];
 
 let firstHeader = {} as IColumns;
