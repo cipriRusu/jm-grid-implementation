@@ -7,6 +7,7 @@ import { GridContext } from "../../Grid";
 import Filters from "../../GridTools/Filters";
 import { IFilter } from "../../Interfaces/GridTools/IFilter";
 import { ColumnSizes } from "../../CustomTypes/ColumnSizes";
+import { ColumnCollapsable } from "../../CustomTypes/ColumnCollapsable";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
@@ -17,6 +18,7 @@ class Column extends React.Component<IColumn, IColumn> {
       type: this.props.type,
       toggled: this.props.toggled,
       visibility: this.props.visibility,
+      collapsable: this.props.collapsable,
     };
   }
 
@@ -129,6 +131,7 @@ class Column extends React.Component<IColumn, IColumn> {
                         size: ColumnSizes.StandardColumn,
                         toggled: false,
                         visibility: [],
+                        collapsable: ColumnCollapsable.collapsable,
                       });
                     } else {
                       value.setToggledColumn(this.state);
@@ -141,6 +144,7 @@ class Column extends React.Component<IColumn, IColumn> {
                         size: ColumnSizes.StandardColumn,
                         toggled: false,
                         visibility: [],
+                        collapsable: ColumnCollapsable.collapsable,
                       });
                     } else {
                       value.setToggledColumn(this.state);

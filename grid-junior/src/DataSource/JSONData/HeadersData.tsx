@@ -1,6 +1,7 @@
 import { IColumnOptions } from "../Interfaces/IColumnOptions";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
+import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 import { ColumnTypes } from "../CustomTypes/ColumnTypes";
 import { IHeader } from "../Interfaces/IHeader";
 import { IColumns } from "../Interfaces/IColumns";
@@ -23,6 +24,7 @@ Select.name = "Status";
 Select.size = ColumnSizes.StandardColumn;
 Select.type = ColumnTypes.select;
 Select.options = [FirstOption, SecondOption, ThirdOption];
+Select.collapsable = ColumnCollapsable.fixed;
 Select.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
@@ -32,6 +34,7 @@ Select.visibility = [
 let Prenume = {} as IColumn;
 Prenume.name = "Prenume";
 Prenume.size = ColumnSizes.StandardColumn;
+Prenume.collapsable = ColumnCollapsable.fixed;
 Prenume.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
@@ -42,6 +45,7 @@ Prenume.visibility = [
 let Nume = {} as IColumn;
 Nume.name = "Nume";
 Nume.size = ColumnSizes.StandardColumn;
+Nume.collapsable = ColumnCollapsable.fixed;
 Nume.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
@@ -53,11 +57,13 @@ let Valid = {} as IColumn;
 Valid.name = "Valid";
 Valid.type = ColumnTypes.boolean;
 Valid.size = ColumnSizes.SmallColumn;
+Valid.collapsable = ColumnCollapsable.collapsable;
 Valid.visibility = [ColumnVisibility.MaxVisible];
 
 let Email = {} as IColumn;
 Email.name = "Email";
 Email.size = ColumnSizes.StandardColumn;
+Email.collapsable = ColumnCollapsable.collapsable;
 Email.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
@@ -69,6 +75,7 @@ let NrTelefon = {} as IColumn;
 NrTelefon.name = "Nr Telefon";
 NrTelefon.size = ColumnSizes.StandardColumn;
 NrTelefon.type = ColumnTypes.number;
+NrTelefon.collapsable = ColumnCollapsable.collapsable;
 NrTelefon.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,
@@ -80,6 +87,7 @@ let DataNasterii = {} as IColumn;
 DataNasterii.name = "Data Nasterii";
 DataNasterii.size = ColumnSizes.StandardColumn;
 DataNasterii.type = ColumnTypes.date;
+DataNasterii.collapsable = ColumnCollapsable.collapsable;
 DataNasterii.visibility = [
   ColumnVisibility.MaxVisible,
   ColumnVisibility.LargeVisible,

@@ -4,6 +4,7 @@ import { IHeader } from "../Interfaces/GridBody/IHeader";
 import ScreenThresholds from "./ScreenThresholds";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
+import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 
 const GridRowStyled = styled.div<{
   inputColumns: IColumn[];
@@ -125,6 +126,23 @@ const GridRowStyled = styled.div<{
 
     .${ColumnVisibility.SmallVisible.toString()} {
       display: block;
+    }
+
+    .${ColumnCollapsable.fixed.toString()} {
+      grid-row: 1;
+      .selection-cell {
+        .selection-cell-text {
+          display: none;
+        }
+      }
+    }
+
+    .fixed-column {
+      font-size: x-large;
+    }
+
+    .${ColumnCollapsable.collapsable.toString()} {
+      grid-column: -1 / 1;
     }
   }
 `;

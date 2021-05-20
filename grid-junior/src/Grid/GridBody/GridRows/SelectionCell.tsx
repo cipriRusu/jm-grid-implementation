@@ -14,13 +14,13 @@ const SelectionCell = (content: ICell) => {
 
   return (
     <div className="cell selection-cell">
-      <div>
+      <div className="selection-cell-icon">
         {DisplayIcon(
           content.cell_content || "",
           content.selection_options || []
         )}
       </div>
-      <div>{content.cell_content}</div>
+      <div className="selection-cell-text">{content.cell_content}</div>
     </div>
   );
 };

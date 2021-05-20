@@ -21,6 +21,7 @@ import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
+import { ColumnCollapsable } from "../DataSource/CustomTypes/ColumnCollapsable";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -59,6 +60,7 @@ export const GridContext = createContext<IGridContext & ISortable>({
   toggledColumn: {
     name: "",
     size: ColumnSizes.StandardColumn,
+    collapsable: ColumnCollapsable.collapsable,
     type: "",
     toggled: false,
     visibility: [],
@@ -87,6 +89,7 @@ export default function Grid(props: IGridProps) {
   const [toggledColumn, updateToggledColumn] = useState<IColumn>({
     name: "",
     size: ColumnSizes.StandardColumn,
+    collapsable: ColumnCollapsable.collapsable,
     type: "",
     toggled: false,
     visibility: [],
@@ -321,6 +324,7 @@ export default function Grid(props: IGridProps) {
                         size={value.size}
                         type={value.type}
                         visibility={value.visibility}
+                        collapsable={value.collapsable}
                         toggled={false}
                       />
                     </GridColumnStyled>
@@ -346,6 +350,7 @@ export default function Grid(props: IGridProps) {
                           cell_key: cell_key,
                           cell_size: y.size,
                           cell_visibility: y.visibility,
+                          cell_collapsable: y.collapsable,
                           selection_options: y.options,
                           cell_column: y.name.toLowerCase(),
                         }}

@@ -14,7 +14,7 @@ const Cell = (props: { content: ICell }) => {
         return (
           <CellStyled
             className={`${content.cell_visibility.join(" ")} ${
-              content.cell_column
+              content.cell_collapsable
             }`}
           >
             <StandardCell
@@ -24,6 +24,7 @@ const Cell = (props: { content: ICell }) => {
               cell_column={content.cell_column}
               cell_size={content.cell_size}
               cell_visibility={content.cell_visibility}
+              cell_collapsable={content.cell_collapsable}
             />
           </CellStyled>
         );
@@ -31,7 +32,7 @@ const Cell = (props: { content: ICell }) => {
         return (
           <CellStyled
             className={`${content.cell_visibility.join(" ")} ${
-              content.cell_column
+              content.cell_collapsable
             }`}
           >
             <BooleanCell
@@ -40,6 +41,7 @@ const Cell = (props: { content: ICell }) => {
               cell_type={content.cell_type}
               cell_size={content.cell_size}
               cell_visibility={content.cell_visibility}
+              cell_collapsable={content.cell_collapsable}
             />
           </CellStyled>
         );
@@ -47,7 +49,7 @@ const Cell = (props: { content: ICell }) => {
         return (
           <CellStyled
             className={`${content.cell_visibility.join(" ")} ${
-              content.cell_column
+              content.cell_collapsable
             }`}
           >
             <SelectionCell
@@ -58,6 +60,7 @@ const Cell = (props: { content: ICell }) => {
               cell_size={content.cell_size}
               selection_options={content.selection_options}
               cell_visibility={content.cell_visibility}
+              cell_collapsable={content.cell_collapsable}
             />
           </CellStyled>
         );
@@ -65,7 +68,7 @@ const Cell = (props: { content: ICell }) => {
         return (
           <CellStyled
             className={`${content.cell_visibility.join(" ")} ${
-              content.cell_column
+              content.cell_collapsable
             }`}
           >
             <DateCell
@@ -75,6 +78,7 @@ const Cell = (props: { content: ICell }) => {
               cell_size={content.cell_size}
               selection_options={content.selection_options}
               cell_visibility={content.cell_visibility}
+              cell_collapsable={content.cell_collapsable}
             />
           </CellStyled>
         );

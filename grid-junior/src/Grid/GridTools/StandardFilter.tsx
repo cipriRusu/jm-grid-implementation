@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
@@ -118,6 +119,7 @@ const StandardFilter = (props: any) => {
           size: ColumnSizes.StandardColumn,
           type: "",
           visibility: [],
+          collapsable: ColumnCollapsable.collapsable,
         });
         gridContext.setToggledHeader([]);
       });
