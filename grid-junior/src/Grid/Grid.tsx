@@ -21,7 +21,7 @@ import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
-import { ColumnCollapsable } from "../DataSource/CustomTypes/ColumnCollapsable";
+import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {

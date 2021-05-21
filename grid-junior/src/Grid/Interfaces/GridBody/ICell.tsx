@@ -1,4 +1,4 @@
-import { ColumnVisibility } from "../../../DataSource/CustomTypes/ColumnVisibility";
+import { ColumnVisibility } from "../../CustomTypes/ColumnVisibility";
 import { Cell_Type } from "../../CustomTypes/CellType";
 import { ColumnCollapsable } from "../../CustomTypes/ColumnCollapsable";
 

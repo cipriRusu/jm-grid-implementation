@@ -1,4 +1,4 @@
-import { ISortStats } from "../DataSource/Interfaces/ISortStats";
+import { ISortStats } from "../Grid/Interfaces/ISortStats";
 import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
 import { IRow } from "./Interfaces/GridBody/IRow";
 import { IDataSource } from "./Interfaces/GridData/IDataSource";

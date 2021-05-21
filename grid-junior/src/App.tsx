@@ -1,6 +1,6 @@
 import Grid from "./Grid/Grid";
 import React from "react";
-import { headers } from "./DataSource/JSONData/HeadersData";
+import { headers } from "./DataSource/GridStructure/HeadersData";
 import { DataSource } from "./DataSource/DataSource";
 
 const PAGE_SIZE = 11;

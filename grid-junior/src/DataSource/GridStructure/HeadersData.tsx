@@ -1,11 +1,11 @@
-import { IColumnOptions } from "../Interfaces/IColumnOptions";
-import { ColumnSizes } from "../CustomTypes/ColumnSizes";
-import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
-import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
-import { ColumnTypes } from "../CustomTypes/ColumnTypes";
-import { IHeader } from "../Interfaces/IHeader";
-import { IColumns } from "../Interfaces/IColumns";
-import { IColumn } from "../Interfaces/IColumn";
+import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
+import { ColumnVisibility } from "../../Grid/CustomTypes/ColumnVisibility";
+import { ColumnSizes } from "../../Grid/CustomTypes/ColumnSizes";
+import { ColumnCollapsable } from "../../Grid/CustomTypes/ColumnCollapsable";
+import { ColumnTypes } from "../../Grid/CustomTypes/ColumnTypes";
+import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
+import { IColumns } from "../../Grid/Interfaces/GridBody/IColumns";
+import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
 
 let FirstOption = {} as IColumnOptions;
 FirstOption.name = "Disponibil";

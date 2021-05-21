@@ -1,9 +1,9 @@
 import { BooleanFilter } from "./DataFilters/BooleanFilter";
 import { DateFilter } from "./DataFilters/DateFilter";
-import { ISortStats } from "./Interfaces/ISortStats";
-import { IDataSource } from "./Interfaces/IDataSource";
-import { IFilter } from "./Interfaces/IFilter";
-import { dummy_data } from "../DataSource/JSONData/DummyData";
+import { ISortStats } from "../Grid/Interfaces/ISortStats";
+import { IDataSource } from "../Grid/Interfaces/IDataSource";
+import { IFilter } from "../Grid/Interfaces/GridTools/IFilter";
+import { dummy_data } from "./GridStructure/DummyData";
 import { NumberFilter } from "./DataFilters/NumberFilter";
 import { SelectionFilter } from "./DataFilters/SelectionFilter";
 import { StringFilter } from "./DataFilters/StringFilter";

@@ -1,6 +1,6 @@
-import { IRow } from "./IRow";
+import { IRow } from "./GridBody/IRow";
 import { ISortStats } from "./ISortStats";
-import { IFilter } from "./IFilter";
+import { IFilter } from "../Interfaces/GridTools/IFilter";
 
 export interface IDataSource {
   get: (

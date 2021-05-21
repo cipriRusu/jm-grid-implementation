@@ -1,4 +1,4 @@
-import { IFilter } from "../Interfaces/IFilter";
+import { IFilter } from "../../Grid/Interfaces/GridTools/IFilter";
 
 export class DateFilter {
   data: any[];
