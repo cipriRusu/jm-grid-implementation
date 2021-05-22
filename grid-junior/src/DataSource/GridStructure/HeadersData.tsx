@@ -1,5 +1,5 @@
 import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
-import { ColumnVisibility } from "../../Grid/CustomTypes/ColumnVisibility";
+import { MinimumVisibility } from "../../Grid/CustomTypes/ColumnVisibility";
 import { ColumnSizes } from "../../Grid/CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../../Grid/CustomTypes/ColumnCollapsable";
 import { ColumnTypes } from "../../Grid/CustomTypes/ColumnTypes";
@@ -26,9 +26,9 @@ Select.type = ColumnTypes.select;
 Select.options = [FirstOption, SecondOption, ThirdOption];
 Select.collapsable = ColumnCollapsable.fixed;
 Select.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
-  ColumnVisibility.SmallVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
+  MinimumVisibility.SmallVisible,
 ];
 
 let Prenume = {} as IColumn;
@@ -36,10 +36,10 @@ Prenume.name = "Prenume";
 Prenume.size = ColumnSizes.StandardColumn;
 Prenume.collapsable = ColumnCollapsable.fixed;
 Prenume.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
-  ColumnVisibility.MediumVisible,
-  ColumnVisibility.SmallVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
+  MinimumVisibility.MediumVisible,
+  MinimumVisibility.SmallVisible,
 ];
 
 let Nume = {} as IColumn;
@@ -47,10 +47,10 @@ Nume.name = "Nume";
 Nume.size = ColumnSizes.StandardColumn;
 Nume.collapsable = ColumnCollapsable.fixed;
 Nume.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
-  ColumnVisibility.MediumVisible,
-  ColumnVisibility.SmallVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
+  MinimumVisibility.MediumVisible,
+  MinimumVisibility.SmallVisible,
 ];
 
 let Valid = {} as IColumn;
@@ -58,17 +58,17 @@ Valid.name = "Valid";
 Valid.type = ColumnTypes.boolean;
 Valid.size = ColumnSizes.SmallColumn;
 Valid.collapsable = ColumnCollapsable.collapsable;
-Valid.visibility = [ColumnVisibility.MaxVisible];
+Valid.visibility = [MinimumVisibility.MaxVisible];
 
 let Email = {} as IColumn;
 Email.name = "Email";
 Email.size = ColumnSizes.StandardColumn;
 Email.collapsable = ColumnCollapsable.collapsable;
 Email.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
-  ColumnVisibility.MediumVisible,
-  ColumnVisibility.SmallVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
+  MinimumVisibility.MediumVisible,
+  MinimumVisibility.SmallVisible,
 ];
 
 let NrTelefon = {} as IColumn;
@@ -77,10 +77,10 @@ NrTelefon.size = ColumnSizes.StandardColumn;
 NrTelefon.type = ColumnTypes.number;
 NrTelefon.collapsable = ColumnCollapsable.collapsable;
 NrTelefon.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
-  ColumnVisibility.MediumVisible,
-  ColumnVisibility.SmallVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
+  MinimumVisibility.MediumVisible,
+  MinimumVisibility.SmallVisible,
 ];
 
 let DataNasterii = {} as IColumn;
@@ -89,8 +89,8 @@ DataNasterii.size = ColumnSizes.StandardColumn;
 DataNasterii.type = ColumnTypes.date;
 DataNasterii.collapsable = ColumnCollapsable.collapsable;
 DataNasterii.visibility = [
-  ColumnVisibility.MaxVisible,
-  ColumnVisibility.LargeVisible,
+  MinimumVisibility.MaxVisible,
+  MinimumVisibility.LargeVisible,
 ];
 
 let firstHeader = {} as IColumns;

@@ -3,7 +3,7 @@ import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IHeader } from "../Interfaces/GridBody/IHeader";
 import ScreenThresholds from "./ScreenThresholds";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
-import { ColumnVisibility } from "../CustomTypes/ColumnVisibility";
+import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 
 const GridRowStyled = styled.div<{
@@ -26,37 +26,37 @@ const GridRowStyled = styled.div<{
   color: white;
 
   @media (min-width: ${ScreenThresholds.LargeScreen} + "rem") {
-    .${ColumnVisibility.MaxVisible.toString()} {
+    .${MinimumVisibility.MaxVisible.toString()} {
       display: block;
     }
 
-    .${ColumnVisibility.LargeVisible.toString()} {
+    .${MinimumVisibility.LargeVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.MediumVisible.toString()} {
+    .${MinimumVisibility.MediumVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.SmallVisible.toString()} {
+    .${MinimumVisibility.SmallVisible.toString()} {
       display: none;
     }
   }
 
   @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
-    .${ColumnVisibility.MaxVisible.toString()} {
+    .${MinimumVisibility.MaxVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.LargeVisible.toString()} {
+    .${MinimumVisibility.LargeVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.MediumVisible.toString()} {
+    .${MinimumVisibility.MediumVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.SmallVisible.toString()} {
+    .${MinimumVisibility.SmallVisible.toString()} {
       display: none;
     }
 
@@ -69,25 +69,25 @@ const GridRowStyled = styled.div<{
           return x.size + " ";
         })};
 
-    .${ColumnVisibility.LargeVisible.toString()} {
+    .${MinimumVisibility.LargeVisible.toString()} {
       display: block;
     }
   }
 
   @media (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
-    .${ColumnVisibility.MaxVisible.toString()} {
+    .${MinimumVisibility.MaxVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.LargeVisible.toString()} {
+    .${MinimumVisibility.LargeVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.MediumVisible.toString()} {
+    .${MinimumVisibility.MediumVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.SmallVisible.toString()} {
+    .${MinimumVisibility.SmallVisible.toString()} {
       display: none;
     }
 
@@ -103,7 +103,7 @@ const GridRowStyled = styled.div<{
       });
     }};
 
-    .${ColumnVisibility.MediumVisible.toString()} {
+    .${MinimumVisibility.MediumVisible.toString()} {
       display: block;
     }
 
@@ -112,19 +112,19 @@ const GridRowStyled = styled.div<{
 
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
     grid-auto-flow: row;
-    .${ColumnVisibility.MaxVisible.toString()} {
+    .${MinimumVisibility.MaxVisible.toString()} {
       display: none;
     }
 
-    ${ColumnVisibility.LargeVisible.toString()} {
+    ${MinimumVisibility.LargeVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.MediumVisible.toString()} {
+    .${MinimumVisibility.MediumVisible.toString()} {
       display: none;
     }
 
-    .${ColumnVisibility.SmallVisible.toString()} {
+    .${MinimumVisibility.SmallVisible.toString()} {
       display: block;
     }
 

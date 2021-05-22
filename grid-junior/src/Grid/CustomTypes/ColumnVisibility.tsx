@@ -1,4 +1,4 @@
-export enum ColumnVisibility {
+export enum MinimumVisibility {
   MaxVisible = "max-visible",
   LargeVisible = "x-visible",
   MediumVisible = "m-visible",
