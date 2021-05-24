@@ -9,6 +9,7 @@ import BooleanFilter from "./BooleanFilter";
 import DateFilter from "./DateFilter";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
+import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -83,7 +84,7 @@ const Filters = (props: any) => {
             name: "",
             size: ColumnSizes.StandardColumn,
             type: "",
-            visibility: [],
+            minVisibility: MinimumVisibility.SmallVisible,
             collapsable: ColumnCollapsable.collapsable,
           });
           gridContext.setToggledHeader([]);
@@ -100,7 +101,7 @@ const Filters = (props: any) => {
             name: "",
             size: ColumnSizes.StandardColumn,
             type: "",
-            visibility: [],
+            minVisibility: MinimumVisibility.SmallVisible,
             collapsable: ColumnCollapsable.collapsable,
           });
           gridContext.setToggledHeader([]);
@@ -120,7 +121,7 @@ const Filters = (props: any) => {
               name: "",
               size: ColumnSizes.StandardColumn,
               type: "",
-              visibility: [],
+              minVisibility: MinimumVisibility.SmallVisible,
               collapsable: ColumnCollapsable.collapsable,
             });
             gridContext.setToggledHeader([]);

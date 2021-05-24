@@ -25,7 +25,7 @@ function Header() {
                     type={value.type}
                     toggled={false}
                     collapsable={value.collapsable}
-                    visibility={value.visibility}
+                    minVisibility={value.minVisibility}
                   />
                 );
               })}

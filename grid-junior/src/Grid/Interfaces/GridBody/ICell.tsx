@@ -9,7 +9,7 @@ export interface ICell {
   cell_content?: string;
   cell_size: string;
   cell_column?: string;
-  cell_visibility: MinimumVisibility[];
+  cell_visibility: MinimumVisibility;
   cell_collapsable: ColumnCollapsable;
   selection_options?: any[];
 }

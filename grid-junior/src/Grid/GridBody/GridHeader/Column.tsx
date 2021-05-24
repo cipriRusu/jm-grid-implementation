@@ -8,6 +8,7 @@ import Filters from "../../GridTools/Filters";
 import { IFilter } from "../../Interfaces/GridTools/IFilter";
 import { ColumnSizes } from "../../CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../../CustomTypes/ColumnCollapsable";
+import { MinimumVisibility } from "../../CustomTypes/ColumnVisibility";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
@@ -17,7 +18,7 @@ class Column extends React.Component<IColumn, IColumn> {
       size: this.props.size,
       type: this.props.type,
       toggled: this.props.toggled,
-      visibility: this.props.visibility,
+      minVisibility: this.props.minVisibility,
       collapsable: this.props.collapsable,
     };
   }
@@ -130,7 +131,7 @@ class Column extends React.Component<IColumn, IColumn> {
                         name: "",
                         size: ColumnSizes.StandardColumn,
                         toggled: false,
-                        visibility: [],
+                        minVisibility: MinimumVisibility.SmallVisible,
                         collapsable: ColumnCollapsable.collapsable,
                       });
                     } else {
@@ -143,7 +144,7 @@ class Column extends React.Component<IColumn, IColumn> {
                         name: "",
                         size: ColumnSizes.StandardColumn,
                         toggled: false,
-                        visibility: [],
+                        minVisibility: MinimumVisibility.SmallVisible,
                         collapsable: ColumnCollapsable.collapsable,
                       });
                     } else {

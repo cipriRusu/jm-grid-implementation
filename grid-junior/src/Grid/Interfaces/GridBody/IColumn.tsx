@@ -6,7 +6,7 @@ export interface IColumn {
   name: string;
   size: ColumnSizes;
   collapsable: ColumnCollapsable;
-  visibility: MinimumVisibility[];
+  minVisibility: MinimumVisibility;
   toggled?: boolean;
   type?: string;
   options?: any[];
