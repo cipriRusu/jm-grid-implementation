@@ -22,6 +22,8 @@ import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
 import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
+import { MinimumVisibility } from "./CustomTypes/ColumnVisibility";
+import { CellStyled } from "./StyledComponents/CellStyled";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -63,7 +65,7 @@ export const GridContext = createContext<IGridContext & ISortable>({
     collapsable: ColumnCollapsable.collapsable,
     type: "",
     toggled: false,
-    visibility: [],
+    minVisibility: MinimumVisibility.SmallVisible,
   },
   toggledHeader: [],
 });
@@ -92,7 +94,7 @@ export default function Grid(props: IGridProps) {
     collapsable: ColumnCollapsable.collapsable,
     type: "",
     toggled: false,
-    visibility: [],
+    minVisibility: MinimumVisibility.SmallVisible,
   });
 
   const [toggledHeader, updateToggledHeader] = useState<IColumn[]>([]);
@@ -314,16 +316,13 @@ export default function Grid(props: IGridProps) {
               >
                 {context.allColumns.map((value: IColumn, key: number) => {
                   return (
-                    <GridColumnStyled
-                      className={value.visibility.join(" ")}
-                      key={key}
-                    >
+                    <GridColumnStyled className={value.minVisibility} key={key}>
                       <Column
                         key={key}
                         name={value.name}
                         size={value.size}
                         type={value.type}
-                        visibility={value.visibility}
+                        minVisibility={value.minVisibility}
                         collapsable={value.collapsable}
                         toggled={false}
                       />
@@ -341,20 +340,27 @@ export default function Grid(props: IGridProps) {
                 >
                   {context.allColumns.map((y: IColumn, cell_key: number) => {
                     return (
-                      <Cell
+                      <CellStyled
                         key={cell_key}
-                        content={{
-                          id: row_key,
-                          cell_content: x[y.name],
-                          cell_type: y.type as Cell_Type,
-                          cell_key: cell_key,
-                          cell_size: y.size,
-                          cell_visibility: y.visibility,
-                          cell_collapsable: y.collapsable,
-                          selection_options: y.options,
-                          cell_column: y.name.toLowerCase(),
-                        }}
-                      />
+                        className={`${y.minVisibility} ${y.collapsable}`}
+                        allColumns={context.allColumns}
+                        cell_type={y.type as Cell_Type}
+                      >
+                        <Cell
+                          key={cell_key}
+                          content={{
+                            id: row_key,
+                            cell_content: x[y.name],
+                            cell_type: y.type as Cell_Type,
+                            cell_key: cell_key,
+                            cell_size: y.size,
+                            cell_visibility: y.minVisibility,
+                            cell_collapsable: y.collapsable,
+                            selection_options: y.options,
+                            cell_column: y.name.toLowerCase(),
+                          }}
+                        />
+                      </CellStyled>
                     );
                   })}
                 </GridRowStyled>
