@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
+import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
 
@@ -8,12 +9,13 @@ const GridTitle = styled.div<{ columns: IColumn[] }>`
     return "span " + props.columns.length;
   }};
 
-  @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+  @media (min-width: ${ScreenThresholds.MediumScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-column: ${(props) => {
       return (
         "span " +
         props.columns.filter((x: IColumn) => {
-          return x.size !== ColumnSizes.SmallColumn;
+          return x.minVisibility !== MinimumVisibility.MaxVisible;
         }).length
       );
     }};
