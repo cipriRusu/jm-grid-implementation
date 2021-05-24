@@ -335,7 +335,6 @@ export default function Grid(props: IGridProps) {
                   id={row_key.toString()}
                   key={row_key}
                   inputColumns={context.allColumns}
-                  inputSizes={ColumnSizes}
                   inputTitles={context.allHeaders}
                 >
                   {context.allColumns.map((y: IColumn, cell_key: number) => {
