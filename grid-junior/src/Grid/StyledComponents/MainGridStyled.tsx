@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
+import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 
 const MainGrid = styled.div<{
   inputColumns: IColumn[];
@@ -18,11 +19,12 @@ const MainGrid = styled.div<{
   overflow-y: scroll;
   background-color: gray;
 
-  @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+  @media (min-width: ${ScreenThresholds.MediumScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
       props.inputColumns
         .filter((x: IColumn) => {
-          return x.size !== ColumnSizes.SmallColumn;
+          return x.minVisibility !== MinimumVisibility.MaxVisible;
         })
         .map((x: IColumn) => {
           return x.size + " ";
