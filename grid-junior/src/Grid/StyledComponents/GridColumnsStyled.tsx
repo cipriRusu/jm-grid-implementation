@@ -1,7 +1,6 @@
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
-import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 
 export const MainGridColumnsStyled = styled.div<{
@@ -16,87 +15,25 @@ export const MainGridColumnsStyled = styled.div<{
       return x.size + " ";
     })};
 
-  @media (min-width: ${ScreenThresholds.LargeScreen} + "rem") {
-    .${MinimumVisibility.MaxVisible.toString()} {
-      display: block;
-    }
-
-    .${MinimumVisibility.LargeVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.MediumVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.SmallVisible.toString()} {
-      display: none;
-    }
+  @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    grid-template-columns: ${(props) =>
+      props.columns.map((x) => {
+        return x.size + " ";
+      })};
   }
 
-  @media (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
-    .${MinimumVisibility.MaxVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.LargeVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.MediumVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.SmallVisible.toString()} {
-      display: none;
-    }
-
+  @media (min-width: ${ScreenThresholds.MediumScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
       props.columns
         .filter((x: IColumn) => {
-          return x.size !== ColumnSizes.SmallColumn;
+          return x.minVisibility !== MinimumVisibility.MaxVisible;
         })
         .map((x) => {
           return x.size + " ";
         })};
 
-    .${MinimumVisibility.LargeVisible.toString()} {
-      display: block;
-    }
-  }
-
-  @media (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
     .${MinimumVisibility.MaxVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.LargeVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.MediumVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.SmallVisible.toString()} {
-      display: none;
-    }
-  }
-
-  @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
-    .${MinimumVisibility.MaxVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.LargeVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.MediumVisible.toString()} {
-      display: none;
-    }
-
-    .${MinimumVisibility.SmallVisible.toString()} {
       display: none;
     }
   }
