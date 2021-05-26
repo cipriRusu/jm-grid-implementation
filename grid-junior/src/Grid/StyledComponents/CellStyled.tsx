@@ -8,13 +8,8 @@ export const CellStyled = styled.div<{
   allColumns: IColumn[];
   cell_type: Cell_Type;
 }>`
-  @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
-    grid-column: ${(props) => {
-      return props.allColumns[0].type === ColumnTypes.select &&
-        props.allColumns.length > 1 &&
-        props.cell_type === ColumnTypes.select
-        ? 1
-        : 2;
-    }};
+  @media (min-width: ${ScreenThresholds.SmallScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
+    ${(props) => props.cell_type === ColumnTypes.select && `grid-row: span 2;`}
   }
 `;

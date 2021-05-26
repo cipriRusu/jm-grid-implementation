@@ -3,9 +3,7 @@ import { IColumn } from "../Interfaces/GridBody/IColumn";
 import { IHeader } from "../Interfaces/GridBody/IHeader";
 import ScreenThresholds from "./ScreenThresholds";
 import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
-import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 import { ColumnTypes } from "../CustomTypes/ColumnTypes";
-import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 
 const GridRowStyled = styled.div<{
   inputColumns: IColumn[];
@@ -22,7 +20,7 @@ const GridRowStyled = styled.div<{
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
       props.inputColumns.map((x) => {
-        return x.size + " ";
+        return `${x.size + " "}`;
       })};
   }
 
@@ -34,7 +32,7 @@ const GridRowStyled = styled.div<{
           return x.minVisibility !== MinimumVisibility.MaxVisible;
         })
         .map((x) => {
-          return x.size + " ";
+          return `${x.size + " "}`;
         })};
 
     .${MinimumVisibility.MaxVisible.toString()} {
@@ -44,19 +42,26 @@ const GridRowStyled = styled.div<{
 
   @media (min-width: ${ScreenThresholds.SmallScreen +
     "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
-    grid-template-columns: ${(props) =>
-      props.inputColumns
-        .filter((x: IColumn) => {
-          return (
-            x.minVisibility !== MinimumVisibility.MaxVisible &&
-            x.minVisibility !== MinimumVisibility.LargeVisible
-          );
-        })
-        .map((x: IColumn) => {
-          return x.type === ColumnTypes.select
-            ? ColumnSizes.IconColumn + " "
-            : x.size + " ";
-        })};
+    grid-template-columns: ${(props) => {
+      let columns = "";
+
+      props.inputTitles[0].headers.map((x) => {
+        return (columns = columns.concat(`${"50% "}`));
+      });
+
+      if (props.inputColumns[0].type === ColumnTypes.select) {
+        columns = `${"5% "}`.concat(columns);
+      }
+
+      return columns;
+    }};
+
+    grid-template-rows: ${(props) =>
+      props.inputTitles[0].headers.map((x) => {
+        return `${"1fr "}`;
+      })};
+
+    grid-auto-flow: column;
 
     .${MinimumVisibility.MaxVisible.toString()} {
       display: none;
@@ -74,12 +79,9 @@ const GridRowStyled = styled.div<{
   }
 
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
-    grid-template-columns: ${(props) => {
-      return props.inputColumns[0].type === ColumnTypes.select &&
-        props.inputColumns.length > 1
-        ? ColumnSizes.IconColumn + " " + ColumnSizes.StandardColumn
-        : ColumnSizes.StandardColumn;
-    }};
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 
     .${MinimumVisibility.MaxVisible.toString()} {
       display: none;
@@ -93,26 +95,24 @@ const GridRowStyled = styled.div<{
       display: none;
     }
 
-    .selection-cell {
-      .selection-cell-text {
-        display: none;
+    .collapsable-column {
+      width: 100%;
+      .cell {
+        margin: 0rem;
+        margin-left: 0.5rem;
       }
     }
 
     .fixed-column {
       .cell {
-        margin: 0rem;
+        margin: 0.5rem;
         font-size: x-large;
-      }
-
-      .selection-cell {
-        margin-left: 0.5rem;
       }
     }
 
-    .collapsable-column {
-      .cell {
-        margin: 0rem;
+    .selection-cell {
+      .selection-cell-text {
+        display: none;
       }
     }
   }
