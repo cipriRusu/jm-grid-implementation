@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import ScreenThresholds from "./ScreenThresholds";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
-import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 
 const MainGrid = styled.div<{

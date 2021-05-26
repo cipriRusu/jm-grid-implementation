@@ -4,7 +4,6 @@ import StandardCell from "./StandardCell";
 import BooleanCell from "./BooleanCell";
 import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
-import { CellStyled } from "../../StyledComponents/CellStyled";
 
 const Cell = (props: { content: ICell }) => {
   const ComputeCellType = (content: ICell) => {

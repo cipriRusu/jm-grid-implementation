@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
