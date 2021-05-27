@@ -106,7 +106,7 @@ const GridRowStyled = styled.div<{
     .fixed-column {
       .cell {
         margin: 0.5rem;
-        font-size: x-large;
+        font-size: 1.2rem;
       }
     }
 
