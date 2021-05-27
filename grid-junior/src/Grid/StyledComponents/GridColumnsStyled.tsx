@@ -5,7 +5,6 @@ import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
 
 export const MainGridColumnsStyled = styled.div<{
   columns: IColumn[];
-  inputSizes: { [key: string]: string };
 }>`
   display: grid;
   grid-column: span ${(props) => props.columns.length};
