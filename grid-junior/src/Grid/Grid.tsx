@@ -310,10 +310,7 @@ export default function Grid(props: IGridProps) {
                   );
                 }
               )}
-              <MainGridColumnsStyled
-                columns={context.allColumns}
-                inputSizes={ColumnSizes}
-              >
+              <MainGridColumnsStyled columns={context.allColumns}>
                 {context.allColumns.map((value: IColumn, key: number) => {
                   return (
                     <GridColumnStyled className={value.minVisibility} key={key}>
