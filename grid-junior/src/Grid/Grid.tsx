@@ -25,6 +25,7 @@ import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
 import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "./CustomTypes/ColumnVisibility";
 import { CellStyled } from "./StyledComponents/CellStyled";
+import ExtendedRow from "./GridBody/GridRows/ExtendedRow";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -381,9 +382,7 @@ export default function Grid(props: IGridProps) {
                     inputColumns={context.allColumns}
                     className={checkRowIsToggled(row_key)}
                   >
-                    <div>
-                      <p>Test Content</p>
-                    </div>
+                    <ExtendedRow completeRow={x}></ExtendedRow>
                   </GridRowExtendedStyled>
                 </React.Fragment>
               ))}
