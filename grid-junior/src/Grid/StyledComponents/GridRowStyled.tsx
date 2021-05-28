@@ -47,17 +47,22 @@ const GridRowStyled = styled.div<{
   @media (min-width: ${ScreenThresholds.SmallScreen +
     "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
     grid-template-columns: ${(props) => {
-      let columns = "";
-
-      props.inputTitles[0].headers.map((x) => {
-        return (columns = columns.concat(`${"50% "}`));
-      });
+      let columns = Array<string>();
 
       if (props.inputColumns[0].type === ColumnTypes.select) {
-        columns = `${"5% "}`.concat(columns);
+        props.inputTitles[0].headers.map((x) => {
+          return columns.push("50%");
+        });
+        columns.unshift("5%");
+        columns.pop();
+        columns.push("45%");
+      } else {
+        props.inputTitles[0].headers.map((x) => {
+          return columns.push("50%");
+        });
       }
 
-      return columns;
+      return columns.join(" ");
     }};
 
     grid-template-rows: ${(props) =>
