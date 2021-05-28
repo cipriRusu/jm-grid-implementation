@@ -17,6 +17,7 @@ import MainGridStyled from "./StyledComponents/MainGridStyled";
 import GridColumnStyled from "./StyledComponents/GridColumnStyled";
 import GridTitleStyled from "./StyledComponents/GridTitleStyled";
 import GridRowStyled from "./StyledComponents/GridRowStyled";
+import GridRowExtendedStyled from "./StyledComponents/GridRowExtendedStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
@@ -111,6 +112,8 @@ export default function Grid(props: IGridProps) {
 
   const [filterUpdate, setFilterUpdate] = useState(0);
 
+  const [isToggled, setIsToggled] = useState<number[]>([]);
+
   const flatHeader = () => {
     let allColumns = props.headers
       .filter((x: any) => x.name === "firstHeader")
@@ -164,6 +167,16 @@ export default function Grid(props: IGridProps) {
 
   const setToggledHeader = (toggled: IColumn[]) => {
     updateToggledHeader(toggled);
+  };
+
+  const checkRowIsToggled = (row_key: number) => {
+    return isToggled.includes(row_key) ? "display-extended-row" : "";
+  };
+
+  const setToggledRow = (row_key: number) => {
+    return isToggled.includes(row_key)
+      ? setIsToggled(isToggled.filter((x) => x !== row_key))
+      : setIsToggled(isToggled.concat(row_key));
   };
 
   let loadPage = new LoadPage(props.data);
@@ -328,38 +341,51 @@ export default function Grid(props: IGridProps) {
                 })}
               </MainGridColumnsStyled>
               {context.items.map((x: IRow, row_key: number) => (
-                <GridRowStyled
-                  id={row_key.toString()}
-                  key={row_key}
-                  inputColumns={context.allColumns}
-                  inputTitles={context.allHeaders}
-                >
-                  {context.allColumns.map((y: IColumn, cell_key: number) => {
-                    return (
-                      <CellStyled
-                        key={cell_key}
-                        className={`${y.minVisibility} ${y.collapsable}`}
-                        allColumns={context.allColumns}
-                        cell_type={y.type as Cell_Type}
-                      >
-                        <Cell
+                <React.Fragment key={row_key.toString() + `-row-container`}>
+                  <GridRowStyled
+                    id={row_key.toString()}
+                    key={row_key}
+                    inputColumns={context.allColumns}
+                    inputTitles={context.allHeaders}
+                    onClick={() => setToggledRow(row_key)}
+                  >
+                    {context.allColumns.map((y: IColumn, cell_key: number) => {
+                      return (
+                        <CellStyled
                           key={cell_key}
-                          content={{
-                            id: row_key,
-                            cell_content: x[y.name],
-                            cell_type: y.type as Cell_Type,
-                            cell_key: cell_key,
-                            cell_size: y.size,
-                            cell_visibility: y.minVisibility,
-                            cell_collapsable: y.collapsable,
-                            selection_options: y.options,
-                            cell_column: y.name.toLowerCase(),
-                          }}
-                        />
-                      </CellStyled>
-                    );
-                  })}
-                </GridRowStyled>
+                          className={`${y.minVisibility} ${y.collapsable}`}
+                          allColumns={context.allColumns}
+                          cell_type={y.type as Cell_Type}
+                        >
+                          <Cell
+                            key={cell_key}
+                            content={{
+                              id: row_key,
+                              cell_content: x[y.name],
+                              cell_type: y.type as Cell_Type,
+                              cell_key: cell_key,
+                              cell_size: y.size,
+                              cell_visibility: y.minVisibility,
+                              cell_collapsable: y.collapsable,
+                              selection_options: y.options,
+                              cell_column: y.name.toLowerCase(),
+                            }}
+                          />
+                        </CellStyled>
+                      );
+                    })}
+                  </GridRowStyled>
+                  <GridRowExtendedStyled
+                    id={row_key.toString()}
+                    key={row_key.toString() + `-row-extension`}
+                    inputColumns={context.allColumns}
+                    className={checkRowIsToggled(row_key)}
+                  >
+                    <div>
+                      <p>Test Content</p>
+                    </div>
+                  </GridRowExtendedStyled>
+                </React.Fragment>
               ))}
             </MainGridStyled>
           );
