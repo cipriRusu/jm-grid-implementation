@@ -80,7 +80,24 @@ const GridRowStyled = styled.div<{
       display: none;
     }
 
+    .fixed-column {
+      .cell {
+        margin: 0px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    .collapsable-column {
+      .cell {
+        margin: 0px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+
     .selection-cell {
+      padding-left: 0.5rem;
       .selection-cell-text {
         display: none;
       }
@@ -105,21 +122,28 @@ const GridRowStyled = styled.div<{
     }
 
     .collapsable-column {
+      padding-bottom: 0.5rem;
+      padding-left: 1.6rem;
       width: 100%;
       .cell {
-        margin: 0rem;
-        margin-left: 0.5rem;
+        margin: 0px;
+        padding-left: 0.5rem;
       }
     }
 
     .fixed-column {
+      padding-top: 0.5rem;
+      padding-right: 0.5rem;
+      padding-bottom: 0.5rem;
       .cell {
-        margin: 0.5rem;
+        margin: 0px;
         font-size: 1.2rem;
       }
     }
 
     .selection-cell {
+      margin: 0px;
+      padding-left: 0.5rem;
       .selection-cell-text {
         display: none;
       }
