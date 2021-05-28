@@ -16,6 +16,10 @@ const GridRowStyled = styled.div<{
   border-color: darkgray;
   background-color: #404444;
   color: white;
+  :hover {
+    background-color: #595f5f;
+    cursor: pointer;
+  }
 
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
