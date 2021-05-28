@@ -29,6 +29,10 @@ const MainGrid = styled.div<{
           return x.size + " ";
         })};
   }
+
+  .display-extended-row {
+    display: block;
+  }
 `;
 
 export default MainGrid;
