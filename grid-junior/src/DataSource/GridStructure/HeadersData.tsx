@@ -66,13 +66,19 @@ DataNasterii.type = ColumnTypes.date;
 DataNasterii.collapsable = ColumnCollapsable.collapsable;
 DataNasterii.minVisibility = MinimumVisibility.LargeVisible;
 
+let Detalii = {} as IColumn;
+Detalii.name = "Detalii";
+Detalii.size = ColumnSizes.StandardColumn;
+Detalii.collapsable = ColumnCollapsable.collapsable;
+Detalii.minVisibility = MinimumVisibility.Invisible;
+
 let firstHeader = {} as IColumns;
 firstHeader.name = "Utilizator";
 firstHeader.columns = [Select, Prenume, Nume, Valid];
 
 let secondHeader = {} as IColumns;
 secondHeader.name = "Detalii";
-secondHeader.columns = [Email, NrTelefon, DataNasterii];
+secondHeader.columns = [Email, NrTelefon, DataNasterii, Detalii];
 
 let header = {} as IHeader;
 header.name = "firstHeader";
