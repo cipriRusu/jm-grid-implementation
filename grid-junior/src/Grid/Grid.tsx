@@ -17,7 +17,6 @@ import MainGridStyled from "./StyledComponents/MainGridStyled";
 import GridColumnStyled from "./StyledComponents/GridColumnStyled";
 import GridTitleStyled from "./StyledComponents/GridTitleStyled";
 import GridRowStyled from "./StyledComponents/GridRowStyled";
-import GridRowExtendedStyled from "./StyledComponents/GridRowExtendedStyled";
 import { LoadPage } from "./LoadPage";
 import { ScrollPage } from "./ScrollPage";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";

@@ -17,12 +17,12 @@ function SideBar(props: {
       ></i>
 
       {props.headers.map((x: IHeader) => {
-        return x.headers.map((x: IColumns) => {
+        return x.headers.map((x: IColumns, key: number) => {
           return (
-            <div>
+            <div key={key}>
               <p>{x.name}</p>
-              {x.columns.map((y: IColumn) => {
-                return <p>{y.name}</p>;
+              {x.columns.map((y: IColumn, key: number) => {
+                return <p key={key}>{y.name}</p>;
               })}
             </div>
           );
