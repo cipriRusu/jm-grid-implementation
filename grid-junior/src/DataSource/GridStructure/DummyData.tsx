@@ -8,6 +8,7 @@ let keys = [
   "Email",
   "Nr Telefon",
   "Data Nasterii",
+  "Detalii",
 ];
 
 let intial_values = [
@@ -18,6 +19,7 @@ let intial_values = [
   "jdoe@gmail.com",
   "010292991",
   "21.03.1983",
+  "Test",
 ];
 
 let selection_statuses = ["Disponibil", "Ocupat", "Offline"];
@@ -68,6 +70,18 @@ for (var i = 0; i < 100; i++) {
         generatedDate.setHours(0, 0, 0, 0);
 
         value = generatedDate.toString();
+      }
+
+      if (k_key === 7) {
+        value =
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
+          "when an unknown printer took a galley of type and scrambled it to make a type" +
+          "specimen book. It has survived not only five centuries, but also the leap into" +
+          "electronic typesetting, remaining essentially unchanged. It was popularised in" +
+          "the 1960s with the release of Letraset sheets containing Lorem Ipsum passages," +
+          "and more recently with desktop publishing software like Aldus PageMaker" +
+          "including versions of Lorem Ipsum";
       }
 
       if (k_key === v_key) {
