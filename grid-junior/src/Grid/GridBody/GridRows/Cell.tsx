@@ -4,8 +4,14 @@ import StandardCell from "./StandardCell";
 import BooleanCell from "./BooleanCell";
 import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
+import { CellStyled } from "../../StyledComponents/CellStyled";
+import { Cell_Type } from "../../CustomTypes/CellType";
+import { GridContext } from "../../Grid";
+import { useContext } from "react";
 
 const Cell = (props: { content: ICell }) => {
+  let currentContext = useContext(GridContext);
+
   const ComputeCellType = (content: ICell) => {
     switch (content.cell_type?.toString()) {
       case undefined:
@@ -60,7 +66,16 @@ const Cell = (props: { content: ICell }) => {
     }
   };
 
-  return <>{ComputeCellType(props.content)}</>;
+  return (
+    <CellStyled
+      className={`${props.content.cell_visibility} ${props.content.cell_collapsable}`}
+      key={props.content.cell_key}
+      cell_type={props.content.cell_type as Cell_Type}
+      allColumns={currentContext.allColumns}
+    >
+      {ComputeCellType(props.content)}
+    </CellStyled>
+  );
 };
 
 export default Cell;

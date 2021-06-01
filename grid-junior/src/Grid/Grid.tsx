@@ -23,7 +23,6 @@ import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
 import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "./CustomTypes/ColumnVisibility";
-import { CellStyled } from "./StyledComponents/CellStyled";
 import ExtendedRow from "./GridBody/GridRows/ExtendedRow";
 
 export const GridContext = createContext<IGridContext & ISortable>({
@@ -351,27 +350,20 @@ export default function Grid(props: IGridProps) {
                   >
                     {context.allColumns.map((y: IColumn, cell_key: number) => {
                       return (
-                        <CellStyled
+                        <Cell
                           key={cell_key}
-                          className={`${y.minVisibility} ${y.collapsable}`}
-                          allColumns={context.allColumns}
-                          cell_type={y.type as Cell_Type}
-                        >
-                          <Cell
-                            key={cell_key}
-                            content={{
-                              id: row_key,
-                              cell_content: x[y.name],
-                              cell_type: y.type as Cell_Type,
-                              cell_key: cell_key,
-                              cell_size: y.size,
-                              cell_visibility: y.minVisibility,
-                              cell_collapsable: y.collapsable,
-                              selection_options: y.options,
-                              cell_column: y.name.toLowerCase(),
-                            }}
-                          />
-                        </CellStyled>
+                          content={{
+                            id: row_key,
+                            cell_content: x[y.name],
+                            cell_type: y.type as Cell_Type,
+                            cell_key: cell_key,
+                            cell_size: y.size,
+                            cell_visibility: y.minVisibility,
+                            cell_collapsable: y.collapsable,
+                            selection_options: y.options,
+                            cell_column: y.name.toLowerCase(),
+                          }}
+                        />
                       );
                     })}
                   </GridRowStyled>
