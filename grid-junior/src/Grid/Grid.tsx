@@ -376,17 +376,14 @@ export default function Grid(props: IGridProps) {
                       );
                     })}
                   </GridRowStyled>
-                  <GridRowExtendedStyled
+                  <ExtendedRow
                     id={row_key.toString()}
                     key={row_key.toString() + `-row-extension`}
-                    inputColumns={context.allColumns}
-                    className={checkRowIsToggled(row_key)}
-                  >
-                    <ExtendedRow
-                      allColumns={context.allColumns}
-                      completeRow={x}
-                    ></ExtendedRow>
-                  </GridRowExtendedStyled>
+                    row_key={row_key}
+                    allColumns={context.allColumns}
+                    completeRow={x}
+                    checkToggle={checkRowIsToggled}
+                  ></ExtendedRow>
                 </React.Fragment>
               ))}
             </MainGridStyled>
