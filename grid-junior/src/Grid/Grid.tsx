@@ -382,7 +382,10 @@ export default function Grid(props: IGridProps) {
                     inputColumns={context.allColumns}
                     className={checkRowIsToggled(row_key)}
                   >
-                    <ExtendedRow completeRow={x}></ExtendedRow>
+                    <ExtendedRow
+                      allColumns={context.allColumns}
+                      completeRow={x}
+                    ></ExtendedRow>
                   </GridRowExtendedStyled>
                 </React.Fragment>
               ))}
