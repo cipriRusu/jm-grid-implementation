@@ -23,9 +23,13 @@ const GridRowStyled = styled.div<{
 
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-template-columns: ${(props) =>
-      props.inputColumns.map((x) => {
-        return `${x.size + " "}`;
-      })};
+      props.inputColumns
+        .filter((x: IColumn) => {
+          return x.minVisibility !== MinimumVisibility.Invisible;
+        })
+        .map((x) => {
+          return `${x.size + " "}`;
+        })};
   }
 
   @media (min-width: ${ScreenThresholds.MediumScreen +
@@ -33,7 +37,10 @@ const GridRowStyled = styled.div<{
     grid-template-columns: ${(props) =>
       props.inputColumns
         .filter((x: IColumn) => {
-          return x.minVisibility !== MinimumVisibility.MaxVisible;
+          return (
+            x.minVisibility !== MinimumVisibility.MaxVisible &&
+            x.minVisibility !== MinimumVisibility.Invisible
+          );
         })
         .map((x) => {
           return `${x.size + " "}`;
@@ -51,11 +58,9 @@ const GridRowStyled = styled.div<{
 
       if (props.inputColumns[0].type === ColumnTypes.select) {
         props.inputTitles[0].headers.map((x) => {
-          return columns.push("50%");
+          return columns.push("45%");
         });
         columns.unshift("5%");
-        columns.pop();
-        columns.push("45%");
       } else {
         props.inputTitles[0].headers.map((x) => {
           return columns.push("50%");
@@ -148,6 +153,10 @@ const GridRowStyled = styled.div<{
         display: none;
       }
     }
+  }
+
+  .${MinimumVisibility.Invisible.toString()} {
+    display: none;
   }
 `;
 
