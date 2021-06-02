@@ -9,9 +9,13 @@ const MainGrid = styled.div<{
 }>`
   display: grid;
   grid-template-columns: ${(props) =>
-    props.inputColumns.map((x) => {
-      return x.size + " ";
-    })};
+    props.inputColumns
+      .filter((x) => {
+        return x.minVisibility !== MinimumVisibility.Invisible;
+      })
+      .map((x) => {
+        return x.size + " ";
+      })};
 
   grid-template-rows: repeat(22, 1fr);
   height: 38rem;
