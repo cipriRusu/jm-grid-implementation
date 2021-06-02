@@ -18,7 +18,7 @@ const ExtendedRow = (props: {
         return (
           <div key={key} className={x.minVisibility}>
             <br></br>
-            {x.name} : {props.completeRow[x.name].toString()}
+            {x.name} : {props.completeRow[x.name]}
             <br></br>
           </div>
         );
