@@ -15,6 +15,7 @@ const Cell = (props: { content: ICell }) => {
   const ComputeCellType = (content: ICell) => {
     switch (content.cell_type?.toString()) {
       case undefined:
+      case "text":
       case "number":
         return (
           <StandardCell
