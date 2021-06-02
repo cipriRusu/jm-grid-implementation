@@ -1,16 +1,18 @@
 import Grid from "./Grid/Grid";
-import { headers } from "./DataSource/GridStructure/HeadersData";
+import { initialHeaders } from "./DataSource/GridStructure/HeadersData";
 import { DataSource } from "./DataSource/DataSource";
 import React, { useState } from "react";
 import SideBar from "./SideBar";
 import ToggleSideBar from "./ToggleSidebar";
 import { StyledApp } from "./StyledApp";
+import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
 
 const PAGE_SIZE = 11;
 const CACHE_SIZE = 33;
 
 function App() {
   const [toggledSideBar, setToggleSideBar] = useState(false);
+  const [headerData, updateHeaderData] = useState<IHeader[]>(initialHeaders);
 
   return (
     <StyledApp>
@@ -21,11 +23,12 @@ function App() {
       <SideBar
         toggledSideBar={toggledSideBar}
         setToggleSideBar={setToggleSideBar}
-        headers={headers}
+        updateHeaderData={updateHeaderData}
+        headers={headerData}
       ></SideBar>
       <Grid
         data={new DataSource()}
-        headers={headers}
+        headers={headerData}
         pageSize={PAGE_SIZE}
         cacheSize={CACHE_SIZE}
       />
