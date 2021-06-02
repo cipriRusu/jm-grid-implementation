@@ -1,6 +1,121 @@
-function SideBarColumnAdd(props: any) {
-  //TODO: Create Add Component;
-  return <div></div>;
+import React, { useState } from "react";
+import { ColumnTypes } from "./Grid/CustomTypes/ColumnTypes";
+import { ColumnSizes } from "./Grid/CustomTypes/ColumnSizes";
+import { ColumnCollapsable } from "./Grid/CustomTypes/ColumnCollapsable";
+import { MinimumVisibility } from "./Grid/CustomTypes/ColumnVisibility";
+import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
+import { StyledSideBarElement } from "./StyledSideBarElement";
+
+function SideBarColumnAdd(props: {
+  header: string;
+  addColumn: (headerName: string, newColumn: IColumn) => void;
+}) {
+  const [isToggled, updateisToggled] = useState(false);
+
+  const [columnName, updateColumnName] = useState("");
+
+  const [columnType, updateColumnType] = useState<ColumnTypes>(
+    ColumnTypes.text
+  );
+
+  const [columnSize, updateColumnSize] = useState<ColumnSizes>(
+    ColumnSizes.StandardColumn
+  );
+
+  const [columnCollapsable, updateColumnCollapsable] =
+    useState<ColumnCollapsable>(ColumnCollapsable.fixed);
+
+  const [columnVisibility, updateColumnVisibility] =
+    useState<MinimumVisibility>(MinimumVisibility.MediumVisible);
+
+  return (
+    <div>
+      <StyledSideBarElement>
+        <div>Add New Column</div>
+        <i
+          className={`${
+            isToggled === false ? "fa fa fa-plus" : "fa fa fa-minus"
+          }`}
+          aria-hidden="true"
+          onClick={() => updateisToggled(isToggled === true ? false : true)}
+        ></i>
+      </StyledSideBarElement>
+      <div
+        style={{
+          display: `${isToggled === true ? "flex" : "none"}`,
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div>Column Name:</div>
+        <input
+          value={columnName}
+          type="text"
+          onInput={(e) => {
+            updateColumnName(e.currentTarget.value);
+          }}
+        ></input>
+        <div>Column Type:</div>
+        <select
+          value={columnType}
+          onChange={(e) => {
+            updateColumnType(e.target.value as ColumnTypes);
+          }}
+        >
+          {Object.values(ColumnTypes).map((x) => {
+            return <option>{x}</option>;
+          })}
+        </select>
+        <div>Column Size:</div>
+        <select
+          value={columnSize}
+          onChange={(e) => {
+            updateColumnSize(e.target.value as ColumnSizes);
+          }}
+        >
+          {Object.values(ColumnSizes).map((x) => {
+            return <option>{x}</option>;
+          })}
+        </select>
+        <div>Collapsable State:</div>
+        <select
+          value={columnCollapsable}
+          onChange={(e) => {
+            updateColumnCollapsable(e.target.value as ColumnCollapsable);
+          }}
+        >
+          {Object.values(ColumnCollapsable).map((x) => {
+            return <option>{x}</option>;
+          })}
+        </select>
+        <div>Visibility:</div>
+        <select
+          value={columnVisibility}
+          onChange={(e) => {
+            updateColumnVisibility(e.target.value as MinimumVisibility);
+          }}
+        >
+          {Object.values(MinimumVisibility).map((x) => {
+            return <option>{x}</option>;
+          })}
+        </select>
+        <br></br>
+        <button
+          onClick={() =>
+            props.addColumn(props.header, {
+              name: columnName,
+              type: columnType,
+              size: columnSize,
+              collapsable: columnCollapsable,
+              minVisibility: columnVisibility,
+            })
+          }
+        >
+          Add Column
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default SideBarColumnAdd;
