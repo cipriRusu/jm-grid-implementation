@@ -28,6 +28,20 @@ function SideBar(props: {
     props.updateHeaderData(currentHeaderData);
   }
 
+  function addColumn(headerName: string, newColumn: IColumn) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((x) => {
+      x.headers.forEach((x) => {
+        if (x.name === headerName) {
+          x.columns.push(newColumn);
+        }
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
   function RemoveColumn(toRemove: string) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
 
@@ -101,8 +115,10 @@ function SideBar(props: {
                 );
               })}
 
-              <div>Add New Column: </div>
-              <SideBarColumnAdd></SideBarColumnAdd>
+              <SideBarColumnAdd
+                header={x.name}
+                addColumn={addColumn}
+              ></SideBarColumnAdd>
               <br></br>
             </React.Fragment>
           );
