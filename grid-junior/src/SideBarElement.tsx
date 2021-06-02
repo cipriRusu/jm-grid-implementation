@@ -8,7 +8,15 @@ function SideBarElement(props: {
 }) {
   return (
     <StyledSideBarElement>
-      <p>{props.column.name}</p>
+      <p
+        style={
+          {
+            fontWeight: `${"columns" in props.column ? "bold" : ""}`,
+          } as React.CSSProperties
+        }
+      >
+        {props.column.name}
+      </p>
       <i
         className="fa fa-minus-circle"
         aria-hidden="true"
