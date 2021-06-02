@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Cell_Type } from "./CustomTypes/CellType";
+import { DataType } from "./CustomTypes/DataType";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { IHeader } from "./Interfaces/GridBody/IHeader";
@@ -355,7 +355,7 @@ export default function Grid(props: IGridProps) {
                           content={{
                             id: row_key,
                             cell_content: x[y.name],
-                            cell_type: y.type as Cell_Type,
+                            cell_type: y.type as DataType,
                             cell_key: cell_key,
                             cell_size: y.size,
                             cell_visibility: y.minVisibility,

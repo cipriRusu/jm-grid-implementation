@@ -5,7 +5,7 @@ import BooleanCell from "./BooleanCell";
 import SelectionCell from "./SelectionCell";
 import DateCell from "./DateCell";
 import { CellStyled } from "../../StyledComponents/CellStyled";
-import { Cell_Type } from "../../CustomTypes/CellType";
+import { DataType } from "../../CustomTypes/DataType";
 import { GridContext } from "../../Grid";
 import { useContext } from "react";
 
@@ -70,7 +70,7 @@ const Cell = (props: { content: ICell }) => {
     <CellStyled
       className={`${props.content.cell_visibility} ${props.content.cell_collapsable}`}
       key={props.content.cell_key}
-      cell_type={props.content.cell_type as Cell_Type}
+      cell_type={props.content.cell_type as DataType}
       allColumns={currentContext.allColumns}
     >
       {ComputeCellType(props.content)}
