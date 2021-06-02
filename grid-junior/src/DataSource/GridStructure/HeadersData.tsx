@@ -84,4 +84,4 @@ let header = {} as IHeader;
 header.name = "firstHeader";
 header.headers = [firstHeader, secondHeader];
 
-export const headers = [header];
+export const initialHeaders = [header];
