@@ -10,6 +10,7 @@ const GridRowExtendedStyled = styled.div<{
   grid-column: 1 / ${(props) => props.inputColumns.length};
   margin-left: 1rem;
   margin-right: 1rem;
+  color: white;
 
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     .${MinimumVisibility.MaxVisible.toString()} {
