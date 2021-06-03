@@ -62,8 +62,8 @@ function SideBarColumnAdd(props: {
             updateColumnType(e.target.value as ColumnTypes);
           }}
         >
-          {Object.values(ColumnTypes).map((x) => {
-            return <option>{x}</option>;
+          {Object.values(ColumnTypes).map((x, y: number) => {
+            return <option key={y}>{x}</option>;
           })}
         </select>
         <div>Column Size:</div>
@@ -73,8 +73,8 @@ function SideBarColumnAdd(props: {
             updateColumnSize(e.target.value as ColumnSizes);
           }}
         >
-          {Object.values(ColumnSizes).map((x) => {
-            return <option>{x}</option>;
+          {Object.values(ColumnSizes).map((x, y: number) => {
+            return <option key={y}>{x}</option>;
           })}
         </select>
         <div>Collapsable State:</div>
@@ -84,8 +84,8 @@ function SideBarColumnAdd(props: {
             updateColumnCollapsable(e.target.value as ColumnCollapsable);
           }}
         >
-          {Object.values(ColumnCollapsable).map((x) => {
-            return <option>{x}</option>;
+          {Object.values(ColumnCollapsable).map((x, y: number) => {
+            return <option key={y}>{x}</option>;
           })}
         </select>
         <div>Visibility:</div>
@@ -95,8 +95,8 @@ function SideBarColumnAdd(props: {
             updateColumnVisibility(e.target.value as MinimumVisibility);
           }}
         >
-          {Object.values(MinimumVisibility).map((x) => {
-            return <option>{x}</option>;
+          {Object.values(MinimumVisibility).map((x, y: number) => {
+            return <option key={y}>{x}</option>;
           })}
         </select>
         <br></br>
