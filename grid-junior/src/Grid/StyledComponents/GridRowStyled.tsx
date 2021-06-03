@@ -60,7 +60,7 @@ const GridRowStyled = styled.div<{
         props.inputTitles[0].headers.map((x) => {
           return columns.push("45%");
         });
-        columns.unshift("5%");
+        columns.unshift("10%");
       } else {
         props.inputTitles[0].headers.map((x) => {
           return columns.push("50%");
