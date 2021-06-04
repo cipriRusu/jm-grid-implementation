@@ -73,9 +73,11 @@ function SideBarColumnAdd(props: {
             updateColumnSize(e.target.value as ColumnSizes);
           }}
         >
-          {Object.values(ColumnSizes).map((x, y: number) => {
-            return <option key={y}>{x}</option>;
-          })}
+          {Object.values(ColumnSizes)
+            .slice(1)
+            .map((x, y: number) => {
+              return <option key={y}>{x}</option>;
+            })}
         </select>
         <div>Collapsable State:</div>
         <select
