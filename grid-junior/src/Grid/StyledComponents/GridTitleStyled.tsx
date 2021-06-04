@@ -5,8 +5,14 @@ import ScreenThresholds from "./ScreenThresholds";
 
 const GridTitle = styled.div<{ columns: IColumn[] }>`
   display: ${(props) => (props.columns.length > 0 ? "block" : "none")};
+
   grid-column: ${(props) => {
-    return "span " + props.columns.length;
+    return (
+      "span " +
+      props.columns.filter((x: IColumn) => {
+        return x.minVisibility !== MinimumVisibility.Invisible;
+      }).length
+    );
   }};
 
   @media (min-width: ${ScreenThresholds.MediumScreen +
