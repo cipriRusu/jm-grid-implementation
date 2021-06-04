@@ -4,6 +4,7 @@ import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
 
 const GridTitle = styled.div<{ columns: IColumn[] }>`
+  display: ${(props) => (props.columns.length > 0 ? "block" : "none")};
   grid-column: ${(props) => {
     return "span " + props.columns.length;
   }};
