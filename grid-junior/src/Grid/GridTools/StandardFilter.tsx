@@ -89,6 +89,7 @@ const StandardFilter = (props: any) => {
       case "date":
         return displayOptions(optionsForNumbers);
       case undefined:
+      case "text":
         return displayOptions(optionsForStrings);
     }
   };

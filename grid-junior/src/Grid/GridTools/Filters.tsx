@@ -155,7 +155,9 @@ const Filters = (props: any) => {
             ) : (
               ""
             )}
-            {header.type === undefined || header.type === "number" ? (
+            {header.type === undefined ||
+            header.type === "number" ||
+            header.type === "text" ? (
               <StandardFilter header={header} />
             ) : (
               ""
