@@ -1,98 +1,97 @@
-export const dummy_data = [] as any;
+import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
+import { IColumns } from "../../Grid/Interfaces/GridBody/IColumns";
+import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
 
-let keys = [
-  "Status",
-  "Prenume",
-  "Nume",
-  "Valid",
-  "Email",
-  "Nr Telefon",
-  "Data Nasterii",
-  "Detalii",
-];
+const ALPHABET = "abcdefghiklmnopqrstuvwxyz";
+const TOTAL_ENTRIES = 100;
 
-let intial_values = [
-  "Status",
-  "John",
-  "Doe",
-  true,
-  "jdoe@gmail.com",
-  "010292991",
-  "21.03.1983",
-  "Test",
-];
+export class DummyData {
+  generateDummyData(headerData: IHeader[]) {
+    let dummyData = [] as any;
 
-let selection_statuses = ["Disponibil", "Ocupat", "Offline"];
+    let allKeys = headerData
+      .map((x: IHeader) => {
+        return x.headers.map((y: IColumns) => {
+          return y.columns.map((z: IColumn) => {
+            return z;
+          });
+        });
+      })
+      .flat(3);
 
-let boolean_statuses = [true, false];
-
-var characters = "abcdefghiklmnopqrstuvwxyz";
-
-function randomDate(start: Date, end: Date) {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
-}
-
-for (var i = 0; i < 100; i++) {
-  const current: { [x: string]: any } = {};
-
-  keys.forEach((type: string, k_key: number) => {
-    intial_values.forEach((value: any, v_key: number) => {
-      if (k_key === 0) {
-        value =
-          selection_statuses[
-            Math.floor(Math.random() * selection_statuses.length)
-          ];
-      }
-
-      if (k_key === 1 || k_key === 2 || k_key === 4) {
-        value =
-          characters[Math.floor(Math.random() * 20)] +
-          characters[Math.floor(Math.random() * 20)] +
-          value;
-      }
-
-      if (k_key === 3) {
-        value = boolean_statuses[Math.floor(Math.random() * 2)];
-      }
-
-      if (k_key === 5) {
-        value = Math.floor(Math.random() * 1000000000).toString();
-      }
-
-      if (k_key === 6) {
-        let generatedDate = randomDate(
-          new Date(1980, 0, 0),
-          new Date(2000, 0, 0)
-        );
-
-        generatedDate.setHours(0, 0, 0, 0);
-
-        value = generatedDate.toString();
-      }
-
-      if (k_key === 7) {
-        value =
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
-          "when an unknown printer took a galley of type and scrambled it to make a type" +
-          "specimen book. It has survived not only five centuries, but also the leap into" +
-          "electronic typesetting, remaining essentially unchanged. It was popularised in" +
-          "the 1960s with the release of Letraset sheets containing Lorem Ipsum passages," +
-          "and more recently with desktop publishing software like Aldus PageMaker" +
-          "including versions of Lorem Ipsum";
-      }
-
-      if (k_key === v_key) {
-        current[type] = value;
-      }
+    let count = new Array(TOTAL_ENTRIES).fill(0).map((_, i) => {
+      return i + 1;
     });
-  });
 
-  dummy_data.push(current);
+    count.map((x) => {
+      let current: { [x: string]: any } = {};
+
+      allKeys.forEach((x: IColumn, y: number) => {
+        if (x.type === undefined || x.type === "text") {
+          current[x.name] =
+            x.name +
+            ALPHABET[Math.floor(Math.random() * 20)] +
+            ALPHABET[Math.floor(Math.random() * 20)];
+        }
+
+        if (x.type === "boolean") {
+          current[x.name] = Math.random() >= 0.5;
+        }
+
+        if (x.type === "number") {
+          current[x.name] = Math.floor(Math.random() * 1000000000).toString();
+        }
+
+        if (x.type === "date") {
+          let generatedDate = this.generateRandomDate(
+            new Date(1980, 0, 0),
+            new Date(2000, 0, 0)
+          );
+
+          generatedDate.setHours(0, 0, 0, 0);
+
+          current[x.name] = generatedDate.toString();
+        }
+
+        if (x.type === "select") {
+          let options = this.extractSelectionOptions(x, headerData);
+          current[x.name] = options[Math.floor(Math.random() * options.length)];
+        }
+      });
+
+      return dummyData.push(current);
+    });
+
+    return dummyData;
+  }
+
+  extractSelectionOptions(requiredColumn: IColumn, header: IHeader[]) {
+    let options = header
+      .map((header: IHeader) => {
+        return header.headers.map((columnGrouping: IColumns) => {
+          return columnGrouping.columns.map((column: IColumn) => {
+            return requiredColumn.name === column.name &&
+              requiredColumn.options !== undefined
+              ? column.options
+              : undefined;
+          });
+        });
+      })
+      .flat(3)
+      .filter((x: IColumnOptions) => {
+        return x !== undefined;
+      })
+      .map((x: IColumnOptions) => {
+        return x.name;
+      });
+
+    return options;
+  }
+
+  generateRandomDate(start: Date, end: Date) {
+    return new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
+  }
 }
-
-dummy_data.forEach((x: any, y: number) => {
-  x["Prenume"] = y.toString().concat(x["Prenume"]);
-});
