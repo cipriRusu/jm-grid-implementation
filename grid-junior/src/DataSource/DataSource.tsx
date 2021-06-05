@@ -3,15 +3,16 @@ import { DateFilter } from "./DataFilters/DateFilter";
 import { ISortStats } from "../Grid/Interfaces/ISortStats";
 import { IDataSource } from "../Grid/Interfaces/IDataSource";
 import { IFilter } from "../Grid/Interfaces/GridTools/IFilter";
-import { dummy_data } from "./GridStructure/DummyData";
 import { NumberFilter } from "./DataFilters/NumberFilter";
 import { SelectionFilter } from "./DataFilters/SelectionFilter";
 import { StringFilter } from "./DataFilters/StringFilter";
+import { DummyData } from "./GridStructure/DummyData";
+import { IHeader } from "../Grid/Interfaces/GridBody/IHeader";
 
 export class DataSource implements IDataSource {
   data: any[];
-  constructor() {
-    this.data = dummy_data;
+  constructor(headerData: IHeader[]) {
+    this.data = new DummyData().generateDummyData(headerData);
   }
 
   _sort_function(key: string) {
@@ -33,6 +34,8 @@ export class DataSource implements IDataSource {
         : 0;
     };
   }
+
+  getHeaders() {}
 
   getTotal(sort: ISortStats, filters: IFilter[]) {
     let returned_data = Object.create(this.data);
