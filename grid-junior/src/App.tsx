@@ -1,11 +1,11 @@
-import Grid from "./Grid/Grid";
-import { initialHeaders } from "./DataSource/GridStructure/HeadersData";
-import { DataSource } from "./DataSource/DataSource";
 import React, { useState } from "react";
+import Grid from "./Grid/Grid";
 import SideBar from "./SideBar";
 import ToggleSideBar from "./ToggleSidebar";
-import { StyledApp } from "./StyledApp";
+import { DataSource } from "./DataSource/DataSource";
 import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
+import { initialHeaders } from "./DataSource/GridStructure/HeadersData";
+import { StyledApp } from "./StyledApp";
 
 const PAGE_SIZE = 11;
 const CACHE_SIZE = 33;
@@ -27,7 +27,7 @@ function App() {
         headers={headerData}
       ></SideBar>
       <Grid
-        data={new DataSource()}
+        data={new DataSource(headerData)}
         headers={headerData}
         pageSize={PAGE_SIZE}
         cacheSize={CACHE_SIZE}
