@@ -31,10 +31,16 @@ export class DummyData {
         switch (x.type) {
           case undefined:
           case "text":
-            current[x.name] =
-              x.name +
-              ALPHABET[Math.floor(Math.random() * 20)] +
-              ALPHABET[Math.floor(Math.random() * 20)];
+            switch (x.name) {
+              case "Email":
+                current[x.name] = x.name + "@edomain.com";
+                break;
+              default:
+                current[x.name] =
+                  x.name +
+                  ALPHABET[Math.floor(Math.random() * 20)] +
+                  ALPHABET[Math.floor(Math.random() * 20)];
+            }
             break;
           case "boolean":
             current[x.name] = Math.random() >= 0.5;
