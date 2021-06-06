@@ -28,35 +28,34 @@ export class DummyData {
       let current: { [x: string]: any } = {};
 
       allKeys.forEach((x: IColumn, y: number) => {
-        if (x.type === undefined || x.type === "text") {
-          current[x.name] =
-            x.name +
-            ALPHABET[Math.floor(Math.random() * 20)] +
-            ALPHABET[Math.floor(Math.random() * 20)];
-        }
+        switch (x.type) {
+          case undefined:
+          case "text":
+            current[x.name] =
+              x.name +
+              ALPHABET[Math.floor(Math.random() * 20)] +
+              ALPHABET[Math.floor(Math.random() * 20)];
+            break;
+          case "boolean":
+            current[x.name] = Math.random() >= 0.5;
+            break;
+          case "number":
+            current[x.name] = Math.floor(Math.random() * 1000000000).toString();
+            break;
+          case "date":
+            let generatedDate = this.generateRandomDate(
+              new Date(1980, 0, 0),
+              new Date(2000, 0, 0)
+            );
 
-        if (x.type === "boolean") {
-          current[x.name] = Math.random() >= 0.5;
-        }
-
-        if (x.type === "number") {
-          current[x.name] = Math.floor(Math.random() * 1000000000).toString();
-        }
-
-        if (x.type === "date") {
-          let generatedDate = this.generateRandomDate(
-            new Date(1980, 0, 0),
-            new Date(2000, 0, 0)
-          );
-
-          generatedDate.setHours(0, 0, 0, 0);
-
-          current[x.name] = generatedDate.toString();
-        }
-
-        if (x.type === "select") {
-          let options = this.extractSelectionOptions(x, headerData);
-          current[x.name] = options[Math.floor(Math.random() * options.length)];
+            generatedDate.setHours(0, 0, 0, 0);
+            current[x.name] = generatedDate.toString();
+            break;
+          case "select":
+            let options = this.extractSelectionOptions(x, headerData);
+            current[x.name] =
+              options[Math.floor(Math.random() * options.length)];
+            break;
         }
       });
 
