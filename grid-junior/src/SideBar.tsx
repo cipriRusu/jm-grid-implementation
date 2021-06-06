@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
 import { IColumns } from "./Grid/Interfaces/GridBody/IColumns";
 import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
+import { StyledSideBar } from "./StyledSideBar";
 import SideBarColumnAdd from "./SideBarColumnAdd";
 import SideBarElement from "./SideBarElement";
 import SideBarGroupAdd from "./SideBarGroupAdd";
-import { StyledSideBar } from "./StyledSideBar";
+import { IColumnOptions } from "./Grid/Interfaces/GridBody/IColumnOptions";
 
 function SideBar(props: {
   toggledSideBar: boolean;
@@ -36,6 +37,26 @@ function SideBar(props: {
         if (x.name === headerName) {
           x.columns.push(newColumn);
         }
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function addOptionToColumn(newOption: IColumnOptions, column: string) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((x) => {
+      x.headers.forEach((y) => {
+        y.columns.forEach((z) => {
+          if (z.name === column) {
+            if (z.options === undefined) {
+              z.options = [newOption];
+            } else {
+              z.options = z.options.concat(newOption);
+            }
+          }
+        });
       });
     });
 
@@ -118,6 +139,7 @@ function SideBar(props: {
               <SideBarColumnAdd
                 header={x.name}
                 addColumn={addColumn}
+                addColumnOption={addOptionToColumn}
               ></SideBarColumnAdd>
               <br></br>
             </React.Fragment>
