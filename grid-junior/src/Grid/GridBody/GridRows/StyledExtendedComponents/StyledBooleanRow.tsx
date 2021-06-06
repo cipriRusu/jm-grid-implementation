@@ -7,6 +7,12 @@ const StyledBooleanRow = styled.div`
   .row-icon {
     margin-left: 1rem;
   }
+
+  .row-name {
+    font-weight: bold;
+  }
+
+  margin-bottom: 0.5rem;
 `;
 
 export default StyledBooleanRow;
