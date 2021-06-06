@@ -5,10 +5,13 @@ import { ColumnCollapsable } from "./Grid/CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "./Grid/CustomTypes/ColumnVisibility";
 import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
 import { StyledSideBarElement } from "./StyledSideBarElement";
+import SideBarColumnOptionAdd from "./SideBarColumnOptionAdd";
+import { IColumnOptions } from "./Grid/Interfaces/GridBody/IColumnOptions";
 
 function SideBarColumnAdd(props: {
   header: string;
   addColumn: (headerName: string, newColumn: IColumn) => void;
+  addColumnOption: (newOption: IColumnOptions, columnName: string) => void;
 }) {
   const [isToggled, updateisToggled] = useState(false);
 
@@ -27,6 +30,9 @@ function SideBarColumnAdd(props: {
 
   const [columnVisibility, updateColumnVisibility] =
     useState<MinimumVisibility>(MinimumVisibility.MediumVisible);
+
+  const [optionAddVisibility, optionAddVisiblityUpdate] =
+    useState<boolean>(false);
 
   return (
     <div>
@@ -60,6 +66,9 @@ function SideBarColumnAdd(props: {
           value={columnType}
           onChange={(e) => {
             updateColumnType(e.target.value as ColumnTypes);
+            e.target.value === "select"
+              ? optionAddVisiblityUpdate(true)
+              : optionAddVisiblityUpdate(false);
           }}
         >
           {Object.values(ColumnTypes).map((x, y: number) => {
@@ -115,6 +124,11 @@ function SideBarColumnAdd(props: {
         >
           Add Column
         </button>
+        <SideBarColumnOptionAdd
+          isVisible={optionAddVisibility}
+          addNewOption={props.addColumnOption}
+          columnName={columnName}
+        ></SideBarColumnOptionAdd>
       </div>
     </div>
   );
