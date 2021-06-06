@@ -70,11 +70,6 @@ const GridRowStyled = styled.div<{
       return columns.join(" ");
     }};
 
-    grid-template-rows: ${(props) =>
-      props.inputTitles[0].headers.map((x) => {
-        return `${"1fr "}`;
-      })};
-
     grid-auto-flow: column;
 
     .${MinimumVisibility.MaxVisible.toString()} {
