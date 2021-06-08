@@ -1,6 +1,6 @@
 import { IColumn } from "./IColumn";
 
-export interface IColumns {
+export interface IGrouping {
   name: string;
   columns: IColumn[];
 }
