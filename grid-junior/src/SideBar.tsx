@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
-import { IColumns } from "./Grid/Interfaces/GridBody/IColumns";
+import { IGrouping } from "./Grid/Interfaces/GridBody/IGrouping";
 import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
 import { StyledSideBar } from "./StyledSideBar";
 import SideBarColumnAdd from "./SideBarColumnAdd";
@@ -118,7 +118,7 @@ function SideBar(props: {
       ></SideBarGroupAdd>
 
       {props.headers.map((x: IHeader) => {
-        return x.headers.map((x: IColumns, key: number) => {
+        return x.headers.map((x: IGrouping, key: number) => {
           return (
             <React.Fragment key={key}>
               <SideBarElement
