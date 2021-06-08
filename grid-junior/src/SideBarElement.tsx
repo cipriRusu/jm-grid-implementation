@@ -1,9 +1,9 @@
 import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
-import { IColumns } from "./Grid/Interfaces/GridBody/IColumns";
+import { IGrouping } from "./Grid/Interfaces/GridBody/IGrouping";
 import { StyledSideBarElement } from "./StyledSideBarElement";
 
 function SideBarElement(props: {
-  column: IColumn | IColumns;
+  column: IColumn | IGrouping;
   removeColumn: (column: string) => void;
 }) {
   return (
