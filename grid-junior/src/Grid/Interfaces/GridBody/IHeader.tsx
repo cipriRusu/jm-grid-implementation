@@ -1,6 +1,6 @@
-import { IColumns } from "./IColumns";
+import { IGrouping } from "./IGrouping";
 
 export interface IHeader {
   name: string;
-  headers: IColumns[];
+  headers: IGrouping[];
 }
