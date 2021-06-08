@@ -1,6 +1,6 @@
 import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
 import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
-import { IColumns } from "../../Grid/Interfaces/GridBody/IColumns";
+import { IGrouping } from "../../Grid/Interfaces/GridBody/IGrouping";
 import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
 
 const ALPHABET = "abcdefghiklmnopqrstuvwxyz";
@@ -12,7 +12,7 @@ export class DummyData {
 
     let allKeys = headerData
       .map((x: IHeader) => {
-        return x.headers.map((y: IColumns) => {
+        return x.headers.map((y: IGrouping) => {
           return y.columns.map((z: IColumn) => {
             return z;
           });
@@ -74,7 +74,7 @@ export class DummyData {
   extractSelectionOptions(requiredColumn: IColumn, header: IHeader[]) {
     let options = header
       .map((header: IHeader) => {
-        return header.headers.map((columnGrouping: IColumns) => {
+        return header.headers.map((columnGrouping: IGrouping) => {
           return columnGrouping.columns.map((column: IColumn) => {
             return requiredColumn.name === column.name &&
               requiredColumn.options !== undefined
