@@ -4,7 +4,7 @@ import { ColumnSizes } from "../../Grid/CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../../Grid/CustomTypes/ColumnCollapsable";
 import { ColumnTypes } from "../../Grid/CustomTypes/ColumnTypes";
 import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
-import { IColumns } from "../../Grid/Interfaces/GridBody/IColumns";
+import { IGrouping } from "../../Grid/Interfaces/GridBody/IGrouping";
 import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
 
 let FirstOption = {} as IColumnOptions;
@@ -72,11 +72,11 @@ Detalii.size = ColumnSizes.StandardColumn;
 Detalii.collapsable = ColumnCollapsable.collapsable;
 Detalii.minVisibility = MinimumVisibility.Invisible;
 
-let firstHeader = {} as IColumns;
+let firstHeader = {} as IGrouping;
 firstHeader.name = "Utilizator";
 firstHeader.columns = [Select, Prenume, Nume, Valid];
 
-let secondHeader = {} as IColumns;
+let secondHeader = {} as IGrouping;
 secondHeader.name = "Detalii";
 secondHeader.columns = [Email, NrTelefon, DataNasterii, Detalii];
 
