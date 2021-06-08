@@ -51,4 +51,8 @@ export const MainGridColumnsStyled = styled.div<{
   .${MinimumVisibility.Invisible.toString()} {
     display: none;
   }
+
+  @media (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
+    display: none;
+  }
 `;
