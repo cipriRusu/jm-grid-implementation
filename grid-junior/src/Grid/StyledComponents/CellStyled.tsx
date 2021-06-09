@@ -10,6 +10,7 @@ export const CellStyled = styled.div<{
 }>`
   @media (min-width: ${ScreenThresholds.SmallScreen +
     "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
-    ${(props) => props.cell_type === ColumnTypes.select && `grid-row: span 2;`}
+    ${(props) =>
+      props.cell_type === ColumnTypes.select && `grid-row: span 100;`}
   }
 `;
