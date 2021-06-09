@@ -7,30 +7,50 @@ const MainGrid = styled.div<{
   inputColumns: IColumn[];
   inputSizes: { [key: string]: string };
 }>`
-  display: grid;
-  grid-template-columns: ${(props) =>
-    props.inputColumns
-      .filter((x) => {
-        return x.minVisibility !== MinimumVisibility.Invisible;
-      })
-      .map((x) => {
-        return x.size + " ";
-      })};
-
   grid-template-rows: repeat(22, 1fr);
   height: 38rem;
   overflow-y: scroll;
   background-color: gray;
   flex: 1;
 
+  @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: grid;
+    grid-template-columns: ${(props) =>
+      props.inputColumns
+        .filter((x) => {
+          return x.minVisibility !== MinimumVisibility.Invisible;
+        })
+        .map((x) => {
+          return x.size + " ";
+        })};
+  }
+
   @media (min-width: ${ScreenThresholds.MediumScreen +
     "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: grid;
     grid-template-columns: ${(props) =>
       props.inputColumns
         .filter((x: IColumn) => {
           return (
             x.minVisibility !== MinimumVisibility.MaxVisible &&
             x.minVisibility !== MinimumVisibility.Invisible
+          );
+        })
+        .map((x: IColumn) => {
+          return x.size + " ";
+        })};
+  }
+
+  @media (min-width: ${ScreenThresholds.SmallScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
+    display: grid;
+    grid-template-columns: ${(props) =>
+      props.inputColumns
+        .filter((x: IColumn) => {
+          return (
+            x.minVisibility !== MinimumVisibility.MaxVisible &&
+            x.minVisibility !== MinimumVisibility.Invisible &&
+            x.minVisibility !== MinimumVisibility.MediumVisible
           );
         })
         .map((x: IColumn) => {
