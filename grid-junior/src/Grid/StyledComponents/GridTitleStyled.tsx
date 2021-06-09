@@ -4,24 +4,68 @@ import { IColumn } from "../Interfaces/GridBody/IColumn";
 import ScreenThresholds from "./ScreenThresholds";
 
 const GridTitle = styled.div<{ columns: IColumn[] }>`
-  display: ${(props) => (props.columns.length > 0 ? "block" : "none")};
+  @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: ${(props) => (props.columns.length > 0 ? "block" : "none")};
 
-  grid-column: ${(props) => {
-    return (
-      "span " +
-      props.columns.filter((x: IColumn) => {
-        return x.minVisibility !== MinimumVisibility.Invisible;
-      }).length
-    );
-  }};
-
-  @media (min-width: ${ScreenThresholds.MediumScreen +
-    "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
     grid-column: ${(props) => {
       return (
         "span " +
         props.columns.filter((x: IColumn) => {
-          return x.minVisibility !== MinimumVisibility.MaxVisible;
+          return x.minVisibility !== MinimumVisibility.Invisible;
+        }).length
+      );
+    }};
+  }
+
+  @media (min-width: ${ScreenThresholds.MediumScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: ${(props) => {
+      return props.columns.filter((x: IColumn) => {
+        return (
+          x.minVisibility !== MinimumVisibility.Invisible &&
+          x.minVisibility !== MinimumVisibility.MaxVisible
+        );
+      }).length > 0
+        ? "block"
+        : "none";
+    }};
+
+    grid-column: ${(props) => {
+      return (
+        "span " +
+        props.columns.filter((x: IColumn) => {
+          return (
+            x.minVisibility !== MinimumVisibility.Invisible &&
+            x.minVisibility !== MinimumVisibility.MaxVisible
+          );
+        }).length
+      );
+    }};
+  }
+
+  @media (min-width: ${ScreenThresholds.SmallScreen +
+    "rem"}) and (max-width: ${ScreenThresholds.MediumScreen + "rem"}) {
+    display: ${(props) => {
+      return props.columns.filter((x: IColumn) => {
+        return (
+          x.minVisibility !== MinimumVisibility.Invisible &&
+          x.minVisibility !== MinimumVisibility.MaxVisible &&
+          x.minVisibility !== MinimumVisibility.MediumVisible
+        );
+      }).length > 0
+        ? "block"
+        : "none";
+    }};
+
+    grid-column: ${(props) => {
+      return (
+        "span " +
+        props.columns.filter((x: IColumn) => {
+          return (
+            x.minVisibility !== MinimumVisibility.Invisible &&
+            x.minVisibility !== MinimumVisibility.MaxVisible &&
+            x.minVisibility !== MinimumVisibility.MediumVisible
+          );
         }).length
       );
     }};
