@@ -7,7 +7,8 @@ export const BooleanRow = (props: { name: string; completeRow: IRow }) => {
     <StyledBooleanRow>
       <div className="row-name">{props.name + " : "}</div>
       <div className="row-icon">
-        {JSON.parse(props.completeRow[props.name]) === true ? (
+        {props.completeRow[props.name] !== undefined &&
+        JSON.parse(props.completeRow[props.name]) === true ? (
           <i className="fa fa-square" aria-hidden="true"></i>
         ) : (
           <i className="fa fa-square-o" aria-hidden="true"></i>
