@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import { DataType } from "./CustomTypes/DataType";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
 import { IFilter } from "./Interfaces/GridTools/IFilter";
 import { IHeader } from "./Interfaces/GridBody/IHeader";
@@ -7,9 +6,8 @@ import { IGridProps } from "./Interfaces/GridBody/IGridProps";
 import { ISortStats } from "./Interfaces/GridBody/ISortStats";
 import { IGridContext } from "./Interfaces/GridTools/IGridContext";
 import { ISortable } from "./Interfaces/GridBody/ISortable";
-import { IColumns } from "./Interfaces/GridBody/IColumns";
+import { IGrouping } from "./Interfaces/GridBody/IGrouping";
 import { IRow } from "./Interfaces/GridBody/IRow";
-import Cell from "./GridBody/GridRows/Cell";
 import Column from "./GridBody/GridHeader/Column";
 import Title from "./GridBody/GridHeader/Title";
 import ScrollDirection from "./GridBody/GridRows/ScrollDirection";
@@ -24,6 +22,9 @@ import { MainGridColumnsStyled } from "./StyledComponents/GridColumnsStyled";
 import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "./CustomTypes/ColumnVisibility";
 import ExtendedRow from "./GridBody/GridRows/ExtendedRow";
+import CellGrouping from "./GridBody/GridRows/CellGrouping";
+
+const VISIBLEHEADER = "firstHeader";
 
 export const GridContext = createContext<IGridContext & ISortable>({
   activeFilter: {
@@ -117,7 +118,7 @@ export default function Grid(props: IGridProps) {
     let allColumns = props.headers
       .filter((x: any) => x.name === "firstHeader")
       .map((header: IHeader) => {
-        return header.headers.map((columns: IColumns) => {
+        return header.headers.map((columns: IGrouping) => {
           return columns.columns.map((column: IColumn) => {
             return column;
           });
@@ -310,7 +311,7 @@ export default function Grid(props: IGridProps) {
               onScroll={(e: any) => UpdateContainer(e)}
             >
               {context.allHeaders[0].headers.map(
-                (value: IColumns, key: number) => {
+                (value: IGrouping, key: number) => {
                   return (
                     <GridTitleStyled columns={value.columns} key={key}>
                       <Title
@@ -348,24 +349,22 @@ export default function Grid(props: IGridProps) {
                     inputTitles={context.allHeaders}
                     onClick={() => setToggledRow(row_key)}
                   >
-                    {context.allColumns.map((y: IColumn, cell_key: number) => {
-                      return (
-                        <Cell
-                          key={cell_key}
-                          content={{
-                            id: row_key,
-                            cell_content: x[y.name],
-                            cell_type: y.type as DataType,
-                            cell_key: cell_key,
-                            cell_size: y.size,
-                            cell_visibility: y.minVisibility,
-                            cell_collapsable: y.collapsable,
-                            selection_options: y.options,
-                            cell_column: y.name.toLowerCase(),
-                          }}
-                        />
-                      );
-                    })}
+                    {context.allHeaders
+                      .filter((header: IHeader) => {
+                        return header.name === VISIBLEHEADER;
+                      })[0]
+                      .headers.map((grouping: IGrouping, key: number) => {
+                        return grouping.columns.length > 0 ? (
+                          <CellGrouping
+                            key={key}
+                            allData={context.allHeaders}
+                            grouping={grouping}
+                            row={x}
+                          ></CellGrouping>
+                        ) : (
+                          ""
+                        );
+                      })}
                   </GridRowStyled>
                   <ExtendedRow
                     id={row_key.toString()}
