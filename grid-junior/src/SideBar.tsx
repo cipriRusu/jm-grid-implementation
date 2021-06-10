@@ -7,6 +7,7 @@ import SideBarColumnAdd from "./SideBarColumnAdd";
 import SideBarElement from "./SideBarElement";
 import SideBarGroupAdd from "./SideBarGroupAdd";
 import { IColumnOptions } from "./Grid/Interfaces/GridBody/IColumnOptions";
+import MoveDirection from "./MoveDirection";
 
 function SideBar(props: {
   toggledSideBar: boolean;
@@ -87,13 +88,13 @@ function SideBar(props: {
     props.updateHeaderData(currentHeaderData);
   }
 
-  function editColumn(updatedColumn: IColumn, columnName: string) {
+  function editColumn(updatedColumn: IColumn, initialColumn: IColumn) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
 
     currentHeaderData.forEach((header: IHeader) => {
       header.headers.forEach((grouping: IGrouping) => {
         grouping.columns.forEach((column: IColumn, index: number) => {
-          if (column.name === columnName) {
+          if (column.name === initialColumn.name) {
             grouping.columns[index] = updatedColumn;
           }
         });
@@ -103,13 +104,48 @@ function SideBar(props: {
     props.updateHeaderData(currentHeaderData);
   }
 
-  function removeColumn(toRemove: string) {
+  function moveColumn(columnToMove: IColumn, direction: MoveDirection) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        for (let column of grouping.columns) {
+          if (column.name === columnToMove.name) {
+            let index = grouping.columns.indexOf(column);
+
+            if (direction === MoveDirection.Down) {
+              if (index + 1 < grouping.columns.length) {
+                [grouping.columns[index], grouping.columns[index + 1]] = [
+                  grouping.columns[index + 1],
+                  grouping.columns[index],
+                ];
+              }
+            }
+
+            if (direction === MoveDirection.Up) {
+              if (index - 1 >= 0) {
+                [grouping.columns[index], grouping.columns[index - 1]] = [
+                  grouping.columns[index - 1],
+                  grouping.columns[index],
+                ];
+              }
+            }
+            break;
+          }
+        }
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function removeColumn(toRemove: IColumn) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
 
     currentHeaderData.forEach((header: IHeader) => {
       header.headers.forEach((grouping: IGrouping) => {
         grouping.columns = grouping.columns.filter((column: IColumn) => {
-          return column.name !== toRemove;
+          return column.name !== toRemove.name;
         });
       });
     });
@@ -140,6 +176,7 @@ function SideBar(props: {
                 columnOrGrouping={grouping}
                 removeColumn={() => removeGroup(grouping.name)}
                 editColumn={editColumn}
+                moveColumn={moveColumn}
               ></SideBarElement>
               {grouping.columns.map((column: IColumn, key: number) => {
                 return (
@@ -148,6 +185,7 @@ function SideBar(props: {
                     columnOrGrouping={column}
                     removeColumn={removeColumn}
                     editColumn={editColumn}
+                    moveColumn={moveColumn}
                   ></SideBarElement>
                 );
               })}
