@@ -8,4 +8,10 @@ export const StyledSideBarElement = styled.div`
   p {
     margin: 0px;
   }
+
+  .icons-grouping {
+    .fa {
+      padding-left: 0.5rem;
+    }
+  }
 `;
