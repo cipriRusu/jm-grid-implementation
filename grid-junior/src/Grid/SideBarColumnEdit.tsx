@@ -8,7 +8,7 @@ import { IColumn } from "./Interfaces/GridBody/IColumn";
 function SideBarColumnEdit(props: {
   isToggled: boolean;
   column: IColumn;
-  editColumn: (editedColumn: IColumn, columnName: string) => void;
+  editColumn: (editedColumn: IColumn, initialColumn: IColumn) => void;
 }) {
   const [columnName, updateColumnName] = useState(props.column.name);
 
@@ -115,7 +115,7 @@ function SideBarColumnEdit(props: {
                 minVisibility: columnVisibility,
                 options: props.column.options,
               },
-              props.column.name
+              props.column
             )
           }
         >
