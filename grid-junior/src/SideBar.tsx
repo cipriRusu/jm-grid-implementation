@@ -17,71 +17,11 @@ function SideBar(props: {
   const [upperNewGroup, updateUpperNewGroup] = useState("");
   const [bottomNewGroup, updatebottomNewGroup] = useState("");
 
-  function RemoveGroup(toRemove: string) {
-    let currentHeaderData = Object.create(props.headers) as [IHeader];
-
-    currentHeaderData.forEach((x) => {
-      x.headers = x.headers.filter((y) => {
-        return y.name !== toRemove;
-      });
-    });
-
-    props.updateHeaderData(currentHeaderData);
-  }
-
-  function addColumn(headerName: string, newColumn: IColumn) {
-    let currentHeaderData = Object.create(props.headers) as [IHeader];
-
-    currentHeaderData.forEach((x) => {
-      x.headers.forEach((x) => {
-        if (x.name === headerName) {
-          x.columns.push(newColumn);
-        }
-      });
-    });
-
-    props.updateHeaderData(currentHeaderData);
-  }
-
-  function addOptionToColumn(newOption: IColumnOptions, column: string) {
-    let currentHeaderData = Object.create(props.headers) as [IHeader];
-
-    currentHeaderData.forEach((x) => {
-      x.headers.forEach((y) => {
-        y.columns.forEach((z) => {
-          if (z.name === column) {
-            if (z.options === undefined) {
-              z.options = [newOption];
-            } else {
-              z.options = z.options.concat(newOption);
-            }
-          }
-        });
-      });
-    });
-
-    props.updateHeaderData(currentHeaderData);
-  }
-
-  function RemoveColumn(toRemove: string) {
-    let currentHeaderData = Object.create(props.headers) as [IHeader];
-
-    currentHeaderData.forEach((x) => {
-      x.headers.forEach((y) => {
-        y.columns = y.columns.filter((z) => {
-          return z.name !== toRemove;
-        });
-      });
-    });
-
-    props.updateHeaderData(currentHeaderData);
-  }
-
   function addNewGroupTop(newGroup: string) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
 
-    currentHeaderData.forEach((x) => {
-      x.headers.unshift({
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.unshift({
         name: newGroup,
         columns: [],
       });
@@ -93,10 +33,84 @@ function SideBar(props: {
   function addNewGroupBottom(newGroup: string) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
 
-    currentHeaderData.forEach((x) => {
-      x.headers.push({
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.push({
         name: newGroup,
         columns: [],
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function removeGroup(toRemove: string) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers = header.headers.filter((grouping: IGrouping) => {
+        return grouping.name !== toRemove;
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function addColumn(headerName: string, newColumn: IColumn) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        if (grouping.name === headerName) {
+          grouping.columns.push(newColumn);
+        }
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function addOptionToColumn(newOption: IColumnOptions, columnName: string) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        grouping.columns.forEach((column: IColumn) => {
+          if (column.name === columnName) {
+            column.options === undefined
+              ? (column.options = [newOption])
+              : (column.options = column.options.concat(newOption));
+          }
+        });
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function editColumn(updatedColumn: IColumn, columnName: string) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        grouping.columns.forEach((column: IColumn, index: number) => {
+          if (column.name === columnName) {
+            grouping.columns[index] = updatedColumn;
+          }
+        });
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
+  function removeColumn(toRemove: string) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        grouping.columns = grouping.columns.filter((column: IColumn) => {
+          return column.name !== toRemove;
+        });
       });
     });
 
@@ -117,27 +131,29 @@ function SideBar(props: {
         addNewGroup={addNewGroupTop}
       ></SideBarGroupAdd>
 
-      {props.headers.map((x: IHeader) => {
-        return x.headers.map((x: IGrouping, key: number) => {
+      {props.headers.map((header: IHeader) => {
+        return header.headers.map((grouping: IGrouping, key: number) => {
           return (
             <React.Fragment key={key}>
               <SideBarElement
                 key={key}
-                column={x}
-                removeColumn={() => RemoveGroup(x.name)}
+                columnOrGrouping={grouping}
+                removeColumn={() => removeGroup(grouping.name)}
+                editColumn={editColumn}
               ></SideBarElement>
-              {x.columns.map((y: IColumn, key: number) => {
+              {grouping.columns.map((column: IColumn, key: number) => {
                 return (
                   <SideBarElement
                     key={key}
-                    column={y}
-                    removeColumn={RemoveColumn}
+                    columnOrGrouping={column}
+                    removeColumn={removeColumn}
+                    editColumn={editColumn}
                   ></SideBarElement>
                 );
               })}
 
               <SideBarColumnAdd
-                header={x.name}
+                header={grouping.name}
                 addColumn={addColumn}
                 addColumnOption={addOptionToColumn}
               ></SideBarColumnAdd>
