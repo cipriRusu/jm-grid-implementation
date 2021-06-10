@@ -91,7 +91,8 @@ const StyledCellGrouping = styled.div<{
     grid-template-columns: ${(props) => {
       return props.grouping !== undefined &&
         props.grouping.columns.length > 0 &&
-        props.grouping.columns[0].type === ColumnTypes.select
+        props.grouping.columns[0].type === ColumnTypes.select &&
+        props.grouping.columns[0].minVisibility !== MinimumVisibility.Invisible
         ? "10% 1fr"
         : "1fr";
     }};
