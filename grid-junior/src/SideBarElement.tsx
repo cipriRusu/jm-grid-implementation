@@ -64,7 +64,7 @@ function SideBarElement(props: {
             ""
           )}
           <i
-            className="fa fa-minus-circle"
+            className="fa fa-trash"
             aria-hidden="true"
             onClick={() => {
               props.removeColumn(props.columnOrGrouping as IColumn);
