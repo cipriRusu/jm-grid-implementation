@@ -99,18 +99,13 @@ const StyledCellGrouping = styled.div<{
 
     grid-template-rows: repeat(auto-fill, 2.5rem);
 
-    .${MinimumVisibility.LargeVisible} {
-      display: none;
-    }
-
     .${MinimumVisibility.MaxVisible} {
       display: none;
     }
 
-    .${MinimumVisibility.MediumVisible} {
+    .${MinimumVisibility.LargeVisible} {
       display: none;
     }
-
     .cell {
       margin: 0.5rem;
     }
