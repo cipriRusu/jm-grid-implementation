@@ -1,4 +1,3 @@
-import "./Cell.scss";
 import { ICell } from "../../Interfaces/GridBody/ICell";
 import StandardCell from "./StandardCell";
 import BooleanCell from "./BooleanCell";
