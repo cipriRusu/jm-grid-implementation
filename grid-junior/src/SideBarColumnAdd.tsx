@@ -147,6 +147,15 @@ function SideBarColumnAdd(props: {
           findColumn={props.findColumn}
           removeOption={props.removeOption}
         ></SideBarColumnOption>
+        {props.findColumn({
+          name: columnName,
+          type: columnType,
+          size: columnSize,
+          collapsable: columnCollapsable,
+          minVisibility: columnVisibility,
+        }) === true
+          ? ""
+          : ""}
         <br></br>
       </div>
     </div>
