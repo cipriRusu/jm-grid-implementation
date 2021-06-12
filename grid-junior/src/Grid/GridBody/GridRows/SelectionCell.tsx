@@ -1,3 +1,4 @@
+import { propTypes } from "react-bootstrap/esm/Image";
 import { ICell } from "../../Interfaces/GridBody/ICell";
 import { IColumnOptions } from "../../Interfaces/GridBody/IColumnOptions";
 
@@ -7,18 +8,27 @@ const SelectionCell = (content: ICell) => {
       (x: IColumnOptions) => x !== undefined && x.name === content
     )[0] as IColumnOptions;
 
-    if (selectionCellContent !== undefined) {
-      return <i className={selectionCellContent.icon} aria-hidden="true"></i>;
-    }
+    return selectionCellContent !== undefined ? (
+      <i className={selectionCellContent.icon} aria-hidden="true"></i>
+    ) : (
+      <i className="" aria-hidden="true"></i>
+    );
   };
+
+  const icon = DisplayIcon(
+    content.cell_content || "",
+    content.selection_options || []
+  );
 
   return (
     <div className="cell selection-cell">
-      <div className="selection-cell-icon">
-        {DisplayIcon(
-          content.cell_content || "",
-          content.selection_options || []
-        )}
+      <div
+        style={{
+          display: icon?.props.className === "" ? "none" : "block",
+        }}
+        className="selection-cell-icon"
+      >
+        {icon}
       </div>
       <div className="selection-cell-text">{content.cell_content}</div>
     </div>
