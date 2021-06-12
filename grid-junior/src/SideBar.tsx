@@ -70,13 +70,21 @@ function SideBar(props: {
     props.updateHeaderData(currentHeaderData);
   }
 
-  function addOptionToColumn(newOption: IColumnOptions, columnName: string) {
+  function addOptionToColumn(
+    newOption: IColumnOptions,
+    currentOption: IColumnOptions,
+    currentColumn: IColumn
+  ) {
     let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    if (currentOption.name !== "") {
+      removeOption(currentColumn, currentOption);
+    }
 
     currentHeaderData.forEach((header: IHeader) => {
       header.headers.forEach((grouping: IGrouping) => {
         grouping.columns.forEach((column: IColumn) => {
-          if (column.name === columnName) {
+          if (column.name === currentColumn.name) {
             column.options === undefined
               ? (column.options = [newOption])
               : (column.options = column.options.concat(newOption));
@@ -102,6 +110,22 @@ function SideBar(props: {
     });
 
     props.updateHeaderData(currentHeaderData);
+  }
+
+  function findColumn(columnToFind: IColumn) {
+    let doesExist = false;
+
+    props.headers.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        grouping.columns.forEach((column: IColumn) => {
+          if (column.name === columnToFind.name) {
+            doesExist = true;
+          }
+        });
+      });
+    });
+
+    return doesExist;
   }
 
   function moveColumn(columnToMove: IColumn, direction: MoveDirection) {
@@ -153,6 +177,29 @@ function SideBar(props: {
     props.updateHeaderData(currentHeaderData);
   }
 
+  function removeOption(
+    currentColumn: IColumn,
+    optionToRemove: IColumnOptions
+  ) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    currentHeaderData.forEach((header: IHeader) => {
+      header.headers.forEach((grouping: IGrouping) => {
+        grouping.columns.forEach((column: IColumn) => {
+          if (column.name === currentColumn.name) {
+            column.options = column.options?.filter(
+              (option: IColumnOptions) => {
+                return option.name !== optionToRemove.name;
+              }
+            );
+          }
+        });
+      });
+    });
+
+    props.updateHeaderData(currentHeaderData);
+  }
+
   return (
     <StyledSideBar isVisible={props.toggledSideBar}>
       <i
@@ -177,6 +224,9 @@ function SideBar(props: {
                 removeColumn={() => removeGroup(grouping.name)}
                 editColumn={editColumn}
                 moveColumn={moveColumn}
+                findColumn={findColumn}
+                addOption={addOptionToColumn}
+                removeOption={removeOption}
               ></SideBarElement>
               {grouping.columns.map((column: IColumn, key: number) => {
                 return (
@@ -186,6 +236,9 @@ function SideBar(props: {
                     removeColumn={removeColumn}
                     editColumn={editColumn}
                     moveColumn={moveColumn}
+                    findColumn={findColumn}
+                    addOption={addOptionToColumn}
+                    removeOption={removeOption}
                   ></SideBarElement>
                 );
               })}
@@ -194,6 +247,8 @@ function SideBar(props: {
                 header={grouping.name}
                 addColumn={addColumn}
                 addColumnOption={addOptionToColumn}
+                findColumn={findColumn}
+                removeOption={removeOption}
               ></SideBarColumnAdd>
               <br></br>
             </React.Fragment>
