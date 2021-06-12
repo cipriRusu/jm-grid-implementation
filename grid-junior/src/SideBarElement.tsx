@@ -40,9 +40,6 @@ function SideBarElement(props: {
         </p>
         <div className="icons-grouping">
           <i
-            style={{
-              display: `${"columns" in props.columnOrGrouping ? "none" : ""}`,
-            }}
             className="fa fa-arrow-down"
             aria-hidden="true"
             onClick={() =>
@@ -53,17 +50,14 @@ function SideBarElement(props: {
             }
           ></i>
           <i
-            style={{
-              display: `${"columns" in props.columnOrGrouping ? "none" : ""}`,
-            }}
             className="fa fa-arrow-up"
             aria-hidden="true"
-            onClick={() =>
+            onClick={() => {
               props.moveColumn(
                 props.columnOrGrouping as IColumn,
                 MoveDirection.Up
-              )
-            }
+              );
+            }}
           ></i>
           {!("columns" in props.columnOrGrouping) ? (
             <i
