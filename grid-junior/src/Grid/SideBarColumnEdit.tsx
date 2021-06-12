@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
+import SideBarColumnOption from "../SideBarColumnOption";
 import { ColumnCollapsable } from "./CustomTypes/ColumnCollapsable";
 import { ColumnSizes } from "./CustomTypes/ColumnSizes";
 import { ColumnTypes } from "./CustomTypes/ColumnTypes";
 import { MinimumVisibility } from "./CustomTypes/ColumnVisibility";
 import { IColumn } from "./Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "./Interfaces/GridBody/IColumnOptions";
 
 function SideBarColumnEdit(props: {
   isToggled: boolean;
   column: IColumn;
   editColumn: (editedColumn: IColumn, initialColumn: IColumn) => void;
+  addOption: (
+    newOption: IColumnOptions,
+    currentOption: IColumnOptions,
+    currentColumn: IColumn
+  ) => void;
+  removeOption: (
+    currentColumn: IColumn,
+    optionToRemove: IColumnOptions
+  ) => void;
+  findColumn: (columnToFind: IColumn) => boolean;
 }) {
   const [columnName, updateColumnName] = useState(props.column.name);
 
@@ -121,6 +133,34 @@ function SideBarColumnEdit(props: {
         >
           Edit Column
         </button>
+        {props.column.type === ColumnTypes.select
+          ? props.column.options?.map((currentOption: IColumnOptions) => {
+              return (
+                <SideBarColumnOption
+                  addNewOption={props.addOption}
+                  currentOption={currentOption}
+                  column={props.column}
+                  canRemove={true}
+                  findColumn={props.findColumn}
+                  isVisible={props.column.type === ColumnTypes.select}
+                  removeOption={props.removeOption}
+                ></SideBarColumnOption>
+              );
+            })
+          : ""}
+        {props.column.type === ColumnTypes.select ? (
+          <SideBarColumnOption
+            addNewOption={props.addOption}
+            currentOption={{ name: "", icon: "" }}
+            column={props.column}
+            canRemove={false}
+            findColumn={props.findColumn}
+            isVisible={props.column.type === ColumnTypes.select}
+            removeOption={props.removeOption}
+          ></SideBarColumnOption>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
