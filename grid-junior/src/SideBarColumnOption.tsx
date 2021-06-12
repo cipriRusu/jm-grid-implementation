@@ -37,7 +37,6 @@ function SideBarColumnOption(props: {
     <StyledSideBarColumnOption
       isVisible={props.isVisible && props.findColumn(props.column)}
     >
-      <br></br>
       <div
         style={{
           display: "flex",
@@ -90,6 +89,7 @@ function SideBarColumnOption(props: {
       >
         {props.canRemove === true ? "Edit Current Option" : "Add New Option"}
       </button>
+      <br></br>
     </StyledSideBarColumnOption>
   );
 }

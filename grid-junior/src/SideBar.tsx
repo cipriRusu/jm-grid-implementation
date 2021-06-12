@@ -250,7 +250,6 @@ function SideBar(props: {
                 findColumn={findColumn}
                 removeOption={removeOption}
               ></SideBarColumnAdd>
-              <br></br>
             </React.Fragment>
           );
         });

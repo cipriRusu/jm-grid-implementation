@@ -119,7 +119,6 @@ function SideBarColumnAdd(props: {
             return <option key={y}>{x}</option>;
           })}
         </select>
-        <br></br>
         <button
           onClick={() =>
             props.addColumn(props.header, {
@@ -148,6 +147,7 @@ function SideBarColumnAdd(props: {
           findColumn={props.findColumn}
           removeOption={props.removeOption}
         ></SideBarColumnOption>
+        <br></br>
       </div>
     </div>
   );
