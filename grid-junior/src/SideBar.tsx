@@ -160,6 +160,12 @@ function SideBar(props: {
       });
     });
 
+    function moveHeader(headerToMove: IHeader, moveDirection: MoveDirection) {
+      let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+      currentHeaderData.forEach((header: IHeader) => {});
+    }
+
     props.updateHeaderData(currentHeaderData);
   }
 
