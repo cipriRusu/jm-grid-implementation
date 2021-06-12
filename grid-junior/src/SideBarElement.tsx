@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "./Grid/Interfaces/GridBody/IColumnOptions";
 import { IGrouping } from "./Grid/Interfaces/GridBody/IGrouping";
 import SideBarColumnEdit from "./Grid/SideBarColumnEdit";
 import MoveDirection from "./MoveDirection";
@@ -10,6 +11,16 @@ function SideBarElement(props: {
   removeColumn: (column: IColumn) => void;
   editColumn: (editedColumn: IColumn, initialColumn: IColumn) => void;
   moveColumn: (column: IColumn, direction: MoveDirection) => void;
+  findColumn: (columnToFind: IColumn) => boolean;
+  addOption: (
+    newOption: IColumnOptions,
+    currentOption: IColumnOptions,
+    currentColumn: IColumn
+  ) => void;
+  removeOption: (
+    currentColumn: IColumn,
+    optionToRemove: IColumnOptions
+  ) => void;
 }) {
   const [isToggled, updateisToggled] = useState(false);
 
@@ -81,6 +92,9 @@ function SideBarElement(props: {
           isToggled={isToggled}
           column={props.columnOrGrouping as IColumn}
           editColumn={props.editColumn}
+          addOption={props.addOption}
+          removeOption={props.removeOption}
+          findColumn={props.findColumn}
         ></SideBarColumnEdit>
       </div>
     </>
