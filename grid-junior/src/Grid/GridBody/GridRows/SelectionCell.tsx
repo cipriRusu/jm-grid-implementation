@@ -1,4 +1,3 @@
-import { propTypes } from "react-bootstrap/esm/Image";
 import { ICell } from "../../Interfaces/GridBody/ICell";
 import { IColumnOptions } from "../../Interfaces/GridBody/IColumnOptions";
 
