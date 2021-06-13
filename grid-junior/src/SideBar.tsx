@@ -160,10 +160,34 @@ function SideBar(props: {
       });
     });
 
-    function moveHeader(headerToMove: IHeader, moveDirection: MoveDirection) {
-      let currentHeaderData = Object.create(props.headers) as [IHeader];
+    props.updateHeaderData(currentHeaderData);
+  }
 
-      currentHeaderData.forEach((header: IHeader) => {});
+  function moveHeader(headerToMove: IGrouping, moveDirection: MoveDirection) {
+    let currentHeaderData = Object.create(props.headers) as [IHeader];
+
+    let currentHeader = currentHeaderData.filter((x: IHeader) => {
+      return x.name === "firstHeader";
+    })[0].headers;
+
+    let moveIndex = currentHeader.indexOf(headerToMove);
+
+    if (moveDirection === MoveDirection.Down) {
+      if (moveIndex + 1 < currentHeader.length) {
+        [currentHeader[moveIndex], currentHeader[moveIndex + 1]] = [
+          currentHeader[moveIndex + 1],
+          currentHeader[moveIndex],
+        ];
+      }
+    }
+
+    if (moveDirection === MoveDirection.Up) {
+      if (moveIndex - 1 >= 0) {
+        [currentHeader[moveIndex], currentHeader[moveIndex - 1]] = [
+          currentHeader[moveIndex - 1],
+          currentHeader[moveIndex],
+        ];
+      }
     }
 
     props.updateHeaderData(currentHeaderData);
@@ -233,6 +257,7 @@ function SideBar(props: {
                 findColumn={findColumn}
                 addOption={addOptionToColumn}
                 removeOption={removeOption}
+                moveGrouping={moveHeader}
               ></SideBarElement>
               {grouping.columns.map((column: IColumn, key: number) => {
                 return (
@@ -245,6 +270,7 @@ function SideBar(props: {
                     findColumn={findColumn}
                     addOption={addOptionToColumn}
                     removeOption={removeOption}
+                    moveGrouping={moveHeader}
                   ></SideBarElement>
                 );
               })}
