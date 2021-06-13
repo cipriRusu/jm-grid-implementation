@@ -114,6 +114,7 @@ class Column extends React.Component<IColumn, IColumn> {
             <Dropdown>
               <div className="column">
                 <div
+                  style={{ maxWidth: "8rem", overflow: "hidden" }}
                   className="sort"
                   tabIndex={0}
                   onKeyPress={() => this.handleColumnSorting(value)}
