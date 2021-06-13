@@ -134,19 +134,22 @@ function SideBarColumnEdit(props: {
           Edit Column
         </button>
         {props.column.type === ColumnTypes.select
-          ? props.column.options?.map((currentOption: IColumnOptions) => {
-              return (
-                <SideBarColumnOption
-                  addNewOption={props.addOption}
-                  currentOption={currentOption}
-                  column={props.column}
-                  canRemove={true}
-                  findColumn={props.findColumn}
-                  isVisible={props.column.type === ColumnTypes.select}
-                  removeOption={props.removeOption}
-                ></SideBarColumnOption>
-              );
-            })
+          ? props.column.options?.map(
+              (currentOption: IColumnOptions, key: number) => {
+                return (
+                  <SideBarColumnOption
+                    key={key}
+                    addNewOption={props.addOption}
+                    currentOption={currentOption}
+                    column={props.column}
+                    canRemove={true}
+                    findColumn={props.findColumn}
+                    isVisible={props.column.type === ColumnTypes.select}
+                    removeOption={props.removeOption}
+                  ></SideBarColumnOption>
+                );
+              }
+            )
           : ""}
         {props.column.type === ColumnTypes.select ? (
           <SideBarColumnOption
