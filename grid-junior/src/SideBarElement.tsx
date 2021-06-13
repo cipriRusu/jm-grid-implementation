@@ -8,6 +8,7 @@ import { StyledSideBarElement } from "./StyledSideBarElement";
 
 function SideBarElement(props: {
   columnOrGrouping: IColumn | IGrouping;
+  moveGrouping: (header: IGrouping, moveDirection: MoveDirection) => void;
   removeColumn: (column: IColumn) => void;
   editColumn: (editedColumn: IColumn, initialColumn: IColumn) => void;
   moveColumn: (column: IColumn, direction: MoveDirection) => void;
@@ -43,20 +44,30 @@ function SideBarElement(props: {
             className="fa fa-arrow-down"
             aria-hidden="true"
             onClick={() =>
-              props.moveColumn(
-                props.columnOrGrouping as IColumn,
-                MoveDirection.Down
-              )
+              !("columns" in props.columnOrGrouping)
+                ? props.moveColumn(
+                    props.columnOrGrouping as IColumn,
+                    MoveDirection.Down
+                  )
+                : props.moveGrouping(
+                    props.columnOrGrouping as IGrouping,
+                    MoveDirection.Down
+                  )
             }
           ></i>
           <i
             className="fa fa-arrow-up"
             aria-hidden="true"
             onClick={() => {
-              props.moveColumn(
-                props.columnOrGrouping as IColumn,
-                MoveDirection.Up
-              );
+              !("columns" in props.columnOrGrouping)
+                ? props.moveColumn(
+                    props.columnOrGrouping as IColumn,
+                    MoveDirection.Up
+                  )
+                : props.moveGrouping(
+                    props.columnOrGrouping as IGrouping,
+                    MoveDirection.Up
+                  );
             }}
           ></i>
           {!("columns" in props.columnOrGrouping) ? (
