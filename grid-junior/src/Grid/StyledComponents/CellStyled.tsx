@@ -16,6 +16,9 @@ export const CellStyled = styled.div<{
       min-width: 5rem;
       word-break: break-all;
       word-wrap: break-word;
+    }
+
+    .boolean-cell {
       .fa {
         margin-left: 1rem;
       }
