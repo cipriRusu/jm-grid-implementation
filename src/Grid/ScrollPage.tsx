@@ -82,8 +82,10 @@ export class ScrollPage {
     const loadOnScroolDown = (event: any) => {
       const isBottomReached = (event: any) => {
         return (
-          event.target.scrollHeight - event.target.scrollTop ===
-          event.target.clientHeight
+          event.target.scrollHeight -
+            event.target.scrollTop -
+            event.target.clientHeight <=
+          1
         );
       };
 
