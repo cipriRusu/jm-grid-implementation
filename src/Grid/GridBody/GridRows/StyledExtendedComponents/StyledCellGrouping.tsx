@@ -112,7 +112,7 @@ const StyledCellGrouping = styled.div<{
         : "1fr";
     }};
 
-    grid-template-rows: repeat(auto-fill, 2.5rem);
+    grid-template-rows: fit-content(20%);
 
     .${MinimumVisibility.MaxVisible} {
       display: none;
