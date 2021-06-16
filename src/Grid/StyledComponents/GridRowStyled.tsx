@@ -77,6 +77,8 @@ const GridRowStyled = styled.div<{
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
     .${MinimumVisibility.MaxVisible} {
       display: none;
