@@ -31,7 +31,6 @@ export const CellStyled = styled.div<{
       display: grid;
       margin: 1rem;
       grid-auto-flow: column;
-      min-width: 5rem;
       word-break: break-all;
       word-wrap: break-word;
     }
@@ -43,9 +42,8 @@ export const CellStyled = styled.div<{
       props.cell_type === ColumnTypes.select && `grid-row: span 100;`}
     .cell {
       display: grid;
-      margin: 1rem;
+      margin: 0.5rem;
       grid-auto-flow: column;
-      min-width: 5rem;
       word-break: break-all;
       word-wrap: break-word;
     }
