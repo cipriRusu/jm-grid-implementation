@@ -32,8 +32,8 @@ const MainGrid = styled.div<{
       props.inputColumns
         .filter((x: IColumn) => {
           return (
-            x.minVisibility !== MinimumVisibility.MaxVisible &&
-            x.minVisibility !== MinimumVisibility.Invisible
+            x.minVisibility !== MinimumVisibility.Invisible &&
+            x.minVisibility !== MinimumVisibility.MaxVisible
           );
         })
         .map((x: IColumn) => {
@@ -48,9 +48,9 @@ const MainGrid = styled.div<{
       props.inputColumns
         .filter((x: IColumn) => {
           return (
-            x.minVisibility !== MinimumVisibility.MaxVisible &&
             x.minVisibility !== MinimumVisibility.Invisible &&
-            x.minVisibility !== MinimumVisibility.MediumVisible
+            x.minVisibility !== MinimumVisibility.MaxVisible &&
+            x.minVisibility !== MinimumVisibility.LargeVisible
           );
         })
         .map((x: IColumn) => {

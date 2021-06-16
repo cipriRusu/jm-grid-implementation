@@ -11,14 +11,20 @@ const StyledCellGrouping = styled.div<{
   allData: IHeader[];
 }>`
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: ${(props) => {
+      return props.grouping.columns.filter((x: IColumn) => {
+        return x.minVisibility !== MinimumVisibility.Invisible;
+      }).length > 0
+        ? "grid"
+        : "none";
+    }};
+
     grid-column: span
       ${(props) => {
         return props.grouping.columns.filter((x: IColumn) => {
           return x.minVisibility !== MinimumVisibility.Invisible;
         }).length;
       }};
-
-    display: grid;
 
     grid-template-columns: ${(props) => {
       return props.grouping.columns
@@ -33,6 +39,17 @@ const StyledCellGrouping = styled.div<{
 
   @media (min-width: ${ScreenThresholds.MediumScreen +
     "rem"}) and (max-width: ${ScreenThresholds.LargeScreen + "rem"}) {
+    display: ${(props) => {
+      return props.grouping.columns.filter((x: IColumn) => {
+        return (
+          x.minVisibility !== MinimumVisibility.Invisible &&
+          x.minVisibility !== MinimumVisibility.MaxVisible
+        );
+      }).length > 0
+        ? "grid"
+        : "none";
+    }};
+
     grid-column: span
       ${(props) => {
         return props.grouping.columns.filter((x: IColumn) => {
@@ -42,8 +59,6 @@ const StyledCellGrouping = styled.div<{
           );
         }).length;
       }};
-
-    display: grid;
 
     grid-template-columns: ${(props) => {
       return props.grouping.columns
@@ -70,7 +85,7 @@ const StyledCellGrouping = styled.div<{
         return (
           x.minVisibility !== MinimumVisibility.Invisible &&
           x.minVisibility !== MinimumVisibility.MaxVisible &&
-          x.minVisibility !== MinimumVisibility.MediumVisible
+          x.minVisibility !== MinimumVisibility.LargeVisible
         );
       }).length > 0
         ? "grid"
@@ -83,7 +98,7 @@ const StyledCellGrouping = styled.div<{
           return (
             x.minVisibility !== MinimumVisibility.Invisible &&
             x.minVisibility !== MinimumVisibility.MaxVisible &&
-            x.minVisibility !== MinimumVisibility.MediumVisible
+            x.minVisibility !== MinimumVisibility.LargeVisible
           );
         }).length;
       }};
@@ -106,12 +121,13 @@ const StyledCellGrouping = styled.div<{
     .${MinimumVisibility.LargeVisible} {
       display: none;
     }
-    .cell {
-      margin: 0.5rem;
-    }
 
     .selection-cell-text {
-      display: none;
+      display: ${(props) => {
+        return props.grouping.columns[0].type === ColumnTypes.select
+          ? "none"
+          : "block";
+      }};
     }
   }
 

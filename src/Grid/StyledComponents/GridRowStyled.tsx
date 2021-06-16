@@ -58,7 +58,7 @@ const GridRowStyled = styled.div<{
           return (
             x.minVisibility !== MinimumVisibility.Invisible &&
             x.minVisibility !== MinimumVisibility.MaxVisible &&
-            x.minVisibility !== MinimumVisibility.MediumVisible
+            x.minVisibility !== MinimumVisibility.LargeVisible
           );
         })
         .map((x) => {

@@ -5,7 +5,13 @@ import ScreenThresholds from "./ScreenThresholds";
 
 const GridTitle = styled.div<{ columns: IColumn[] }>`
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
-    display: ${(props) => (props.columns.length > 0 ? "block" : "none")};
+    display: ${(props) => {
+      return props.columns.filter((x: IColumn) => {
+        return x.minVisibility !== MinimumVisibility.Invisible;
+      }).length > 0
+        ? "grid"
+        : "none";
+    }};
 
     grid-column: ${(props) => {
       return (
@@ -50,7 +56,7 @@ const GridTitle = styled.div<{ columns: IColumn[] }>`
         return (
           x.minVisibility !== MinimumVisibility.Invisible &&
           x.minVisibility !== MinimumVisibility.MaxVisible &&
-          x.minVisibility !== MinimumVisibility.MediumVisible
+          x.minVisibility !== MinimumVisibility.LargeVisible
         );
       }).length > 0
         ? "block"
@@ -64,7 +70,7 @@ const GridTitle = styled.div<{ columns: IColumn[] }>`
           return (
             x.minVisibility !== MinimumVisibility.Invisible &&
             x.minVisibility !== MinimumVisibility.MaxVisible &&
-            x.minVisibility !== MinimumVisibility.MediumVisible
+            x.minVisibility !== MinimumVisibility.LargeVisible
           );
         }).length
       );
