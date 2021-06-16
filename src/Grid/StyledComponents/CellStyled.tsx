@@ -47,6 +47,13 @@ export const CellStyled = styled.div<{
       word-break: break-all;
       word-wrap: break-word;
     }
+
+    .selection-cell {
+      display: flex;
+      .selection-cell-text {
+        margin-left: 1rem;
+      }
+    }
   }
 
   @media (max-width: ${ScreenThresholds.SmallScreen + "rem"}) {
