@@ -7,7 +7,6 @@ const MainGrid = styled.div<{
   inputColumns: IColumn[];
   inputSizes: { [key: string]: string };
 }>`
-  height: 100vh;
   overflow-y: scroll;
   background-color: gray;
   flex: 1;

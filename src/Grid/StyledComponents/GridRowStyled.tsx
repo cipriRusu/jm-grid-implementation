@@ -9,6 +9,7 @@ const GridRowStyled = styled.div<{
   inputTitles: IHeader[];
 }>`
   grid-column: span ${(props) => props.inputColumns.length};
+  height: 10vh;
   display: grid;
   border-bottom: solid;
   border-width: thin;
