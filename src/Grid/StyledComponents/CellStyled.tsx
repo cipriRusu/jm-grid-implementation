@@ -42,7 +42,7 @@ export const CellStyled = styled.div<{
       props.cell_type === ColumnTypes.select && `grid-row: span 100;`}
     .cell {
       display: grid;
-      margin: 0.5rem;
+      margin: 0.5rem 0rem 0.5rem 0.5rem;
       grid-auto-flow: column;
       word-break: break-all;
       word-wrap: break-word;

@@ -114,6 +114,8 @@ const StyledCellGrouping = styled.div<{
 
     grid-template-rows: fit-content(20%);
 
+    grid-column-gap: 0.5rem;
+
     .${MinimumVisibility.MaxVisible} {
       display: none;
     }
