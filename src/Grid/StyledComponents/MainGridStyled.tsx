@@ -7,8 +7,7 @@ const MainGrid = styled.div<{
   inputColumns: IColumn[];
   inputSizes: { [key: string]: string };
 }>`
-  grid-template-rows: repeat(22, 1fr);
-  height: 38rem;
+  height: 100vh;
   overflow-y: scroll;
   background-color: gray;
   flex: 1;
