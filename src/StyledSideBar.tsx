@@ -7,7 +7,7 @@ export const StyledSideBar = styled.div<{ isVisible: boolean }>`
   padding: 0.8rem;
   display: ${(props) => (props.isVisible ? "block" : "none")};
   overflow-y: scroll;
-  height: 38rem;
+  height: 100vh;
 
   ::-webkit-scrollbar {
     width: 10px;
