@@ -9,7 +9,6 @@ const GridRowStyled = styled.div<{
   inputTitles: IHeader[];
 }>`
   grid-column: span ${(props) => props.inputColumns.length};
-  height: 10vh;
   display: grid;
   border-bottom: solid;
   border-width: thin;
@@ -19,6 +18,10 @@ const GridRowStyled = styled.div<{
   :hover {
     background-color: #595f5f;
     cursor: pointer;
+  }
+
+  @media (min-device-width: 2000px), (min-device-height: 1000px) {
+    height: 10vh;
   }
 
   @media (min-width: ${ScreenThresholds.LargeScreen + "rem"}) {
