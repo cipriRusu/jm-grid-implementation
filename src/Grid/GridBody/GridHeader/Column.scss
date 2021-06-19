@@ -55,11 +55,18 @@
   .filter-dropdown {
     display: none;
     position: absolute;
-    right: 0;
-    width: 100%;
     background-color: white;
     border-radius: 0.25rem;
     color: black;
+    width: 200px;
+  }
+
+  .right-side {
+    left: 80%;
+  }
+
+  .left-side {
+    right: 0%;
   }
 
   .show {
