@@ -20,7 +20,22 @@ class Column extends React.Component<IColumn, IColumn> {
       toggled: this.props.toggled,
       minVisibility: this.props.minVisibility,
       collapsable: this.props.collapsable,
+      side: this.props.side,
     };
+  }
+
+  handleChangeSide() {
+    document.addEventListener("click", (e) => {
+      if (e.pageX < 200 && this.state.side !== "right-side") {
+        this.setState({ side: "right-side" });
+      }
+      if (
+        window.innerWidth - e.pageX < 200 &&
+        this.state.side !== "left-side"
+      ) {
+        this.setState({ side: "left-side" });
+      }
+    });
   }
 
   handleColumnSorting(value: any) {
@@ -135,6 +150,7 @@ class Column extends React.Component<IColumn, IColumn> {
                         minVisibility: MinimumVisibility.SmallVisible,
                         collapsable: ColumnCollapsable.collapsable,
                       });
+                      this.handleChangeSide();
                     } else {
                       value.setToggledColumn(this.state);
                     }
@@ -158,7 +174,11 @@ class Column extends React.Component<IColumn, IColumn> {
               </div>
               <div
                 className={`filter-dropdown ${
-                  this.state === value.toggledColumn ? "show" : ""
+                  this.state === value.toggledColumn
+                    ? this.state.side === "left-side"
+                      ? "left-side show"
+                      : "right-side show"
+                    : ""
                 }`}
               >
                 <Filters columns={[this.props]} />
