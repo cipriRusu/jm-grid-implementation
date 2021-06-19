@@ -29,7 +29,7 @@ function SideBarElement(props: {
     <div
       style={{
         backgroundColor: "gray",
-        padding: "0.5rem",
+        padding: "0.5rem 0rem 0.5rem 0rem",
         marginTop: "columns" in props.columnOrGrouping ? "2rem" : "",
       }}
     >
@@ -37,6 +37,7 @@ function SideBarElement(props: {
         <p
           style={
             {
+              marginLeft: "0.5rem",
               fontWeight: `${
                 "columns" in props.columnOrGrouping ? "bold" : ""
               }`,
@@ -86,6 +87,7 @@ function SideBarElement(props: {
             ""
           )}
           <i
+            style={{ marginRight: "0.5rem" }}
             className="fa fa-trash"
             aria-hidden="true"
             onClick={() => {
