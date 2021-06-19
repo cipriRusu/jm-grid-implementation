@@ -335,6 +335,7 @@ export default function Grid(props: IGridProps) {
                         minVisibility={value.minVisibility}
                         collapsable={value.collapsable}
                         toggled={false}
+                        side={"left-side"}
                       />
                     </GridColumnStyled>
                   );
