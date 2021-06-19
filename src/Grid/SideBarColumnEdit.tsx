@@ -59,6 +59,8 @@ function SideBarColumnEdit(props: {
           display: `${props.isToggled ? "flex" : "none"}`,
           flexDirection: "column",
           justifyContent: "space-evenly",
+          backgroundColor: "black",
+          padding: "0.5rem",
         }}
       >
         <div>Column Name:</div>
