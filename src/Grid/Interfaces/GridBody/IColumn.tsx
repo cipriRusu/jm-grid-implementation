@@ -10,4 +10,5 @@ export interface IColumn {
   toggled?: boolean;
   type?: string;
   options?: any[];
+  side?: string;
 }
