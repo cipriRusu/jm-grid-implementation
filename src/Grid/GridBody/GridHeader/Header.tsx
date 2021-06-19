@@ -33,6 +33,7 @@ function Header() {
                       toggled={false}
                       collapsable={value.collapsable}
                       minVisibility={value.minVisibility}
+                      side={"left-side"}
                     />
                   );
                 })}
