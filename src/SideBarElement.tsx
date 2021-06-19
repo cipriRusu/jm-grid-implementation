@@ -26,7 +26,13 @@ function SideBarElement(props: {
   const [isToggled, updateisToggled] = useState(false);
 
   return (
-    <>
+    <div
+      style={{
+        backgroundColor: "gray",
+        padding: "0.5rem",
+        marginTop: "columns" in props.columnOrGrouping ? "2rem" : "",
+      }}
+    >
       <StyledSideBarElement>
         <p
           style={
@@ -102,7 +108,7 @@ function SideBarElement(props: {
           findColumn={props.findColumn}
         ></SideBarColumnEdit>
       </div>
-    </>
+    </div>
   );
 }
 

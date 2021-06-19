@@ -6,6 +6,8 @@ const StyledSideBarColumnOption = styled.div<{ isVisible: boolean }>`
   border-top: solid thin white;
   border-bottom: solid thin white;
   margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: black;
 `;
 
 export default StyledSideBarColumnOption;

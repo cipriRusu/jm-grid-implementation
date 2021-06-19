@@ -46,7 +46,7 @@ function SideBarColumnAdd(props: {
   return (
     <div>
       <StyledSideBarElement>
-        <div>Add New Column</div>
+        <div style={{ padding: "0.5rem" }}>Add New Column</div>
         <i
           className={`${
             isToggled === false ? "fa fa fa-plus" : "fa fa fa-minus"
@@ -60,6 +60,8 @@ function SideBarColumnAdd(props: {
           display: `${isToggled === true ? "flex" : "none"}`,
           flexDirection: "column",
           justifyContent: "space-evenly",
+          padding: "0.5rem",
+          border: "1px solid white",
         }}
       >
         <div>Column Name:</div>
@@ -119,6 +121,7 @@ function SideBarColumnAdd(props: {
             return <option key={y}>{x}</option>;
           })}
         </select>
+        <br></br>
         <button
           onClick={() =>
             props.addColumn(props.header, {

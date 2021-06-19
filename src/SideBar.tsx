@@ -243,7 +243,6 @@ function SideBar(props: {
         updateUpperNewGroup={updateUpperNewGroup}
         addNewGroup={addNewGroupTop}
       ></SideBarGroupAdd>
-
       {props.headers.map((header: IHeader) => {
         return header.headers.map((grouping: IGrouping, key: number) => {
           return (
@@ -274,7 +273,6 @@ function SideBar(props: {
                   ></SideBarElement>
                 );
               })}
-
               <SideBarColumnAdd
                 header={grouping.name}
                 addColumn={addColumn}
@@ -286,7 +284,7 @@ function SideBar(props: {
           );
         });
       })}
-
+      <br></br>
       <SideBarGroupAdd
         upperNewGroup={bottomNewGroup}
         updateUpperNewGroup={updatebottomNewGroup}

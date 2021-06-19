@@ -23,15 +23,17 @@ function SideBarGroupAdd(props: {
         ></i>
       </StyledSideBarElement>
       <StyledSideBarGroupForm isToggled={toggled}>
-        <div>Group Name: </div>
-        <input
-          type="text"
-          value={props.upperNewGroup}
-          onInput={(e) => props.updateUpperNewGroup(e.currentTarget.value)}
-        ></input>
-        <button onClick={() => props.addNewGroup(props.upperNewGroup)}>
-          Add New Group
-        </button>
+        <div>
+          <div>Group Name: </div>
+          <input
+            type="text"
+            value={props.upperNewGroup}
+            onInput={(e) => props.updateUpperNewGroup(e.currentTarget.value)}
+          ></input>
+          <button onClick={() => props.addNewGroup(props.upperNewGroup)}>
+            Add New Group
+          </button>
+        </div>
       </StyledSideBarGroupForm>
     </StyledSideBarGroupAdd>
   );
