@@ -52,7 +52,7 @@ const GridRowExtendedStyled = styled.div<{
       display: block;
     }
     .${MinimumVisibility.MediumVisible.toString()} {
-      display: block;
+      display: none;
     }
     .${MinimumVisibility.SmallVisible.toString()} {
       display: none;
