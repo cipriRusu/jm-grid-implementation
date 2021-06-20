@@ -13,7 +13,7 @@ function SideBarGroupAdd(props: {
   return (
     <StyledSideBarGroupAdd>
       <StyledSideBarElement>
-        <div>Add New Group</div>
+        <div style={{ paddingLeft: "0.5rem" }}>Add New Group</div>
         <i
           className={`${
             toggled === false ? "fa fa fa-plus" : "fa fa fa-minus"
@@ -22,6 +22,7 @@ function SideBarGroupAdd(props: {
           onClick={() => updateToggled(toggled === true ? false : true)}
         ></i>
       </StyledSideBarElement>
+      <br></br>
       <StyledSideBarGroupForm isToggled={toggled}>
         <div style={{ padding: "0.5rem 0.5rem 0.5rem 0.5rem" }}>
           <div style={{ marginBottom: "1rem" }}>Group Name: </div>
