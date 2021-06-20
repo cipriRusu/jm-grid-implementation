@@ -24,18 +24,22 @@ class Column extends React.Component<IColumn, IColumn> {
     };
   }
 
-  handleChangeSide() {
-    document.addEventListener("click", (e) => {
-      if (e.pageX < 200 && this.state.side !== "right-side") {
-        this.setState({ side: "right-side" });
-      }
-      if (
-        window.innerWidth - e.pageX < 200 &&
-        this.state.side !== "left-side"
-      ) {
-        this.setState({ side: "left-side" });
+  getSide() {
+    window.addEventListener("click", (e) => {
+      if (e.pageX < 200) {
+        let element = document.getElementsByClassName("show")[0];
+        if (element !== undefined) {
+          element.classList.add("right-side");
+        }
+      } else {
+        let element = document.getElementsByClassName("show")[0];
+        if (element !== undefined) {
+          element.classList.add("left-side");
+        }
       }
     });
+
+    return "";
   }
 
   handleColumnSorting(value: any) {
@@ -150,7 +154,6 @@ class Column extends React.Component<IColumn, IColumn> {
                         minVisibility: MinimumVisibility.SmallVisible,
                         collapsable: ColumnCollapsable.collapsable,
                       });
-                      this.handleChangeSide();
                     } else {
                       value.setToggledColumn(this.state);
                     }
@@ -173,13 +176,14 @@ class Column extends React.Component<IColumn, IColumn> {
                 </div>
               </div>
               <div
-                className={`filter-dropdown ${
-                  this.state === value.toggledColumn
-                    ? this.state.side === "left-side"
-                      ? "left-side show"
-                      : "right-side show"
-                    : ""
-                }`}
+                className={
+                  "filter-dropdown" +
+                  `${
+                    this.state === value.toggledColumn
+                      ? `${this.getSide()} show`
+                      : ""
+                  }`
+                }
               >
                 <Filters columns={[this.props]} />
               </div>
