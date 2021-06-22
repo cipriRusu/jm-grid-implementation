@@ -24,7 +24,7 @@ Nr.name = "Nr";
 Nr.size = ColumnSizes.SmallColumn;
 Nr.type = ColumnTypes.number;
 Nr.collapsable = ColumnCollapsable.fixed;
-Nr.minVisibility = MinimumVisibility.MediumVisible;
+Nr.minVisibility = MinimumVisibility.LargeVisible;
 
 let Select = {} as IColumn;
 Select.name = "Status";
