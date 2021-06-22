@@ -21,6 +21,8 @@ const MainGrid = styled.div<{
         .map((x) => {
           return x.size + " ";
         })};
+
+    grid-template-rows: 1.6rem 1.6rem repeat(auto-fill, minmax(5rem, 5rem));
   }
 
   @media (min-width: ${ScreenThresholds.MediumScreen +
@@ -37,6 +39,8 @@ const MainGrid = styled.div<{
         .map((x: IColumn) => {
           return x.size + " ";
         })};
+
+    grid-template-rows: 1.6rem 1.6rem repeat(auto-fill, minmax(5rem, 5rem));
   }
 
   @media (min-width: ${ScreenThresholds.SmallScreen +
@@ -54,6 +58,8 @@ const MainGrid = styled.div<{
         .map((x: IColumn) => {
           return x.size + " ";
         })};
+
+    grid-template-rows: 1.6rem repeat(auto-fit, minmax(max-content, 5rem));
   }
 
   .display-extended-row {
