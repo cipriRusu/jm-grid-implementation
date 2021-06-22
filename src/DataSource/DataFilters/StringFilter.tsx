@@ -27,7 +27,6 @@ export class StringFilter {
         }
       });
     });
-    console.log(this.data);
     return this.data;
   }
 }
