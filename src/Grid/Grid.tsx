@@ -148,7 +148,7 @@ export default function Grid(props: IGridProps) {
     updateSelectedSort({
       sort_type: selectedSort.sort_type,
       field_id: selectedSort.field_id,
-      field_type: selectedSort.sort_type,
+      field_type: selectedSort.field_type,
     });
   };
 
