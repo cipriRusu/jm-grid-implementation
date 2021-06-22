@@ -19,6 +19,13 @@ let ThirdOption = {} as IColumnOptions;
 ThirdOption.name = "Offline";
 ThirdOption.icon = "fa fa-circle-o";
 
+let Nr = {} as IColumn;
+Nr.name = "Nr";
+Nr.size = ColumnSizes.SmallColumn;
+Nr.type = ColumnTypes.number;
+Nr.collapsable = ColumnCollapsable.fixed;
+Nr.minVisibility = MinimumVisibility.MediumVisible;
+
 let Select = {} as IColumn;
 Select.name = "Status";
 Select.size = ColumnSizes.StandardColumn;
@@ -74,7 +81,7 @@ Detalii.minVisibility = MinimumVisibility.Invisible;
 
 let firstHeader = {} as IGrouping;
 firstHeader.name = "Utilizator";
-firstHeader.columns = [Select, Prenume, Nume, Valid];
+firstHeader.columns = [Nr, Select, Prenume, Nume, Valid];
 
 let secondHeader = {} as IGrouping;
 secondHeader.name = "Detalii";
