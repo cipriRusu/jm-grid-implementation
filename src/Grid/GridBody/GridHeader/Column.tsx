@@ -67,6 +67,7 @@ class Column extends React.Component<IColumn, IColumn> {
       case undefined:
       case "number":
       case "boolean":
+      case "date":
         if (
           value.filters.some((x: IFilter) => {
             return x.name === this.state.name;
