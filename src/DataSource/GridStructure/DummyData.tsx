@@ -24,7 +24,7 @@ export class DummyData {
       return i + 1;
     });
 
-    count.map((x) => {
+    count.map((x: any, valueCount: number) => {
       let current: { [x: string]: any } = {};
 
       allKeys.forEach((x: IColumn, y: number) => {
@@ -46,7 +46,15 @@ export class DummyData {
             current[x.name] = Math.random() >= 0.5;
             break;
           case "number":
-            current[x.name] = Math.floor(Math.random() * 1000000000).toString();
+            switch (x.name) {
+              case "Nr":
+                current[x.name] = valueCount;
+                break;
+              default:
+                current[x.name] = Math.floor(
+                  Math.random() * 1000000000
+                ).toString();
+            }
             break;
           case "date":
             let generatedDate = this.generateRandomDate(

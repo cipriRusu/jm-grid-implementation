@@ -26,15 +26,21 @@ class Column extends React.Component<IColumn, IColumn> {
 
   getSide() {
     window.addEventListener("click", (e) => {
-      if (e.pageX < 200) {
-        let element = document.getElementsByClassName("show")[0];
-        if (element !== undefined) {
-          element.classList.add("right-side");
-        }
-      } else {
-        let element = document.getElementsByClassName("show")[0];
-        if (element !== undefined) {
-          element.classList.add("left-side");
+      if (e.target !== null) {
+        let targetClickElement = e.target as Element;
+
+        if (targetClickElement.classList.contains("fa-filter")) {
+          if (e.pageX < 200) {
+            let element = document.getElementsByClassName("show")[0];
+            if (element !== undefined) {
+              element.classList.add("right-side");
+            }
+          } else {
+            let element = document.getElementsByClassName("show")[0];
+            if (element !== undefined) {
+              element.classList.add("left-side");
+            }
+          }
         }
       }
     });
@@ -67,6 +73,7 @@ class Column extends React.Component<IColumn, IColumn> {
       case undefined:
       case "number":
       case "boolean":
+      case "date":
         if (
           value.filters.some((x: IFilter) => {
             return x.name === this.state.name;

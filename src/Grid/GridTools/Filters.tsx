@@ -52,6 +52,7 @@ const Filters = (props: any) => {
       case undefined:
       case "boolean":
       case "number":
+      case "date":
         return gridContext.filters.map((x: IFilter, index: number) => {
           return header.name === x.name ? (
             <i key={index} className="icon-column fa fa-filter"></i>
