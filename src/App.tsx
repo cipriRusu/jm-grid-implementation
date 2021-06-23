@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Grid from "./Grid/Grid";
-import SideBar from "./SideBar";
-import ToggleSideBar from "./ToggleSidebar";
+import SideBar from "./SideBar/SideBar";
+import ToggleSideBar from "./SideBar/ToggleSidebar";
 import { DataSource } from "./DataSource/DataSource";
 import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
 import { initialHeaders } from "./DataSource/GridStructure/HeadersData";

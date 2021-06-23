@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { IColumn } from "./Grid/Interfaces/GridBody/IColumn";
-import { IColumnOptions } from "./Grid/Interfaces/GridBody/IColumnOptions";
-import { IGrouping } from "./Grid/Interfaces/GridBody/IGrouping";
-import SideBarColumnEdit from "./Grid/SideBarColumnEdit";
-import MoveDirection from "./MoveDirection";
+import { IColumn } from "../Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "../Grid/Interfaces/GridBody/IColumnOptions";
+import { IGrouping } from "../Grid/Interfaces/GridBody/IGrouping";
+import SideBarColumnEdit from "./SideBarColumnEdit";
+import MoveDirection from "../MoveDirection";
 import { StyledSideBarElement } from "./StyledSideBarElement";
 
 function SideBarElement(props: {
