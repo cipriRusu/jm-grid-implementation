@@ -34,6 +34,49 @@ const DateFilter = (props: any) => {
     gridContext.setFilter(updatedFilters);
   };
 
+  const updateExistingFilter = (newDate: Date | null, id: string) => {
+    let currentFilter = getCurrentFilter();
+    let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
+
+    if (newDate === null) {
+      currentFilter.values.pop();
+      updatedFilters = updatedFilters.concat(currentFilter);
+      gridContext.setFilter(updatedFilters);
+    } else {
+      if (currentFilter.operator !== DateOptions.Between) {
+        let allFilters = getAllFiltersExceptCurrent(gridContext.filters);
+        allFilters.push(createNewFilter(newDate));
+        gridContext.setFilter(allFilters);
+      }
+
+      if (currentFilter.operator === DateOptions.Between) {
+        if (currentFilter.values.length > 1) {
+          if (id === "first-date") {
+            currentFilter.values.shift();
+            currentFilter.values.unshift(newDate);
+          }
+
+          if (id === "second-date") {
+            currentFilter.values.pop();
+            currentFilter.values.push(newDate);
+          }
+        } else {
+          if (id === "first-date") {
+            currentFilter.values.pop();
+            currentFilter.values.push(newDate);
+          }
+
+          if (id === "second-date") {
+            currentFilter.values.push(newDate);
+          }
+        }
+
+        updatedFilters = updatedFilters.concat(currentFilter);
+        gridContext.setFilter(updatedFilters);
+      }
+    }
+  };
+
   const convertOption = (option: number) => {
     return DateOptions[option];
   };
@@ -102,37 +145,27 @@ const DateFilter = (props: any) => {
       }
 
       if (option !== DateOptions.Between && currentFilter !== undefined) {
-        let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
-        currentFilter.values.push(newDate);
-        updatedFilters = updatedFilters.concat(currentFilter);
-        gridContext.setFilter(updatedFilters);
+        updateExistingFilter(newDate, id);
       }
-    }
 
-    if (newDate !== null) {
-      if (option === DateOptions.Between) {
-        if (currentFilter === undefined) {
-          addNewFilter(newDate);
-        } else {
-          let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
-          currentFilter.values.push(newDate);
-          updatedFilters = updatedFilters.concat(currentFilter);
-          gridContext.setFilter(updatedFilters);
-        }
+      if (option === DateOptions.Between && currentFilter === undefined) {
+        addNewFilter(newDate);
+      }
+
+      if (option === DateOptions.Between && currentFilter !== undefined) {
+        updateExistingFilter(newDate, id);
       }
     }
 
     if (newDate === null) {
-      if (id === "first-date") {
-        setOption(0);
-        removeCurrentFilter();
-      }
-
-      if (id === "second-date") {
-        let updatedFilters = getAllFiltersExceptCurrent(gridContext.filters);
-        currentFilter.values.pop();
-        updatedFilters = updatedFilters.concat(currentFilter);
-        gridContext.setFilter(updatedFilters);
+      switch (id) {
+        case "first-date":
+          setOption(0);
+          removeCurrentFilter();
+          break;
+        case "second-date":
+          updateExistingFilter(null, id);
+          break;
       }
     }
   };
