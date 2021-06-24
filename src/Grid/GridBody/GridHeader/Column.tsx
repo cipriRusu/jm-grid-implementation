@@ -1,5 +1,4 @@
 import React from "react";
-import "./Column.scss";
 import "font-awesome/css/font-awesome.min.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { IColumn } from "../../Interfaces/GridBody/IColumn";
@@ -9,6 +8,7 @@ import { IFilter } from "../../Interfaces/GridTools/IFilter";
 import { ColumnSizes } from "../../CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../../CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "../../CustomTypes/ColumnVisibility";
+import StyledColumn from "./StyledColumn";
 
 class Column extends React.Component<IColumn, IColumn> {
   constructor(props: IColumn) {
@@ -134,70 +134,72 @@ class Column extends React.Component<IColumn, IColumn> {
 
   render() {
     return (
-      <div className={`column-container ${this.props.size}`}>
-        <GridContext.Consumer>
-          {(value) => (
-            <Dropdown>
-              <div className="column">
-                <div
-                  style={{ maxWidth: "11rem", overflow: "hidden" }}
-                  className="sort"
-                  tabIndex={0}
-                  onKeyPress={() => this.handleColumnSorting(value)}
-                  onClick={() => this.handleColumnSorting(value)}
-                >
-                  {this.handleSortIcon(value)}
-                  {this.props.name}
+      <StyledColumn>
+        <div className={`column-container ${this.props.size}`}>
+          <GridContext.Consumer>
+            {(value) => (
+              <Dropdown>
+                <div className="column">
+                  <div
+                    style={{ maxWidth: "11rem", overflow: "hidden" }}
+                    className="sort"
+                    tabIndex={0}
+                    onKeyPress={() => this.handleColumnSorting(value)}
+                    onClick={() => this.handleColumnSorting(value)}
+                  >
+                    {this.handleSortIcon(value)}
+                    {this.props.name}
+                  </div>
+                  <div
+                    tabIndex={0}
+                    className="filter"
+                    onClick={() => {
+                      if (value.toggledColumn === this.state) {
+                        value.setToggledColumn({
+                          name: "",
+                          size: ColumnSizes.StandardColumn,
+                          toggled: false,
+                          minVisibility: MinimumVisibility.SmallVisible,
+                          collapsable: ColumnCollapsable.collapsable,
+                        });
+                      } else {
+                        value.setToggledColumn(this.state);
+                      }
+                    }}
+                    onKeyPress={() => {
+                      if (value.toggledColumn === this.state) {
+                        value.setToggledColumn({
+                          name: "",
+                          size: ColumnSizes.StandardColumn,
+                          toggled: false,
+                          minVisibility: MinimumVisibility.SmallVisible,
+                          collapsable: ColumnCollapsable.collapsable,
+                        });
+                      } else {
+                        value.setToggledColumn(this.state);
+                      }
+                    }}
+                  >
+                    {this.handleFilterIcon(value)}
+                  </div>
                 </div>
                 <div
-                  tabIndex={0}
-                  className="filter"
-                  onClick={() => {
-                    if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({
-                        name: "",
-                        size: ColumnSizes.StandardColumn,
-                        toggled: false,
-                        minVisibility: MinimumVisibility.SmallVisible,
-                        collapsable: ColumnCollapsable.collapsable,
-                      });
-                    } else {
-                      value.setToggledColumn(this.state);
-                    }
-                  }}
-                  onKeyPress={() => {
-                    if (value.toggledColumn === this.state) {
-                      value.setToggledColumn({
-                        name: "",
-                        size: ColumnSizes.StandardColumn,
-                        toggled: false,
-                        minVisibility: MinimumVisibility.SmallVisible,
-                        collapsable: ColumnCollapsable.collapsable,
-                      });
-                    } else {
-                      value.setToggledColumn(this.state);
-                    }
-                  }}
+                  className={
+                    "filter-dropdown" +
+                    `${
+                      this.state === value.toggledColumn
+                        ? `${this.getSide()} show`
+                        : ""
+                    }`
+                  }
                 >
-                  {this.handleFilterIcon(value)}
+                  <Filters columns={[this.props]} />
                 </div>
-              </div>
-              <div
-                className={
-                  "filter-dropdown" +
-                  `${
-                    this.state === value.toggledColumn
-                      ? `${this.getSide()} show`
-                      : ""
-                  }`
-                }
-              >
-                <Filters columns={[this.props]} />
-              </div>
-            </Dropdown>
-          )}
-        </GridContext.Consumer>
-      </div>
+              </Dropdown>
+            )}
+          </GridContext.Consumer>
+        </div>
+      </StyledColumn>
     );
   }
 }

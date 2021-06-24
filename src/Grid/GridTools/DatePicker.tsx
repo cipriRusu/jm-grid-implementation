@@ -1,4 +1,4 @@
-import "./DatePicker.scss";
+import StyledDatePicker from "./StyledDatePicker";
 
 const DatePicker = (props: any) => {
   const RemoveIcon = (date: Date) => {
@@ -37,10 +37,12 @@ const DatePicker = (props: any) => {
   };
 
   return (
-    <div className="date-picker">
-      {RemoveIcon(props.date as Date)}
-      {UserInput(props.date as Date)}
-    </div>
+    <StyledDatePicker>
+      <div className="date-picker">
+        {RemoveIcon(props.date as Date)}
+        {UserInput(props.date as Date)}
+      </div>
+    </StyledDatePicker>
   );
 };
 

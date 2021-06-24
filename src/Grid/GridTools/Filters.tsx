@@ -1,4 +1,3 @@
-import "./Filters.scss";
 import React, { useState, useContext, useEffect } from "react";
 import { GridContext } from "../Grid";
 import { IColumn } from "../Interfaces/GridBody/IColumn";
@@ -10,6 +9,7 @@ import DateFilter from "./DateFilter";
 import { ColumnSizes } from "../CustomTypes/ColumnSizes";
 import { ColumnCollapsable } from "../CustomTypes/ColumnCollapsable";
 import { MinimumVisibility } from "../CustomTypes/ColumnVisibility";
+import StyledFilters from "./StyledFilters";
 
 const Filters = (props: any) => {
   const gridContext = useContext(GridContext);
@@ -133,42 +133,48 @@ const Filters = (props: any) => {
   }, [props, gridContext]);
 
   return (
-    <div className={"filter-container"}>
-      {props.columns.map((header: IColumn, index: number) => (
-        <div className="single-filter-wrapper" key={index}>
-          <div className="filter">
-            <div id="header">
-              <div
-                className="column-name"
-                tabIndex={0}
-                onKeyPress={() => handleColumnSorting(header.name)}
-                onClick={() => {
-                  handleColumnSorting(header.name);
-                }}
-              >
-                {displayArrows(header.name)}
-                <p style={{ margin: "0px" }}>{header.name}</p>
-                <span>{handleFilterIcon(header)}</span>
+    <StyledFilters>
+      <div className={"filter-container"}>
+        {props.columns.map((header: IColumn, index: number) => (
+          <div className="single-filter-wrapper" key={index}>
+            <div className="filter">
+              <div id="header">
+                <div
+                  className="column-name"
+                  tabIndex={0}
+                  onKeyPress={() => handleColumnSorting(header.name)}
+                  onClick={() => {
+                    handleColumnSorting(header.name);
+                  }}
+                >
+                  {displayArrows(header.name)}
+                  <p style={{ margin: "0px" }}>{header.name}</p>
+                  <span>{handleFilterIcon(header)}</span>
+                </div>
               </div>
+              {header.type === "select" ? (
+                <SelectionFilter header={header} />
+              ) : (
+                ""
+              )}
+              {header.type === undefined ||
+              header.type === "number" ||
+              header.type === "text" ? (
+                <StandardFilter header={header} />
+              ) : (
+                ""
+              )}
+              {header.type === "boolean" ? (
+                <BooleanFilter header={header} />
+              ) : (
+                ""
+              )}
+              {header.type === "date" ? <DateFilter header={header} /> : ""}
             </div>
-            {header.type === "select" ? (
-              <SelectionFilter header={header} />
-            ) : (
-              ""
-            )}
-            {header.type === undefined ||
-            header.type === "number" ||
-            header.type === "text" ? (
-              <StandardFilter header={header} />
-            ) : (
-              ""
-            )}
-            {header.type === "boolean" ? <BooleanFilter header={header} /> : ""}
-            {header.type === "date" ? <DateFilter header={header} /> : ""}
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </StyledFilters>
   );
 };
 

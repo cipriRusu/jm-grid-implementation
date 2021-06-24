@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { GridContext } from "../Grid";
 import DatePicker from "./DatePicker";
-import "./DateFilter.scss";
 import { IFilter } from "../Interfaces/GridTools/IFilter";
+import StyledDateFilter from "./StyledDateFilter";
 
 enum DateOptions {
   "Equals",
@@ -171,36 +171,38 @@ const DateFilter = (props: any) => {
   };
 
   return (
-    <div className="date-filter">
-      <Form.Control
-        as="select"
-        value={convertOption(getOption())}
-        onChange={(e: any) => {
-          setOption(e.target.selectedIndex);
-          removeCurrentFilter();
-        }}
-      >
-        {displayOptions(optionsForDate)}
-      </Form.Control>
-      <div className="date-filter-display">
-        <DatePicker
-          id="first-date"
-          date={getDateValue("first-date")}
-          handleUserInputDate={handleDateChange}
-        />
+    <StyledDateFilter>
+      <div className="date-filter">
+        <Form.Control
+          as="select"
+          value={convertOption(getOption())}
+          onChange={(e: any) => {
+            setOption(e.target.selectedIndex);
+            removeCurrentFilter();
+          }}
+        >
+          {displayOptions(optionsForDate)}
+        </Form.Control>
+        <div className="date-filter-display">
+          <DatePicker
+            id="first-date"
+            date={getDateValue("first-date")}
+            handleUserInputDate={handleDateChange}
+          />
+        </div>
+        <div
+          className={
+            isDateInterval() ? "date-filter-display" : "date-filter-hide"
+          }
+        >
+          <DatePicker
+            id="second-date"
+            date={getDateValue("second-date")}
+            handleUserInputDate={handleDateChange}
+          />
+        </div>
       </div>
-      <div
-        className={
-          isDateInterval() ? "date-filter-display" : "date-filter-hide"
-        }
-      >
-        <DatePicker
-          id="second-date"
-          date={getDateValue("second-date")}
-          handleUserInputDate={handleDateChange}
-        />
-      </div>
-    </div>
+    </StyledDateFilter>
   );
 };
 
