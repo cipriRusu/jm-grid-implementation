@@ -13,7 +13,7 @@
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "bootstrap": "^4.6.0",
-    "custom-grid-jm": "^1.0.0",
+    "custom-grid-jm": "^1.0.1",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.14.1",
     "proptypes": "^1.1.0",

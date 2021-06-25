@@ -1,5 +1,5 @@
-import { IFilter } from "../../Grid/Interfaces/GridTools/IFilter";
-import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
+import { IFilter } from "custom-grid-jm/Grid/Interfaces/GridTools/IFilter";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 
 export class SelectionFilter {
   data: any[];

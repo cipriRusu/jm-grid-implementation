@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { IColumn } from "../Grid/Interfaces/GridBody/IColumn";
-import { IGrouping } from "../Grid/Interfaces/GridBody/IGrouping";
-import { IHeader } from "../Grid/Interfaces/GridBody/IHeader";
+import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
+import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
+import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
 import { StyledSideBar } from "./StyledSideBar";
 import SideBarColumnAdd from "./SideBarColumnAdd";
 import SideBarElement from "./SideBarElement";
 import SideBarGroupAdd from "./SideBarGroupAdd";
-import { IColumnOptions } from "../Grid/Interfaces/GridBody/IColumnOptions";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 import MoveDirection from "../MoveDirection";
 
 function SideBar(props: {

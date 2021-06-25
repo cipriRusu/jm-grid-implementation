@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import Grid from "custom-grid-jm/Grid/Grid";
 import SideBar from "./SideBar/SideBar";
 import ToggleSideBar from "./SideBar/ToggleSidebar";
+import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
 import { DataSource } from "./DataSource/DataSource";
-import { IHeader } from "./Grid/Interfaces/GridBody/IHeader";
 import { initialHeaders } from "./DataSource/GridStructure/HeadersData";
 import { StyledApp } from "./StyledApp";
-import Grid from "custom-grid-jm/Grid/Grid";
 
 const PAGE_SIZE = 11;
 const CACHE_SIZE = 33;

@@ -1,13 +1,13 @@
 import { BooleanFilter } from "./DataFilters/BooleanFilter";
 import { DateFilter } from "./DataFilters/DateFilter";
-import { ISortStats } from "../Grid/Interfaces/ISortStats";
-import { IDataSource } from "../Grid/Interfaces/IDataSource";
-import { IFilter } from "../Grid/Interfaces/GridTools/IFilter";
+import { ISortStats } from "custom-grid-jm/Grid/Interfaces/ISortStats";
+import { IDataSource } from "custom-grid-jm/Grid/Interfaces/GridData/IDataSource";
+import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
+import { IFilter } from "custom-grid-jm/Grid/Interfaces/GridTools/IFilter";
 import { NumberFilter } from "./DataFilters/NumberFilter";
 import { SelectionFilter } from "./DataFilters/SelectionFilter";
 import { StringFilter } from "./DataFilters/StringFilter";
 import { DummyData } from "./GridStructure/DummyData";
-import { IHeader } from "../Grid/Interfaces/GridBody/IHeader";
 
 export class DataSource implements IDataSource {
   data: any[];

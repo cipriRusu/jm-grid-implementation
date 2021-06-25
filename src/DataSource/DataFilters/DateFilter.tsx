@@ -1,4 +1,4 @@
-import { IFilter } from "../../Grid/Interfaces/GridTools/IFilter";
+import { IFilter } from "custom-grid-jm/Grid/Interfaces/GridTools/IFilter";
 
 export class DateFilter {
   data: any[];

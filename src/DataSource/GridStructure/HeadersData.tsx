@@ -1,11 +1,11 @@
-import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
-import { MinimumVisibility } from "../../Grid/CustomTypes/ColumnVisibility";
-import { ColumnSizes } from "../../Grid/CustomTypes/ColumnSizes";
-import { ColumnCollapsable } from "../../Grid/CustomTypes/ColumnCollapsable";
-import { ColumnTypes } from "../../Grid/CustomTypes/ColumnTypes";
-import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
-import { IGrouping } from "../../Grid/Interfaces/GridBody/IGrouping";
-import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
+import { MinimumVisibility } from "custom-grid-jm/Grid/CustomTypes/ColumnVisibility";
+import { ColumnSizes } from "custom-grid-jm/Grid/CustomTypes/ColumnSizes";
+import { ColumnCollapsable } from "custom-grid-jm/Grid/CustomTypes/ColumnCollapsable";
+import { ColumnTypes } from "custom-grid-jm/Grid/CustomTypes/ColumnTypes";
+import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
+import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
+import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
 
 let FirstOption = {} as IColumnOptions;
 FirstOption.name = "Disponibil";

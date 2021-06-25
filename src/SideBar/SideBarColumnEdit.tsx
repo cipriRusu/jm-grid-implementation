@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import SideBarColumnOption from "./SideBarColumnOption";
-import { ColumnCollapsable } from "../Grid/CustomTypes/ColumnCollapsable";
-import { ColumnSizes } from "../Grid/CustomTypes/ColumnSizes";
-import { ColumnTypes } from "../Grid/CustomTypes/ColumnTypes";
-import { MinimumVisibility } from "../Grid/CustomTypes/ColumnVisibility";
-import { IColumn } from "../Grid/Interfaces/GridBody/IColumn";
-import { IColumnOptions } from "../Grid/Interfaces/GridBody/IColumnOptions";
+import { ColumnCollapsable } from "custom-grid-jm/Grid/CustomTypes/ColumnCollapsable";
+import { ColumnSizes } from "custom-grid-jm/Grid/CustomTypes/ColumnSizes";
+import { ColumnTypes } from "custom-grid-jm/Grid/CustomTypes/ColumnTypes";
+import { MinimumVisibility } from "custom-grid-jm/Grid/CustomTypes/ColumnVisibility";
+import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 
 function SideBarColumnEdit(props: {
   isToggled: boolean;

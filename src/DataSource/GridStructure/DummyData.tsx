@@ -1,7 +1,7 @@
-import { IColumn } from "../../Grid/Interfaces/GridBody/IColumn";
-import { IColumnOptions } from "../../Grid/Interfaces/GridBody/IColumnOptions";
-import { IGrouping } from "../../Grid/Interfaces/GridBody/IGrouping";
-import { IHeader } from "../../Grid/Interfaces/GridBody/IHeader";
+import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
+import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
+import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
 
 const ALPHABET = "abcdefghiklmnopqrstuvwxyz";
 const TOTAL_ENTRIES = 100;

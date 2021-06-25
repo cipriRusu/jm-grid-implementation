@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { IColumn } from "../Grid/Interfaces/GridBody/IColumn";
-import { IColumnOptions } from "../Grid/Interfaces/GridBody/IColumnOptions";
+import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
+import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 import StyledSideBarColumnOption from "./StyledSideBarColumnOption";
 
 function SideBarColumnOption(props: {
