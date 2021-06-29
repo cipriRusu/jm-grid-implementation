@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Grid from "custom-grid-jm/Grid/Grid";
+import Grid from "./Grid/Grid";
 import SideBar from "./SideBar/SideBar";
 import ToggleSideBar from "./SideBar/ToggleSidebar";
 import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
@@ -27,7 +27,7 @@ function App() {
         headers={headerData}
       ></SideBar>
       <Grid
-        data={new DataSource(headerData)}
+        data={new DataSource()}
         headers={headerData}
         pageSize={PAGE_SIZE}
         cacheSize={CACHE_SIZE}
