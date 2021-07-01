@@ -123,12 +123,24 @@ class Column extends React.Component<IColumn, IColumn> {
   handleSortIcon(value: any) {
     return value.sort.field_id === this.props.name &&
       value.sort.sort_type === "asc" ? (
-      <i className="fa fa-arrow-up" aria-hidden="true"></i>
+      <i
+        data-testid="visible-up-icon"
+        className="fa fa-arrow-up"
+        aria-hidden="true"
+      ></i>
     ) : value.sort.field_id === this.props.name &&
       value.sort.sort_type === "desc" ? (
-      <i className="fa fa-arrow-down" aria-hidden="true"></i>
+      <i
+        data-testid="visible-down-icon"
+        className="fa fa-arrow-down"
+        aria-hidden="true"
+      ></i>
     ) : (
-      <i className="fa fa-arrow-down hidden-icon" aria-hidden="true"></i>
+      <i
+        data-testid="hidden-sort-icon"
+        className="fa fa-arrow-down hidden-icon"
+        aria-hidden="true"
+      ></i>
     );
   }
 
@@ -141,6 +153,7 @@ class Column extends React.Component<IColumn, IColumn> {
               <Dropdown>
                 <div className="column">
                   <div
+                    data-testid="column-name-display"
                     style={{ maxWidth: "11rem", overflow: "hidden" }}
                     className="sort"
                     tabIndex={0}
