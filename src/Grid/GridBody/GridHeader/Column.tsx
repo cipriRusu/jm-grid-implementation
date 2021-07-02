@@ -81,6 +81,7 @@ class Column extends React.Component<IColumn, IColumn> {
         ) {
           return (
             <i
+              data-testid="visible-filter-icon"
               className="filter-icon-column-visible fa fa-filter"
               aria-hidden="true"
             ></i>
@@ -101,6 +102,7 @@ class Column extends React.Component<IColumn, IColumn> {
         ) {
           return (
             <i
+              data-testid="visible-filter-icon"
               className="filter-icon-column-visible fa fa-filter"
               aria-hidden="true"
             ></i>
