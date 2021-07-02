@@ -172,4 +172,50 @@ test("Is down icon displayed when descending sort is set", () => {
   expect(element).toBeInTheDocument();
 });
 
+test("Column displays no filter when no filter value is applied", () => {
+  const localContext = {
+    activeFilter: {
+      name: "",
+      type: "",
+      values: [],
+      operator: 0,
+    },
+    sort: { field_id: "", sort_type: "", field_type: "" },
+    filters: [
+      { name: "testName", type: undefined, values: ["testValue"], operator: 0 },
+    ],
+  };
+
+  render(
+    <GridContext.Provider value={localContext}>
+      <Column name="testName" />
+    </GridContext.Provider>
+  );
+
+  const element = screen.queryByTestId("visible-filter-icon");
+  expect(element).toBeInTheDocument();
+});
+
+test("Column does not display filter icon when no filter value is applied", () => {
+  const localContext = {
+    activeFilter: {
+      name: "",
+      type: "",
+      values: [],
+      operator: 0,
+    },
+    sort: { field_id: "", sort_type: "", field_type: "" },
+    filters: [],
+  };
+
+  render(
+    <GridContext.Provider value={localContext}>
+      <Column name="testName" />
+    </GridContext.Provider>
+  );
+
+  const element = screen.queryByTestId("visible-filter-icon");
+  expect(element).not.toBeInTheDocument();
+});
+
 afterEach(cleanup);
