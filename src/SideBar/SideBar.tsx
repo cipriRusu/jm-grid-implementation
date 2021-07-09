@@ -7,7 +7,7 @@ import SideBarColumnAdd from "./SideBarColumnAdd";
 import SideBarElement from "./SideBarElement";
 import SideBarGroupAdd from "./SideBarGroupAdd";
 import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
-import MoveDirection from "../MoveDirection";
+import MoveDirection from "./MoveDirection";
 
 function SideBar(props: {
   toggledSideBar: boolean;

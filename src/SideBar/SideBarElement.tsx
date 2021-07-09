@@ -3,7 +3,7 @@ import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
 import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
 import SideBarColumnEdit from "./SideBarColumnEdit";
-import MoveDirection from "../MoveDirection";
+import MoveDirection from "./MoveDirection";
 import { StyledSideBarElement } from "./StyledSideBarElement";
 
 function SideBarElement(props: {
