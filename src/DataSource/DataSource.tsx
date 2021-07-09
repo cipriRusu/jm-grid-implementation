@@ -48,6 +48,7 @@ export class DataSource implements IDataSource {
       filters.forEach((x: IFilter) => {
         switch (x.type) {
           case undefined:
+          case "text":
             string_filters.push(x);
             break;
           case "number":
@@ -138,6 +139,7 @@ export class DataSource implements IDataSource {
       filters.forEach((x: IFilter) => {
         switch (x.type) {
           case undefined:
+          case "text":
             string_filters.push(x);
             break;
           case "number":
