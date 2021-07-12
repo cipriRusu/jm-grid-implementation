@@ -1,4 +1,4 @@
-import { IFilter } from "custom-grid-jm/Grid/Interfaces/GridTools/IFilter";
+import { IFilter } from "custom-grid-jm";
 
 export class StringFilter {
   data: any[];

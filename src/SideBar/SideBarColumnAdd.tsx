@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { ColumnTypes } from "custom-grid-jm/Grid/CustomTypes/ColumnTypes";
-import { ColumnSizes } from "custom-grid-jm/Grid/CustomTypes/ColumnSizes";
-import { ColumnCollapsable } from "custom-grid-jm/Grid/CustomTypes/ColumnCollapsable";
-import { MinimumVisibility } from "custom-grid-jm/Grid/CustomTypes/ColumnVisibility";
-import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
 import { StyledSideBarElement } from "./StyledSideBarElement";
 import SideBarColumnOption from "./SideBarColumnOption";
-import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
+import { ColumnTypes, ColumnSizes, ColumnCollapsable, MinimumVisibility, IColumn, IColumnOptions} from "custom-grid-jm";
 
 function SideBarColumnAdd(props: {
   header: string;

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Grid from "custom-grid-jm/Grid/Grid";
+import { Grid, IHeader } from "custom-grid-jm";
 import SideBar from "./SideBar/SideBar";
 import ToggleSideBar from "./SideBar/ToggleSidebar";
-import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
 import { DataSource } from "./DataSource/DataSource";
 import { initialHeaders } from "./DataSource/GridStructure/HeadersData";
 import { StyledApp } from "./StyledApp";

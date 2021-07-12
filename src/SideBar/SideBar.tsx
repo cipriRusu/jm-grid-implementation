@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
-import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
-import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
 import { StyledSideBar } from "./StyledSideBar";
 import SideBarColumnAdd from "./SideBarColumnAdd";
 import SideBarElement from "./SideBarElement";
 import SideBarGroupAdd from "./SideBarGroupAdd";
-import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 import MoveDirection from "./MoveDirection";
+import { IColumn, IGrouping, IHeader, IColumnOptions} from "custom-grid-jm";
 
 function SideBar(props: {
   toggledSideBar: boolean;

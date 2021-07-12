@@ -1,7 +1,4 @@
-import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
-import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
-import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
-import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
+import { IColumn, IColumnOptions, IGrouping, IHeader}  from "custom-grid-jm";
 import * as faker from 'faker';
 const TOTAL_ENTRIES = 100;
 
