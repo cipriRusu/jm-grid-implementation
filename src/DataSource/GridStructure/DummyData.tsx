@@ -2,8 +2,7 @@ import { IColumn } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumn";
 import { IColumnOptions } from "custom-grid-jm/Grid/Interfaces/GridBody/IColumnOptions";
 import { IGrouping } from "custom-grid-jm/Grid/Interfaces/GridBody/IGrouping";
 import { IHeader } from "custom-grid-jm/Grid/Interfaces/GridBody/IHeader";
-
-const ALPHABET = "abcdefghiklmnopqrstuvwxyz";
+import * as faker from 'faker';
 const TOTAL_ENTRIES = 100;
 
 export class DummyData {
@@ -24,46 +23,42 @@ export class DummyData {
       return i + 1;
     });
 
-    count.map((x: any, valueCount: number) => {
+    count.map((_x: any, valueCount: number) => {
       let current: { [x: string]: any } = {};
 
-      allKeys.forEach((x: IColumn, y: number) => {
+      allKeys.forEach((x: IColumn) => {
         switch (x.type) {
           case undefined:
           case "text":
             switch (x.name) {
               case "Email":
-                current[x.name] = x.name + "@edomain.com";
+                current[x.name] = faker.internet.email();
+                break;
+              case "Prenume":
+              case "Nume":
+                current[x.name] = faker.name.firstName();
                 break;
               default:
-                current[x.name] =
-                  x.name +
-                  ALPHABET[Math.floor(Math.random() * 20)] +
-                  ALPHABET[Math.floor(Math.random() * 20)];
+                current[x.name] = faker.lorem.word();
             }
             break;
           case "boolean":
-            current[x.name] = Math.random() >= 0.5;
+            current[x.name] = faker.datatype.boolean();
             break;
           case "number":
             switch (x.name) {
               case "Nr":
                 current[x.name] = valueCount;
                 break;
+              case "Nr Telefon":
+                current[x.name] = faker.phone.phoneNumber("###-#####-##")
+                break;
               default:
-                current[x.name] = Math.floor(
-                  Math.random() * 1000000000
-                ).toString();
+                current[x.name] = faker.datatype.number(10000000);
             }
             break;
           case "date":
-            let generatedDate = this.generateRandomDate(
-              new Date(1980, 0, 0),
-              new Date(2000, 0, 0)
-            );
-
-            generatedDate.setHours(0, 0, 0, 0);
-            current[x.name] = generatedDate.toString();
+            current[x.name] = faker.datatype.datetime();
             break;
           case "select":
             let options = this.extractSelectionOptions(x, headerData);
